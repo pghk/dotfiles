@@ -1,0 +1,58 @@
+# Install Docksal
+curl -fsSL https://get.docksal.io | sh
+
+## ?
+- yubiswitch
+- FileMaker
+
+## brew
+mas
+wget
+pandoc
+imagemagick
+jq
+
+## App Store
+Airmail 2
+Unsplash Wallpapers
+PopClip
+Tweetbot
+Deliveries
+piZZa
+Evernote
+Trello
+Bear
+Todoist
+Slack
+insTuner
+
+## Brew Casks
+1password
+alfred
+atom
+backblaze
+bartender
+daisydisk
+dash
+deluge
+dropbox
+fantastical
+firefox
+flux
+google-chrome
+iterm2
+kaleidoscope
+kap
+moom
+numi
+omnifocus
+phpstorm
+sequel-pro
+skitch
+slack
+sourcetree
+spotify
+textexpander
+transmit
+visual-studio-code
+xscope
