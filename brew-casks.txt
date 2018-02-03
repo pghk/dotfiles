@@ -4,7 +4,6 @@ atom
 backblaze
 bartender
 daisydisk
-dash
 deluge
 dropbox
 evernote
@@ -17,7 +16,6 @@ kaleidoscope
 kap
 moom
 numi
-omnifocus
 phpstorm
 sequel-pro
 skitch

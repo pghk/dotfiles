@@ -31,6 +31,8 @@ Bear
 Todoist
 Slack
 insTuner
+dash
+omnifocus
 
 ## Brew Casks
 1password
@@ -39,7 +41,6 @@ atom
 backblaze
 bartender
 daisydisk
-dash
 deluge
 dropbox
 fantastical
@@ -51,7 +52,6 @@ kaleidoscope
 kap
 moom
 numi
-omnifocus
 phpstorm
 sequel-pro
 skitch
