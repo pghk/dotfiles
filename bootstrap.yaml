@@ -34,6 +34,7 @@ casks:
   - "transmit"
   - "visual-studio-code"
   - "xscope"
+  - "pallotron-yubiswitch"
 
 formulas:
   - "brew-cask"
@@ -72,6 +73,7 @@ formulas:
 taps:
   - "caskroom/cask"
   - "homebrew/homebrew-php"
+  - "caskroom/drivers"
 
 icons:
     iTerm: "https://dribbble.com/shots/1702947-iTerm-Replacement-Icon/attachments/271548"
