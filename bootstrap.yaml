@@ -1,5 +1,6 @@
 after-scripts:
   - "./scripts/defaults.sh"
+  - "./scripts/get-composer.sh"
   - "chflags nohidden ~/Library"
   - "brew cask alfred link"
 
