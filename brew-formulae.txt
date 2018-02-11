@@ -26,3 +26,4 @@ goaccess
 terminal-notifier
 python
 ruby
+zsh
