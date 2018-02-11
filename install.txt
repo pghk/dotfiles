@@ -7,64 +7,9 @@ xcode-select --install
 # Install Docksal
 curl -fsSL https://get.docksal.io | sh
 
-# Install Composer
-get-composer.sh
-
 # Install Terminus
 cd ${HOME} && mkdir bin && curl -O https://raw.githubusercontent.com/pantheon-systems/terminus-installer/master/builds/installer.phar && php installer.phar install
 
 ## ?
 - yubiswitch
 - FileMaker
-
-## brew
-mas
-wget
-pandoc
-imagemagick
-jq
-
-## App Store
-Airmail 2
-Unsplash Wallpapers
-PopClip
-Tweetbot
-Deliveries
-piZZa
-Evernote
-Trello
-Bear
-Todoist
-Slack
-insTuner
-dash
-omnifocus
-
-## Brew Casks
-1password
-alfred
-atom
-backblaze
-bartender
-daisydisk
-deluge
-dropbox
-fantastical
-firefox
-flux
-google-chrome
-iterm2
-kaleidoscope
-kap
-moom
-numi
-phpstorm
-sequel-pro
-skitch
-slack
-sourcetree
-spotify
-textexpander
-transmit
-visual-studio-code
-xscope
