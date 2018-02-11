@@ -1,5 +1,9 @@
 set -x
 
+# Update OS and install xcode
+sudo softwareupdate -i -a
+xcode-select --install
+
 # Install Docksal
 curl -fsSL https://get.docksal.io | sh
 
