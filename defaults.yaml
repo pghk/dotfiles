@@ -1,30 +1,30 @@
 NSGlobalDomain:
-    InitialKeyRepeat: 12                            # Set a shorter Delay until key repeat
-    KeyRepeat: 0.02                                 # Set a blazingly fast keyboard repeat rate
-    NSNavPanelExpandedStateForSaveMode: true        # Expand save panel by default
-
-com.apple.LaunchServices:
-    LSQuarantine: false                             # Disable the “Are you sure you want to open this application?” dialog
+  InitialKeyRepeat: 12                    # Set a shorter Delay until key repeat
+  KeyRepeat: 0.02                    # Set a blazingly fast keyboard repeat rate
 
 com.apple.Safari:
-    IncludeInternalDebugMenu: true                  # Enable Safari’s debug menu
+  IncludeInternalDebugMenu: true                    # Enable Safari’s debug menu
 
 com.apple.desktopservices:
-    DSDontWriteNetworkStores: true                  # Avoid creating .DS_Store files on network volumes
+  DSDontWriteNetworkStores: true       # Don't write folder metadata on networks
 
 com.apple.dock:
-    showhidden: true                                # Make Dock icons of hidden applications translucent
-    static-only: true                               # Only show open applications in Dock
+  autohide: true                              # Automatically hide/show the Dock
 
-com.apple.driver.AppleBluetoothMultitouch.trackpad:
-    TrackpadCornerSecondaryClick: 2                 # Map bottom right Trackpad corner to right-click
-    TrackpadRightClick: true                        # ditto
+com.apple.AppleMultitouchTrackpad:                           # Trackpad settings
+  Clicking: 1
+  TrackpadThreeFingerDrag: true
+  TrackpadRightClick: 1
+  TrackpadCornerSecondaryClick: 0
+com.apple.driver.AppleBluetoothMultitouch.trackpad:         # Same for bluetooth
+  Clicking: true
+  TrackpadThreeFingerDrag: true
+  TrackpadRightClick: true
+  TrackpadCornerSecondaryClick: 0
 
 com.apple.finder:
-    AppleShowAllExtensions: true                    # Show all filename extensions in Finder
-    AppleShowAllFiles: true                         # Show hidden files in Finder
-    FXDefaultSearchScope: "SCcf"                    # Use current directory as default search scope in Finder
-    QLEnableTextSelection: true                     # Enable text selection in QuickLook
-    QuitMenuItem: true                              # Allow quitting Finder via ⌘ + Q; doing so will also hide desktop icons
-    ShowPathbar: true                               # Show Path bar in Finder
-    ShowStatusBar: true                             # Show Status bar in Finder
+  AppleShowAllFiles: true                          # Show hidden files in Finder
+  FXDefaultSearchScope: "SCcf"          # Search in current directory by default
+  QLEnableTextSelection: true               # Enable text selection in QuickLook
+  QuitMenuItem: true         # Enable ⌘ + Q for Finder; also hides desktop icons
+  ShowStatusBar: true                                # Show Status bar in Finder
