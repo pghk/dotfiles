@@ -1,3 +1,5 @@
+set -x
+
 # Install Docksal
 curl -fsSL https://get.docksal.io | sh
 
