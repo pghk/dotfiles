@@ -26,11 +26,20 @@ I think I'm including some of these
 
 ## Install
 
-Download bootstrap.sh to desktop 
+Download [bootstrap.sh](https://github.com/pghk/dotfiles/raw/master/scripts/bootstrap.sh) to desktop, and run it:
 
 ```sh
 ~/Desktop/bootstrap.sh | tee -a sysinstall.$(date +"%d-%b").log
 ```
+
+This will update macOS, install xcode, Homebrew, and Cider, clone this repository to ~/.cider, then run Cider, which will:
+
+- Install casks and formulae from Homebrew
+  - write default settings to macOS
+  - symlink some configurations
+  - then kick off additional scripts to:
+    - Get apps from the App Store
+    - Install additional tools like Composer
 
 ## Additional resources
 * [Awesome Dotfiles](https://github.com/webpro/awesome-dotfiles)
