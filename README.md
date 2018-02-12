@@ -25,31 +25,12 @@ I think I'm including some of these
 * [OS X apps](https://github.com/webpro/dotfiles/blob/master/install/brew-cask.sh)
 
 ## Install
-Update macOS, and enable the command line dev tools:
 
-```sh    
-sudo softwareupdate -i -a
-xcode-select --install
-```
+Download bootstrap.sh to desktop 
 
-### Bootstrap
-
-Install Cider:
 ```sh
-easy_install pip
-pip install -U cider
+~/Desktop/bootstrap.sh | tee -a sysinstall.$(date +"%d-%b").log
 ```
-
-Obtain the configuration specs:
-```sh
-git clone https://github.com/pghk/dotfiles.git ~/.cider
-```
-
-Run Cider to install Homebrew Casks & Formulae, set macOS defaults,  symlink and run additional scripts:
-```sh
-cider restore
-```
-
 
 ## Additional resources
 * [Awesome Dotfiles](https://github.com/webpro/awesome-dotfiles)
