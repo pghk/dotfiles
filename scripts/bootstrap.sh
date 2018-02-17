@@ -11,7 +11,7 @@ ruby -e "$(
 )"
 
 # Install Cider:
-easy_install pip
+sudo easy_install pip
 pip install -U cider
 
 # Obtain the configuration specs:
