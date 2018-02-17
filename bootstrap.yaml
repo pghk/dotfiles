@@ -39,7 +39,6 @@ casks:
   - "pallotron-yubiswitch"
 
 formulas:
-  - "brew-cask"
   - "zsh"
   - "coreutils"
   - "moreutils"
