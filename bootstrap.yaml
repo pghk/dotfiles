@@ -1,8 +1,8 @@
 after-scripts:
-  # - "./scripts/defaults.sh"
-  # - "./scripts/get-mas-apps.py"
-  - "sudo ./scripts/get-composer.sh"
-  - "sudo ./scripts/get-the-rest.sh"
+  # - "sudo $HOME/.cider/scripts/defaults.sh"
+  # - "sudo $HOME/.cider/scripts/get-mas-apps.py"
+  - "sudo $HOME/.cider/scripts/get-composer.sh"
+  - "sudo $HOME/.cider/scripts/get-the-rest.sh"
   - "chflags nohidden ~/Library"
   - "brew cask alfred link"
 
