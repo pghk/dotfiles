@@ -1,6 +1,6 @@
 after-scripts:
-  - "./scripts/defaults.sh"
-  - "./scripts/get-mas-apps.py"
+  # - "./scripts/defaults.sh"
+  # - "./scripts/get-mas-apps.py"
   - "./scripts/get-composer.sh"
   - "./scripts/get-the-rest.sh"
   - "chflags nohidden ~/Library"
@@ -81,6 +81,6 @@ icons:
     iTerm: "https://dribbble.com/shots/1702947-iTerm-Replacement-Icon/attachments/271548"
 
 symlinks:
-  mackup/.*: "~"
-  oh-my-zsh/*: "~/.oh-my-zsh/custom/"
-  zsh/.*: "~"
+  # mackup/.*: "~"
+  # oh-my-zsh/*: "~/.oh-my-zsh/custom/"
+  # zsh/.*: "~"
