@@ -1,4 +1,6 @@
 # .files
+[![Build Status](https://www.travis-ci.org/pghk/dotfiles.svg?branch=master)](https://www.travis-ci.org/pghk/dotfiles)
+
 These are my dotfiles. Take anything you want, but at your own risk.
 
 It's not tested yet, or expected to function. Work in progress and all that.
