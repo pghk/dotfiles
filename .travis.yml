@@ -9,6 +9,9 @@ os: osx
 
 osx_image: xcode9.3beta
 
+install:
+  - pip install -U cider
+
 script:
   - ./scripts/bootstrap.sh
 

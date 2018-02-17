@@ -11,8 +11,8 @@ ruby -e "$(
 )"
 
 # Install Cider:
-sudo easy_install pip
-pip install -U cider
+# sudo easy_install pip
+# pip install -U cider
 
 # Obtain the configuration specs:
 git clone https://github.com/pghk/dotfiles.git ~/.cider
