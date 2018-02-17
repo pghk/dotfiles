@@ -1,8 +1,4 @@
 after-scripts:
-  # - "./scripts/defaults.sh"
-  # - "./scripts/get-mas-apps.py"
-  - "./scripts/get-composer.sh"
-  - "./scripts/get-the-rest.sh"
   - "chflags nohidden ~/Library"
   - "brew cask alfred link"
 
