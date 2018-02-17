@@ -19,9 +19,3 @@ git clone https://github.com/pghk/dotfiles.git ~/.cider
 
 # Run Cider to install Homebrew Casks & Formulae, set macOS defaults,  symlink and run additional scripts:
 cider restore
-
-
-# scripts/defaults.sh
-# scripts/get-mas-apps.py
-scripts/get-composer.sh
-scripts/get-the-rest.sh
