@@ -77,7 +77,7 @@ taps:
   - "caskroom/drivers"
 
 icons:
-    iTerm: "https://dribbble.com/shots/1702947-iTerm-Replacement-Icon/attachments/271548"
+    iTerm: "https://dribbble.com/shots/3385110-iTerm-3-Icon-for-macOS/attachments/737641"
 
 # symlinks:
   # mackup/.*: "~"
