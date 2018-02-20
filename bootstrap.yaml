@@ -4,7 +4,6 @@ after-scripts:
   - "sudo sh $HOME/.cider/scripts/get-composer.sh"
   - "sudo sh $HOME/.cider/scripts/get-the-rest.sh"
   - "chflags nohidden ~/Library"
-  - "brew cask alfred link"
 
 casks:
   - "1password"
