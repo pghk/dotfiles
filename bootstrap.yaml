@@ -1,9 +1,9 @@
 after-scripts:
   # - "sudo sh $HOME/.cider/scripts/defaults.sh"
   # - "sudo sh $HOME/.cider/scripts/get-mas-apps.py"
-  - "sudo sh $HOME/.cider/scripts/get-composer.sh"
-  - "sudo sh $HOME/.cider/scripts/get-the-rest.sh"
-  - "chflags nohidden ~/Library"
+  # - "sudo sh $HOME/.cider/scripts/get-composer.sh"
+  # - "sudo sh $HOME/.cider/scripts/get-the-rest.sh"
+  # - "chflags nohidden ~/Library"
 
 casks:
   - "1password"
