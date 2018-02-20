@@ -1,30 +1,31 @@
 NSGlobalDomain:
-  InitialKeyRepeat: 12                    # Set a shorter Delay until key repeat
-  KeyRepeat: 0.02                    # Set a blazingly fast keyboard repeat rate
+  InitialKeyRepeat: 12                # Set a shorter Delay until key repeat
+  KeyRepeat: 0.02                # Set a blazingly fast keyboard repeat rate
 
 com.apple.Safari:
-  IncludeInternalDebugMenu: true                    # Enable Safari’s debug menu
+  IncludeInternalDebugMenu: true                # Enable Safari’s debug menu
 
 com.apple.desktopservices:
-  DSDontWriteNetworkStores: true       # Don't write folder metadata on networks
+  DSDontWriteNetworkStores: true   # Don't write folder metadata on networks
 
 com.apple.dock:
-  autohide: true                              # Automatically hide/show the Dock
+  autohide: true                          # Automatically hide/show the Dock
+  minimize-to-application: true     # Minimize windows into their app’s icon
 
-com.apple.AppleMultitouchTrackpad:                           # Trackpad settings
+com.apple.AppleMultitouchTrackpad:                       # Trackpad settings
   Clicking: 1
   TrackpadThreeFingerDrag: true
   TrackpadRightClick: 1
   TrackpadCornerSecondaryClick: 0
-com.apple.driver.AppleBluetoothMultitouch.trackpad:         # Same for bluetooth
+com.apple.driver.AppleBluetoothMultitouch.trackpad:     # Same for bluetooth
   Clicking: true
   TrackpadThreeFingerDrag: true
   TrackpadRightClick: true
   TrackpadCornerSecondaryClick: 0
 
 com.apple.finder:
-  AppleShowAllFiles: true                          # Show hidden files in Finder
-  FXDefaultSearchScope: "SCcf"          # Search in current directory by default
-  QLEnableTextSelection: true               # Enable text selection in QuickLook
-  QuitMenuItem: true         # Enable ⌘ + Q for Finder; also hides desktop icons
-  ShowStatusBar: true                                # Show Status bar in Finder
+  AppleShowAllFiles: true                      # Show hidden files in Finder
+  FXDefaultSearchScope: "SCcf"      # Search in current directory by default
+  QLEnableTextSelection: true           # Enable text selection in QuickLook
+  QuitMenuItem: true     # Enable ⌘ + Q for Finder; also hides desktop icons
+  ShowStatusBar: true                            # Show Status bar in Finder
