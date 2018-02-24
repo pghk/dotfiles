@@ -32,4 +32,4 @@ cp ~/.cider/symlinks/.vimrc ~/
 # get colorscheme
 mkdir -p ~/.vim/colors
 wget https://raw.githubusercontent.com/mhartington/oceanic-next/master/colors/\
-  OceanicNext.vim -O ~/.vim/colors/OceanicNext.vim
+OceanicNext.vim -O ~/.vim/colors/OceanicNext.vim
