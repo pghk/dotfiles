@@ -11,11 +11,14 @@ ruby -e "$(
 )"
 
 # Install Cider:
-# sudo easy_install pip
-# pip install -U cider
+sudo easy_install pip
+pip install -U --user cider
 
 # Obtain the configuration specs:
 git clone https://github.com/pghk/dotfiles.git ~/.cider
+
+# Add a symlink for cider
+ln -s ~/Library/Python/2.7/bin/cider /usr/local/bin/cider
 
 # Run Cider to install Homebrew Casks & Formulae, set macOS defaults,  symlink and run additional scripts:
 cider restore

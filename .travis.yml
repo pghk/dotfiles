@@ -9,10 +9,6 @@ os: osx
 
 osx_image: xcode9.3beta
 
-install:
-  - pip install --user cider
-  - export PATH="$(python -m site --user-base)/bin:$PATH"
-
 script:
   - ./scripts/bootstrap.sh
 
