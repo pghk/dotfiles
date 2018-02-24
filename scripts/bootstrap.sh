@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 set -x
 
 # Update macOS, and enable the command line dev tools:
