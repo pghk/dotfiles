@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 set -x
-exec > ~/.sysinstall.$(date +"%d-%b").log 2>&1
 
 # Update macOS, and enable the command line dev tools:
 sudo softwareupdate -i -a
