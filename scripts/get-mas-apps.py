@@ -10,7 +10,6 @@ apps = {
     '557168941': 'Tweetbot',
     '1091189122': 'Bear',
     '918858936': 'Airmail 2',
-    '940526959': 'insTuner',
     '867299399': 'OmniFocus',
     '924726344': 'Deliveries',
     '445189367': 'PopClip',
