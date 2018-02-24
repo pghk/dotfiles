@@ -69,6 +69,7 @@ formulas:
   - "node"
   - "go"
   - "mackup"
+  - "terminus"
 
 taps:
   - "caskroom/cask"
