@@ -3,7 +3,7 @@
 import subprocess
 
 apps = {
-    '1284863847': 'Unsplash Wallpapers',
+    '1039633667': 'Irvue',
     '1278508951': 'Trello',
     '412736166': 'piZZa',
     '585829637': 'Todoist',

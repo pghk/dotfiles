@@ -9,9 +9,10 @@
 apps=(
     "/Applications/Siri.app"
     "/Applications/Firefox.app"
-    "/Applications/Airmail 2.app"
+    "/Applications/Airmail 3.app"
     "/Applications/Google Chrome.app"
     "/Applications/Tweetbot.app"
+    "/Applications/PhpStorm.app"
     "/Applications/Bear.app"
     "/Applications/Trello.app"
     "/Applications/OmniFocus.app"
