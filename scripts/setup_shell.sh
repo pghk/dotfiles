@@ -4,7 +4,7 @@
 sudo sh -c "echo `which zsh` >> /etc/shells"
 
 # Change shell to zsh
-chsh -s `which zsh`
+sudo chsh -s `which zsh` $USER
 
 # get prezto for zsh config manangement
 git clone --recursive https://github.com/sorin-ionescu/prezto.git\
