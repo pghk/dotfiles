@@ -70,11 +70,17 @@ formulas:
   - "go"
   - "mackup"
   - "terminus"
+  - "font-input"
+  - "font-open-sans"
+  - "font-roboto"
+  - "font-firacode-nerd-font"
+  - "font-mononoki-nerd-font"
 
 taps:
   - "caskroom/cask"
   - "homebrew/homebrew-php"
   - "caskroom/drivers"
+  - "caskroom/fonts"
 
 icons:
     iTerm: "https://dribbble.com/shots/3385110-iTerm-3-Icon-for-macOS/attachments/737641"
