@@ -1,31 +1,27 @@
 NSGlobalDomain:
-  InitialKeyRepeat: 12                # Set a shorter Delay until key repeat
-  KeyRepeat: 0.02                # Set a blazingly fast keyboard repeat rate
-
+    InitialKeyRepeat: 15
+    KeyRepeat: 2
+    !!python/unicode 'com.apple.trackpad.scaling': 1
+com.apple.AppleMultitouchTrackpad:
+    Clicking: 1
+    TrackpadCornerSecondaryClick: 0
+    TrackpadRightClick: 1
+    TrackpadThreeFingerDrag: true
 com.apple.Safari:
-  IncludeInternalDebugMenu: true                # Enable Safari’s debug menu
-
+    IncludeInternalDebugMenu: true
 com.apple.desktopservices:
-  DSDontWriteNetworkStores: true   # Don't write folder metadata on networks
-
+    DSDontWriteNetworkStores: true
 com.apple.dock:
-  autohide: true                          # Automatically hide/show the Dock
-  minimize-to-application: true     # Minimize windows into their app’s icon
-
-com.apple.AppleMultitouchTrackpad:                       # Trackpad settings
-  Clicking: 1
-  TrackpadThreeFingerDrag: true
-  TrackpadRightClick: 1
-  TrackpadCornerSecondaryClick: 0
-com.apple.driver.AppleBluetoothMultitouch.trackpad:     # Same for bluetooth
-  Clicking: true
-  TrackpadThreeFingerDrag: true
-  TrackpadRightClick: true
-  TrackpadCornerSecondaryClick: 0
-
+    autohide: true
+    minimize-to-application: true
+com.apple.driver.AppleBluetoothMultitouch.trackpad:
+    Clicking: true
+    TrackpadCornerSecondaryClick: 0
+    TrackpadRightClick: true
+    TrackpadThreeFingerDrag: true
 com.apple.finder:
-  AppleShowAllFiles: true                      # Show hidden files in Finder
-  FXDefaultSearchScope: "SCcf"      # Search in current directory by default
-  QLEnableTextSelection: true           # Enable text selection in QuickLook
-  QuitMenuItem: true     # Enable ⌘ + Q for Finder; also hides desktop icons
-  ShowStatusBar: true                            # Show Status bar in Finder
+    AppleShowAllFiles: true
+    FXDefaultSearchScope: SCcf
+    QLEnableTextSelection: true
+    QuitMenuItem: true
+    ShowStatusBar: true
