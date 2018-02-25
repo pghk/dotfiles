@@ -35,6 +35,11 @@ casks:
   - "visual-studio-code"
   - "xscope"
   - "pallotron-yubiswitch"
+  - "font-input"
+  - "font-open-sans"
+  - "font-roboto"
+  - "font-firacode-nerd-font"
+  - "font-mononoki-nerd-font"
 
 formulas:
   - "zsh"
@@ -70,11 +75,6 @@ formulas:
   - "go"
   - "mackup"
   - "terminus"
-  - "font-input"
-  - "font-open-sans"
-  - "font-roboto"
-  - "font-firacode-nerd-font"
-  - "font-mononoki-nerd-font"
 
 taps:
   - "caskroom/cask"
