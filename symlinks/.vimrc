@@ -1,7 +1,4 @@
-                                                " Load Powerline status bar
-source
-\ ~/Library/Python/2.7/lib/python/site-packages/powerline/
-\bindings/vim/plugin/powerline.vim
+let g:airline_powerline_fonts = 1     " Use powerline symbols in status bar
 
 set laststatus=2                                  " Always show status line
 
@@ -13,7 +10,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-colorscheme OceanicNext                                        " Set colors
+colorscheme nova                                               " Set colors
 
 syntax on                                      " Enable syntax highlighting
 set number                                            " Enable line numbers
