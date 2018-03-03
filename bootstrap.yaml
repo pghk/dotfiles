@@ -1,5 +1,4 @@
 after-scripts:
-  - "$HOME/.cider/scripts/get-mas-apps.py"
   - "$HOME/.cider/scripts/get-composer.sh"
   - "$HOME/.cider/scripts/setup_shell.sh"
   # - "sudo sh $HOME/.cider/scripts/get-the-rest.sh"
