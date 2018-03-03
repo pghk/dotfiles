@@ -62,11 +62,11 @@ formulas=(
 )
 
 for formula in ${!formulas[@]}; do
-  echo "brew install ${formulas[$formula]}"
+  brew install ${formulas[$formula]}
 done
 
 for cask in ${!casks[@]}; do
-  echo "brew cask install ${casks[$cask]}"
+  brew cask install ${casks[$cask]}
 done
 
 # Docksal
