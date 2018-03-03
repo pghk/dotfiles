@@ -1,10 +1,6 @@
 #!/usr/bin/env sh
 set -x
 
-# Update macOS, and enable the command line dev tools:
-sudo softwareupdate -i -a
-xcode-select --install
-
 # Install Homebrew
 ruby -e "$(
   curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install

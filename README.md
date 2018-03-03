@@ -31,7 +31,15 @@ I think I'm including some of these
 Download [bootstrap.sh](https://github.com/pghk/dotfiles/raw/master/scripts/bootstrap.sh) to desktop, and run it:
 
 ```sh
-script sysinstall.\`date +"%d-%b"\`.log ~/Desktop/bootstrap.sh
+# Enable the command line dev tools, and update macOS:
+xcode-select --install; sudo softwareupdate -i -a
+
+# Download the bootstrap script
+curl -fsSL https://raw.githubusercontent.com/pghk/dotfiles/master/scripts/bootstrap.sh
+chmod +x bootstrap.sh
+
+# Create a log file and start the script
+script sysinstall.$(date +"%d-%b").log ./bootstrap.sh
 ```
 
 This will update macOS, install xcode, Homebrew, and Cider, clone this repository to ~/.cider, then run Cider, which will:
