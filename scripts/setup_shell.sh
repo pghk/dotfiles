@@ -18,16 +18,16 @@ for i in $(ls ${ZDOTDIR:-$HOME}/.zprezto/runcoms/); do
 done
 
 # customize the zsh config file
-cat ~/.cider/symlinks/.zshrc > ~/.zshrc
+cat $HOME/.cider/symlinks/.zshrc > $HOME/.zshrc
 
 # set theme to powerlevel9k, and editor to vi
-cat ~/.cider/symlinks/.zpreztorc > ~/.zpreztorc
+cat $HOME/.cider/symlinks/.zpreztorc > $HOME/.zpreztorc
 
 # set vim config
-cp ~/.cider/symlinks/.vimrc ~/
+cp $HOME/.cider/symlinks/.vimrc $HOME/
 
 # add colorscheme, status bar, and language packs using vim 8's package loader
-plugin_path="~/.vim/pack/default"
+plugin_path="$HOME/.vim/pack/default/start"
 
 plugins=(
   "trevordmiller/nova-vim"
