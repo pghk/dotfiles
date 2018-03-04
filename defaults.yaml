@@ -25,3 +25,6 @@ com.apple.finder:
     QLEnableTextSelection: true
     QuitMenuItem: true
     ShowStatusBar: true
+!!python/unicode 'com.apple.loginwindow':
+    !!python/unicode 'AdminHostInfo': !!python/unicode 'HostName'
+    !!python/unicode 'SHOWFULLNAME': 1
