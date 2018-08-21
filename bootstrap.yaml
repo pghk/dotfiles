@@ -17,7 +17,6 @@ formulas:
 
 taps:
   - "caskroom/cask"
-  - "homebrew/homebrew-php"
   - "caskroom/drivers"
   - "caskroom/fonts"
 
