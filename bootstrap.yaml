@@ -1,24 +1,23 @@
 after-scripts:
-  - "$HOME/.cider/scripts/setup_shell.sh"
-
+- $HOME/.cider/scripts/setup_shell.sh
 casks:
-  - "1password"
-  - "alfred"
-  - "dropbox"
-  - "iterm2"
-  - "font-mononoki-nerd-font"
-
+- 1password
+- alfred
+- dropbox
+- iterm2
+- font-mononoki-nerd-font
+- font-ubuntumono-nerd-font
 formulas:
-  - "zsh"
-  - "vim --with-override-system-vi"
-  - "git"
-  - "mas"
-  - "mackup"
-
-taps:
-  - "caskroom/cask"
-  - "caskroom/drivers"
-  - "caskroom/fonts"
-
+- zsh
+- vim --with-override-system-vi
+- git
+- mas
+- mackup
 icons:
-    iTerm: "https://dribbble.com/shots/3385110-iTerm-3-Icon-for-macOS/attachments/737641"
+    iTerm: https://dribbble.com/shots/3385110-iTerm-3-Icon-for-macOS/attachments/737641
+symlinks:
+    iterm/*: !!python/unicode '~/.iterm/'
+taps:
+- caskroom/cask
+- caskroom/drivers
+- caskroom/fonts

@@ -28,3 +28,5 @@ com.apple.finder:
 !!python/unicode 'com.apple.loginwindow':
     !!python/unicode 'AdminHostInfo': !!python/unicode 'HostName'
     !!python/unicode 'SHOWFULLNAME': 1
+!!python/unicode 'com.googlecode.iterm2':
+    !!python/unicode 'PrefsCustomFolder': !!python/unicode '~/.iterm'
