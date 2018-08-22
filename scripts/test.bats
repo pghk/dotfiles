@@ -1,8 +1,5 @@
 #!/usr/bin/env bats
 
-@test "Shell is zsh" {
-    [[ $(echo $SHELL) == "/usr/local/bin/zsh" ]]
-}
 @test "Basic git configuration exists" {
     git config core.excludesfile
 }
