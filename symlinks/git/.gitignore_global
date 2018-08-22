@@ -1,0 +1,12 @@
+*~
+.DS_Store
+.idea
+.buildpath
+.project
+.settings
+.vagrant
+.DS_Store
+nbproject
+.thumbs
+.docksal
+.lando.yml
