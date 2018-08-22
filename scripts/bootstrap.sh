@@ -18,7 +18,7 @@ ln -s ~/Library/Python/2.7/bin/cider /usr/local/bin/cider
 
 # Replace the emoji font
 curl https://github.com/emojione/emojione-assets/releases/download/3.1.2/emojione-apple.ttc\
- -o "~/Library/Fonts/Apple Color Emoji.ttc"
+ -o "${HOME}/Library/Fonts/Apple Color Emoji.ttc"
 
 # Run Cider to install Homebrew Casks & Formulae, set macOS defaults,  symlink and run additional scripts:
 cider restore
