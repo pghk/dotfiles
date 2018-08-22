@@ -1,0 +1,18 @@
+[include]
+	path = ~/.gitconfig_personal
+[includeIf "gitdir:~/work/"]
+	path = ~/.gitconfig_work
+[core]
+	excludesfile = ~/.gitignore_global
+	editor=$(which vim)
+[diff]
+	tool = Kaleidoscope
+[merge]
+	tool = Kaleidoscope
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustexitcode = true
+[alias]
+	unpushed = log --branches --not --remotes --no-walk --decorate --oneline
