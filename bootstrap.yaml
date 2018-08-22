@@ -1,5 +1,6 @@
 after-scripts:
 - $HOME/.cider/scripts/setup_shell.sh
+- defaults read > ~/.$(date +"%d-%b").custom.defaults
 casks:
 - 1password
 - alfred

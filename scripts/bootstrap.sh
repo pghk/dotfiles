@@ -1,6 +1,9 @@
 #!/usr/bin/env sh
 set -x
 
+# Record the existing defaults before modifying anything
+defaults read > ~/.$(date +"%d-%b").initial.defaults
+
 # Install Homebrew
 ruby -e "$(
   curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install
