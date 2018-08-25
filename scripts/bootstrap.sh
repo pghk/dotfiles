@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-export logPath=~/.sysinstall.$(date +"%d-%b")
+export logpath=~/.sysinstall.$(date +"%d-%b")
 mkdir $logpath
 
 script $logpath/bootstrap.log
