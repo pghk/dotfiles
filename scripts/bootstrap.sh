@@ -7,10 +7,10 @@ mkdir $logpath
 defaults read > ~/$logpath/initial.defaults
 
 # Load, execute, and log the script which installs and runs Cider
-installer=$(curl https://raw.githubusercontent.com/pghk/dotfiles/master/scripts/install.sh)
-script $logpath/install.log -c $installer
+curl -s https://raw.githubusercontent.com/pghk/dotfiles/master/scripts/install.sh |\
+ script $logpath/install.log -c
 
-# Configure zsh, iTerm, and VIM 
+# Configure zsh, iTerm, and VIM
 script $logpath/shell_setup.log -c ~/.cider/scripts/setup_shell.sh
 
 # Record the modified defaults
