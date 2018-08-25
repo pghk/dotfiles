@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-script $logpath/shell_setup.log
-
 # Add the homebrew-installed zsh to list of shells
 sudo sh -c "echo `which zsh` >> /etc/shells"
 
@@ -42,3 +40,7 @@ for i in ${plugins[@]}; do
   git clone https://github.com/$i
 done
 cd
+
+# Load custom preferences into iTerm
+defaults write com.googlecode.iterm2 PrefsCustomFolder ~/.iterm
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder 1
