@@ -4,7 +4,7 @@
     git config core.excludesfile
 }
 @test "Custom iTerm configuration set" {
-    [[ $(defaults read com.googlecode.iterm2 PrefsCustomFolder) == "~/.iterm" ]]
+    [[ $(defaults read com.googlecode.iterm2 PrefsCustomFolder) == ~/.iterm ]]
 }
 @test "Custom emoji font installed" {
     [[ -f "${HOME}/Library/Fonts/Apple Color Emoji.ttc" ]]
