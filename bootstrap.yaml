@@ -5,9 +5,10 @@ casks:
 - 1password
 - alfred
 - dropbox
-- iterm2
 - font-mononoki-nerd-font
 - font-ubuntumono-nerd-font
+- iterm2
+- !!python/unicode 'karabiner-elements'
 formulas:
 - zsh
 - vim --with-override-system-vi
