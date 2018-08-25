@@ -1,0 +1,36 @@
+{
+    "after-scripts": [
+        "$HOME/.cider/scripts/setup_shell.sh",
+        "defaults read > ~/.$(date +'%d-%b').custom.defaults"
+    ],
+    "casks": [
+        "1password",
+        "alfred",
+        "dropbox",
+        "font-mononoki-nerd-font",
+        "font-ubuntumono-nerd-font",
+        "iterm2",
+        "karabiner-elements"
+    ],
+    "formulas": [
+        "bats-core",
+        "git",
+        "jq",
+        "mackup",
+        "mas",
+        "vim --overwrite-system-vi",
+        "zsh"
+    ],
+    "icons": {
+        "iTerm": "https://dribbble.com/shots/3385110-iTerm-3-Icon-for-macOS/attachments/737641"
+    },
+    "symlinks": {
+        "git/.*": "~",
+        "iterm/*": "~/.iterm/"
+    },
+    "taps": [
+        "homebrew/cask",
+        "homebrew/cask-drivers",
+        "homebrew/cask-fonts"
+    ]
+}

@@ -1,0 +1,46 @@
+{
+	"NSGlobalDomain": {
+		"InitialKeyRepeat": 15,
+		"KeyRepeat": 2,
+		"com.apple.trackpad.scaling": 1
+	},
+	"com.apple.AppleMultitouchTrackpad": {
+		"Clicking": 1,
+		"TrackpadCornerSecondaryClick": 0,
+		"TrackpadRightClick": 1,
+		"TrackpadThreeFingerDrag": true
+	},
+	"com.apple.Safari": {
+		"IncludeInternalDebugMenu": true
+	},
+	"com.apple.desktopservices": {
+		"DSDontWriteNetworkStores": true
+	},
+	"com.apple.dock": {
+		"autohide": true,
+		"minimize-to-application": true
+	},
+	"com.apple.driver.AppleBluetoothMultitouch.trackpad": {
+		"Clicking": true,
+		"TrackpadCornerSecondaryClick": 0,
+		"TrackpadRightClick": true,
+		"TrackpadThreeFingerDrag": true
+	},
+	"com.apple.finder": {
+		"AppleShowAllFiles": true,
+		"FXDefaultSearchScope": "SCcf",
+		"QLEnableTextSelection": true,
+		"QuitMenuItem": true,
+		"ShowStatusBar": true
+	},
+	"com.apple.loginwindow": {
+		"AdminHostInfo": "HostName",
+		"SHOWFULLNAME": 1
+	},
+	"com.apple.universalaccess": {
+		"closeViewScrollWheelToggle": 1
+	},
+	"com.googlecode.iterm2": {
+		"PrefsCustomFolder": "~/.iterm"
+	}
+}
