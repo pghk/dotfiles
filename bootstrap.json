@@ -16,10 +16,10 @@
         "bats-core",
         "git",
         "jq",
-        "mackup",
-        "mas",
         "vim --overwrite-system-vi",
-        "zsh"
+        "zsh",
+        "mas",
+        "mackup"
     ],
     "icons": {
         "iTerm": "https://dribbble.com/shots/3385110-iTerm-3-Icon-for-macOS/attachments/737641"
