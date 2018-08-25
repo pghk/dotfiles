@@ -28,25 +28,14 @@ I think I'm including some of these
 
 ## Install
 
-Download [bootstrap.sh](https://github.com/pghk/dotfiles/raw/master/scripts/bootstrap.sh) to desktop, and run it:
+Clone this repository to ~/.cider, and run the bootstrap script:
 
 ```sh
-# Enable the command line dev tools, and update macOS:
-xcode-select --install; sudo softwareupdate -i -a
-
-# Download the bootstrap script, make it executable, and run it
-curl -fsSO https://raw.githubusercontent.com/pghk/dotfiles/master/scripts/bootstrap.sh
-chmod +x bootstrap.sh; ./bootstrap.sh
-
-# If we ⌘a, ⌘c to copy the terminal output, this will paste to a file
-pbpaste > sysinstall.$(date +"%d-%b").log
-
-# And then append subsequent sessions later
-pbpaste >> sysinstall.$(date +"%d-%b").log
-
+git clone https://github.com/pghk/dotfiles.git ~/.cider
+~/.cider/scripts/bootstrap.sh
 ```
 
-This will update macOS, install xcode, Homebrew, and Cider, clone this repository to ~/.cider, then run Cider, which will:
+This will update macOS, install xcode, Homebrew, and Cider, then run Cider, which will:
 
 - Install casks and formulae from Homebrew
   - write default settings to macOS
