@@ -16,6 +16,9 @@
     run diff ~/.$(date +"%d-%b").initial.defaults ~/.$(date +"%d-%b").custom.defaults
     [ "$status" -eq 1 ]
 }
-@test "Custom defaults logged" {
-    [[ -f "${HOME}/.$(date +"%d-%b").custom.defaults" ]]
+@test "Logs exist" {
+    [[ -f "${HOME}/.sysinstall.$(date +"%d-%b")/bootstrap.log" ]]
+    [[ -f "${HOME}/.sysinstall.$(date +"%d-%b")/initial.defaults" ]]
+    [[ -f "${HOME}/.sysinstall.$(date +"%d-%b")/custom.defaults" ]]
+    [[ -f "${HOME}/.sysinstall.$(date +"%d-%b")/shell_setup.log" ]]
 }

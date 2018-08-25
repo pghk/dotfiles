@@ -1,7 +1,7 @@
 {
     "after-scripts": [
         "$HOME/.cider/scripts/setup_shell.sh",
-        "defaults read > ~/.$(date +'%d-%b').custom.defaults"
+        "defaults read > $logpath/custom.defaults"
     ],
     "casks": [
         "1password",

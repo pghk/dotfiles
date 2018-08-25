@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+script $logpath/shell_setup.log
+
 # Add the homebrew-installed zsh to list of shells
 sudo sh -c "echo `which zsh` >> /etc/shells"
 

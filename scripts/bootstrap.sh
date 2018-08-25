@@ -1,8 +1,12 @@
 #!/usr/bin/env sh
-set -x
+
+export logPath=~/.sysinstall.$(date +"%d-%b")
+mkdir $logpath
+
+script $logpath/bootstrap.log
 
 # Record the existing defaults before modifying anything
-defaults read > ~/.$(date +"%d-%b").initial.defaults
+defaults read > ~/$logpath/initial.defaults
 
 # Install Homebrew
 ruby -e "$(
