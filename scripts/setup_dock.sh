@@ -21,32 +21,45 @@ apps=(
     "/Applications/Slack.app"
     "/Applications/iTunes.app"
     "/Applications/iTerm.app"
-    "/Applications/1Password 6.app"
+    "/Applications/1Password 7.app"
   )
 
-shopt -s extglob
-for f in "${apps[@]}"
-do
-    f=${f/%+(\/)}/                              # normalise bundle path so that it ends with /
-    fq=$(sed 's/[^[:alnum:]]/\\&/g' <<< "$f")   # quote meta characters for regex
+read -p "This will wipe out your existing dock. Continue? " -r
+if [[ $REPLY =~ ^((yes|Yes)|(y|Y))$ ]]
+  then
+  # Wipe out the existing dock
+  defaults write com.apple.dock persistent-apps -array
 
-    [[ -n $(defaults read com.apple.dock persistent-apps |
-        sed -En "s/\"_CFURLString\" = \"?($fq)\"?;/\1/p" ) ]] && continue   # already exists
+  shopt -s extglob
+  for f in "${apps[@]}"
+  do
+      f=${f/%+(\/)}/                              # normalise bundle path so that it ends with /
+      fq=$(sed 's/[^[:alnum:]]/\\&/g' <<< "$f")   # quote meta characters for regex
 
-    defaults write com.apple.dock persistent-apps -array-add "
-<dict>
-    <key>tile-data</key>
-    <dict>
-        <key>file-data</key>
-        <dict>
-            <key>_CFURLString</key>
-            <string>${f}</string>
-            <key>_CFURLStringType</key>
-            <integer>0</integer>
-        </dict>
-    </dict>
-</dict>
-"
-done
+      [[ -n $(defaults read com.apple.dock persistent-apps |
+          sed -En "s/\"_CFURLString\" = \"?($fq)\"?;/\1/p" ) ]] && continue   # already exists
 
-killall Dock
+      defaults write com.apple.dock persistent-apps -array-add "
+  <dict>
+      <key>tile-data</key>
+      <dict>
+          <key>file-data</key>
+          <dict>
+              <key>_CFURLString</key>
+              <string>${f}</string>
+              <key>_CFURLStringType</key>
+              <integer>0</integer>
+          </dict>
+      </dict>
+  </dict>
+  "
+  done
+
+  printf "Restarting dock... "
+  killall Dock
+  echo 'done'
+  exit 0
+fi
+
+echo "Dock setup cancelled."
+exit 1
