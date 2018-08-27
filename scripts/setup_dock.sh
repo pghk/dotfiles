@@ -7,10 +7,9 @@
 #
 
 apps=(
-    "/Applications/Siri.app"
-    "/Applications/Firefox.app"
     "/Applications/Airmail 3.app"
-    "/Applications/Google Chrome.app"
+    "/Applications/Siri.app"
+    "/Applications/iTerm.app"
     "/Applications/Tweetbot.app"
     "/Applications/PhpStorm.app"
     "/Applications/Bear.app"
@@ -19,8 +18,8 @@ apps=(
     "/Applications/Photos.app"
     "/Applications/Messages.app"
     "/Applications/Slack.app"
+    "/Applications/Firefox.app"
     "/Applications/iTunes.app"
-    "/Applications/iTerm.app"
     "/Applications/1Password 7.app"
   )
 
