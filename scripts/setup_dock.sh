@@ -27,6 +27,8 @@ apps=(
 read -p "This will wipe out your existing dock. Continue? " -r
 if [[ $REPLY =~ ^((yes|Yes)|(y|Y))$ ]]
   then
+  # Backup the existing dock
+  defaults read com.apple.dock persistent-apps > ~/Desktop/previous.dock.defaults
   # Wipe out the existing dock
   defaults write com.apple.dock persistent-apps -array
 
