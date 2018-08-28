@@ -5,12 +5,12 @@ These are my dotfiles. Take anything you want, but at your own risk.
 
 It's not tested yet, or expected to function. Work in progress and all that.
 
-The framework here is provided by [Cider](https://github.com/msanders/cider), which brings with it the benefit of setting macOS defaults from a YAML. Cider also handles installing formulae and casks from [Homebrew](https://brew.sh/).
+The framework here is provided by [Cider](https://github.com/msanders/cider), which brings with it the benefit of setting macOS defaults from a JSON. Cider also handles installing formulae and casks from [Homebrew](https://brew.sh/).
 
 We'll also download some things from the App Store using [mas-cli](https://github.com/mas-cli/mas), and sync a few application preferences with [Mackup](https://github.com/lra/mackup). We'll set [zsh](http://www.zsh.org/) as the shell, and bring in my custom [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) theme.
 
 ## Package overview
-I think I'm including some of these
+I think I'm including some of these?
 
 * Core
     * Bash + [coreutils](http://en.wikipedia.org/wiki/GNU_Core_Utilities) + bash-completion
@@ -28,21 +28,34 @@ I think I'm including some of these
 
 ## Install
 
-Clone this repository to ~/.cider, and run the bootstrap script:
+### Stage One
+This part is meant to work before authenticating to any services. When this is done (even if you went through the macOS
+install process unchecking and skipping everything you can) you should have a machine with some nice UI settings, 
+command line tools, and a powerline-style shell prompt.
+
+To get started, clone this repository to ~/.cider, and run the bootstrap script:
 
 ```sh
 git clone https://github.com/pghk/dotfiles.git ~/.cider
 ~/.cider/scripts/bootstrap.sh
 ```
 
+...and then reboot.
+
 This will update macOS, install xcode, Homebrew, and Cider, then run Cider, which will:
 
 - Install casks and formulae from Homebrew
-  - write default settings to macOS
-  - symlink some configurations
-  - then kick off additional scripts to:
-    - Get apps from the App Store
-    - Install additional tools like Composer
+- write default settings to macOS
+- symlink some configurations
+
+### Stage Two
+When you're ready to move in for real, there are some additional scripts to help with that. Head to System Preferences,
+sign in with your Apple ID, then run these:
+
+```sh
+~/.cider/scripts/get-the-rest.sh
+~/.cider/scripts/get-mas-apps.sh
+```
 
 ## Additional resources
 * [Awesome Dotfiles](https://github.com/webpro/awesome-dotfiles)

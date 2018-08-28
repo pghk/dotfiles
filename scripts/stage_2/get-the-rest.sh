@@ -69,4 +69,5 @@ done
 # Docksal
 curl -fsSL https://get.docksal.io | sh
 
-# Drush
+# Composer
+source ~/.cider/scripts/stage_2/get-composer.sh
