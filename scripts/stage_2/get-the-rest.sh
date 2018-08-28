@@ -81,3 +81,17 @@ fi
 
 # Composer
 source ~/.cider/scripts/stage_2/get-composer.sh
+
+# Terminus & Drush
+utilpath=~/.utils
+
+if [[ ! -d $utilpath ]]; then
+  mkdir $utilpath
+fi
+cd $utilpath
+
+composer require pantheon-systems/terminus
+composer require require drush/drush:8.*
+
+export PATH="$utilpath/vendor/bin:$PATH"
+cd
