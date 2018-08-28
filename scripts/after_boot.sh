@@ -10,3 +10,6 @@ script $logpath/mackup_install.log sh -x -c "pip3 install mackup"
 script $logpath/app_store.log sh -x ~/.cider/scripts/stage_2/get-mas-apps.sh
 
 script $logpath/more_homebrew.log sh -x ~/.cider/scripts/stage_2/get-the-rest.sh
+
+# Record the final modified defaults
+defaults read > $logpath/stage_2.defaults
