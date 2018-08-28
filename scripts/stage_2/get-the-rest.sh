@@ -90,8 +90,16 @@ if [[ ! -d $utilpath ]]; then
 fi
 cd $utilpath
 
-composer require pantheon-systems/terminus
-composer require drush/drush:8.*
+mkdir terminus drush
 
-export PATH="$utilpath/vendor/bin:$PATH"
+cd $utilpath/terminus; composer require pantheon-systems/terminus
+cd $utilpath/drush; composer require drush/drush:8.*
+cd $utilpath
+
+# Link composer installed binares into part of PATH
+for i in $(ls ${utilpath}; do
+  if [[ -f $utilpath/vendor/bin/$i ]]; then
+    ln -s "${utilpath}/vendor/bin/$i" "${$HOME}/.$i"
+  fi
+done
 cd
