@@ -17,3 +17,6 @@
     run diff ~/.sysinstall.$(date +"%d-%b")/initial.defaults ~/.sysinstall.$(date +"%d-%b")/custom.defaults
     [ "$status" -eq 1 ]
 }
+@test "Mackup is installed" {
+    command -v mackup
+}
