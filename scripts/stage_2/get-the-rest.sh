@@ -91,7 +91,7 @@ fi
 cd $utilpath
 
 composer require pantheon-systems/terminus
-composer require require drush/drush:8.*
+composer require drush/drush:8.*
 
 export PATH="$utilpath/vendor/bin:$PATH"
 cd
