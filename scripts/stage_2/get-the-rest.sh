@@ -74,7 +74,7 @@ if [[ ! $CI == true ]]; then
 
 # Don't test installing all of this stuff 
 else
-  brew cask install moreutils
+  brew install moreutils
 fi
 
 # Composer
