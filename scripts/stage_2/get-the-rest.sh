@@ -27,7 +27,9 @@ casks=(
   "font-input"
   "font-open-sans"
   "font-roboto"
-  "font-firacode-nerd-font"
+  "font-firacode-nerd-font",
+  "istat-menus",
+  "karabiner-elements"
 )
 
 formulas=(

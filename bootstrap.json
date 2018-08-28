@@ -5,9 +5,7 @@
         "dropbox",
         "font-mononoki-nerd-font",
         "font-ubuntumono-nerd-font",
-        "istat-menus",
-        "iterm2",
-        "karabiner-elements"
+        "iterm2"
     ],
     "formulas": [
         "bats-core",
