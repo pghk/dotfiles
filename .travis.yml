@@ -13,6 +13,7 @@ before_install: mv $TRAVIS_BUILD_DIR ~/.cider
 
 script:
   - ./scripts/bootstrap.sh
+  - ./scripts/after_boot.sh
   - ./scripts/other/test.bats
 
 sudo: required
