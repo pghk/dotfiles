@@ -56,17 +56,25 @@ formulas=(
   "go"
 )
 
-for formula in ${!formulas[@]}; do
-  brew install ${formulas[$formula]}
-done
 
-for cask in ${!casks[@]}; do
-  brew cask install ${casks[$cask]}
-done
 
-# Docksal
+# As long as we're not testing...
 if [[ ! $CI == true ]]; then
+
+  for formula in ${!formulas[@]}; do
+    brew install ${formulas[$formula]}
+  done
+
+  for cask in ${!casks[@]}; do
+    brew cask install ${casks[$cask]}
+  done
+
+  # Docksal
   curl -fsSL https://get.docksal.io | sh
+
+# Don't test installing all of this stuff 
+else
+  brew cask install moreutils
 fi
 
 # Composer
