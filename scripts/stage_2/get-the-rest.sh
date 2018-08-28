@@ -98,8 +98,8 @@ cd $utilpath
 
 # Link composer installed binares into part of PATH
 for i in $(ls $utilpath); do
-  if [[ -f $utilpath/vendor/bin/$i ]]; then
-    ln -s $utilpath/vendor/bin/$i /usr/local/bin/
+  if [[ -f $utilpath/$i/vendor/bin/$i ]]; then
+    ln -s $utilpath/$i/vendor/bin/$i /usr/local/bin/
   fi
 done
 cd
