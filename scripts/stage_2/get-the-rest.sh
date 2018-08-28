@@ -31,7 +31,6 @@ casks=(
 )
 
 formulas=(
-  "terminus"
   "coreutils"
   "moreutils"
   "findutils"
@@ -44,7 +43,6 @@ formulas=(
   "unrar"
   "rename"
   "pandoc"
-  "jq"
   "ssh-copy-id"
   "tree"
   "screen"
