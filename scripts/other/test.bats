@@ -17,6 +17,12 @@
     run diff ~/.sysinstall.$(date +"%d-%b")/initial.defaults ~/.sysinstall.$(date +"%d-%b")/custom.defaults
     [ "$status" -eq 1 ]
 }
-@test "Mackup is installed" {
+@test "Mackup is available" {
     command -v mackup
+}
+@test "Terminus is available" {
+    command -v terminus
+}
+@test "Drush is available" {
+    command -v drush
 }
