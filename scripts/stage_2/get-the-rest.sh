@@ -65,7 +65,9 @@ for cask in ${!casks[@]}; do
 done
 
 # Docksal
-curl -fsSL https://get.docksal.io | sh
+if [[ ! $CI == true ]]; then
+  curl -fsSL https://get.docksal.io | sh
+fi
 
 # Composer
 source ~/.cider/scripts/stage_2/get-composer.sh
