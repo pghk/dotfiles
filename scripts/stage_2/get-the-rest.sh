@@ -97,7 +97,7 @@ cd $utilpath/drush; composer require drush/drush:8.*
 cd $utilpath
 
 # Link composer installed binares into part of PATH
-for i in $(ls ${utilpath}; do
+for i in $(ls ${utilpath}); do
   if [[ -f $utilpath/vendor/bin/$i ]]; then
     ln -s "${utilpath}/vendor/bin/$i" "/usr/local/bin/$i"
   fi
