@@ -5,7 +5,7 @@ if [[ ! -d $logpath ]]; then
   mkdir $logpath
 fi
 
-script $logpath/mackup_install.log sh -x -c pip3 install mackup
+script $logpath/mackup_install.log sh -x -c "pip3 install mackup"
 
 script $logpath/app_store.log sh -x ~/.cider/scripts/stage_2/get-mas-apps.sh
 
