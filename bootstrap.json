@@ -11,7 +11,7 @@
         "bats-core",
         "git",
         "jq",
-        "vim --overwrite-system-vi",
+        "vim",
         "zsh",
         "mas"
     ],
