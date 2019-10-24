@@ -38,7 +38,7 @@
 		"SHOWFULLNAME": 1
 	},
 	"com.apple.universalaccess": {
-		"closeViewScrollWheelToggle": 1
+		"closeViewScrollWheelToggle": true
 	},
 	"com.googlecode.iterm2": {
 		"PrefsCustomFolder": "~/.iterm"
