@@ -9,7 +9,7 @@ os: osx
 
 osx_image: xcode10.3
 
-before_install: mv $TRAVIS_BUILD_DIR ~/.cider
+before_install: mv $TRAVIS_BUILD_DIR ~/.cider; rm ~/.gitconfig
 
 script:
   - ./scripts/bootstrap.sh
