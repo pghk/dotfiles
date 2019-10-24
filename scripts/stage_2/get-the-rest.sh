@@ -24,11 +24,8 @@ casks=(
   "font-roboto"
   "font-firacode-nerd-font"
   "firefox"
-  "google-drive-file-stream"
   "phpstorm"
   "spotify"
-  "pallotron-yubiswitch"
-  "backblaze"
   "daisydisk"
 )
 
