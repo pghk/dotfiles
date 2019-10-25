@@ -6,7 +6,6 @@ ruby -e "$(
 )"
 
 # Install Cider:
-sudo easy_install pip
 pip install -U --user cider
 
 # Add a symlink for cider
