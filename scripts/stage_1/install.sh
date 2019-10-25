@@ -7,6 +7,7 @@ ruby -e "$(
 
 # Install and setup Python
 brew install pyenv
+brew upgrade pyenv
 pyenv install 3.8.0
 pyenv global 3.8.0
 if command -v pyenv 1>/dev/null 2>&1; then
