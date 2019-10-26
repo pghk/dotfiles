@@ -1,0 +1,15 @@
+"*":
+  core:
+    disabledPackages: [
+      "spell-check"
+    ]
+    restorePreviousWindowsOnStart: "no"
+    telemetryConsent: "limited"
+  editor:
+    fontFamily: "Liga Consolas, Menlo, Consolas, DejaVu Sans Mono, monospace"
+    fontSize: 12
+    scrollPastEnd: true
+  "exception-reporting":
+    userId: "4b1205bd-11f6-7ac9-8d99-6c84480b89ec"
+  welcome:
+    showOnStartup: false
