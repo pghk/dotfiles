@@ -5,11 +5,11 @@ if [[ $REPLY =~ ^((yes|Yes)|(y|Y))$ ]]; then
   read -p "Give me a name: " name
 
   echo "Setting Computer Name"
-  #sudo scutil --set ComputerName $name
+  sudo scutil --set ComputerName $name
   echo "Setting Local Host Name"
-  #sudo scutil --set LocalHostName $name
+  sudo scutil --set LocalHostName $name
   echo "Setting Host Name"
-  #sudo scutil --set HostName $name
+  sudo scutil --set HostName $name
 
   dscacheutil -flushcache
   echo "Hi, my name is $name!"
