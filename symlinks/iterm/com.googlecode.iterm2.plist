@@ -1534,19 +1534,19 @@
 			<key>Horizontal Spacing</key>
 			<real>0.9721856174698793</real>
 			<key>HotKey Activated By Modifier</key>
-			<false/>
+			<true/>
 			<key>HotKey Alternate Shortcuts</key>
 			<array/>
 			<key>HotKey Characters</key>
-			<string>`</string>
+			<string></string>
 			<key>HotKey Characters Ignoring Modifiers</key>
-			<string>`</string>
+			<string></string>
 			<key>HotKey Key Code</key>
-			<integer>50</integer>
+			<integer>0</integer>
 			<key>HotKey Modifier Activation</key>
 			<integer>0</integer>
 			<key>HotKey Modifier Flags</key>
-			<integer>1048576</integer>
+			<integer>0</integer>
 			<key>HotKey Window Animates</key>
 			<true/>
 			<key>HotKey Window AutoHides</key>
@@ -1940,7 +1940,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
-			<real>0.13872739530456848</real>
+			<real>0.0</real>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
