@@ -20,6 +20,7 @@
     },
     "symlinks": {
         "git/.*": "~",
+        "hammerspoon": "~/.hammerspoon",
         "iterm": "~/.iterm",
         "mackup/.mackup.cfg": "~",
         "mackup/Mackup": "~/.mackup/"
