@@ -1,4 +1,6 @@
-mash = {"cmd", "alt", "ctrl", "shift"}
+mash = {"shift", "ctrl", "alt"}
+hyper = {"shift", "ctrl", "alt", "cmd"}
+
 
 hs.hotkey.bind(mash, "f13", function()
   hs.reload()
