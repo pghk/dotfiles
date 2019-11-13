@@ -12,34 +12,31 @@ hs.hotkey.bind(mash, "f13", function()
   ):send()
 end)
 
+function reFrame(w, h, x, y)
+  local win = hs.window.focusedWindow()
+  local screen = win:screen()
 
+  local inner = win:frame()
+  local outer = screen:frame()
+
+  inner.w = outer.w * w
+  inner.h = outer.h * h
+  inner.x = outer.x + ((outer.w - inner.w) / x)
+  inner.y = outer.y + ((outer.h - inner.h) / y)
+
+  return inner
+end
 
 hs.hotkey.bind(mash, "u", function ()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.w = 4 * (max.w / 7)
-  f.h = 5 * (max.h / 6)
-  f.x = max.x + ((max.w - f.w) / 4)
-  f.y = max.y + ((max.h - f.h) / 2)
-
-  win:setFrame(f)
+  hs.window.focusedWindow():setFrame(reFrame(0.57, 0.83, 4, 2))
 end)
 
 hs.hotkey.bind(mash, "o", function ()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
+  hs.window.focusedWindow():setFrame(reFrame(0.85, 0.833333333, 2, 2))
+end)
 
-  f.w = 6 * (max.w / 7)
-  f.h = 5 * (max.h / 6)
-  f.x = max.x + ((max.w - f.w) / 2)
-  f.y = max.y + ((max.h - f.h) / 2)
-
-  win:setFrame(f)
+hs.hotkey.bind(mash, ";", function ()
+  hs.window.focusedWindow():setFrame(reFrame(0.4375, 0.9375, 32, 2))
 end)
 
 require "grid"
