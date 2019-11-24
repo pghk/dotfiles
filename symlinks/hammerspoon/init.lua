@@ -1,6 +1,45 @@
 mash = {"shift", "ctrl", "alt"}
 hyper = {"shift", "ctrl", "alt", "cmd"}
 
+-- setting grid of each screen based on its aspect ratio
+
+function greatestCommonDivisor(a, b)
+  while b ~= 0 do a,b = b,(a % b) end
+  return a
+end
+
+function calcAspect(x, y)
+  local div = greatestCommonDivisor(x, y)
+  return math.floor(x / div), math.floor(y / div)
+end
+
+function smartGrid(screen)
+  local mode = screen:currentMode()
+  return hs.geometry(nil, nil, calcAspect(mode.w, mode.h))
+end
+
+function setSmartGrids(factor)
+  for key, screen in pairs(hs.screen.allScreens()) do
+    local newGrid = smartGrid(screen)
+    newGrid.w = newGrid.w * factor
+    newGrid.h = newGrid.h * factor
+    hs.grid.setGrid(newGrid, screen)
+    hs.alert.show(' ' .. newGrid.w .. ' x ' .. newGrid.h, screen)
+  end
+end
+
+hs.hotkey.bind(mash, "[", function()
+  setSmartGrids(1)
+end)
+hs.hotkey.bind(mash, "]", function()
+  setSmartGrids(2)
+end)
+hs.hotkey.bind(mash, "\\", function()
+  setSmartGrids(3)
+end)
+
+--
+
 
 hs.hotkey.bind(mash, "f13", function()
   hs.reload()
