@@ -30,37 +30,35 @@ setAllGrids(1) -- initially set the grid of each screen to its aspect ratio
 -- [[ ONCE-PER-KEYPRESS HOTKEYS ]]
 local singleUseActions = {
   -- preset window sizes:
-  ["."] = function() hs.grid.maximizeWindow() end, -- full screen
-  m = function() cleverResize() end, -- medium
-  [","] = function() smartResize({w=4, h=3}) end, -- small, landscape
-  ["/"] = function() smartResize({w=3, h=4}) end, -- small, portrait
+  { mash, '.', function() hs.grid.maximizeWindow() end }, -- full screen
+  { mash, 'm', function() cleverResize() end, }, -- medium
+  { mash, ',', function() smartResize({w=4, h=3}) end }, -- small, landscape
+  { mash, '/', function() smartResize({w=3, h=4}) end }, -- small, portrait
   -- change window grids:
-  ["["] = function() setAllGrids(1) end, -- default
-  ["]"] = function() setAllGrids(2) end, -- 2x (for centering)
+  { mash, '[', function() setAllGrids(1) end }, -- default
+  { mash, ']', function() setAllGrids(2) end }, -- 2x (for centering)
   -- move window to next screen:
-  ["\\"] = function() moveWindowToNextScreen() end,
-  -- print grid info of current window to console:
-  -- ? = function() getWindowInfo() end
+  { mash, '\\', function() moveWindowToNextScreen() end }
 }
-for key, action in pairs(singleUseActions) do
-  hs.hotkey.bind(mash, key, action)
+for k,v in ipairs(singleUseActions) do
+  hs.hotkey.bind(v[1], v[2], v[3])
 end
 
 -- [[ REPEAT-WHEN-HELD HOTKEYS ]] 
 local repeatableActions = {
   -- moving windows
-  left = function() hs.grid.pushWindowLeft() end,
-  right = function() hs.grid.pushWindowRight() end,
-  up = function() hs.grid.pushWindowUp() end,
-  down = function() hs.grid.pushWindowDown() end,
+  { mash, 'up', function() hs.grid.pushWindowUp() end },
+  { mash, 'down', function() hs.grid.pushWindowDown() end },
+  { mash, 'left', function() hs.grid.pushWindowLeft() end },
+  { mash, 'right', function() hs.grid.pushWindowRight() end },
   -- resizing windows
-  i = function() hs.grid.resizeWindowShorter() end,
-  k = function() hs.grid.resizeWindowTaller() end,
-  j = function() hs.grid.resizeWindowThinner() end,
-  l = function() hs.grid.resizeWindowWider() end
+  { hyper, 'up', function() hs.grid.resizeWindowShorter() end },
+  { hyper, 'down', function() hs.grid.resizeWindowTaller() end },
+  { hyper, 'left', function() hs.grid.resizeWindowThinner() end },
+  { hyper, 'right', function() hs.grid.resizeWindowWider() end }
 }
-for key, action in pairs(repeatableActions) do
-  hs.hotkey.bind(mash, key, action, nil, action)
+for k,v in ipairs(repeatableActions) do
+  hs.hotkey.bind(v[1], v[2], v[3], nil, v[3])
 end
 
 
