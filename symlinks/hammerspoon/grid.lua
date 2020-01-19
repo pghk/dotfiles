@@ -62,16 +62,26 @@ hs.hotkey.bind(mash, "z", function()
 end)
 
 --- arrows: move window
-hs.hotkey.bind(mash, "left", function() hs.grid.pushWindowLeft() end)
-hs.hotkey.bind(mash, "right", function() hs.grid.pushWindowRight() end)
-hs.hotkey.bind(mash, "up", function() hs.grid.pushWindowUp() end)
-hs.hotkey.bind(mash, "down", function() hs.grid.pushWindowDown() end)
+local windowMovements = {
+  left = function() hs.grid.pushWindowLeft() end,
+  right = function() hs.grid.pushWindowRight() end,
+  up = function() hs.grid.pushWindowUp() end,
+  down = function() hs.grid.pushWindowDown() end
+}
+for key, action in pairs(windowMovements) do
+  hs.hotkey.bind(mash, key, action, nil, action)
+end
 
 --- ikjl: resize window
-hs.hotkey.bind(mash, "i", function() hs.grid.resizeWindowShorter() end)
-hs.hotkey.bind(mash, "k", function() hs.grid.resizeWindowTaller() end)
-hs.hotkey.bind(mash, "j", function() hs.grid.resizeWindowThinner() end)
-hs.hotkey.bind(mash, "l", function() hs.grid.resizeWindowWider() end)
+local windowSizers = {
+  i = function() hs.grid.resizeWindowShorter() end,
+  k = function() hs.grid.resizeWindowTaller() end,
+  j = function() hs.grid.resizeWindowThinner() end,
+  l = function() hs.grid.resizeWindowWider() end,
+}
+for key, action in pairs(windowSizers) do
+  hs.hotkey.bind(mash, key, action, nil, action)
+end
 
 --- 234: resize grid
 hs.hotkey.bind(mash, "1", function() hs.grid.setGrid('12x16'); hs.alert.show('Grid set to 12x16'); end)
@@ -91,7 +101,7 @@ hs.hotkey.bind(mash, "m", function() hs.grid.snap(hs.window.focusedWindow()) end
 --- space: maximize window
 -- hs.hotkey.bind(mash, "space", function() hs.grid.maximizeWindow() end)
 
---- note: mash, "." is taken by macos sysdiagnose
+--- note: hyper, "." is taken by macos sysdiagnose
 
 --- .: minimize window
 hs.hotkey.bind(mash, ".", function() hs.grid.set(getWin(), '0,0 1x1'); end)
