@@ -30,10 +30,10 @@ setAllGrids(1) -- initially set the grid of each screen to its aspect ratio
 -- [[ ONCE-PER-KEYPRESS HOTKEYS ]]
 local singleUseActions = {
   -- preset window sizes:
-  { mash, '.', function() hs.grid.maximizeWindow() end }, -- full screen
+  { mash, '/', function() hs.grid.maximizeWindow() end }, -- full screen
   { mash, 'm', function() cleverResize() end, }, -- medium
   { mash, ',', function() smartResize({w=4, h=3}) end }, -- small, landscape
-  { mash, '/', function() smartResize({w=3, h=4}) end }, -- small, portrait
+  { mash, '.', function() smartResize({w=3, h=4}) end }, -- small, portrait
   -- change window grids:
   { mash, '[', function() setAllGrids(1) end }, -- default
   { mash, ']', function() setAllGrids(2) end }, -- 2x (for centering)
