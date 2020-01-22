@@ -13,7 +13,8 @@
         "jq",
         "vim",
         "zsh",
-        "mas"
+        "mas",
+        "wget"
     ],
     "icons": {
         "iTerm": "https://dribbble.com/shots/3385110-iTerm-3-Icon-for-macOS/attachments/737641"
