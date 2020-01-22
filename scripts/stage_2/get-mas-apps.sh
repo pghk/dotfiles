@@ -13,6 +13,15 @@ apps=(
   [924726344]='Deliveries'
 )
 
+work_apps=(
+  [1295203466]='Microsoft Remote Desktop'
+  [823766827]='OneDrive'
+)
+
+if [[ $INSTALL_WORK_APPS == true ]]; then
+  for app in $work_apps; do apps+=$app; done
+fi
+
 for ID in ${!apps[@]}; do
   echo "installing ${apps[$ID]}..." && mas install $ID
 done
