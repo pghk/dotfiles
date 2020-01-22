@@ -9,7 +9,10 @@ os: osx
 
 osx_image: xcode10.3
 
-before_install: mv $TRAVIS_BUILD_DIR ~/.cider; rm ~/.gitconfig
+before_install:
+  - mv $TRAVIS_BUILD_DIR ~/.cider
+  - rm ~/.gitconfig
+  - brew remove --force $(brew list)
 
 script:
   - ./scripts/bootstrap.sh
