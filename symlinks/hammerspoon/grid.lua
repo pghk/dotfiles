@@ -45,7 +45,8 @@ end
 For example, on a 32 x 18 grid, an argument of {w=4, h=3} would result in a new window size of 16 x 12
 ]]
 function smartResize(aspect)
-  local factor = hs.grid.getGrid(hs.screen.mainScreen()).w / 8
+  local window = hs.window.focusedWindow()
+  local factor = hs.grid.getGrid(window:screen()).w / 8
   newWidth = math.ceil(aspect.w * factor)
   newHeight = math.floor(aspect.h * factor)
   resizeWindow(newWidth, newHeight)
@@ -53,7 +54,8 @@ end
 
 --[[ Resizes the current focused window to a size that equals what you would get if you took one side of the screen and rotated it 90 degrees ]]
 function cleverResize()
-  local grid = hs.grid.getGrid(hs.screen.mainScreen())
+  local window = hs.window.focusedWindow()
+  local grid = hs.grid.getGrid(window:screen())
   newWidth = grid.h
   newHeight = grid.w / 2
   resizeWindow(newWidth, newHeight)
