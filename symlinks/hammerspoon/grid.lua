@@ -4,7 +4,7 @@ function greatestCommonDivisor(a, b)
   return a
 end
 
--- Calulates aspect ratio for a given screen resolution
+-- Calculates aspect ratio for a given screen resolution
 function aspectRatio(x, y)
   local div = greatestCommonDivisor(x, y)
   return math.floor(x / div), math.floor(y / div)
@@ -20,7 +20,7 @@ end
 Each grid is based on the screen's aspect ratio, multiplied by a given factor.
 For example, on a 16x9 screen:
   - 1x: 16 columns by 9 rows
-  - 2x: 32 colummns by 18 rows
+  - 2x: 32 columns by 18 rows
 ]]
 function setAllGrids(factor)
   for key, screen in pairs(hs.screen.allScreens()) do
