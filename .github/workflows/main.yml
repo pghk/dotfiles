@@ -11,7 +11,7 @@ on:
 
 jobs:
   install:
-    name: Setup macOS
+    name: Test new macOS setup
     runs-on: macos-11.0
     env:
       # Have macOS report its version as 10.16
@@ -20,20 +20,23 @@ jobs:
       # Check out repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
-      - name: Select xcode
+      - name: Select Xcode version
         run: sudo xcode-select --switch /Applications/Xcode_12.3.app
 
-      - name: Clean for setup
+      - name: Clean up home directory
         run: |
           brew remove --force $(brew list --formula)
           mv ~/.gitconfig ~/.gitconfig.bak
           cat ~/.gitconfig.bak
 
-      - name: Install
+      - name: Place installer
         run: ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
 
-      - name: Stage 1
+      - name: Install 1
         run: helpers/bootstrap.sh
+
+      - name: Install 2
+        run: zero setup custom.shared
 
       - name: Test
         run: helpers/test.bats
