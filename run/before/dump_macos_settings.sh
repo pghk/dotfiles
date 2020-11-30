@@ -1,0 +1,1 @@
+../../helpers/dump_macos_settings.sh

@@ -1,18 +1,35 @@
 [include]
 	path = ~/.gitconfig_personal
+
 [includeIf "gitdir:~/work/"]
 	path = ~/.gitconfig_work
+
+[init]
+	templateDir = ~/.git_template/
+
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/pghk/.gitignore_global
 	editor=$(which vim)
+
 [diff]
 	tool = Kaleidoscope
+
 [merge]
 	tool = Kaleidoscope
+
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
 [mergetool "Kaleidoscope"]
 	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 	trustexitcode = true
+
 [alias]
+	adp = add --patch
+	graph = log --oneline --decorate --graph
+	lastsha = !git rev-parse HEAD | cut -c1-7
+	pushnew = push -u origin HEAD
+	redate = rebase --committer-date-is-author-date
+	revise = commit --amend --date=now
+	smuggle = "!CDATE=$(git show -s --date=iso --format=%cd @); GIT_COMMITTER_DATE=$CDATE GIT_AUTHOR_DATE=$CDATE git commit --amend --reset-author"
 	unpushed = log --branches --not --remotes --no-walk --decorate --oneline
