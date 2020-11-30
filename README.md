@@ -76,7 +76,7 @@ Common setup tasks can be performed by running these manually.
 * `helpers/dump_macos_settings.sh` - writes the output of `defaults read` to a file named from the current time. Run this before and after changing settings in the UI, then review the diff to discover how you might be able to codify the change.
 * `helpers/set_machine_name.sh` - sets `HostName`, `LocalHostName`, and `ComputerName` by calling [scutil](https://ss64.com/osx/scutil.html)
 * `helpers/setup_dock.sh` - arranges the items in the macOS dock according to my preference (removes everything, then adds items back in order from a hard-coded bash array).
-* `helpers/test` - asserts in CI that this tool works properly.
+* `helpers/test.bats` - asserts in CI that this tool works properly.
 
 ## Additional resources
 * [Awesome Dotfiles](https://github.com/webpro/awesome-dotfiles)
