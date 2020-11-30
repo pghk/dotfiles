@@ -1,0 +1,33 @@
+name: dotfiles
+
+on:
+  push:
+    branches: [ macos-11 ]
+  pull_request:
+    branches: [ macos-11 ]
+
+  # Allow this workflow to be run manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  install:
+    name: Setup macOS
+    runs-on: macos-11.0
+    env:
+      # Have macOS report its version as 10.16
+      SYSTEM_VERSION_COMPAT: 1
+    steps:
+      # Check out repository under $GITHUB_WORKSPACE
+      - uses: actions/checkout@v2
+
+      - name: Setup
+        run: |
+          sudo rm -rf /Library/Developer/CommandLineTools
+          brew remove --force $(brew list --formula)
+          ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
+          
+      - name: Stage 1
+        run: helpers/bootstrap.sh
+
+      - name: Test
+        run: helpers/test.bats
