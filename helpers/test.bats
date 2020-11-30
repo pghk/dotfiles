@@ -30,6 +30,3 @@ set -o xtrace
 @test "Terminus is available" {
     command -v terminus
 }
-@test "Drush is available" {
-    command -v drush
-}
