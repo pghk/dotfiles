@@ -5,7 +5,6 @@ set -o errexit -o nounset -o pipefail -o xtrace
 # Symlinks config files, Runs setup scripts, Sets macOS defaults
 # With help from https://github.com/zero-sh/zero.sh
 
-THIS_DIR="$(cd "$(dirname "$0")" && pwd)"
 HOMEBREW_URL="https://raw.githubusercontent.com/Homebrew/install/master/install.sh"
 
 if ! command -v brew >/dev/null; then
@@ -20,4 +19,4 @@ if ! command -v zero >/dev/null; then
     brew install zero-sh/tap/zero
 fi
 
-zero setup "$@" --directory "$THIS_DIR/.."
+zero setup
