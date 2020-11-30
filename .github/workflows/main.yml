@@ -20,12 +20,18 @@ jobs:
       # Check out repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
-      - name: Setup
+      - name: Select xcode
+        run: sudo xcode-select --switch /Applications/Xcode_12.3.app
+
+      - name: Clean for setup
         run: |
-          sudo xcode-select --switch /Applications/Xcode_12.3.app
           brew remove --force $(brew list --formula)
-          ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
-          
+          mv ~/.gitconfig ~/.gitconfig.bak
+          cat ~/.gitconfig.bak
+
+      - name: Install
+        run: ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
+
       - name: Stage 1
         run: helpers/bootstrap.sh
 
