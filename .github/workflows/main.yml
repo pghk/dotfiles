@@ -22,7 +22,6 @@ jobs:
 
       - name: Setup
         run: |
-          sudo rm -rf /Library/Developer/CommandLineTools
           brew remove --force $(brew list --formula)
           ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
           
