@@ -1,7 +1,7 @@
 # .files
 These are my dotfiles. Take anything you want, but at your own risk.
 
-It's not tested yet, or expected to function. Work in progress and all that.
+[![Status](https://github.com/pghk/dotfiles/workflows/dotfiles/badge.svg)](https://github.com/pghk/dotfiles/actions)
 
 ## Overview
 This depends mainly on [Zero.sh](https://github.com/zero-sh/zero.sh), which takes the following (in a pre-defined directory structure, to support multiple configurations):
@@ -12,7 +12,7 @@ This depends mainly on [Zero.sh](https://github.com/zero-sh/zero.sh), which take
 * a `symlinks` folder, containing any items to be placed in the home directory
 
 Other custom scripts include:
-* setting up a [zsh](http://www.zsh.org/) shell, with the [Prezto](https://github.com/sorin-ionescu/prezto) configuration framework
+* setting up a [zsh](https://en.wikipedia.org/wiki/Z_shell) shell, with the [Prezto](https://github.com/sorin-ionescu/prezto) configuration framework
 * using [Mackup](https://github.com/lra/mackup) to sync preferences for a few applications
 
 ## Details
