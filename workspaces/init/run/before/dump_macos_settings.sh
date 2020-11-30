@@ -1,1 +1,1 @@
-../../helpers/dump_macos_settings.sh
+../../../../helpers/dump_macos_settings.sh
