@@ -4,7 +4,7 @@ These are my dotfiles. Take anything you want, but at your own risk.
 It's not tested yet, or expected to function. Work in progress and all that.
 
 ## Overview
-This depends mainly on [Zero.sh](https://github.com/zero-sh/zero.sh) which takes the following (in a pre-defined directory structure, to support multiple configurations):
+This depends mainly on [Zero.sh](https://github.com/zero-sh/zero.sh), which takes the following (in a pre-defined directory structure, to support multiple configurations):
 * a `Brewfile`, which [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle) uses to install:
     * [Homebrew](https://brew.sh/) formulae & casks
     * Applications from the Mac App Store, via [mas-cli](https://github.com/mas-cli/mas)
@@ -32,7 +32,7 @@ git clone https://github.com/pghk/dotfiles.git ~/.dotfiles
 ~/.dotfiles/helpers/bootstrap.sh
 ```
 
-This will install Homebrew & Zero.sh, and then run `zero setup init` customize the command-line and macOS user interfaces, and install essential apps.
+This will install Homebrew & Zero.sh, and then run `zero setup init` to customize the command-line and macOS user interfaces, and install essential apps.
 
 ```
 workspaces/init
