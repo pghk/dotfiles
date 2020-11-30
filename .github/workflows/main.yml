@@ -11,7 +11,7 @@ on:
 
 jobs:
   install:
-    name: Setup macOS
+    name: Test new macOS setup
     runs-on: macos-11.0
     env:
       # Have macOS report its version as 10.16
@@ -29,14 +29,14 @@ jobs:
           mv ~/.gitconfig ~/.gitconfig.bak
           cat ~/.gitconfig.bak
 
-      - name: Install
+      - name: Place installer
         run: ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
 
-      - name: Phase 1
+      - name: Install 1
         run: helpers/bootstrap.sh
 
-      - name: Phase 2
-        run: zero setup shared
+      - name: Install 2
+        run: zero setup custom.shared
 
       - name: Test
         run: helpers/test.bats
