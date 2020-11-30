@@ -1,7 +1,5 @@
 #!/usr/bin/env bats
 
-set -o xtrace
-
 @test "Basic git configuration set" {
     git config core.excludesfile
 }
