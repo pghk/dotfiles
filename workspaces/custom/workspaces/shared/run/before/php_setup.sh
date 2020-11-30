@@ -24,7 +24,7 @@ fi
 put_composer_bins_in_path () {
   CGR_BINS="$(composer config -g home)/vendor/bin"
   for i in "$CGR_BINS"/*; do
-    if [[ ! -e "/usr/local/bin/$i" ]]; then
+    if [[ ! -e "/usr/local/bin/$(basename "$i")" ]]; then
       ln -s "$i" /usr/local/bin/
     fi
   done
