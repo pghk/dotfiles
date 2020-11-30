@@ -10,8 +10,6 @@
 	local LOG_PATH=$(find "$HOME" -maxdepth 1 -type d -name "${LOG_DIR_PRE}*")
 	[ ! -z "$LOG_PATH" ]
     [[ -f "$LOG_PATH/initial.defaults" ]]
-    local UPDATED_LOG=$(find "$LOG_PATH" -maxdepth 1 -type f -name $(date +"%F").*.defaults)
-    [[ -f "$UPDATED_LOG" ]]
 }
 @test "Mackup is available" {
     command -v mackup
