@@ -20,10 +20,10 @@ jobs:
       # Check out repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
-      - name: Select xcode
+      - name: Select Xcode version
         run: sudo xcode-select --switch /Applications/Xcode_12.3.app
 
-      - name: Clean for setup
+      - name: Clean up home directory
         run: |
           brew remove --force $(brew list --formula)
           mv ~/.gitconfig ~/.gitconfig.bak
@@ -32,8 +32,11 @@ jobs:
       - name: Install
         run: ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
 
-      - name: Stage 1
+      - name: Phase 1
         run: helpers/bootstrap.sh
+
+      - name: Phase 2
+        run: zero setup shared
 
       - name: Test
         run: helpers/test.bats
