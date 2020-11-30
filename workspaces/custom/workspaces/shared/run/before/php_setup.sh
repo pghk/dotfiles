@@ -43,7 +43,8 @@ cgr drupal/coder
 put_composer_bins_in_path
 
 # Register Drupal coding standard with PHPCS tool
-if (command -v phpcs >/dev/null && [[ -f ~/.composer/global/drupal/coder/coder_sniffer ]]); then
-  phpcs --config-set installed_paths ~/.composer/global/drupal/coder/coder_sniffer
+INSTALLED_PATH=~/.composer/global/drupal/coder/vendor/drupal/coder/coder_sniffer
+if (command -v phpcs >/dev/null && [[ -d $INSTALLED_PATH ]]); then
+  phpcs --config-set installed_paths $INSTALLED_PATH
   phpcs -i
 fi
