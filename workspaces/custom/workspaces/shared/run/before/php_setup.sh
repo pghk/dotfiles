@@ -21,15 +21,29 @@ if ! command -v composer >/dev/null; then
   install_composer
 fi
 
+put_composer_bins_in_path () {
+  CGR_BINS="$(composer config -g home)/vendor/bin"
+  for i in "$CGR_BINS"/*; do
+    if [[ ! -e "/usr/local/bin/$i" ]]; then
+      ln -s "$i" /usr/local/bin/
+    fi
+  done
+}
+
+# Install consolidation/cgr: a safer alternative to `composer global require`
 if ! command -v cgr >/dev/null; then
   composer global require consolidation/cgr
-  ln -s "$(composer config -g home)/vendor/bin/cgr" /usr/local/bin/
+  put_composer_bins_in_path
 fi
 
+# Install all other composer packages using cgr
 cgr pantheon-systems/terminus
+cgr drupal/coder
 
-# Link composer installed binaries into part of PATH
-CGR_BINS="$(composer config -g home)/vendor/bin"
-for i in "$CGR_BINS"/*; do
-  ln -s "$i" /usr/local/bin/
-done
+put_composer_bins_in_path
+
+# Register Drupal coding standard with PHPCS tool
+if (command -v phpcs >/dev/null && [[ -f ~/.composer/global/drupal/coder/coder_sniffer ]]); then
+  phpcs --config-set installed_paths ~/.composer/global/drupal/coder/coder_sniffer
+  phpcs -i
+fi
