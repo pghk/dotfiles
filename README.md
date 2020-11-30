@@ -17,8 +17,8 @@ Other custom scripts include:
 
 ## Details
 I like to set up a machine in two phases:
-1. Pared-down set of configs that are more essential, or necessitate a reboot after they're added
-2. Larger set of items that might be more specific, or need authentication
+1. Steps that add value quickly, or necessitate a reboot (i.e. tap-to-click, iTerm setup, password manager)
+2. Steps that take time, aren't needed right away, or require authentication (i.e. anything from the App Store)
 
 To support this, the workspaces that `zero` applies live in two groups:
 * `workspaces/init` - for the first phase
