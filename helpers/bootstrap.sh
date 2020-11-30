@@ -19,4 +19,4 @@ if ! command -v zero >/dev/null; then
     brew install zero-sh/tap/zero
 fi
 
-zero setup "$@" --directory "$HOME/.dotfiles"
+zero --help
