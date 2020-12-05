@@ -1,7 +1,7 @@
 # .files
 These are my dotfiles. Take anything you want, but at your own risk.
 
-[![Status](https://github.com/pghk/dotfiles/workflows/dotfiles/badge.svg)](https://github.com/pghk/dotfiles/actions)
+[![Status](https://github.com/pghk/dotfiles/workflows/Tests/badge.svg)](https://github.com/pghk/dotfiles/actions)
 
 ## Overview
 This depends mainly on [Zero.sh](https://github.com/zero-sh/zero.sh), which takes the following (in a pre-defined directory structure, to support multiple configurations):
