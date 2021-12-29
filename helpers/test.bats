@@ -27,3 +27,7 @@
 @test "Terminus is available" {
     command -v terminus
 }
+@test "Auto-pruning of Downloads folder configured with launchd" {
+    run launchctl print gui/"$(id -u "$USER")"/com."$USER".prune_downloads
+    [ "$status" -eq 0 ]
+}
