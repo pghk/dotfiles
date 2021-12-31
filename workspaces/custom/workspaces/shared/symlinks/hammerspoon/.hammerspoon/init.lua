@@ -1,6 +1,6 @@
 hs.logger.defaultLogLevel = 'info'
 defaultGridMargins = "8,8"
-hs.window.animationDuration = 0.05
+hs.window.animationDuration = 0
 
 -- modifier keys (note: [ hyper + . ] is reserved for macos sysdiagnose!
 mash = {"shift", "ctrl", "alt"}
@@ -16,7 +16,7 @@ local reloadConfig = function()
     }
   ):send()
 end
-hs.hotkey.bind(mash, "f13", function() reloadConfig() end)
+hs.hotkey.bind(mash, "f12", function() reloadConfig() end)
 
 --[[ 
 
@@ -35,8 +35,8 @@ local singleUseActions = {
   { mash, ',', function() smartResize({w=6, h=4}) end }, -- small, landscape
   { mash, '.', function() smartResize({w=4, h=6}) end }, -- small, portrait
   -- change window grids:
-  { mash, '[', function() setAllGrids(1) end }, -- default
-  { mash, ']', function() setAllGrids(2) end }, -- 2x (for centering)
+  { mash, '[', function() setAllGrids(1, true) end }, -- default
+  { mash, ']', function() setAllGrids(2, true) end }, -- 2x (for centering)
   -- move window to next screen:
   { mash, '\\', function() moveWindowToNextScreen() end }
 }
