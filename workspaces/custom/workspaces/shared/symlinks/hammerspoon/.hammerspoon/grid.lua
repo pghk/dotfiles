@@ -22,13 +22,22 @@ For example, on a 16x9 screen:
   - 1x: 16 columns by 9 rows
   - 2x: 32 columns by 18 rows
 ]]
-function setAllGrids(factor)
+function setAllGrids(factor, report)
+  report = report or false
   for key, screen in pairs(hs.screen.allScreens()) do
     local newGrid = makeGrid(screen)
     newGrid.w = newGrid.w * factor
     newGrid.h = newGrid.h * factor
     hs.grid.setGrid(newGrid, screen)
-    hs.alert.show(' ' .. newGrid.w .. ' x ' .. newGrid.h, screen)
+    if report then
+      default = newGrid.w .. ' x ' .. newGrid.h
+      if not (type(report) == "string") then
+        report = default
+      else
+        report = report .. ' ' .. default
+      end
+      hs.alert.show(report, screen)
+    end
   end
 end
 
