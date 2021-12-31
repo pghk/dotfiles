@@ -5,20 +5,17 @@ set -o errexit -o nounset -o pipefail -o xtrace
 #    @ https://discussions.apple.com/thread/7538664
 
 apps=(
-    "/Applications/Airmail 3.app"
-    "/Applications/Siri.app"
+    "/Applications/Hey.app"
     "/Applications/iTerm.app"
-    "/Applications/Tweetbot.app"
-    "/Applications/PhpStorm.app"
+    "/Applications/Safari.app"
+    "/System/Applications/Messages.app"
+    "/Applications/Twitter.app"
+    "/Applications/Airmail.app"
+    "/System/Applications/Photos.app"
     "/Applications/Bear.app"
-    "/Applications/Trello.app"
-    "/Applications/OmniFocus.app"
-    "/Applications/Photos.app"
-    "/Applications/Messages.app"
-    "/Applications/Slack.app"
-    "/Applications/Firefox.app"
-    "/Applications/iTunes.app"
-    "/Applications/1Password 7.app"
+    "/System/Applications/Music.app"
+    "/Applications/IntelliJ IDEA.app"
+    "/Applications/Firefox Developer Edition.app"
   )
 
 read -p "This will wipe out your existing dock. Continue? " -r
