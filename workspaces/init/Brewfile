@@ -4,11 +4,28 @@ tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
 
+# Password manager that keeps all passwords secure behind one password
+cask "1password"
+
+# Application launcher and productivity software
+cask "alfred"
+
+# Client for the Dropbox cloud storage service
+cask "dropbox"
+
 # Bash Automated Testing System
 brew "bats-core"
 
+# Fonts
+cask "font-jetbrains-mono-nerd-font"
+cask "font-mononoki-nerd-font"
+cask "font-ubuntu-mono-nerd-font"
+
 # Distributed revision control system
 brew "git"
+
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
 
 # Lightweight and flexible command-line JSON processor
 brew "jq"
@@ -27,10 +44,3 @@ brew "wget"
 
 # UNIX shell (command interpreter)
 brew "zsh"
-
-cask "1password"
-cask "alfred"
-cask "dropbox"
-cask "font-mononoki-nerd-font"
-cask "font-ubuntu-mono-nerd-font"
-cask "iterm2"
