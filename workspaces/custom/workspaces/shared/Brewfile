@@ -1,2 +1,145 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-drivers"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+
+# Search tool like grep, but optimized for programmers
+brew "ack"
+
+# Collection of GNU find, xargs, and locate
+brew "findutils"
+
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
+
+# GNU Pretty Good Privacy (PGP) package
+brew "gnupg"
+
+# GNU grep, egrep and fgrep
+brew "grep"
+
+# Popular GNU data compression program
+brew "gzip"
+
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
+
 # Keep your Mac's application settings in sync
 brew "mackup"
+
+# Collection of tools that nobody wrote when UNIX was young
+brew "moreutils"
+
+# Platform built on V8 to build network applications
+brew "node"
+
+# OpenBSD freely-licensed SSH connectivity tools
+brew "openssh"
+
+# Swiss-army knife of markup format conversion
+brew "pandoc"
+
+# Perl-powered file rename script with many helpful built-ins
+brew "rename"
+
+# Powerful, clean, object-oriented scripting language
+brew "ruby"
+
+# Change macOS audio source from the command-line
+brew "switchaudio-osx"
+
+# Send macOS User Notifications from the command-line
+brew "terminal-notifier"
+
+# CLI tool that moves files or folder to the trash
+brew "trash"
+
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+
+# Extract, view, and test RAR archives
+brew "unrar"
+
+# Utilities to create and convert Web Open Font File (WOFF) files
+brew "woff2"
+
+# JavaScript package manager
+brew "yarn"
+
+# New zlib (gzip, deflate) compatible compressor
+brew "zopfli"
+
+# Text editor
+cask "atom"
+
+# Menu bar icon organizer
+cask "bartender"
+
+# Text, code, and markup editor
+cask "bbedit"
+
+# Calendar software
+cask "fantastical"
+
+# Web browsers
+cask "firefox"
+cask "firefox-developer-edition"
+cask "google-chrome"
+
+# Desktop automation application
+cask "hammerspoon"
+
+# Java IDE by JetBrains
+cask "intellij-idea"
+
+# System monitoring app
+cask "istat-menus"
+
+# Spot and merge differences in text and image files or folders
+cask "kaleidoscope"
+
+# Open-source screen recorder built with web technology
+cask "kap"
+
+# Keyboard customizer
+cask "karabiner-elements"
+
+# Collaboration platform for API development
+cask "postman"
+
+# Screen capture tool with mark up and sharing features
+cask "skitch"
+
+# Team communication and collaboration software
+cask "slack"
+
+# Native GUI tool for relational databases
+cask "tableplus"
+
+# Git client focusing on power and productivity
+cask "tower"
+
+# File transfer application
+cask "transmit"
+
+# Open-source code editor
+cask "visual-studio-code"
+
+# Tools for measuring, inspecting & testing on-screen graphics and layouts
+cask "xscope"
+
+# Video communication and virtual meeting platform
+cask "zoom"
+
+mas "Airmail", id: 918858936
+
+mas "Irvue", id: 1039633667
+mas "Numbers", id: 409203825
+mas "OmniFocus", id: 1346203938
+mas "PopClip", id: 445189367
+mas "Trello", id: 1278508951
+mas "Xcode", id: 497799835

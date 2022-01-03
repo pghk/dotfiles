@@ -5,17 +5,8 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 
-# Search tool like grep, but optimized for programmers
-brew "ack"
-
-# GNU File, Shell, and Text utilities
-brew "coreutils"
-
 # Get/set bluetooth power and discoverable state
 brew "blueutil"
-
-# Command-line interface for SQLite
-brew "sqlite"
 
 # Command-line tool to interact with exercism.io
 brew "exercism"
@@ -23,151 +14,41 @@ brew "exercism"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
 
-# Collection of GNU find, xargs, and locate
-brew "findutils"
-
-# Distributed revision control system
-brew "git"
-
-# Syntax-highlighting pager for git and diff output
-brew "git-delta"
-
-# GNU implementation of the famous stream editor
-brew "gnu-sed"
-
-# GNU Pretty Good Privacy (PGP) package
-brew "gnupg"
-
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 
-# GNU grep, egrep and fgrep
-brew "grep"
-
-# Popular GNU data compression program
-brew "gzip"
-
-# User-friendly cURL replacement (command-line HTTP client)
-brew "httpie"
-
-# Lightweight and flexible command-line JSON processor
-brew "jq"
+# GitHub Markdown previewer
+brew "grip"
 
 # Sophisticated file transfer program
 brew "lftp"
 
-# Keep your Mac's application settings in sync
-brew "mackup"
-
-# Mac App Store command-line interface
-brew "mas"
-
-# Collection of tools that nobody wrote when UNIX was young
-brew "moreutils"
-
-# Platform built on V8 to build network applications
-brew "node"
-
-# OpenBSD freely-licensed SSH connectivity tools
-brew "openssh"
-
-# Swiss-army knife of markup format conversion
-brew "pandoc"
-
-# Perl-powered file rename script with many helpful built-ins
-brew "rename"
-
-# Powerful, clean, object-oriented scripting language
-brew "ruby"
-
-# Terminal multiplexer with VT100/ANSI terminal emulation
-brew "screen"
-
-# Add a public key to a remote machine's authorized_keys file
-brew "ssh-copy-id", link: true
-
-# Change macOS audio source from the command-line
-brew "switchaudio-osx"
-
-# Send macOS User Notifications from the command-line
-brew "terminal-notifier"
-
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
-
-# Extract, view, and test RAR archives
-brew "unrar"
-
-# Vi 'workalike' with many additional features
-brew "vim"
-
-# Internet file retriever
-brew "wget"
-
-# Utilities to create and convert Web Open Font File (WOFF) files
-brew "woff2"
-
-# JavaScript package manager
-brew "yarn"
-
-# New zlib (gzip, deflate) compatible compressor
-brew "zopfli"
-
-# UNIX shell (command interpreter)
-brew "zsh"
-
-cask "1password"
-cask "alfred"
-cask "atom"
-cask "bartender"
-cask "bbedit"
+# Disk space visualizer
 cask "daisydisk"
-cask "discord"
-cask "dropbox"
-cask "evernote"
-cask "fantastical"
-cask "firefox"
-cask "firefox-developer-edition"
-cask "font-firacode-nerd-font"
-cask "font-input"
-cask "font-jetbrainsmono-nerd-font"
-cask "font-mononoki-nerd-font"
-cask "font-open-sans"
-cask "font-roboto"
-cask "font-ubuntumono-nerd-font"
-cask "google-chrome"
-cask "hey"
-cask "intellij-idea"
-cask "istat-menus"
-cask "iterm2"
-cask "kaleidoscope"
-cask "kap"
-cask "karabiner-elements"
-cask "netnewswire"
-cask "numi"
-cask "openemu"
-cask "postman"
-cask "skitch"
-cask "slack"
-cask "spotify"
-cask "tableplus"
-cask "tower"
-cask "transmit"
-cask "visual-studio-code"
-cask "xscope"
-cask "zoomus"
 
-mas "1Blocker", id: 1107421413
-mas "Airmail", id: 918858936
+# Voice and text chat software
+cask "discord"
+
+# App for note taking, organizing, task lists, and archiving
+cask "evernote"
+
+# Access the HEY email service
+cask "hey"
+
+# Free and open-source RSS reader
+cask "netnewswire"
+
+# Calculator and converter application
+cask "numi"
+
+# Retro video game emulation
+cask "openemu"
+
+mas "1Blocker", id: 1365531024
 mas "Apple Configurator 2", id: 1037126344
 mas "Bear", id: 1091189122
-mas "Deliveries", id: 924726344
-mas "Irvue", id: 1039633667
-mas "Numbers", id: 409203825
-mas "OmniFocus", id: 1346203938
-mas "PopClip", id: 445189367
-mas "Raindrop.io for Safari", id: 957810159
+mas "Deliveries", id: 290986013
+mas "Save to Raindrop.io", id: 1549370672
 mas "Todoist", id: 585829637
-mas "Trello", id: 1278508951
 mas "Tweetbot", id: 1384080005
 mas "Twitter", id: 1482454543
