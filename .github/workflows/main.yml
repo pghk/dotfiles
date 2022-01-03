@@ -12,7 +12,7 @@ on:
 jobs:
   install:
     name: New macOS setup
-    runs-on: macos-11.0
+    runs-on: macos-11
     env:
       # Have macOS report its version as 10.16
       SYSTEM_VERSION_COMPAT: 1
@@ -20,12 +20,9 @@ jobs:
       # Check out repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
-      - name: Select Xcode version
-        run: sudo xcode-select --switch /Applications/Xcode_12.3.app
-
       - name: Clean up home directory
         run: |
-          brew remove --force $(brew list --formula)
+          brew uninstall --ignore-dependencies $(brew list --formula)
           mv ~/.gitconfig ~/.gitconfig.bak
           cat ~/.gitconfig.bak
 
