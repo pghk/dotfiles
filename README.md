@@ -42,10 +42,13 @@ workspaces/init
 │   ├── after
 │       ├── configure_shell.sh
 │   └── before
+│       ├── php_setup.sh
 │       └── setup_shell.sh
 └── symlinks
     ├── git
+    ├── hammerspoon
     ├── iterm
+    ├── mackup
     ├── vim
     └── zsh
 ```
@@ -59,12 +62,6 @@ workspaces/custom/workspaces
 │   └── Brewfile
 ├── shared
 │   ├── Brewfile
-│   ├── run
-│   │   └── before
-│   │       └── php_setup.sh
-│   └── symlinks
-│       ├── hammerspoon
-│       └── mackup
 └── work
     └── Brewfile
 ```
