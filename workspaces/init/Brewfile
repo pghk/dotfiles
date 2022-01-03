@@ -30,6 +30,9 @@ cask "iterm2"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 
+# Keep your Mac's application settings in sync
+brew "mackup"
+
 # Mac App Store command-line interface
 brew "mas"
 
