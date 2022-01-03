@@ -8,7 +8,7 @@ This depends mainly on [Zero.sh](https://github.com/zero-sh/zero.sh), which take
 * a `Brewfile`, which [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle) uses to install:
     * [Homebrew](https://brew.sh/) formulae & casks
     * Applications from the Mac App Store, via [mas-cli](https://github.com/mas-cli/mas)
-* a `defaults.yml` file, defining a macOS UI configuration
+* a `defaults.yaml` file, defining a macOS UI configuration
 * a `symlinks` folder, containing any items to be placed in the home directory
 
 Other custom scripts include:
@@ -37,7 +37,7 @@ This will install Homebrew & Zero.sh, and then run `zero setup init` to customiz
 ```
 workspaces/init
 ├── Brewfile
-├── defaults.yml
+├── defaults.yaml
 ├── run
 │   ├── after
 │       ├── configure_shell.sh

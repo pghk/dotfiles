@@ -1,17 +1,33 @@
 NSGlobalDomain:
-  InitialKeyRepeat: 15
+  # Keyboard > Keyboard > Key Repeat
   KeyRepeat: 2
+  # Keyboard > Keyboard > Delay Until Repeat
+  InitialKeyRepeat: 15
+  # Keyboard > Shortcuts > Use keyboard navigation to move focus between controls
+  AppleKeyboardUIMode: 2
+  # Trackpad > Point & Click > Tracking Speed
   com.apple.trackpad.scaling: 1
+  # Mouse > Tracking speed
+  com.apple.mouse.scaling: 0.6875
+  # Mouse > Scrolling speed
+  com.apple.scrollwheel.scaling: 0.75
 
 com.apple.AppleMultitouchTrackpad:
+  # Trackpad > Point & Click > Tap to click
   Clicking: 1
+  # Trackpad > Point & Click > Secondary click: Click or tap with two fingers
   TrackpadCornerSecondaryClick: 0
   TrackpadRightClick: 1
+  # Accessibility > Pointer Control > Trackpad Options > Enable dragging: three finger drag
   TrackpadThreeFingerDrag: true
 
 com.apple.Safari:
   # Safari > Preferences > Advanced > Show Develop menu in menu bar
-  IncludeInternalDebugMenu: true
+  com.apple.Safari.IncludeDevelopMenu: true
+  AutoFillCreditCardData: false
+  AutoFillMiscellaneousForms: false
+  AutoFillPasswords: false
+  ShowOverlayStatusBar: true
 
 com.apple.desktopservices:
   # Disable .DS_Store files on network drives.
@@ -23,7 +39,8 @@ com.apple.desktopservices:
 com.apple.dock:
   # System Preferences > Dock > Automatically hide and show the Dock.
   autohide: true
-
+  largesize: 128
+  magnification: 0
   # System Preferences > Dock > Minimize windows into application icon.
   minimize-to-application: true
 
