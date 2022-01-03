@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [ macos-11 ]
+    branches: [ dev, macos-11 ]
   pull_request:
     branches: [ macos-11 ]
 
@@ -29,11 +29,8 @@ jobs:
       - name: Place installer
         run: ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
 
-      - name: Install 1
+      - name: Install
         run: helpers/bootstrap.sh
-
-      - name: Install 2
-        run: zero setup custom.shared
 
       - name: Test
         run: helpers/test.bats

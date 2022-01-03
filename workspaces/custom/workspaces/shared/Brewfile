@@ -28,9 +28,6 @@ brew "gzip"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
 
-# Keep your Mac's application settings in sync
-brew "mackup"
-
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
 
@@ -136,7 +133,6 @@ cask "xscope"
 cask "zoom"
 
 mas "Airmail", id: 918858936
-
 mas "Irvue", id: 1039633667
 mas "Numbers", id: 409203825
 mas "OmniFocus", id: 1346203938
