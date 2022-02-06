@@ -4,24 +4,11 @@
 <dict>
 	<key>Extension Description</key>
 	<string>Make the selected text all lowercase.</string>
-	<key>Extension Name</key>
-	<string>Lowercase</string>
 	<key>Extension Identifier</key>
 	<string>com.pilotmoon.popclip.extension.lowercase</string>
-	<key>Actions</key>
-	<array>
-		<dict>
-			<key>Image File</key>
-			<string>lowercase.png</string>
-			<key>Shell Script File</key>
-			<string>lowercase.php</string>
-			<key>Script Interpreter</key>
-			<string>/usr/bin/php</string>
-			<key>Title</key>
-			<string>Lowercase</string>
-			<key>After</key>
-			<string>paste-result</string>			
-		</dict>
-	</array>
+	<key>Extension Name</key>
+	<string>Lowercase</string>
+	<key>Required Software Version</key>
+	<integer>3543</integer>
 </dict>
 </plist>
