@@ -78,11 +78,21 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
-			<string>com.devcraft-tv.popclip.extension.unix-timestamp</string>
+			<string>com.brettterpstra.popclip.extension.copyplus</string>
 			<key>Extension Name</key>
-			<string>Unix Timestamp Converter</string>
+			<string>CopyPLUS</string>
 			<key>Package Name</key>
-			<string>UnixTimestamp.popclipext</string>
+			<string>CopyPlus.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.urlencode</string>
+			<key>Extension Name</key>
+			<string>URL Encode</string>
+			<key>Package Name</key>
+			<string>URLEncode.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
@@ -93,16 +103,6 @@
 			<string>Uppercase</string>
 			<key>Package Name</key>
 			<string>Uppercase.popclipext</string>
-		</dict>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Extension Identifier</key>
-			<string>com.brettterpstra.popclip.extension.copyplus</string>
-			<key>Extension Name</key>
-			<string>CopyPLUS</string>
-			<key>Package Name</key>
-			<string>CopyPlus.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
