@@ -42,6 +42,15 @@ return require('packer').startup(function(use)
         end
     }
 
+    -- Add/change/delete surrounding delimiter pairs
+    use({
+        "kylechui/nvim-surround",
+        tag = "*",
+        config = function()
+            require("nvim-surround").setup({ })
+        end
+    })
+
     use {
       'VonHeikemen/lsp-zero.nvim',
       requires = {
