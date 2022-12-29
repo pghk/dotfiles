@@ -8,6 +8,16 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.sort</string>
+			<key>Extension Name</key>
+			<string>Sort</string>
+			<key>Package Name</key>
+			<string>Sort.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
 			<string>com.pilotmoon.popclip.extension.getip</string>
 			<key>Extension Name</key>
 			<string>Get IP</string>
@@ -58,11 +68,11 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
-			<string>com.pilotmoon.popclip.extension.wordcount</string>
+			<string>com.pilotmoon.popclip.extension.htmlencode</string>
 			<key>Extension Name</key>
-			<string>Word Count</string>
+			<string>HTML Encode</string>
 			<key>Package Name</key>
-			<string>WordCount.popclipext</string>
+			<string>HTMLEncode.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
@@ -78,31 +88,31 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
-			<string>com.brettterpstra.popclip.extension.copyplus</string>
-			<key>Extension Name</key>
-			<string>CopyPLUS</string>
-			<key>Package Name</key>
-			<string>CopyPlus.popclipext</string>
-		</dict>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Extension Identifier</key>
-			<string>com.pilotmoon.popclip.extension.urlencode</string>
-			<key>Extension Name</key>
-			<string>URL Encode</string>
-			<key>Package Name</key>
-			<string>URLEncode.popclipext</string>
-		</dict>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Extension Identifier</key>
 			<string>com.pilotmoon.popclip.extension.uppercase</string>
 			<key>Extension Name</key>
 			<string>Uppercase</string>
 			<key>Package Name</key>
 			<string>Uppercase.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.wordcount</string>
+			<key>Extension Name</key>
+			<string>Word Count</string>
+			<key>Package Name</key>
+			<string>WordCount.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.brettterpstra.popclip.extension.copyplus</string>
+			<key>Extension Name</key>
+			<string>CopyPLUS</string>
+			<key>Package Name</key>
+			<string>CopyPlus.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
@@ -118,11 +128,11 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
-			<string>com.pilotmoon.popclip.extension.htmlencode</string>
+			<string>com.pilotmoon.popclip.extension.urlencode</string>
 			<key>Extension Name</key>
-			<string>HTML Encode</string>
+			<string>URL Encode</string>
 			<key>Package Name</key>
-			<string>HTMLEncode.popclipext</string>
+			<string>URLEncode.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
@@ -133,6 +143,16 @@
 			<string>Quotes</string>
 			<key>Package Name</key>
 			<string>Quotes.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pghk.popclip.extension.unix-time</string>
+			<key>Extension Name</key>
+			<string>Unix Time</string>
+			<key>Package Name</key>
+			<string>UnixTime.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
