@@ -47,3 +47,6 @@ brew "wget"
 
 # UNIX shell (command interpreter)
 brew "zsh"
+
+# GPU-based terminal emulator
+cask "kitty"
