@@ -8,9 +8,9 @@ api.nvim_create_autocmd("TextYankPost", {
 })
 
 
--- Disable colorcolumn in NetRW
+-- Disable colorcolumn when not necessary 
 api.nvim_create_autocmd("FileType", {
-  pattern = "netrw",
+  pattern = { "netrw", "gitcommit" },
   command = "set colorcolumn=",
 })
 
