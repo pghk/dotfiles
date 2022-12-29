@@ -31,6 +31,9 @@ brew "httpie"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
 
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+
 # Platform built on V8 to build network applications
 brew "node"
 
@@ -42,6 +45,9 @@ brew "pandoc"
 
 # Perl-powered file rename script with many helpful built-ins
 brew "rename"
+
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
 
 # Powerful, clean, object-oriented scripting language
 brew "ruby"
