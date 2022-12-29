@@ -1,0 +1,27 @@
+workflows:
+  new-macos-setup:
+    name: Tests
+    instance_type: mac_mini_m1
+    max_build_duration: 60
+    environment:
+      xcode: latest
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: macos-*
+          include: true
+          source: false
+      cancel_previous_builds: true
+    scripts:
+      - name: Clean up home directory
+        script: |
+          brew uninstall --ignore-dependencies $(brew list --formula)
+          mv ~/.gitconfig ~/.gitconfig.bak
+          cat ~/.gitconfig.bak
+      - name: Place installer
+        script: ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
+      - name: Install
+        script: helpers/bootstrap.sh
+      - name: Test
+        script: helpers/test.bats
