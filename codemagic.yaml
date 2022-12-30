@@ -20,7 +20,7 @@ workflows:
           mv ~/.gitconfig ~/.gitconfig.bak
           cat ~/.gitconfig.bak
       - name: Place installer
-        script: ln -s $GITHUB_WORKSPACE ~/.dotfiles && ls -la ~
+        script: ln -s $CM_BUILD_DIR ~/.dotfiles && ls -la ~
       - name: Install
         script: helpers/bootstrap.sh
       - name: Test
