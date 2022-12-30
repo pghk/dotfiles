@@ -38,6 +38,8 @@ local function toggle()
     app:activate()
     return
   end
+
+  app:activate()
 end
 
 return { toggle = toggle }
