@@ -32,9 +32,6 @@ cask "discord"
 # App for note taking, organizing, task lists, and archiving
 cask "evernote"
 
-# Access the HEY email service
-cask "hey"
-
 # Free and open-source RSS reader
 cask "netnewswire"
 
@@ -44,11 +41,16 @@ cask "numi"
 # Retro video game emulation
 cask "openemu"
 
+# Video communication and virtual meeting platform
+cask "zoom"
+
+# Temporary makeshift alias for the video communication tool Zoom
+cask "zoomus"
+
 mas "1Blocker", id: 1365531024
-mas "Apple Configurator 2", id: 1037126344
+mas "Apple Configurator", id: 1037126344
 mas "Bear", id: 1091189122
 mas "Deliveries", id: 290986013
+mas "MusicSmart", id: 1512195368
 mas "Save to Raindrop.io", id: 1549370672
 mas "Todoist", id: 585829637
-mas "Tweetbot", id: 1384080005
-mas "Twitter", id: 1482454543
