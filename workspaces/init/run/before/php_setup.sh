@@ -32,21 +32,7 @@ put_composer_bins_in_path () {
   done
 }
 
-# Install consolidation/cgr: a safer alternative to `composer global require`
-if ! command -v cgr >/dev/null; then
-  composer global require consolidation/cgr
-  put_composer_bins_in_path
-fi
-
-# Install all other composer packages using cgr
-cgr pantheon-systems/terminus
-cgr drupal/coder
+composer global require pantheon-systems/terminus
 
 put_composer_bins_in_path
 
-# Register Drupal coding standard with PHPCS tool
-INSTALLED_PATH=~/.composer/global/drupal/coder/vendor/drupal/coder/coder_sniffer
-if (command -v phpcs >/dev/null && [[ -d $INSTALLED_PATH ]]); then
-  phpcs --config-set installed_paths $INSTALLED_PATH
-  phpcs -i
-fi
