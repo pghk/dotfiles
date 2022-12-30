@@ -2,11 +2,14 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
 tap "homebrew/core"
 
 # Search tool like grep, but optimized for programmers
 brew "ack"
 
+# Get/set bluetooth power and discoverable state
+brew "blueutil"
 # Collection of GNU find, xargs, and locate
 brew "findutils"
 
@@ -55,7 +58,8 @@ brew "ruby"
 # Change macOS audio source from the command-line
 brew "switchaudio-osx"
 
-# Send macOS User Notifications from the command-linebrew "terminal-notifier"
+# Send macOS User Notifications from the command-line
+brew "terminal-notifier"
 
 # CLI tool that moves files or folder to the trash
 brew "trash"
@@ -87,9 +91,13 @@ cask "bbedit"
 # Calendar software
 cask "fantastical"
 
-# Web browsers
+# Web browser
 cask "firefox"
+
+# Web browser
 cask "firefox-developer-edition"
+
+# Web browser
 cask "google-chrome"
 
 # Desktop automation application
@@ -97,7 +105,6 @@ cask "hammerspoon"
 
 # Java IDE by JetBrains
 cask "intellij-idea"
-
 # System monitoring app
 cask "istat-menus"
 
@@ -107,8 +114,7 @@ cask "kaleidoscope"
 # Open-source screen recorder built with web technology
 cask "kap"
 
-# Keyboard customizer
-cask "karabiner-elements"
+# Keyboard customizercask "karabiner-elements"
 
 # Collaboration platform for API development
 cask "postman"
@@ -116,8 +122,7 @@ cask "postman"
 # Screen capture tool with mark up and sharing features
 cask "skitch"
 
-# Team communication and collaboration software
-cask "slack"
+# Team communication and collaboration softwarecask "slack"
 
 # Native GUI tool for relational databases
 cask "tableplus"
@@ -125,8 +130,7 @@ cask "tableplus"
 # Git client focusing on power and productivity
 cask "tower"
 
-# File transfer application
-cask "transmit"
+# File transfer applicationcask "transmit"
 
 # Open-source code editor
 cask "visual-studio-code"
@@ -134,9 +138,8 @@ cask "visual-studio-code"
 # Tools for measuring, inspecting & testing on-screen graphics and layouts
 cask "xscope"
 
-# Video communication and virtual meeting platform
-cask "zoom"
 
+mas "1Password for Safari", id: 1569813296
 mas "Airmail", id: 918858936
 mas "Irvue", id: 1039633667
 mas "Numbers", id: 409203825
