@@ -19,4 +19,16 @@ if ! command -v zero >/dev/null; then
     brew install zero-sh/tap/zero
 fi
 
-zero setup init
+if $CI; then
+    xcode-select --install
+    softwareupdate -i "Command Line Tools for Xcode-14.2" 
+    brew config
+    zero bundle init
+    zero apply-defaults init
+    zero apply-symlinks init
+    zero run-scripts init
+fi
+
+if ! $CI; then
+    zero setup init
+fi
