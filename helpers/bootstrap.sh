@@ -19,4 +19,10 @@ if ! command -v zero >/dev/null; then
     brew install zero-sh/tap/zero
 fi
 
-zero setup init
+if $CI; then
+    no | zero setup init
+fi
+
+if ! $CI; then
+    zero setup init
+fi
