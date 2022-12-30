@@ -55,8 +55,7 @@ brew "ruby"
 # Change macOS audio source from the command-line
 brew "switchaudio-osx"
 
-# Send macOS User Notifications from the command-line
-brew "terminal-notifier"
+# Send macOS User Notifications from the command-linebrew "terminal-notifier"
 
 # CLI tool that moves files or folder to the trash
 brew "trash"
