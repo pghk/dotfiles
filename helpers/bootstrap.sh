@@ -20,7 +20,10 @@ if ! command -v zero >/dev/null; then
 fi
 
 if $CI; then
-    yes | zero setup init
+    zero bundle init
+    zero apply-defaults init
+    zero apply-symlinks init
+    zero run-scripts init
 fi
 
 if ! $CI; then
