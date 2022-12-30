@@ -20,7 +20,7 @@ if ! command -v zero >/dev/null; then
 fi
 
 if $CI; then
-    no | zero setup init
+    yes | zero setup init
 fi
 
 if ! $CI; then
