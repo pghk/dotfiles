@@ -3,14 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>Extension Description</key>
-	<string>Percent-encode or decode the selected text.</string>
+	<string>Start each selected word with a capital letter.</string>
 	<key>Extension Identifier</key>
-	<string>com.pilotmoon.popclip.extension.urlencode</string>
+	<string>com.pilotmoon.popclip.extension.capitalize</string>
 	<key>Extension Name</key>
-	<string>URL Encode</string>
-	<key>Extension Image File</key>
-	<string>percent-outline.png</string>
+	<string>Capitalize Words</string>
 	<key>Required Software Version</key>
-	<integer>3510</integer>
+	<integer>3543</integer>
 </dict>
 </plist>

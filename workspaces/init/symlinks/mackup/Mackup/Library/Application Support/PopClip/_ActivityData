@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>build-1004069</key>
+	<dict>
+		<key>decisions</key>
+		<dict>
+			<key>com.apple.dock</key>
+			<array>
+				<string>app 0 app+blocked-apps [app:com.apple.dock]</string>
+			</array>
+		</dict>
+		<key>unclassified-cursors</key>
+		<dict/>
+	</dict>
+</dict>
+</plist>

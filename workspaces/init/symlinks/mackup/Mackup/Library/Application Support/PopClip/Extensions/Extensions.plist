@@ -8,11 +8,81 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.sentence-case</string>
+			<key>Extension Name</key>
+			<string>Sentence Case</string>
+			<key>Package Name</key>
+			<string>SentenceCase.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.hyphenate</string>
+			<key>Extension Name</key>
+			<string>Hyphenate</string>
+			<key>Package Name</key>
+			<string>Hyphenate.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.underscore</string>
+			<key>Extension Name</key>
+			<string>Underscore</string>
+			<key>Package Name</key>
+			<string>Underscore.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.sort</string>
+			<key>Extension Name</key>
+			<string>Sort</string>
+			<key>Package Name</key>
+			<string>Sort.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.capitalize</string>
+			<key>Extension Name</key>
+			<string>Capitalize</string>
+			<key>Package Name</key>
+			<string>Capitalize.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
 			<string>com.pilotmoon.popclip.extension.getip</string>
 			<key>Extension Name</key>
 			<string>Get IP</string>
 			<key>Package Name</key>
 			<string>GetIP.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.remove-spaces</string>
+			<key>Extension Name</key>
+			<string>Remove Spaces</string>
+			<key>Package Name</key>
+			<string>RemoveSpaces.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.code-case</string>
+			<key>Extension Name</key>
+			<string>Coding Cases</string>
+			<key>Package Name</key>
+			<string>CodeCase.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
@@ -48,41 +118,11 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
-			<string>com.brettterpstra.popclip.extension.wrapper</string>
+			<string>com.pghk.popclip.extension.unix-time</string>
 			<key>Extension Name</key>
-			<string>Wrappers</string>
+			<string>Unix Time</string>
 			<key>Package Name</key>
-			<string>Wrappers.popclipext</string>
-		</dict>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Extension Identifier</key>
-			<string>com.pilotmoon.popclip.extension.wordcount</string>
-			<key>Extension Name</key>
-			<string>Word Count</string>
-			<key>Package Name</key>
-			<string>WordCount.popclipext</string>
-		</dict>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Extension Identifier</key>
-			<string>com.brettterpstra.popclip.extension.comment</string>
-			<key>Extension Name</key>
-			<string>Comment</string>
-			<key>Package Name</key>
-			<string>Comment.popclipext</string>
-		</dict>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Extension Identifier</key>
-			<string>com.brettterpstra.popclip.extension.copyplus</string>
-			<key>Extension Name</key>
-			<string>CopyPLUS</string>
-			<key>Package Name</key>
-			<string>CopyPlus.popclipext</string>
+			<string>UnixTime.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
@@ -108,21 +148,31 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
-			<string>com.brettterpstra.popclip.extension.DefineAbbr</string>
-			<key>Extension Name</key>
-			<string>Define Abbr</string>
-			<key>Package Name</key>
-			<string>DefineAbbr.popclipext</string>
-		</dict>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Extension Identifier</key>
 			<string>com.pilotmoon.popclip.extension.htmlencode</string>
 			<key>Extension Name</key>
 			<string>HTML Encode</string>
 			<key>Package Name</key>
 			<string>HTMLEncode.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.wordcount</string>
+			<key>Extension Name</key>
+			<string>Word Count</string>
+			<key>Package Name</key>
+			<string>WordCount.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.slugify</string>
+			<key>Extension Name</key>
+			<string>Slugify</string>
+			<key>Package Name</key>
+			<string>Slugify.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
