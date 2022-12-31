@@ -1,5 +1,7 @@
 [include]
 	path = ~/.gitconfig_local
+[pull]
+	ff = only
 
 [init]
 	templateDir = ~/.git_template/
