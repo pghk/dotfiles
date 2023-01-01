@@ -19,4 +19,13 @@ if ! command -v zero >/dev/null; then
     brew install zero-sh/tap/zero
 fi
 
-zero setup init
+if $CI; then
+    zero bundle init
+    zero apply-defaults init
+    zero apply-symlinks init
+    zero run-scripts init
+fi
+
+if ! $CI; then
+    zero setup init
+fi
