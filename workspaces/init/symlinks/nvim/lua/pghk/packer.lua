@@ -41,6 +41,7 @@ return require('packer').startup(function(use)
     use('tpope/vim-fugitive') -- Git integration
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
     use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+    use 'goolord/alpha-nvim'
 
     -- "gc" to comment visual regions/lines
     use {
