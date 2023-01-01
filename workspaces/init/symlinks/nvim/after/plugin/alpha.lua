@@ -36,6 +36,3 @@ dashboard.section.footer.val = {
 	""
 }
 alpha.setup(dashboard.config)
-vim.cmd([[
-    autocmd FileType alpha setlocal nofoldenable
-]])
