@@ -14,6 +14,25 @@ local function openWindow (app)
   setPosition(window)
 end
 
+local function ensureOnCurrentScreen (window)
+  local thisScreen = hs.screen.mainScreen()
+  local windowScreen = window:screen()
+  if windowScreen ~= thisScreen then
+    window:moveToScreen(thisScreen)
+  end
+end
+
+local function ensureInCurrentSpace (window)
+  local thisSpace = hs.spaces.focusedSpace()
+  local windowSpaces = hs.spaces.windowSpaces(window)
+  if windowSpaces then
+    local spaceOfWindow = windowSpaces[1]
+    if spaceOfWindow ~= thisSpace then
+      hs.spaces.moveWindowToSpace(window, thisSpace)
+    end
+  end
+end
+
 local function toggle()
   local app = hs.application.get("kitty")
 
@@ -24,7 +43,8 @@ local function toggle()
     return
   end
 
-  if not app:mainWindow() then
+  local window = app:mainWindow()
+  if not window then
     openWindow(app)
     return
   end
@@ -34,11 +54,8 @@ local function toggle()
     return
   end
 
-  if app:isHidden() then
-    app:activate()
-    return
-  end
-
+  ensureOnCurrentScreen(window)
+  ensureInCurrentSpace(window)
   app:activate()
 end
 
