@@ -1,5 +1,8 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<C-,>", function ()
+    vim.cmd.Ex(os.getenv('HOME') .. "/.config/nvim")
+end)
 
 -- Move highlighted lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
