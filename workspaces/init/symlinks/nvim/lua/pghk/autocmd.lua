@@ -11,8 +11,15 @@ on("TextYankPost", {
 
 -- Disable colorcolumn when not necessary 
 on("FileType", {
-    pattern = { "netrw", "git*" },
+    pattern = { "netrw", "git*", "markdown" },
     command = "setlocal colorcolumn=",
+    group = main
+})
+
+-- Permit wrapping sometimes 
+on("FileType", {
+    pattern = { "markdown" },
+    command = "setlocal wrap linebreak",
     group = main
 })
 
