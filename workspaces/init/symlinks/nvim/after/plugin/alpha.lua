@@ -4,6 +4,7 @@ local button = dashboard.button
 local v = vim.version()
 local version = v.major .. "." .. v.minor .. "." .. v.patch
 local pluginCount = #vim.tbl_keys(packer_plugins)
+local home = os.getenv('HOME')
 
 dashboard.section.header.val = {
 	[[                                                    ]],
@@ -25,6 +26,8 @@ dashboard.section.buttons.val = {
 	button("SPC p t", "  Telescope", "<cmd>Telescope<CR>"),
 	button("ALT -", "  Harpoon",
 			'<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>'),
+	button("CNTRL ,", "  Configuration",
+			"<cmd>Ex " .. home .. "/.config/nvim/ <CR>"),
 	button("", "痢 Update plugins", "<cmd>PackerSync<CR>"),
 }
 
