@@ -4,6 +4,9 @@ vim.keymap.set("n", "<C-,>", function ()
     vim.cmd.Ex(os.getenv('HOME') .. "/.config/nvim")
 end)
 
+-- Window
+vim.keymap.set("n", "<leader>w", "<C-w>")
+
 -- Move highlighted lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
