@@ -121,14 +121,14 @@ return require('packer').startup(function(use)
       }
   }
 
-  use({
-      "luukvbaal/statuscol.nvim",
-      config = function() require("statuscol").setup() end
-  })
+  use({ "luukvbaal/statuscol.nvim" })
 
   use { 'lewis6991/gitsigns.nvim',
       config = function()
-          require('gitsigns').setup()
+          require('gitsigns').setup({
+              signcolumn = false,
+              numhl = true
+          })
       end
   }
 
