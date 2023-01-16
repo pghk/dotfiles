@@ -90,6 +90,18 @@ return require('packer').startup(function(use)
       }
   }
 
+  use {
+      "nvim-neotest/neotest",
+      requires = {
+          "nvim-lua/plenary.nvim",
+          "nvim-treesitter/nvim-treesitter",
+          "antoinemadec/FixCursorHold.nvim"
+      }
+  }
+  use "rouge8/neotest-rust"
+  use 'mfussenegger/nvim-dap'
+  use "folke/neodev.nvim"
+
   use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
 
   if packer_bootstrap then
