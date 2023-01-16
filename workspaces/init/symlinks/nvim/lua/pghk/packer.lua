@@ -102,6 +102,36 @@ return require('packer').startup(function(use)
   use 'mfussenegger/nvim-dap'
   use "folke/neodev.nvim"
 
+  use({
+      "folke/noice.nvim",
+      config = function()
+          require("noice").setup({ })
+      end,
+      requires = {
+          "MunifTanjim/nui.nvim",
+          "rcarriga/nvim-notify",
+      }
+  })
+
+  use {
+      "ThePrimeagen/refactoring.nvim",
+      requires = {
+          {"nvim-lua/plenary.nvim"},
+          {"nvim-treesitter/nvim-treesitter"}
+      }
+  }
+
+  use({
+      "luukvbaal/statuscol.nvim",
+      config = function() require("statuscol").setup() end
+  })
+
+  use { 'lewis6991/gitsigns.nvim',
+      config = function()
+          require('gitsigns').setup()
+      end
+  }
+
   use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
 
   if packer_bootstrap then
