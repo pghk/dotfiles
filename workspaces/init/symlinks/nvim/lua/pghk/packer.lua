@@ -25,11 +25,19 @@ return require('packer').startup(function(use)
 
     -- Color theme
     use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            require("rose-pine").setup({dark_variant = 'moon'})
-            vim.cmd('colorscheme rose-pine')
+        'kaicataldo/material.vim', branch = 'main',
+        config = function ()
+           -- require('material').setup({}) -  
+            vim.g["material_terminal_italics"] = 1
+            vim.cmd('colorscheme material')
+            vim.api.nvim_set_hl(0, 'ColorColumn', { link = "MsgSeparator" })
+            local gray = vim.api.nvim_get_hl_by_name('MsgSeparator', true)
+            local color = vim.api.nvim_get_hl_by_name('DiffChange', true)
+            vim.api.nvim_set_hl(0, 'Folded', {
+                bg = gray.background,
+                fg = color.foreground,
+                italic = true
+            })
         end
     })
 
