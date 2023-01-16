@@ -29,3 +29,7 @@ opt.signcolumn = "yes"
 opt.isfname:append("@-@")
 opt.colorcolumn = "80"
 opt.updatetime = 100
+
+local testDiagnostics = vim.api.nvim_create_namespace("neotest")
+vim.diagnostic.config({virtual_text = true}, testDiagnostics)
+
