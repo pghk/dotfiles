@@ -10,6 +10,10 @@ opt.expandtab = true
 opt.smartindent = true
 opt.wrap = false
 
+-- Prevent nvim-ufo from folding/unfolding unexpectedly
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+
 opt.swapfile = false
 opt.backup = false
 opt.undodir = os.getenv("HOME") .. "/.undodir"
