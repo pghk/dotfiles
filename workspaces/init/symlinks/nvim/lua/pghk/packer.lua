@@ -38,11 +38,14 @@ return require('packer').startup(function(use)
                 fg = color.foreground,
                 italic = true
             })
+            vim.api.nvim_set_hl(0, '@text', { link = 'Normal' })
+            vim.api.nvim_set_hl(0, '@error', { link = 'Error' })
         end
     })
 
     -- Syntax awareness
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use('nvim-treesitter/playground')
 
     use('theprimeagen/harpoon') -- Quick navigation between files
     use('mbbill/undotree') -- Undo history vizualizer
