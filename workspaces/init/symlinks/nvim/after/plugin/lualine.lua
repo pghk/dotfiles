@@ -2,7 +2,7 @@ Icons = require('pghk/ui/icons')
 require('lualine').setup {
   options = {
     -- icons_enabled = true,
-    theme = require('material.lualine'),
+    theme = 'auto',
     disabled_filetypes = { "alpha" },
     component_separators = { left = '', right = '' },
     section_separators = { left = '', right = '' },
