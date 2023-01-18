@@ -8,17 +8,37 @@ return {
         build = 'make',
         cond = vim.fn.executable 'make' == 1
     },
+    'nvim-lualine/lualine.nvim', -- Fancier statusline
+    {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup({
+                signcolumn = false,
+                numhl = true
+            })
+        end
+    },
     { -- Color theme
-        'kaicataldo/material.vim',
-        branch = 'main',
+        'marko-cerovac/material.nvim',
         config = function ()
-            vim.g["material_terminal_italics"] = 1
+            require('material').setup({
+                plugins = {
+                    "gitsigns",
+                    "nvim-cmp",
+                    "telescope",
+                },
+                lualine_style = 'default',
+                custom_colors = function(colors)
+                    colors.git.modified = colors.main.yellow
+                end,
+                custom_highlights = {
+                    FoldColumn = { link = "LineNr"},
+                }
+            })
+            vim.g.material_style = "oceanic"
             vim.cmd('colorscheme material')
-            vim.api.nvim_set_hl(0, 'ColorColumn', { link = "MsgSeparator" })
-            local gray = vim.api.nvim_get_hl_by_name('MsgSeparator', true)
             local color = vim.api.nvim_get_hl_by_name('DiffChange', true)
             vim.api.nvim_set_hl(0, 'Folded', {
-                bg = gray.background,
                 fg = color.foreground,
                 italic = true
             })
@@ -37,7 +57,6 @@ return {
     'theprimeagen/harpoon', -- Quick navigation between files
     'mbbill/undotree', -- Undo history vizualizer
     'tpope/vim-fugitive', -- Git integration
-    'nvim-lualine/lualine.nvim', -- Fancier statusline
     'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
     { -- "gc" to comment visual regions/lines
         'numToStr/Comment.nvim',
@@ -102,15 +121,6 @@ return {
         }
     },
     "luukvbaal/statuscol.nvim",
-    {
-        'lewis6991/gitsigns.nvim',
-        config = function()
-            require('gitsigns').setup({
-                signcolumn = false,
-                numhl = true
-            })
-        end
-    },
   {
       'kevinhwang91/nvim-ufo',
       dependencies = 'kevinhwang91/promise-async'
