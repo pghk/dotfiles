@@ -19,9 +19,9 @@ local function custom()
     dashboard.section.buttons.val = {
         button("e", "  New file", "<cmd>ene<CR>"),
         button("SPC p v", "  File explorer", "<cmd>Ex<CR>"),
-        button("SPC p f", "  Find files", "<cmd>Telescope find_files<CR>"),
+        button("SPC s f", "  Find files", "<cmd>Telescope find_files<CR>"),
         button("CNTRL p", "  Git files", "<cmd>Telescope git_files<CR>"),
-        button("SPC p t", "  Telescope", "<cmd>Telescope<CR>"),
+        button("SPC s t", "  Telescope", "<cmd>Telescope<CR>"),
         button("ALT -", "  Harpoon",
         '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>'),
         button("CNTRL ,", "  Configuration",
