@@ -5,7 +5,7 @@ vim.keymap.set("n", "<C-,>", function ()
 end)
 
 -- Window
-vim.keymap.set("n", "<leader>w", "<C-w>")
+-- vim.keymap.set("n", "<leader>w", "<C-w>")
 
 -- Move highlighted lines
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")

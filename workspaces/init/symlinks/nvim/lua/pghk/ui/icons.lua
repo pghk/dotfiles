@@ -62,4 +62,8 @@ return {
     file          = "",
     branch        = "",
   },
+  test = {
+    pass = "﫟",
+    fail = ""
+  }
 }

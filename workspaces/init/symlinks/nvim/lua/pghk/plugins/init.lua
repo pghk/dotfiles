@@ -92,17 +92,7 @@ return {
             {'rafamadriz/friendly-snippets'},
         }
     },
-    {
-        "nvim-neotest/neotest",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            "antoinemadec/FixCursorHold.nvim"
-        }
-    },
-    "rouge8/neotest-rust",
-    'mfussenegger/nvim-dap',
-    "folke/neodev.nvim",
+    { 'nvim-telescope/telescope-ui-select.nvim' },
     {
         "folke/noice.nvim",
         config = function()
@@ -138,8 +128,23 @@ return {
         }
     },
     "luukvbaal/statuscol.nvim",
-  {
-      'kevinhwang91/nvim-ufo',
-      dependencies = 'kevinhwang91/promise-async'
-  },
+    {
+        'kevinhwang91/nvim-ufo',
+        dependencies = 'kevinhwang91/promise-async'
+    },
+    {
+        "m4xshen/smartcolumn.nvim",
+        opts = {
+            disabled_filetypes = {
+                "help",
+                "text",
+                "markdown",
+                "Lazy",
+                "mason",
+                "alpha",
+                "netrw",
+                "noice",
+            },
+        }
+    },
 }
