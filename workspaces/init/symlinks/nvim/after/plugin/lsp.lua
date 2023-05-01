@@ -11,7 +11,10 @@ lsp.on_attach(function(_, bufnr)
   end
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  vim.keymap.set('v', '<M-CR>', vim.lsp.buf.code_action, {
+    buffer = bufnr,
+    desc = 'LSP: Code Action'
+  })
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
