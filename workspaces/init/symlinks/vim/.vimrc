@@ -50,3 +50,7 @@ if has("autocmd")
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
+
+" Move highlighted lines
+nnoremap v J :m '>+1<CR>gv=gv
+nnoremap v K :m '<-2<CR>gv=gv
