@@ -18,3 +18,5 @@ opt.listchars = {
 }
 
 opt.foldcolumn = "1"
+opt.foldlevel = 99
+opt.foldlevelstart = 99
