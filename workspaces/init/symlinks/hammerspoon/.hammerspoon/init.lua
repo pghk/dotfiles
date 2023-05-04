@@ -61,7 +61,7 @@ mouseFollowAppWatcher:start()
 
 ]]
 hs.grid.setMargins(defaultGridMargins) -- set margins between windows
-gridActions.setAllGrids(0) -- set each screen's grid to its aspect ratio
+gridActions.setAllGrids(1) -- set each screen's grid to twice its aspect ratio
 
 -- [[ ONCE-PER-KEYPRESS HOTKEYS ]]
 local singleUseActions = {
