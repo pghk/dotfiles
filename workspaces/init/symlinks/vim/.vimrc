@@ -1,28 +1,18 @@
-let g:airline_powerline_fonts = 1     " Use powerline symbols in status bar
+let mapleader = " "
+set visualbell
 
-set laststatus=2                                  " Always show status line
-
-filetype on                                    " Enable file type detection
-filetype plugin on
-filetype indent on
-                                              " Enable True Colors in vim 8
-if (has("termguicolors"))
-  set termguicolors
-endif
-
-colorscheme nova                                               " Set colors
-
-syntax on                                      " Enable syntax highlighting
 set number                                            " Enable line numbers
-set cursorline                                     " Highlight current line
-set tabstop=2                             " Make tabs as wide as two spaces
-set scrolloff=3             " Start scrolling before reaching top or bottom
-
-                                                " Use relative line numbers
+" Use relative line numbers
 if exists("&relativenumber")
 	set relativenumber
 	au BufReadPost * set relativenumber
 endif
+
+syntax on                                      " Enable syntax highlighting
+set cursorline                                     " Highlight current line
+set tabstop=2                             " Make tabs as wide as two spaces
+set scrolloff=3             " Start scrolling before reaching top or bottom
+set laststatus=2                                  " Always show status line
 
 set clipboard=unnamed                                " Use the OS clipboard
 set ttyfast                        " Optimize for fast terminal connections
@@ -40,8 +30,21 @@ set exrc                                " Enable per-directory .vimrc files
 set secure                            " and disable unsafe commands in them
 
 set hlsearch                                           " Highlight searches
-set ignorecase                                    " Ignore case of searches
+set ignorecase
+set smartcase                               " Treat lowercase insensitively
 set incsearch                   " Highlight dynamically as pattern is typed
+
+filetype on                                    " Enable file type detection
+filetype plugin on
+filetype indent on
+
+let g:airline_powerline_fonts = 1     " Use powerline symbols in status bar
+                                              " Enable True Colors in vim 8
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+colorscheme nova                                               " Set colors
 
                                                        " Automatic commands
 if has("autocmd")
@@ -52,5 +55,13 @@ if has("autocmd")
 endif
 
 " Move highlighted lines
-nnoremap v J :m '>+1<CR>gv=gv
-nnoremap v K :m '<-2<CR>gv=gv
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+" Replace without yanking
+xnoremap <leader>p "_dP
+" Delete without yanking
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+" Clear search highlighting with return
+nnoremap silent <cr> :noh<cr><cr>
