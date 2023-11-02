@@ -1,6 +1,8 @@
 return { -- Color theme
   {
     "marko-cerovac/material.nvim",
+    lazy = false,
+    priority = 1000,
     opts = {
       plugins = {
         "dap",
@@ -24,10 +26,13 @@ return { -- Color theme
         FoldColumn = { link = "LineNr" },
         SignColumn = { link = "LineNr" },
         Folded = { link = "BufferLineWarningSelected" },
-        AlphaHeader = { link = "@string" },
-        AlphaButtons = { link = "@method" },
-        AlphaShortcut = { link = "@symbol" },
-        AlphaFooter = { link = "@comment" },
+        DashboardHeader = { link = "@string" },
+        DashboardFooter = { link = "@property" },
+        DashboardIcon = { link = "@symbol" },
+        DashboardDesc = { link = "@text" },
+        DashboardKey = { link = "@type" },
+        DashboardShortCut = { link = "@operator" },
+        MiniIndentscopeSymbol = { link = "@method" },
       },
     },
   },
