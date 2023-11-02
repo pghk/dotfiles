@@ -80,8 +80,8 @@ local singleUseActions = {
   { mash, 'up', function() gridActions.moveToVisor() end },
   { mash, 'down', function() gridActions.fitBelowVisor() end },
 
-  { {"ctrl", "cmd"}, 'left', function() moveMouseOneScreen('west') end },
-  { {"ctrl", "cmd"}, 'right', function() moveMouseOneScreen('east') end },
+  { hyper, 'left', function() moveMouseOneScreen('west') end },
+  { hyper, 'right', function() moveMouseOneScreen('east') end },
 }
 for _,v in ipairs(singleUseActions) do
   hs.hotkey.bind(v[1], v[2], v[3])
