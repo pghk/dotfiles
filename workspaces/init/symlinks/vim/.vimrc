@@ -44,7 +44,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-colorscheme nova                                               " Set colors
+colorscheme catppuccin_macchiato                               " Set colors
 
                                                        " Automatic commands
 if has("autocmd")

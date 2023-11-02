@@ -20,7 +20,7 @@ git clone https://github.com/larkery/zsh-histdb "$HOME/.zsh_plugins/zsh-histdb"
 plugin_path="$HOME/.vim/pack/default/start"
 
 plugins=(
-  "trevordmiller/nova-vim"
+  "catppuccin/vim"
   "vim-airline/vim-airline"
   "sheerun/vim-polyglot"
 )
