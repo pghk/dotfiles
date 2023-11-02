@@ -1,6 +1,8 @@
 return {
   "echasnovski/mini.indentscope",
-  opts = {
-    delay = 50,
-  },
+  config = function()
+    require("mini.indentscope").setup({
+      symbol = "│",
+    })
+  end,
 }
