@@ -24,4 +24,4 @@ workflows:
           sh -c "$(curl -fsLS get.chezmoi.io)" -- init
           --verbose --branch=next --apply pghk
       - name: Test
-        script: test.bats
+        script: bats test.bats
