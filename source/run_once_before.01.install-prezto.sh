@@ -5,7 +5,7 @@ set -o errexit -o nounset -o pipefail -o xtrace
 
 P="${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.zprezto"
 
-if [[ -d ${P} ]]; then
+if [[ -d "${P}/.git" ]]; then
   echo "Prezto is installed!"
   exit 0
 fi
