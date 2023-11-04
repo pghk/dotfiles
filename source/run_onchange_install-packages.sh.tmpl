@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+echo installing packages for {{ .chezmoi.os }}
+{{ if eq .chezmoi.os "darwin" -}}
+set -o errexit -o nounset -o pipefail -o xtrace
+
+# Brewfile hash: {{ include "dot_Brewfile.tmpl" | sha256sum }}
+brew bundle --no-lock --global
+{{ end -}}
+

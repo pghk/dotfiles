@@ -1,0 +1,19 @@
+# Command history database, to track exit statuses & path context
+[".config/zsh/zsh-histdb"]
+type = "git-repo"
+url = "https://github.com/larkery/zsh-histdb"
+
+# Vim colorscheme
+[".vim/pack/default/start/catppuccin"]
+type = "git-repo"
+url = "https://github.com/catppuccin/vim"
+
+# Vim status bar
+[".vim/pack/default/start/vim-airline"]
+type = "git-repo"
+url = "https://github.com/vim-airline/vim-airline"
+
+# Vim language support 
+[".vim/pack/default/start/vim-polyglot"]
+type = "git-repo"
+url = "https://github.com/sheerun/vim-polyglot"

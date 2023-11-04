@@ -17,3 +17,7 @@ load "${TEST_BREW_PREFIX}/lib/bats-assert/load.bash"
     run type histdb
     assert_output --regexp 'function'
 }
+@test "Vim is customized" {
+    n=$(ls $HOME/.vim/pack/default/start | wc -l)
+    assert [ $n -gt 0 ]
+}
