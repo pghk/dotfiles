@@ -1,7 +1,0 @@
-tap "homebrew/cask"
-
-# Meet, chat, call, and collaborate in just one place
-cask "microsoft-teams"
-
-mas "Microsoft Remote Desktop", id: 1295203466
-mas "OneDrive", id: 823766827
