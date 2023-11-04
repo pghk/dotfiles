@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 set -o errexit -o nounset -o pipefail -o xtrace
 
 # Adds plugins to Vim for colorscheme, status bar, and language support
@@ -13,6 +13,6 @@ plugins=(
 )
 
 for i in "${plugins[@]}"; do
-  [[ -d "${DIR}/${i}"]] || git clone "https://github.com/$i"
+  [[ -d "${DIR}/${i}" ]] || git clone "https://github.com/$i"
 done
 
