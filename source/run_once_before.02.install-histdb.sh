@@ -2,7 +2,7 @@
 set -o errexit -o nounset -o pipefail -o xtrace
 
 # Installs a command history database, to track exit statuses & path context
-DIR="${ZDOTDIR}/zsh-histdb"
+DIR="${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/zsh-histdb"
 if [[ -d $DIR ]]; then
   exit 0
 fi
