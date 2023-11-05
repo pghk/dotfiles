@@ -1,0 +1,13 @@
+{{- $headless := env "CI" -}}
+
+{{- if not $headless -}}
+
+{{- $email := promptStringOnce . "email" "Email address" -}}
+{{- $profiles := list "init" "personal" "work" -}}
+{{- $profile := promptChoice "Install profile" $profiles -}}
+
+[data]
+    email = {{ $email | quote }}
+    profile = {{ $profile | quote }}
+
+{{- end -}}

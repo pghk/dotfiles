@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -o errexit -o nounset -o pipefail -o xtrace
+
+# Brewfile hash: {{ includeTemplate "dot_Brewfile.tmpl" . | sha256sum }}
+{{ if or (env "CI") (eq .profile "init") -}}
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ includeTemplate "dot_Brewfile.tmpl" . }}
+EOF
+{{ else }}
+brew bundle --no-lock --global
+{{- end }}

@@ -1,0 +1,7 @@
+*?.Brewfile
+{{- if ne .chezmoi.os "darwin" }}
+.chezmoiscripts/macOS/**
+.hammerspoon
+.mackup
+.mackup.cfg
+{{- end }}
