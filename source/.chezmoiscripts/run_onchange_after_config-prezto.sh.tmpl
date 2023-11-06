@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+set -o errexit -o nounset -o pipefail -o xtrace
+
+{{ $sha := "/.config/zsh/.zprezto/.git/refs/heads/master" -}}
+# Cache key: {{ include (joinPath .chezmoi.homeDir $sha) | trim }}
+
+# This puts my Prezto configuration under control of Chezmoi, allowing for the 
+# potential use of templates, while also copying my overrides into the origin
+# repo, making it a bit more convenient to review and track the differences 
+
+Z="${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}"
+
+setopt EXTENDED_GLOB
+for theirs in "${Z}"/.zprezto/runcoms/^README.md(.N); do
+  ours="${Z}/.${theirs:t}" 
+  # Skip links we already have
+  if [[ -L $ours ]]; then
+    continue
+  fi
+  # Create symlinks of any files we're not overriding
+  [[ -f $ours ]] || ln -s ".zprezto/runcoms/${theirs:t}" $ours
+  # Copy our patches into Prezto, so we can see the diff there
+  cp -f $ours $theirs
+done
+
