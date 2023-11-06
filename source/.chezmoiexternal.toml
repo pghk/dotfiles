@@ -1,4 +1,13 @@
 # Command history database, to track exit statuses & path context
+[".config/zsh/.zprezto"]
+type = "git-repo"
+url = "https://github.com/sorin-ionescu/prezto.git"
+[".config/zsh/.zprezto".clone]
+args = ["--recursive"]
+[".config/zsh/.zprezto".pull]
+args = ["--ff-only"]
+
+# Command history database, to track exit statuses & path context
 [".config/zsh/zsh-histdb"]
 type = "git-repo"
 url = "https://github.com/larkery/zsh-histdb"
