@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.USER.prune_downloads</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/open</string>
+		<string>/Users/USER/.local/bin/Prune Downloads.app</string>
+	</array>
+	<key>Nice</key>
+	<integer>20</integer>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>12</integer>
+		<key>Minute</key>
+		<integer>0</integer>
+	</dict>
+	<key>StandardErrorPath</key>
+	<string>/tmp/com.USER.prune_downloads.err</string>
+	<key>StandardOutPath</key>
+	<string>/tmp/com.USER.prune_downloads.out</string>
+</dict>
+</plist>
