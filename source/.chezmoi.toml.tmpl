@@ -9,5 +9,11 @@
 [data]
     email = {{ $email | quote }}
     profile = {{ $profile | quote }}
+[merge]
+    command = "code"
+[[textconv]]
+    pattern = "**/*.plist"
+    command = "plutil"
+    args = ["-convert", "xml1", "-o", "-", "-"]
 
 {{- end -}}
