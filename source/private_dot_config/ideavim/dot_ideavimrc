@@ -1,0 +1,64 @@
+source ~/.vimrc
+
+if has('ide')
+    nnoremap <S-l> :tabnext<CR>
+    nnoremap <S-h> :tabprev<CR>\
+    set ideajoin
+    set clipboard^=ideaput
+	" built-in plugins
+	Plug 'tpope/vim-surround'
+	Plug 'tpope/vim-commentary'
+	Plug 'machakann/vim-highlightedyank'
+	" plugins requiring companion IDEA plugins
+	Plug 'easymotion/vim-easymotion'
+	set sneak
+	set which-key
+	" for which-key, either disable the timeout option
+	" or increase the timeoutlen (default: 1000ms)
+	set notimeout
+	"set timeoutlen=5000
+	"
+	let g:WhichKey_SortOrder = "by_key_prefix_first"
+
+	let g:WhichKeyDesc_leader = "<leader> Leader key"
+
+	let g:WhichKeyDesc_easymotion = "<leader>j Jump with Easymotion"
+	let g:WhichKeyDesc_easymotion_prefix = "<leader><leader>"
+
+	let g:WhichKeyDesc_fold = "<leader>z Folding"
+
+	let g:WhichKeyDesc_refactoring = "<leader>r Refactoring menu"
+	let g:WhichKeyDesc_refactoring_rename = "<leader>rn Rename element"
+	let g:WhichKeyDesc_refactoring_method = "<leader>rm Extract method"
+	let g:WhichKeyDesc_refactoring_variable = "<leader>rv Introduce variable"
+	let g:WhichKeyDesc_refactoring_field = "<leader>rf Introduce field"
+	let g:WhichKeyDesc_refactoring_signature = "<leader>rs Change signature"
+	let g:WhichKeyDesc_refactoring_all = "<leader>rr Open refactorings list"
+
+	let g:WhichKeyDesc_goto = "<leader>g Go to X"
+	let g:WhichKeyDesc_goto_declaration = "<leader>gd Go to Definition"
+	let g:WhichKeyDesc_goto_type_declaration = "<leader>gy Go to Type Definition"
+	let g:WhichKeyDesc_goto_implementation = "<leader>gi Go to Implementation"
+	let g:WhichKeyDesc_goto_usages = "<leader>gu Go to Usages"
+	let g:WhichKeyDesc_goto_test = "<leader>gt Go to Test"
+	" let g:WhichKeyDesc_goto_back = "<leader>gb Go Back"
+	" let g:WhichKeyDesc_goto_forward = "<leader>gf Go Forward"
+
+	" Refactoring
+	map <leader>rn <Action>(RenameElement)
+	map <leader>rm <Action>(ExtractMethod)
+	map <leader>rv <Action>(IntroduceVariable)
+	map <leader>rf <Action>(IntroduceField)
+	map <leader>rs <Action>(ChangeSignature)
+	map <leader>rr <Action>(Refactorings.QuickListPopupAction)
+
+	" Go to code
+	nmap <leader>gd <Action>(GotoDeclaration)
+	nmap <leader>gy <Action>(GotoTypeDeclaration)
+	nmap <leader>gi <Action>(GotoImplementation)
+	nmap <leader>gu <Action>(ShowUsages)
+	nmap <leader>gt <Action>(GotoTest)
+	" nmap <leader>gf <Action>(Back)
+	" nmap <leader>gb <Action>(Forward)
+
+endif
