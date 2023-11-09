@@ -5,12 +5,16 @@
 {{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $profiles := list "init" "personal" "work" -}}
 {{- $profile := promptChoice "Install profile" $profiles -}}
+{{- $opVault := promptString "OP Vault" "private" -}}
 
 [data]
     email = {{ $email | quote }}
     profile = {{ $profile | quote }}
+    opVault = {{ $opVault | quote }}
+
 [merge]
     command = "code"
+
 [[textconv]]
     pattern = "**/*.plist"
     command = "plutil"

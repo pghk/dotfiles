@@ -1,0 +1,13 @@
+Host *
+  IdentityAgent "{{ .chezmoi.homeDir }}/.config/1Password/ssh/agent.sock"
+
+{{ $note := onepassword "ssh config" .chezmoi.config.data.opVault -}}
+
+{{- range $note.sections }}{{ $section := .id }}# {{ .label }}
+{{   range $f := $note.fields }}
+{{-     $indent := (eq $f.label "Host") | ternary "" "  " }}
+{{-     if and (hasKey . "section") (eq .section.id $section) -}}
+{{        $indent }}{{$f.label }} {{ $f.value }}
+{{      end -}}
+{{   end }}
+{{ end -}}
