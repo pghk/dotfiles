@@ -1,7 +1,18 @@
 *?.Brewfile
-{{- if ne .chezmoi.os "darwin" }}
+{{ if (env "CI") }}
+.config/1Password
+.config/git
+.ssh
+{{- end }}
+{{ if ne .chezmoi.os "darwin" }}
 .chezmoiscripts/macOS/**
+.config/1Password
+.config/git
+.config/ideavim
+.config/karabiner
 .hammerspoon
 .mackup
 .mackup.cfg
+.ssh
+Library
 {{- end }}
