@@ -1,0 +1,111 @@
+#!/usr/bin/env sh
+set -o errexit -o nounset -o pipefail -o xtrace
+
+# Applies preference settings to macOS
+
+RECORD={{ .chezmoi.workingTree }}/scripts/dump_macos_settings.sh
+if [ -f $RECORD ]; then
+  $RECORD $(date +"%F.%H%M%S").before.defaults
+fi
+
+# NSGlobalDomain #
+
+# Disable press-and-hold for keys in favor of key repeat.
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+# Keyboard > Keyboard > Key Repeat
+defaults write NSGlobalDomain KeyRepeat -int 2
+# Keyboard > Keyboard > Delay Until Repeat
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
+# Keyboard > Shortcuts > Use keyboard navigation to move focus between controls
+defaults write nsglobaldomain AppleKeyboardUIMode -int 2
+# Trackpad > Point & Click > Tracking Speed
+defaults write NSGlobalDomain com.apple.trackpad.scaling -int 1
+# Mouse > Tracking speed
+defaults write NSGlobalDomain com.apple.mouse.scaling -float 0.875
+# Mouse > Scrolling speed
+defaults write NSGlobalDomain com.apple.scrollwheel.scaling -float 0.75
+
+
+# com.apple.AppleMultitouchTrackpad #
+
+# Trackpad > Point & Click > Tap to click
+defaults write com.apple.AppleMultitouchTrackpad Clicking -int 1
+# Trackpad > Point & Click > Secondary click: Click or tap with two fingers
+defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 0
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
+# Accessibility > Pointer Control > Trackpad Options > Enable dragging: three finger drag
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+
+# com.apple.driver.AppleBluetoothMultitouch.trackpad #
+
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+
+# com.apple.Safari #
+
+# Safari > Preferences > Advanced > Show Develop menu in menu bar
+defaults write com.apple.Safari com.apple.Safari.IncludeDevelopMenu -bool true
+defaults write com.apple.Safari AutoFillCreditCardData -bool  false
+defaults write com.apple.Safari AutoFillMiscellaneousForms -bool  false
+defaults write com.apple.Safari AutoFillPasswords -bool false
+defaults write com.apple.Safari ShowOverlayStatusBar -bool true
+
+# com.apple.desktopservices #
+
+# Disable .DS_Store files on network drives.
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+# Disable .DS_Store files on external drives.
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# com.apple.dock #
+
+# System Preferences > Dock > Automatically hide and show the Dock.
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock largesize -int 128
+defaults write com.apple.dock magnification -int 0
+# System Preferences > Dock > Minimize windows into application icon.
+defaults write com.apple.dock minimize-to-application -bool true
+
+
+# com.apple.finder #
+
+# Show the ~/Library folder.
+chflags nohidden ~/Library
+
+defaults write com.apple.finder AppleShowAllFiles -bool true
+# Finder > Preferences > Advanced > When performing a search > Search the current folder.
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+# Finder > View > As List.
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+# Finder > Preferences > New Finder windows show > Home directory.
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+# Finder > Preferences > New Finder windows show > Home directory.
+defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}"
+defaults write com.apple.finder QLEnableTextSelection -bool true
+# Enable "Quit Finder" menu item.
+defaults write com.apple.finder QuitMenuItem -bool true
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# com.apple.loginwindow #
+
+defaults write com.apple.loginwindow AdminHostInfo -string "HostName"
+defaults write com.apple.loginwindow SHOWFULLNAME -bool true
+
+# com.apple.SoftwareUpdate #
+
+# System Preferences > Software Update > Advanced... > Automatically check for updates.
+defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+# System Preferences > Software Update > Advanced... > Download new updates when available.
+defaults write com.apple.SoftwareUpdate AutomaticDownload -bool true
+
+# com.apple.universalaccess #
+
+# System Preferences > A11y > Use scroll gesture with modifier keys to zoom.
+defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+
+if [ -f $RECORD ]; then
+  $RECORD $(date +"%F.%H%M%S").after.defaults
+fi
+
