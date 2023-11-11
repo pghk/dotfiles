@@ -15,25 +15,17 @@ brew "jq"
 brew "mackup"
 # Mac App Store command-line interface
 brew "mas"
-# Collection of tools that nobody wrote when UNIX was young
-brew "moreutils"
 # Fast, highly customisable system info script
 brew "neofetch"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # OpenBSD freely-licensed SSH connectivity tools
 brew "openssh"
-# Swiss-army knife of markup format conversion
-brew "pandoc"
-# Perl-powered file rename script with many helpful built-ins
-brew "rename"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Terminal multiplexer with VT100/ANSI terminal emulation
 brew "screen"
 # Add a public key to a remote machine's authorized_keys file
-brew "ssh-copy-id"
-# Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Extract, view, and test RAR archives
 brew "unrar"
@@ -44,6 +36,8 @@ brew "yq"
 
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
+# Command-line interface for 1Password
+cask "1password-cli"
 # Chromium based browser
 cask "arc"
 # Typeface made for developers
