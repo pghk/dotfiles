@@ -6,8 +6,6 @@ brew "bats-core"
 brew "bats-core/bats-core/bats-assert"
 # Supporting library for Bats test helpers
 brew "bats-core/bats-core/bats-support"
-# Vi 'workalike' with many additional features
-brew "vim"
 
 {{ if not (env "CI") -}}
 {{-   include "01.Brewfile" -}}
