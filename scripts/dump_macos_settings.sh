@@ -5,8 +5,8 @@
 
 set -o errexit -o nounset -o pipefail -o xtrace
 
-FILE_PATH=${1:-$HOME/.local/share/macos}
-FILE_NAME=${2:-$(date +"%F.%H%M%S").defaults}
+FILE_NAME=${1:-$(date +"%F.%H%M%S").defaults}
+FILE_PATH=${2:-$HOME/.local/share/macos}
 
 [[ -d $FILE_PATH ]] || mkdir -p $FILE_PATH
 
