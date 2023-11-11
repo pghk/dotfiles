@@ -13,13 +13,9 @@ Z="${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}"
 setopt EXTENDED_GLOB
 for theirs in "${Z}"/.zprezto/runcoms/^README.md(.N); do
   ours="${Z}/.${theirs:t}" 
-  # Skip links we already have
-  if [[ -L $ours ]]; then
-    continue
-  fi
   # Create symlinks of any files we're not overriding
   [[ -f $ours ]] || ln -s ".zprezto/runcoms/${theirs:t}" $ours
   # Copy our patches into Prezto, so we can see the diff there
-  cp -f $ours $theirs
+  [[ ! -L $ours ]] && cp -f $ours $theirs
 done
 
