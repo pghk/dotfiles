@@ -20,8 +20,6 @@ workflows:
           mv ~/.gitconfig ~/.gitconfig.bak
           cat ~/.gitconfig.bak
       - name: Install
-        script: >
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init
-          --verbose --branch=next --apply pghk
+        script: scripts/install.sh
       - name: Test
-        script: bats test.bats
+        script: bats scripts/test.bats
