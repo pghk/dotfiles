@@ -10,8 +10,7 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:=$HOME/.config}"
-export ZDOTDIR="${ZDOTDIR:=$XDG_CONFIG_HOME/zsh}"
 export VISUAL=vi
 export SSH_AUTH_SOCK=$HOME/.config/1Password/ssh/agent.sock
+export HISTDB_FILE=$HOME/.local/share/zsh/zsh-history.db
 

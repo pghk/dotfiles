@@ -9,7 +9,7 @@ load "${TEST_BREW_PREFIX}/lib/bats-assert/load.bash"
     assert_output --regexp 'function'
 }
 @test "Prezto is configured" {
-    . $HOME/.config/zsh/.zshenv
+    . $HOME/.zshenv
     run echo $XDG_CONFIG_HOME
     assert_output --regexp '^\/Users\/[[:alpha:]]+\/.config$'
 }
