@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -o errexit -o pipefail -o xtrace
+
+# Cache key: {{ include (joinPath .chezmoi.homeDir ".Brewfile") | sha256sum }}
+brew bundle --no-lock --global
