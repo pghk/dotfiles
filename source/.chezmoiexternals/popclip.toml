@@ -1,0 +1,24 @@
+{{ $extensions := list
+  "Brackets"
+  "CharCount"
+  "CodeCase"
+  "HTMLEncode"
+  "Hyphenate"
+  "Lowercase"
+  "Quotes"
+  "RemoveSpaces"
+  "Sort"
+  "TitleCase"
+  "URLEncode"
+  "Underscore"
+  "UnixTime"
+  "Uppercase"
+  "WordCount" -}}
+
+{{ range $extensions -}}
+["Library/Application Support/PopClip/Extensions/{{ . }}.popclipext"]
+type = "archive"
+url = "https://pilotmoon.com/popclip/extensions/ext/{{ . }}.popclipextz"
+stripComponents = 1
+{{ end -}}
+
