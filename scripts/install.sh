@@ -11,8 +11,8 @@ fi
 
 MY_USER=pghk
 
-if [ ! type brew ] &>/dev/null && [ -z $CI ]; then
-	if [ ! -d /opt/homebrew ]; then
+if [ ! $(type brew &>/dev/null) ] && [ -z $CI ]; then
+	if [ -d /opt/homebrew ]; then
 		eval $(/opt/homebrew/bin/brew shellenv)
 	else
 		"Homebrew installation required: see https://brew.sh/ for instructions"
