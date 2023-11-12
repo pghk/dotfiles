@@ -88,11 +88,11 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
-			<string>com.pghk.popclip.extension.unix-time</string>
+			<string>com.pilotmoon.popclip.extension.wordcount</string>
 			<key>Extension Name</key>
-			<string>Unix Time</string>
+			<string>Word Count</string>
 			<key>Package Name</key>
-			<string>UnixTime.popclipext</string>
+			<string>WordCount.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
@@ -103,6 +103,16 @@
 			<string>URL Encode</string>
 			<key>Package Name</key>
 			<string>URLEncode.popclipext</string>
+		</dict>
+		<dict>
+			<key>Enabled</key>
+			<true/>
+			<key>Extension Identifier</key>
+			<string>com.pilotmoon.popclip.extension.unix-time</string>
+			<key>Extension Name</key>
+			<string>Unix Time</string>
+			<key>Package Name</key>
+			<string>UnixTime.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
@@ -123,16 +133,6 @@
 			<string>HTML Encode</string>
 			<key>Package Name</key>
 			<string>HTMLEncode.popclipext</string>
-		</dict>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Extension Identifier</key>
-			<string>com.pilotmoon.popclip.extension.wordcount</string>
-			<key>Extension Name</key>
-			<string>Word Count</string>
-			<key>Package Name</key>
-			<string>WordCount.popclipext</string>
 		</dict>
 		<dict>
 			<key>Enabled</key>
