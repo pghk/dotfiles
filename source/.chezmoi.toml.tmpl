@@ -5,12 +5,18 @@
 {{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $profiles := list "init" "personal" "work" -}}
 {{- $profile := promptChoice "Install profile" $profiles -}}
-{{- $opVault := promptString "OP Vault" "private" -}}
+{{- $useOP := promptBool "Connect to 1Password" false -}}
+{{- $opVault := "" -}}
+{{- if $useOP -}}
+    {{- $opVault = promptString "Using which vault" "private" -}}
+{{- end -}}
 
 [data]
     email = {{ $email | quote }}
     profile = {{ $profile | quote }}
+    {{- if $useOP }}
     opVault = {{ $opVault | quote }}
+    {{- end }}
 
 [merge]
     command = "code"
