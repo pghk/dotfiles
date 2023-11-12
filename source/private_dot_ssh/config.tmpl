@@ -1,5 +1,4 @@
-{{- if ne .chezmoi.config.data.profile "init" -}}
-
+{{- if hasKey .chezmoi.config.data "opVault" -}}
 Host *
   IdentityAgent "{{ .chezmoi.homeDir }}/.config/1Password/ssh/agent.sock"
 
