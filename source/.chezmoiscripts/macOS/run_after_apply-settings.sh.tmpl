@@ -2,6 +2,7 @@
 set -o errexit -o nounset -o pipefail -o xtrace
 
 # Applies preference settings to macOS
+# Some domains require granting full disk access to the terminal
 
 RECORD={{ .chezmoi.workingTree }}/scripts/dump_macos_settings.sh
 if [ -f $RECORD ]; then
