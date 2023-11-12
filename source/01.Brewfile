@@ -27,8 +27,6 @@ brew "ripgrep"
 brew "screen"
 # Add a public key to a remote machine's authorized_keys file
 brew "tree"
-# Extract, view, and test RAR archives
-brew "unrar"
 # Internet file retriever
 brew "wget"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
