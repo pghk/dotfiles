@@ -3,6 +3,8 @@ set -o errexit -o nounset -o pipefail -o xtrace
 
 # Installs a nice configuration framework for Zsh
 
+mkdir -p $HOME/.local/share/zsh
+
 P="${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}/.zprezto"
 
 if [[ -d "${P}/.git" ]]; then

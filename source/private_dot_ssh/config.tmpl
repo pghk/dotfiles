@@ -1,3 +1,5 @@
+{{- if ne .chezmoi.config.data.profile "init" -}}
+
 Host *
   IdentityAgent "{{ .chezmoi.homeDir }}/.config/1Password/ssh/agent.sock"
 
@@ -11,3 +13,5 @@ Host *
 {{      end -}}
 {{   end }}
 {{ end -}}
+
+{{- end -}}
