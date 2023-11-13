@@ -106,6 +106,9 @@ defaults write com.apple.SoftwareUpdate AutomaticDownload -bool true
 # System Preferences > A11y > Use scroll gesture with modifier keys to zoom.
 defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
 
+# Misc # 
+defaults write com.apple.menuextra.clock IsAnalog -bool true
+
 if [ -f $RECORD ]; then
   $RECORD $(date +"%F.%H%M%S").after.defaults
 fi
