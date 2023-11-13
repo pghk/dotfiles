@@ -24,4 +24,4 @@ brew bundle --no-lock --file=/dev/stdin <<-EOF
 	brew "chezmoi"
 EOF
 
-chezmoi init --verbose --branch next --apply $MY_USER
+chezmoi init --verbose --branch ${CM_BRANCH:-macos-14} --apply $MY_USER
