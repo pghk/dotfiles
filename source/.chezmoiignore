@@ -10,6 +10,7 @@
 .config/git
 .config/ideavim
 .config/karabiner
+.config/nvim/lazy-lock.json
 .hammerspoon
 .mackup
 .mackup.cfg
