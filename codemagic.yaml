@@ -9,7 +9,7 @@ workflows:
       events:
         - pull_request
       branch_patterns:
-        - pattern: experiment
+        - pattern: macos-*
           include: true
           source: false
       cancel_previous_builds: true
