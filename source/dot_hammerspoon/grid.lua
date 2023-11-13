@@ -1,5 +1,14 @@
+ODD_HEIGHTS = { [1117] = "MBP_16", [982] = "MBP_14" }
+NOTCH_STATUS_BAR = 37
+
+local function hasNotch(h)
+  return ODD_HEIGHTS[h] ~= nil
+end
+
 local function greatestCommonDivisor(a, b)
-  while b ~= 0 do a,b = b,(a % b) end
+  while b ~= 0 do
+    a, b = b, (a % b)
+  end
   return a
 end
 
@@ -12,6 +21,9 @@ end
 -- Constructs a geometry object from a given screen's aspect ratio
 local function makeGrid(screen)
   local mode = screen:currentMode()
+  if hasNotch(mode.h) then
+    mode.h = mode.h - NOTCH_STATUS_BAR
+  end
   return hs.geometry(nil, nil, aspectRatio(mode.w, mode.h))
 end
 
@@ -164,4 +176,3 @@ return {
   moveToVisor = moveToVisor,
   fitBelowVisor = fitBelowVisor
 }
-
