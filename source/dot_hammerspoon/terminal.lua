@@ -15,12 +15,16 @@ end
 local function getInstance()
   if M.pid then
     local app = hs.application.get(M.pid)
-    if app and app:isRunning() then return app end
+    if app and app:isRunning() then
+      return app
+    end
   end
 
   local f = io.popen("pgrep -af scratchpad")
 
-  if f == nil then return end
+  if f == nil then
+    return
+  end
   local ret = f:read("*a")
   f:close()
 
@@ -28,7 +32,7 @@ local function getInstance()
   return M.pid and hs.application.applicationForPID(M.pid)
 end
 
-local function ensureOnCurrentScreen (window)
+local function ensureOnCurrentScreen(window)
   local thisScreen = hs.screen.mainScreen()
   local windowScreen = window:screen()
   if windowScreen ~= thisScreen then
@@ -36,7 +40,7 @@ local function ensureOnCurrentScreen (window)
   end
 end
 
-local function ensureInCurrentSpace (window)
+local function ensureInCurrentSpace(window)
   local thisSpace = hs.spaces.focusedSpace()
   local windowSpaces = hs.spaces.windowSpaces(window)
   if windowSpaces then
