@@ -1,3 +1,4 @@
+hs.loadSpoon("EmmyLua")
 local gridActions = require("grid")
 local terminal = require("terminal")
 
