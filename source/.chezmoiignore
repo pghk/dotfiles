@@ -1,4 +1,5 @@
 *?.Brewfile
+.hammerspoon/Spoons/EmmyLua.spoon/annotations
 {{ if (env "CI") }}
 .config/1Password
 .config/git
