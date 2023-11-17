@@ -1,17 +1,31 @@
-local function setPosition (window)
-  window:moveToScreen(hs.screen.mainScreen())
-  local function newSize(cell)
-    cell.w = 8
-    cell.h = 1
-  end
-  hs.grid.adjustWindow(newSize, hs.window.focusedWindow())
+local M = { pid = nil }
+
+local function openInstance()
+  os.execute("/Applications/kitty.app/Contents/MacOS/kitty \z
+    --title scratchpad \z
+    --directory ~ \z
+    --start-as maximized \z
+    --override background_opacity=0.95 \z
+    --override macos_hide_from_tasks=yes \z
+    --override macos_quit_when_last_window_closed=yes \z
+    &")
 end
 
-local function openWindow (app)
-  app:selectMenuItem({"Shell", "New OS Window"})
-  app:activate()
-  local window = app:focusedWindow()
-  setPosition(window)
+-- Thanks to https://github.com/folke/dot/blob/master/hammerspoon/quake.lua
+local function getInstance()
+  if M.pid then
+    local app = hs.application.get(M.pid)
+    if app and app:isRunning() then return app end
+  end
+
+  local f = io.popen("pgrep -af scratchpad")
+
+  if f == nil then return end
+  local ret = f:read("*a")
+  f:close()
+
+  M.pid = tonumber(ret)
+  return M.pid and hs.application.applicationForPID(M.pid)
 end
 
 local function ensureOnCurrentScreen (window)
@@ -33,21 +47,15 @@ local function ensureInCurrentSpace (window)
   end
 end
 
-local function toggle()
-  local app = hs.application.get("kitty")
+M.toggle = function()
+  local app = getInstance()
 
   if not app then
-    hs.application.launchOrFocus("kitty")
-    app = hs.application.get("kitty")
-    openWindow(app)
+    openInstance()
     return
   end
 
   local window = app:mainWindow()
-  if not window then
-    openWindow(app)
-    return
-  end
 
   if app:isFrontmost() then
     app:hide()
@@ -59,4 +67,4 @@ local function toggle()
   app:activate()
 end
 
-return { toggle = toggle }
+return M

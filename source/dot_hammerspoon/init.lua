@@ -1,5 +1,6 @@
 local gridActions = require("grid")
-local terminalActions = require("terminal")
+local terminal = require("terminal")
+
 local defaultGridMargins = "8,8"
 hs.logger.defaultLogLevel = 'info'
 hs.window.animationDuration = 0
@@ -20,7 +21,7 @@ end
 hs.hotkey.bind(mash, "f12", function() reloadConfig() end)
 
 -- Toggle terminal window
-hs.hotkey.bind(mash, 'space', function() terminalActions.toggle() end)
+hs.hotkey.bind(mash, "space", function() terminal.toggle() end)
 
 -- Allow keyboard to move mouse across screens, to help with app-switching
 local moveMouseOneScreen = function (direction)
