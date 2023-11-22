@@ -41,6 +41,8 @@ cask "dropbox"
 cask "fantastical"
 # Web browser
 cask "firefox"
+# Laravel and PHP development environment manager
+cask "herd"
 # System monitoring app
 cask "istat-menus"
 # JetBrains tools manager
