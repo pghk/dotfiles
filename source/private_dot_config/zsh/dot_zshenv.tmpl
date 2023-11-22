@@ -15,6 +15,8 @@ export VISUAL=vi
 {{- if eq .chezmoi.os "darwin" }}
 export SSH_AUTH_SOCK=$HOME/.config/1Password/ssh/agent.sock
 export HISTDB_FILE=$HOME/.local/share/zsh/zsh-history.db
+export PATH="$HOME/Library/Application Support/Herd/bin":$PATH
+export HERD_PHP_82_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/82/"
 {{- end }}
 
 {{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") }}
@@ -25,3 +27,4 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
 export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
 export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
 {{- end }}
+
