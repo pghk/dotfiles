@@ -5,18 +5,19 @@ set -o errexit -o nounset -o pipefail -o xtrace
 #    @ https://discussions.apple.com/thread/7538664
 
 apps=(
-    "/Applications/Hey.app"
-    "/Applications/iTerm.app"
-    "/Applications/Safari.app"
     "/System/Applications/Messages.app"
-    "/Applications/Twitter.app"
-    "/Applications/Airmail.app"
+    "/System/Applications/Mail.app"
     "/System/Applications/Photos.app"
-    "/Applications/Bear.app"
+    "/Applications/Fantastical.app"
+    "/System/Applications/Contacts.app"
+    "/System/Applications/Reminders.app"
+    "/Applications/Arc.app"
     "/System/Applications/Music.app"
-    "/Applications/IntelliJ IDEA.app"
-    "/Applications/Firefox Developer Edition.app"
-  )
+    "$HOME/Applications/IntelliJ IDEA Ultimate.app"
+    "/Applications/Mona.app"
+    "/Applications/Anybox.app"
+    "/Applications/kitty.app"
+ )
 
 read -p "This will wipe out your existing dock. Continue? " -r
 if [[ $REPLY =~ ^((yes|Yes)|(y|Y))$ ]]
