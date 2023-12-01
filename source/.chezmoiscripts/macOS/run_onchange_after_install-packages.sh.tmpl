@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 set -o errexit -o pipefail -o xtrace
 
+{{ if stat (joinPath .chezmoi.homeDir ".Brewfile" ) -}}
 # Cache key: {{ include (joinPath .chezmoi.homeDir ".Brewfile") | sha256sum }}
+{{ end }}
+
 brew bundle --no-lock --global

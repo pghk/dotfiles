@@ -2,7 +2,9 @@
 set -o errexit -o nounset -o pipefail -o xtrace
 
 {{ $sha := "/.config/zsh/.zprezto/.git/refs/heads/master" -}}
+{{ if stat (joinPath .chezmoi.homeDir $sha ) -}}
 # Cache key: {{ include (joinPath .chezmoi.homeDir $sha) | trim }}
+{{ end }}
 
 # This puts my Prezto configuration under control of Chezmoi, allowing for the 
 # potential use of templates, while also copying my overrides into the origin
