@@ -138,16 +138,6 @@
 			<key>Enabled</key>
 			<true/>
 			<key>Extension Identifier</key>
-			<string>com.brettterpstra.popclip.extension.comment</string>
-			<key>Extension Name</key>
-			<string>Comment</string>
-			<key>Package Name</key>
-			<string>Comment.popclipext</string>
-		</dict>
-		<dict>
-			<key>Enabled</key>
-			<true/>
-			<key>Extension Identifier</key>
 			<string>com.pilotmoon.popclip.extension.quotes</string>
 			<key>Extension Name</key>
 			<string>Quotes</string>
