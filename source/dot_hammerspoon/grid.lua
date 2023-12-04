@@ -1,9 +1,7 @@
 ODD_HEIGHTS = { [1117] = "MBP_16", [982] = "MBP_14" }
 NOTCH_STATUS_BAR = 37
 
-local function hasNotch(h)
-  return ODD_HEIGHTS[h] ~= nil
-end
+local function hasNotch(h) return ODD_HEIGHTS[h] ~= nil end
 
 local function greatestCommonDivisor(a, b)
   while b ~= 0 do
@@ -39,8 +37,10 @@ local function setAllGrids(increment, report)
     local newGrid = makeGrid(screen)
     newGrid.w = newGrid.w * gridResolutionFactor
     newGrid.h = newGrid.h * gridResolutionFactor
-    local message = newGrid.w .. ' x ' .. newGrid.h
-    if report then hs.alert.show(message, screen) end
+    local message = newGrid.w .. " x " .. newGrid.h
+    if report then
+      hs.alert.show(message, screen)
+    end
     hs.grid.setGrid(newGrid, screen)
   end
   for _, screen in pairs(hs.screen.allScreens()) do
@@ -52,10 +52,10 @@ local function rotate(window)
   window = window or hs.window.focusedWindow()
   local current = hs.grid.get(window)
   local new = {
-    x = current.x + ((current.w - current.h ) / 2),
-    y = current.y + ((current.h - current.w ) / 2),
+    x = current.x + ((current.w - current.h) / 2),
+    y = current.y + ((current.h - current.w) / 2),
     w = current.h,
-    h = current.w
+    h = current.w,
   }
   hs.grid.set(window, new)
 end
@@ -68,14 +68,14 @@ local function center(window)
     x = math.ceil(max.w / 2 - current.w / 2),
     y = math.floor(max.h / 2 - current.h / 2),
     w = current.w,
-    h = current.h
+    h = current.h,
   }
   hs.grid.set(window, new)
 end
 
 -- Builds a function to resize the given grid cell to the provided dimensions
 local function getResizer(width, height)
-  return function (cell)
+  return function(cell)
     cell.w = width
     cell.h = height
   end
@@ -104,26 +104,26 @@ end
 local function getOrientation(window)
   window = window or hs.window.focusedWindow()
   local current = hs.grid.get(window)
-  return current.w < current.h and 'portrait' or 'landscape'
+  return current.w < current.h and "portrait" or "landscape"
 end
 
 local function scaleUp(window)
   window = window or hs.window.focusedWindow()
   local orientation = getOrientation(window)
-  if orientation == 'landscape' then
-    magicResize({w = 1, h = 2})
-  elseif orientation == 'portrait' then
-    magicResize({w = 2, h = 1})
+  if orientation == "landscape" then
+    magicResize({ w = 1, h = 2 })
+  elseif orientation == "portrait" then
+    magicResize({ w = 2, h = 1 })
   end
 end
 
 local function scaleDown(window)
   window = window or hs.window.focusedWindow()
   local orientation = getOrientation(window)
-  if orientation == 'landscape' then
-    magicResize({w = .5, h = 1})
-  elseif orientation == 'portrait' then
-    magicResize({w = 1, h = .5})
+  if orientation == "landscape" then
+    magicResize({ w = 0.5, h = 1 })
+  elseif orientation == "portrait" then
+    magicResize({ w = 1, h = 0.5 })
   end
 end
 
@@ -174,5 +174,5 @@ return {
   moveToLeftHalf = moveToLeftHalf,
   moveToRightHalf = moveToRightHalf,
   moveToVisor = moveToVisor,
-  fitBelowVisor = fitBelowVisor
+  fitBelowVisor = fitBelowVisor,
 }
