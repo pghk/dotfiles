@@ -1,0 +1,17 @@
+{{- if hasKey .chezmoi.config.data "opVault" -}}
+
+#  https://developer.1password.com/docs/ssh/agent/config
+
+[[ssh-keys]]
+vault = "{{ .chezmoi.config.data.opVault }}"
+
+{{ if not (eq .chezmoi.config.data.opVault  "private") -}}
+
+[[ssh-keys]]
+item = "github (personal @ work)"
+vault = "Personal"
+
+{{- end -}}
+
+{{- end -}}
+
