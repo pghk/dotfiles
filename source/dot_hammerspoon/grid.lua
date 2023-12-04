@@ -146,7 +146,7 @@ local function moveToLeftHalf(window)
   hs.grid.set(window, new)
 end
 
-local visorHeight = .2
+local visorHeight = 0.33
 local function moveToVisor(window)
   window = window or hs.window.focusedWindow()
   local max = hs.grid.getGrid(window:screen())
