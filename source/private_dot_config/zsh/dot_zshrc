@@ -38,3 +38,4 @@ order by places.dir != '$(sql_escape $PWD)', count(*) desc limit 1"
 }
 ZSH_AUTOSUGGEST_STRATEGY=(histdb_top completion)
 
+ADDENDUM="${ZDOTDIR:-HOME}/.zshrc_custom"; [ -f $ADDENDUM ] && . $ADDENDUM
