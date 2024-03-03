@@ -1,0 +1,6 @@
+.nav-files-container,
+.prompt-input-container,
+.prompt-results,
+.workspace-tab-header-inner-title {
+  font-family: var(--font-monospace);
+}
