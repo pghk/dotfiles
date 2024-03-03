@@ -1,0 +1,374 @@
+body {
+  --line-height-tight: var(--line-height-normal);
+}
+
+.search-result .search-result-file-matched-text {
+  --text-highlight-fg: var(--color-cyan);
+  background-color: unset;
+}
+
+img[src^="https://k12jira.atlassian.net/rest/api/2/universal_avatar"]
+{
+  vertical-align: text-top;
+}
+
+a[href^="obsidian://"]
+{
+  text-decoration: none;
+  background: none;
+  padding-right: initial;
+}
+
+.internal-embed .markdown-embed {
+  border-radius: 0.35rem;
+  background: var(--background-modifier-active-hover);
+  --folding-offset: 1px;
+  padding: 0 1rem;
+}
+
+.internal-embed .markdown-embed-link {
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2rem;
+}
+
+.retrospect .markdown-preview-view .heading-collapse-indicator {
+  display: initial;
+}
+
+.retrospect .markdown-preview-view .heading-collapse-indicator svg.svg-icon {
+  color: unset;
+}
+
+.markdown-embed-content .markdown-preview-section div:last-child p {
+  margin-block-end: 1rem;
+}
+
+.retrospect table tbody tr {
+  height: 3em;
+}
+
+.retrospect table td:nth-child(2) {
+  min-width: 12ch;
+}
+
+.retrospect table td:nth-child(3) {
+  min-width: 13ch;
+}
+
+.retrospect table td:nth-child(3) {
+  font-size: small;
+}
+
+.markdown-rendered pre code {
+  width: 100%;
+  white-space: var(--cm-wrap-lines);
+  overflow-x: scroll;
+}
+
+code {
+  display: inline-block;
+}
+
+.markdown-source-view .cm-hmd-codeblock .cm-indent:before {
+  display: none;
+}
+
+/* Demote headings in embeds */
+.markdown-embed h1 {
+  font-variant: var(--h2-variant);
+  letter-spacing: -0.015em;
+  line-height: var(--h2-line-height);
+  font-size: var(--h2-size);
+  color: var(--h2-color);
+  font-weight: var(--h2-weight);
+  font-style: var(--h2-style);
+  font-family: var(--h2-font);
+}
+
+.markdown-embed h2 {
+  font-variant: var(--h3-variant);
+  letter-spacing: -0.015em;
+  line-height: var(--h3-line-height);
+  font-size: var(--h3-size);
+  color: var(--h3-color);
+  font-weight: var(--h3-weight);
+  font-style: var(--h3-style);
+  font-family: var(--h3-font);
+}
+
+.markdown-embed h3 {
+  font-variant: var(--h4-variant);
+  letter-spacing: 0.015em;
+  line-height: var(--h4-line-height);
+  font-size: var(--h4-size);
+  color: var(--h4-color);
+  font-weight: var(--h4-weight);
+  font-style: var(--h4-style);
+  font-family: var(--h4-font);
+}
+
+.markdown-embed h4 {
+  font-variant: var(--h5-variant);
+  letter-spacing: 0.015em;
+  font-size: var(--h5-size);
+  line-height: var(--h5-line-height);
+  color: var(--h5-color);
+  font-weight: var(--h5-weight);
+  font-style: var(--h5-style);
+  font-family: var(--h5-font);
+}
+
+.markdown-embed h5 {
+  font-variant: var(--h6-variant);
+  letter-spacing: 0.015em;
+  font-size: var(--h6-size);
+  line-height: var(--h6-line-height);
+  color: var(--h6-color);
+  font-weight: var(--h6-weight);
+  font-style: var(--h6-style);
+  font-family: var(--h6-font);
+}
+
+.markdown-embed .markdown-embed h1 {
+  font-variant: var(--h3-variant);
+  letter-spacing: -0.015em;
+  line-height: var(--h3-line-height);
+  font-size: var(--h3-size);
+  color: var(--h3-color);
+  font-weight: var(--h3-weight);
+  font-style: var(--h3-style);
+  font-family: var(--h3-font);
+}
+
+.markdown-embed .markdown-embed h2 {
+  font-variant: var(--h4-variant);
+  letter-spacing: 0.015em;
+  line-height: var(--h4-line-height);
+  font-size: var(--h4-size);
+  color: var(--h4-color);
+  font-weight: var(--h4-weight);
+  font-style: var(--h4-style);
+  font-family: var(--h4-font);
+}
+
+.markdown-embed .markdown-embed h3 {
+  font-variant: var(--h5-variant);
+  letter-spacing: 0.015em;
+  font-size: var(--h5-size);
+  line-height: var(--h5-line-height);
+  color: var(--h5-color);
+  font-weight: var(--h5-weight);
+  font-style: var(--h5-style);
+  font-family: var(--h5-font);
+}
+
+.markdown-embed .markdown-embed h4 {
+  font-variant: var(--h6-variant);
+  letter-spacing: 0.015em;
+  font-size: var(--h6-size);
+  line-height: var(--h6-line-height);
+  color: var(--h6-color);
+  font-weight: var(--h6-weight);
+  font-style: var(--h6-style);
+  font-family: var(--h6-font);
+}
+
+body div.todo-item-view-item span.due-date {
+  color: var(--bg2);
+}
+
+body div.todo-item-view-item span.due-date.overdue {
+  background-color: var(--color-red);
+}
+
+body div.todo-item-view-item span.due-date.future-due {
+  background-color: var(--color-green);
+}
+
+body {
+  --git-color-0: var(--color-red);
+  --git-color-1: var(--color-orange);
+  --git-color-2: var(--color-yellow);
+  --git-color-3: var(--color-green);
+  --git-color-4: var(--color-blue);
+  --git-color-5: var(--color-purple);
+  --git-color-6: var(--color-red);
+  --git-color-7: var(--color-orange);
+  --git-color-8: var(--color-yellow);
+  --git-color-9: var(--color-green);
+}
+
+body.theme-dark div.mermaid svg[id^="m"] g.branchLabel text {
+  fill: var(--bg2) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="0"] {
+  stroke: var(--git-color-0) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="0"] {
+  fill: var(--git-color-0) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="0"] {
+  stroke: var(--git-color-0) !important;
+  fill: var(--git-color-0) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="1"] {
+  stroke: var(--git-color-1) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="1"] {
+  fill: var(--git-color-1) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="1"] {
+  stroke: var(--git-color-1) !important;
+  fill: var(--git-color-1) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="2"] {
+  stroke: var(--git-color-2) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="2"] {
+  fill: var(--git-color-2) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="2"] {
+  stroke: var(--git-color-2) !important;
+  fill: var(--git-color-2) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="3"] {
+  stroke: var(--git-color-3) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="3"] {
+  fill: var(--git-color-3) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="3"] {
+  stroke: var(--git-color-3) !important;
+  fill: var(--git-color-3) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="4"] {
+  stroke: var(--git-color-4) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="4"] {
+  fill: var(--git-color-4) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="4"] {
+  stroke: var(--git-color-4) !important;
+  fill: var(--git-color-4) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="5"] {
+  stroke: var(--git-color-5) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="5"] {
+  fill: var(--git-color-5) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="5"] {
+  stroke: var(--git-color-5) !important;
+  fill: var(--git-color-5) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="6"] {
+  stroke: var(--git-color-6) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="6"] {
+  fill: var(--git-color-6) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="6"] {
+  stroke: var(--git-color-6) !important;
+  fill: var(--git-color-6) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="7"] {
+  stroke: var(--git-color-7) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="7"] {
+  fill: var(--git-color-7) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="7"] {
+  stroke: var(--git-color-7) !important;
+  fill: var(--git-color-7) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="8"] {
+  stroke: var(--git-color-8) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="8"] {
+  fill: var(--git-color-8) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="8"] {
+  stroke: var(--git-color-8) !important;
+  fill: var(--git-color-8) !important;
+}
+
+body.theme-dark
+  div.mermaid
+  svg[id^="m"]
+  .commit-arrows
+  path[class^="arrow"][class$="9"] {
+  stroke: var(--git-color-9) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] rect.branchLabelBkg[class$="9"] {
+  fill: var(--git-color-9) !important;
+}
+
+body.theme-dark div.mermaid svg[id^="m"] .commit[class$="9"] {
+  stroke: var(--git-color-9) !important;
+  fill: var(--git-color-9) !important;
+}

@@ -1,0 +1,9 @@
+{
+  "shimmering-focus@@mac-os-native": false,
+  "shimmering-focus@@font-heading-theme": "iAWriterQuattroS-Bold",
+  "shimmering-focus@@use-relative-line-numbers": true,
+  "shimmering-focus@@hide-settings-button": true,
+  "shimmering-focus@@show-sidebar-header-buttons": false,
+  "shimmering-focus@@no-alternating-header-colors": true,
+  "CodeMirror Options@@cm-theme-selection": "cm-theme-dracula"
+}

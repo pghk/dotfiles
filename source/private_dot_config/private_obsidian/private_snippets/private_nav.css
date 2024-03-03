@@ -1,0 +1,3 @@
+.nav-files-container .nav-folder:has(> [data-path^="_"]) {
+  display: none;
+}

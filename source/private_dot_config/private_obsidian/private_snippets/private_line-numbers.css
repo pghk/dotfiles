@@ -1,0 +1,27 @@
+.cm-lineNumbers .cm-gutterElement {
+  color: var(--text-muted);
+  opacity: 0.25;
+}
+
+.cm-lineNumbers .cm-active {
+  opacity: 1;
+}
+
+/* 5 lines away from the active line */
+body:not(.is-mobile) .cm-lineNumbers .cm-gutterElement:has(+ * + * + * + * + .cm-active),
+body:not(.is-mobile) .cm-lineNumbers .cm-active + * + * + * + * + .cm-gutterElement {
+  opacity: 1;
+}
+/* 10 or 20 */
+body:not(.is-mobile) .cm-lineNumbers .cm-gutterElement:has(+ * + * + * + * + * + * + * + * + * + .cm-active),
+body:not(.is-mobile) .cm-lineNumbers .cm-active + * + * + * + * + * + * + * + * + * + .cm-gutterElement,
+body:not(.is-mobile) .cm-lineNumbers .cm-gutterElement:has( + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + .cm-active),
+body:not(.is-mobile) .cm-lineNumbers .cm-active + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + * + .cm-gutterElement {
+  opacity: 1;
+  color: var(--red);
+}
+/* 15 */
+body:not(.is-mobile) .cm-lineNumbers .cm-gutterElement:has( + * + * + * + * + * + * + * + * + * + * + * + * + * + * + .cm-active),
+body:not(.is-mobile) .cm-lineNumbers .cm-active + * + * + * + * + * + * + * + * + * + * + * + * + * + * + .cm-gutterElement {
+  opacity: 1;
+}

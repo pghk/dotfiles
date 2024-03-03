@@ -1,5 +1,11 @@
 *?.Brewfile
 .hammerspoon/Spoons/EmmyLua.spoon/annotations
+.config/obsidian/bookmarks.json
+.config/obsidian/core-plugins-migration.json
+.config/obsidian/workspace.json
+Library
+!Library/Application Support
+!Library/Preferences
 {{ if (env "CI") }}
 .config/1Password
 .config/git

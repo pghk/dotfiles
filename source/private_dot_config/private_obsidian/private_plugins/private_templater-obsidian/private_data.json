@@ -1,0 +1,30 @@
+{
+  "command_timeout": 5,
+  "templates_folder": "00–09 System/05 Templates",
+  "templates_pairs": [
+    [
+      "johnnyDecimal",
+      "find \"${path}\" -type d -regex '\\.\\/[0-9]\\{2\\}.*' -depth $depth"
+    ]
+  ],
+  "trigger_on_file_creation": true,
+  "auto_jump_to_cursor": true,
+  "enable_system_commands": true,
+  "shell_path": "",
+  "user_scripts_folder": "00–09 System/06 Scripts",
+  "enable_folder_templates": true,
+  "folder_templates": [
+    {
+      "folder": "",
+      "template": ""
+    }
+  ],
+  "syntax_highlighting": true,
+  "enabled_templates_hotkeys": [
+    ""
+  ],
+  "startup_templates": [
+    ""
+  ],
+  "enable_ribbon_icon": true
+}

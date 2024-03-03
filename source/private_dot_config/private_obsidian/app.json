@@ -1,0 +1,22 @@
+{
+  "spellcheck": false,
+  "vimMode": true,
+  "showLineNumber": true,
+  "showIndentGuide": false,
+  "autoPairMarkdown": false,
+  "showInlineTitle": false,
+  "livePreview": false,
+  "defaultViewMode": "preview",
+  "attachmentFolderPath": "./",
+  "alwaysUpdateLinks": true,
+  "userIgnoreFilters": [
+    "00–09 System/05 Templates/",
+    "00–09 System/06 Scripts/"
+  ],
+  "readableLineLength": true,
+  "useTab": false,
+  "tabSize": 2,
+  "strictLineBreaks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "00–09 System/01 Inbox"
+}
