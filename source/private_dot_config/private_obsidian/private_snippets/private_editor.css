@@ -1,0 +1,11 @@
+.markdown-source-view .cm-lineWrapping {
+  /* white-space: pre; */
+}
+
+/* Fix line height within `pre code` */
+.markdown-rendered pre {
+  font-size: var(--code-size);
+}
+.markdown-rendered code {
+  font-size: inherit;
+}

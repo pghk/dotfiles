@@ -1,0 +1,22 @@
+{
+  "accentColor": "",
+  "cssTheme": "Obsidian Nord",
+  "theme": "system",
+  "interfaceFontFamily": "SF Pro",
+  "textFontFamily": "iA Writer Quattro S",
+  "monospaceFontFamily": "JetBrains Mono,iA Writer Mono S",
+  "enabledCssSnippets": [
+    "line-numbers",
+    "hide-status-bar",
+    "test",
+    "nav",
+    "templater",
+    "theme-overrides-nord",
+    "monospace-file-lists",
+    "editor"
+  ],
+  "nativeMenus": true,
+  "baseFontSizeAction": false,
+  "baseFontSize": 16,
+  "showViewHeader": false
+}

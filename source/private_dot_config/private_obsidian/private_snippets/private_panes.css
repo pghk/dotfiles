@@ -1,0 +1,10 @@
+.workspace-leaf {
+  --tab-stacked-pane-width: calc(32px + 4ch + 24px + 80ch);
+}
+.markdown-reading-view {
+  margin-inline: auto;
+  width: var(--tab-stacked-pane-width) !important;
+}
+.workspace-leaf:has(.markdown-source-view:not([style*="display: none"])) {
+  --tab-stacked-pane-width: -webkit-fill-available;
+}
