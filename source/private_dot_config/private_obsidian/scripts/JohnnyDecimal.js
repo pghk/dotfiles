@@ -11,29 +11,48 @@ class JohnnyDecimal {
     this.file = templater.file.title;
   }
 
-  async createArea() {
-    const { start, end } = await this.nextArea();
-    const name = await this.tp.system.prompt("Area name", "New Area");
-    const category = `${pad(start + 1)} ${name}`;
-    const subject = `${pad(start + 1)}.01 ${name}`;
-    const range = `${pad(start)}–${pad(end)}`;
-    const path = `${range} ${name}/${category}/${subject}`;
+  async applyClassification() {
+    const subject = await this.chooseSubject();
+    if (subject) {
+      return this.tp.file.move(`${subject}/${this.file}`);
+    }
+    const category = await this.chooseCategory();
+    if (category) {
+      return this.createSubject(category);
+    }
+    const area = await this.chooseArea();
+    if (area) {
+      return this.createCategory(area);
+    }
+    const newArea = await this.tp.system.prompt("Name Area", "New Area");
+    if (newArea) {
+      return this.createArea(newArea);
+    }
+    return;
+  }
+
+  async createArea(name) {
+    const start = await this.nextArea();
+    const cName = await this.tp.system.prompt("Name Category", "New Category");
+    const sName = await this.tp.system.prompt("Name Subject", "New Subject");
+    const category = `${pad(start + 1)} ${cName}`;
+    const subject = `${pad(start + 1)}.01 ${sName}`;
+    const path = `${start} ${name}/${category}/${subject}`;
     await this.tp.file.move(`/${path}/${this.file}`);
   }
 
-  async createCategory() {
-    const area = await this.chooseArea();
-    const name = await this.tp.system.prompt("Category name", "New Category");
+  async createCategory(area) {
     const id = await this.nextCategory(area);
+    const name = await this.tp.system.prompt("Name Category", "New Category");
+    const sName = await this.tp.system.prompt("Name Subject", "New Subject");
     const category = `${pad(id)} ${name}`;
-    const subject = `/${pad(id)}.01 ${name}/`;
+    const subject = `/${pad(id)}.01 ${sName}/`;
     const path = `${area}/${category}/${subject}`;
     await this.tp.file.move(`/${path}/${this.file}`);
   }
 
-  async createSubject() {
-    const category = await this.chooseCategory();
-    const name = await this.tp.system.prompt("Subject name", "New Subject");
+  async createSubject(category) {
+    const name = await this.tp.system.prompt("Name Subject", "New Subject");
     const cid = category.split("/").slice(-1)[0].substring(0, 2);
     const id = await this.nextSubject(category);
     const subject = `${cid}.${pad(id)} ${name}`;
@@ -56,29 +75,27 @@ class JohnnyDecimal {
   chooseArea() {
     const getValues = () => this.listAreas();
     const toText = (v) => ({ key: v.substring(2), value: v });
-    return this.getChoice(getValues, toText);
+    return this.getChoice(getValues, toText, "Select Area");
   }
 
   chooseCategory() {
     const getValues = () => this.listCategories();
     const toText = (v) => {
-      const [area, category] = v.substring(2).split("/");
-      const k = `${digits(category)} / ${alphas(area)} / ${alphas(category)}`;
+      const [a, c] = v.substring(2).split("/");
+      const k = `${digits(c)} ${alphas(a)}·${alphas(c)}`;
       return { key: k, value: v };
     };
-    return this.getChoice(getValues, toText);
+    return this.getChoice(getValues, toText, "Pick a Category");
   }
 
   chooseSubject() {
     const getValues = () => this.listSubjects();
     const toText = (v) => {
-      const [area, category, subject] = v.substring(2).split("/");
-      const k =
-        `${digits(subject)} / ${alphas(area)} / ` +
-        `${alphas(category)} / ${alphas(subject)}`;
-      return { key: k, value: v };
+      const [a, c, s] = v.substring(2).split("/");
+      const k = `${digits(s)} ${alphas(a)}·${alphas(c)}·${alphas(s)}`;
+      return { key: k, value: v.substring(2) };
     };
-    return this.getChoice(getValues, toText);
+    return this.getChoice(getValues, toText, "Move to Subject");
   }
 
   async getList(path, depth) {
@@ -86,28 +103,29 @@ class JohnnyDecimal {
     return result.split("\n").filter((i) => i);
   }
 
-  async getChoice(getValues, toText) {
+  async getChoice(getValues, toText, placeholder = "") {
     const values = await getValues();
     const byText = (a, b) => (a.key == b.key ? 0 : a.key < b.key ? -1 : 1);
     const options = values.map(toText).sort(byText);
     return await this.tp.system.suggester(
       options.map((i) => i.key),
       options.map((i) => i.value),
+      false,
+      placeholder,
     );
   }
 
   async nextArea() {
     const existing = await this.listAreas();
     if (!existing.length) {
-      return { start: 0, end: 9 };
+      return 0;
     }
-    const ranges = existing
+    const last = existing
       .map((i) => i.substring(2))
       .map(digits)
-      .map((i) => i.split("–"));
-    const last = ranges.slice(-1)[0];
-    const [start, end] = last.map((id) => parseInt(id) + 10);
-    return { start, end };
+      .sort()
+      .slice(-1);
+    return parseInt(last) + 10;
   }
 
   async nextCategory(inArea) {
