@@ -1,8 +1,14 @@
 *?.Brewfile
+**/.DS_Store
 .hammerspoon/Spoons/EmmyLua.spoon/annotations
+.config/obsidian/app.json
 .config/obsidian/bookmarks.json
+.config/obsidian/daily-notes.json
 .config/obsidian/core-plugins-migration.json
+.config/obsidian/note-composer.json
 .config/obsidian/workspace.json
+.config/obsidian/plugins/periodic-notes/data.json
+.config/obsidian/plugins/templater-obsidian/data.json
 Library
 !Library/Application Support
 !Library/Preferences
