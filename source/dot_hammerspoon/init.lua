@@ -4,6 +4,7 @@ spoon.ReloadConfiguration:start()
 
 local gridActions = require("grid")
 local terminal = require("terminal")
+local window = require("windows")
 
 local defaultGridMargins = "8,8"
 hs.logger.defaultLogLevel = "info"
@@ -60,8 +61,9 @@ mouseFollowAppWatcher:start()
 *** Window Management ***
 
 ]]
+
 hs.grid.setMargins(defaultGridMargins) -- set margins between windows
-gridActions.setAllGrids(1) -- set each screen's grid to twice its aspect ratio
+gridActions.setAllGrids(4) -- set each screen's grid to 4x its aspect ratio
 
 -- [[ ONCE-PER-KEYPRESS HOTKEYS ]]
 local singleUseActions = {
@@ -90,16 +92,16 @@ end
 -- [[ REPEAT-WHEN-HELD HOTKEYS ]]
 local repeatableActions = {
   -- moving windows
-  { mash, "h", function() hs.grid.pushWindowLeft() end },
-  { mash, "j", function() hs.grid.pushWindowDown() end },
-  { mash, "k", function() hs.grid.pushWindowUp() end },
-  { mash, "l", function() hs.grid.pushWindowRight() end },
+  { mash, "h", hs.grid.pushWindowLeft },
+  { mash, "j", hs.grid.pushWindowDown },
+  { mash, "k", hs.grid.pushWindowUp },
+  { mash, "l", hs.grid.pushWindowRight },
   -- resizing windows
-  { hyper, "h", function() hs.grid.resizeWindowThinner() end },
-  { hyper, "j", function() hs.grid.resizeWindowTaller() end },
-  { hyper, "k", function() hs.grid.resizeWindowShorter() end },
-  { hyper, "l", function() hs.grid.resizeWindowWider() end },
+  { hyper, "h", hs.grid.resizeWindowThinner },
+  { hyper, "j", hs.grid.resizeWindowTaller },
+  { hyper, "k", hs.grid.resizeWindowShorter },
+  { hyper, "l", hs.grid.resizeWindowWider },
 }
 for _, v in ipairs(repeatableActions) do
-  hs.hotkey.bind(v[1], v[2], v[3], nil, v[3])
+  hs.hotkey.bind(v[1], v[2], function() window.sticky(v[3]) end, nil, function() window.sticky(v[3]) end)
 end
