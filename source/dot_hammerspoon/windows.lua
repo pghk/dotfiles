@@ -128,43 +128,26 @@ M.layout = function()
   end
 end
 
-M.layout2 = function()
+M.focus = function()
   local screens = hs.screen.allScreens() or {}
   local window = hs.window.focusedWindow()
   local others = {}
   local count = 0
-  for _, v in pairs(window:otherWindowsAllScreens() or {}) do
-    if v:isStandard() then
+  for _, v in pairs(hs.window.orderedWindows() or {}) do
+    if v ~= window and v:isStandard() and v:isVisible() then
       count = count + 1
       others[count] = v
     end
   end
 
-  moveAndSize(window, screens[1], {
-    x = 1 / 16,
-    y = 1 / 36,
-    w = 14 / 16,
-    h = 33 / 36,
-  })
-
-  local rows = 2
-  if count <= 2 then
-    rows = 1
-  end
-
-  local top = math.floor(count / 2)
-  local bottom = count - top
+  moveAndSize(window, screens[1], { x = 0, y = 0, w = 1, h = 1 })
 
   for i, v in ipairs(others or {}) do
-    local new = {}
-    if count <= 2 then
-      new = { x = (i - 1) * (1 / count), y = 0, h = 1, w = 1 / count }
-    elseif i <= top then
-      local offset = i - 1
-      new = { x = (1 / top) * offset, y = 0, h = 1 / rows, w = 1 / top }
-    else
-      local offset = (i - top) - 1
-      new = { x = (1 / bottom) * offset, y = 0.5, h = 1 / rows, w = 1 / bottom }
+    local new = { x = 0, y = 0, w = 1, h = 1 }
+    if count > 1 then
+      local size = 1 / (count * 0.535)
+      local offset = (count - i) * ((1 - size) / (count - 1))
+      new = { x = offset, y = offset, w = size, h = size }
     end
     moveAndSize(v, screens[2], new)
   end
