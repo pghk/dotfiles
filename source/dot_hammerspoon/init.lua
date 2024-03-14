@@ -87,7 +87,7 @@ local singleUseActions = {
 
   { hyper, "p", function() window.presets() end },
   { hyper, "y", function() window.layout() end },
-  { hyper, "8", function() window.layout2() end },
+  { hyper, "8", function() window.focus() end },
 }
 for _, v in ipairs(singleUseActions) do
   hs.hotkey.bind(v[1], v[2], v[3])
