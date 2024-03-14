@@ -1,5 +1,14 @@
 local M = {}
 
+local debug = function()
+  for _, screen in pairs(hs.screen.allScreens() or {}) do
+    print(hs.inspect.inspect(screen))
+  end
+  for _, window in pairs(hs.window.visibleWindows() or {}) do
+    print(hs.inspect.inspect(window:application()))
+  end
+end
+
 M.sticky = function(motion)
   local thisWindow = hs.window.focusedWindow()
   local rect = { x = 0, y = 0, w = 0, h = 0 }
@@ -51,6 +60,113 @@ M.sticky = function(motion)
     if adjust ~= nil then
       hs.grid.adjustWindow(adjust, window)
     end
+  end
+end
+
+local resize = function(relative, screen)
+  local max = hs.grid.getGrid(screen) or { w = 0, h = 0 }
+  return {
+    x = max.w * relative.x,
+    y = max.h * relative.y,
+    w = max.w * (relative.w or (1 - relative.x)),
+    h = max.h * (relative.h or (1 - relative.y)),
+  }
+end
+
+local function moveAndSize(window, screen, spec) hs.grid.set(window, resize(spec, screen), screen) end
+
+local presets = {
+  ["Microsoft Teams (work or school)"] = { x = 1 / 8, y = 0 },
+  ["Mail"] = { x = 0, y = 0 },
+}
+
+M.presets = function()
+  for _, window in pairs(hs.window.visibleWindows() or {}) do
+    local application = window:application() or { title = "" }
+    local app = application:title()
+    if presets[app] ~= nil then
+      local new = resize(presets[app], window:screen())
+      hs.grid.set(window, new)
+    end
+  end
+end
+
+M.layout = function()
+  local windows = hs.window.orderedWindows() or {}
+  local screens = hs.screen.allScreens() or {}
+  if #windows < 1 then
+    return
+  end
+  if #screens < 2 then
+    return
+  end
+
+  if #windows == 2 then
+    moveAndSize(windows[1], screens[1], { x = 0, y = 0 })
+    moveAndSize(windows[2], screens[2], { x = 0, y = 0 })
+  end
+
+  if #windows == 3 then
+    moveAndSize(windows[1], screens[1], { x = 0, y = 0, w = 0.618 })
+    moveAndSize(windows[2], screens[2], { x = 0, y = 0 })
+    moveAndSize(windows[3], screens[1], { x = 0.618, y = 0 })
+  end
+
+  if #windows == 4 then
+    moveAndSize(windows[1], screens[1], { x = 0, y = 0, w = 0.5 })
+    moveAndSize(windows[2], screens[2], { x = 0, y = 0 })
+    moveAndSize(windows[3], screens[1], { x = 0.5, y = 0, h = 0.5 })
+    moveAndSize(windows[4], screens[1], { x = 0.5, y = 0.5 })
+  end
+
+  if #windows == 5 then
+    moveAndSize(windows[1], screens[1], { x = 0, y = 0, w = 0.5 })
+    moveAndSize(windows[2], screens[1], { x = 0.5, y = 0, h = 0.5 })
+    moveAndSize(windows[3], screens[1], { x = 0.5, y = 0.5 })
+    moveAndSize(windows[4], screens[2], { x = 0, y = 0, w = 0.5 })
+    moveAndSize(windows[5], screens[2], { x = 0.5, y = 0 })
+  end
+end
+
+M.layout2 = function()
+  local screens = hs.screen.allScreens() or {}
+  local window = hs.window.focusedWindow()
+  local others = {}
+  local count = 0
+  for _, v in pairs(window:otherWindowsAllScreens() or {}) do
+    if v:isStandard() then
+      count = count + 1
+      others[count] = v
+    end
+  end
+
+  moveAndSize(window, screens[1], {
+    x = 1 / 16,
+    y = 1 / 36,
+    w = 14 / 16,
+    h = 33 / 36,
+  })
+
+  local rows = 2
+  if count <= 2 then
+    rows = 1
+  end
+
+  local top = math.floor(count / 2)
+  local bottom = count - top
+
+  for i, v in ipairs(others or {}) do
+    local new = {}
+    if count <= 2 then
+      new = { x = (i - 1) * (1 / count), y = 0, h = 1, w = 1 / count }
+    elseif i <= top then
+      local offset = i - 1
+      new = { x = (1 / top) * offset, y = 0, h = 1 / rows, w = 1 / top }
+    else
+      local offset = (i - top) - 1
+      new = { x = (1 / bottom) * offset, y = 0.5, h = 1 / rows, w = 1 / bottom }
+    end
+    moveAndSize(v, screens[2], new)
   end
 end
 
