@@ -7,8 +7,8 @@
 .config/obsidian/core-plugins-migration.json
 .config/obsidian/note-composer.json
 .config/obsidian/workspace.json
-.config/obsidian/plugins/periodic-notes/data.json
-.config/obsidian/plugins/templater-obsidian/data.json
+.config/obsidian/plugins
+.config/obsidian/themes
 Library
 !Library/Application Support
 !Library/Preferences
