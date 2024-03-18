@@ -1,3 +1,5 @@
+local M = {}
+
 ODD_HEIGHTS = { [1117] = "MBP_16", [982] = "MBP_14" }
 NOTCH_STATUS_BAR = 37
 
@@ -30,7 +32,7 @@ Each grid is based on the screen's aspect ratio, magnified by a given factor.
 For example, 1x = 16:9, 2x = 32:18.
 ]]
 local gridResolutionFactor = 1
-local function setAllGrids(increment, report)
+M.setAllGrids = function(increment, report)
   report = report or false
   gridResolutionFactor = gridResolutionFactor + increment
   local function setGrid(screen)
@@ -43,14 +45,17 @@ local function setAllGrids(increment, report)
     end
     hs.grid.setGrid(newGrid, screen)
   end
-  for _, screen in pairs(hs.screen.allScreens()) do
+  for _, screen in pairs(hs.screen.allScreens() or {}) do
     setGrid(screen)
   end
 end
 
-local function rotate(window)
+M.rotate = function(window)
   window = window or hs.window.focusedWindow()
   local current = hs.grid.get(window)
+  if not current then
+    return nil
+  end
   local new = {
     x = current.x + ((current.w - current.h) / 2),
     y = current.y + ((current.h - current.w) / 2),
@@ -60,10 +65,13 @@ local function rotate(window)
   hs.grid.set(window, new)
 end
 
-local function center(window)
+M.center = function(window)
   window = window or hs.window.focusedWindow()
   local current = hs.grid.get(window)
   local max = hs.grid.getGrid(window:screen())
+  if not max or not current then
+    return nil
+  end
   local new = {
     x = math.ceil(max.w / 2 - current.w / 2),
     y = math.floor(max.h / 2 - current.h / 2),
@@ -90,6 +98,9 @@ end
 local function flipScale(window, scale)
   window = window or hs.window.focusedWindow()
   local current = hs.grid.get(window)
+  if not current then
+    return nil
+  end
   local newWidth = current.h * scale.h
   local newHeight = current.w * scale.w
   resize(window, newWidth, newHeight)
@@ -98,16 +109,19 @@ end
 local function magicResize(scale)
   local window = hs.window.focusedWindow()
   flipScale(window, scale)
-  center(window)
+  M.center(window)
 end
 
 local function getOrientation(window)
   window = window or hs.window.focusedWindow()
   local current = hs.grid.get(window)
+  if not current then
+    return nil
+  end
   return current.w < current.h and "portrait" or "landscape"
 end
 
-local function scaleUp(window)
+M.scaleUp = function(window)
   window = window or hs.window.focusedWindow()
   local orientation = getOrientation(window)
   if orientation == "landscape" then
@@ -117,7 +131,7 @@ local function scaleUp(window)
   end
 end
 
-local function scaleDown(window)
+M.scaleDown = function(window)
   window = window or hs.window.focusedWindow()
   local orientation = getOrientation(window)
   if orientation == "landscape" then
@@ -127,52 +141,53 @@ local function scaleDown(window)
   end
 end
 
-local function moveToNextScreen(window)
+M.moveToNextScreen = function(window)
   window = window or hs.window.focusedWindow()
   window:moveToScreen(window:screen():next())
 end
 
-local function moveToRightHalf(window)
+M.moveToRightHalf = function(window)
   window = window or hs.window.focusedWindow()
   local max = hs.grid.getGrid(window:screen())
+  if not max then
+    return
+  end
   local new = { x = max.w / 2, y = 0, w = max.w / 2, h = max.h }
   hs.grid.set(window, new)
 end
 
-local function moveToLeftHalf(window)
+M.moveToLeftHalf = function(window)
   window = window or hs.window.focusedWindow()
   local max = hs.grid.getGrid(window:screen())
+  if not max then
+    return
+  end
   local new = { x = 0, y = 0, w = max.w / 2, h = max.h }
   hs.grid.set(window, new)
 end
 
 local visorHeight = 0.33
-local function moveToVisor(window)
+M.moveToVisor = function(window)
   window = window or hs.window.focusedWindow()
   local max = hs.grid.getGrid(window:screen())
+  if not max then
+    return
+  end
   local offset = max.h * visorHeight
   local new = { x = 0, y = 0, w = max.w, h = offset }
   hs.grid.set(window, new)
 end
 
-local function fitBelowVisor(window)
+M.fitBelowVisor = function(window)
   window = window or hs.window.focusedWindow()
   local current = hs.grid.get(window)
   local max = hs.grid.getGrid(window:screen())
+  if not max or not current then
+    return
+  end
   local offset = max.h * visorHeight
   local new = { x = current.x, y = offset, w = current.w, h = max.h - offset }
   hs.grid.set(window, new)
 end
 
-return {
-  rotate = rotate,
-  scaleDown = scaleDown,
-  scaleUp = scaleUp,
-  center = center,
-  setAllGrids = setAllGrids,
-  moveToNextScreen = moveToNextScreen,
-  moveToLeftHalf = moveToLeftHalf,
-  moveToRightHalf = moveToRightHalf,
-  moveToVisor = moveToVisor,
-  fitBelowVisor = fitBelowVisor,
-}
+return M
