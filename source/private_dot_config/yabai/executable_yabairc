@@ -1,0 +1,21 @@
+# vim: ft=bash
+
+# Set all padding and gaps to 6pt (default: 0)
+yabai -m config top_padding    8
+yabai -m config bottom_padding 8
+yabai -m config left_padding   8
+yabai -m config right_padding  8
+yabai -m config window_gap     8
+
+# Floating point value between 0 and 1 (default: 0.5)
+yabai -m config split_ratio 0.618
+
+# Never manage windows from these apps
+EXCLUDE=(
+  "Activity Monitor"
+  ".*Settings$"
+  "Calculator"
+  "Karabiner-EventViewer"
+  "^Terminal Visor$"
+)
+for APP in ${EXCLUDE[@]}; do yabai -m rule --add app="${APP}" manage=off; done

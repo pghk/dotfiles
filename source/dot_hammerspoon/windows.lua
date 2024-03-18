@@ -1,5 +1,5 @@
-local M = {}
-
+local M = { space = {}, pane = {}, layout = {} }
+SPACE_LAYOUTS = {}
 -- Tiling window manager for macOS: https://github.com/koekeishiya/yabai
 local manager = "/opt/homebrew/bin/yabai"
 
@@ -13,18 +13,34 @@ local yabai = function(args)
     :start()
 end
 
-M.test = function() yabai({ "-m", "window", "--swap", "recent" }) end
--- M.test = function() yabai({ "-m", "window", "--toggle", "zoom-parent" }) end
--- M.test = function() yabai({ "-m", "window", "--toggle", "split" }) end
--- M.test = function() yabai({ "-m", "display", "--focus", "west" }) end
--- M.test = function() yabai({ "-m", "window", "--focus", "west" }) end
--- M.test = function() yabai({ "-m", "space", "--balance" }) end
--- M.test = function() yabai({ "-m", "space", "--equalize" }) end
--- M.test = function() yabai({ "-m", "window", "--toggle", "float", "--grid", "8:8:1:1:6:6" }) end
--- M.test = function() yabai({ "-m", "space", "--mirror", "y-axis" }) end
--- M.test = function() yabai({ "-m", "space", "--rotate", "90" }) end
--- M.test = function() yabai({ "-m", "space", "--toggle", "gap" }) end
--- M.test = function() yabai({ "-m", "window", "--focus", "east" }) end
+M.layout.toggle = function()
+  local thisSpace = hs.spaces.focusedSpace()
+  local next = "bsp"
+  if SPACE_LAYOUTS[thisSpace] == "bsp" then
+    next = "float"
+  end
+  SPACE_LAYOUTS[thisSpace] = next
+  yabai({ "-m", "space", "--layout", next })
+end
+
+M.pane.float = function() yabai({ "-m", "window", "--toggle", "float", "--grid", "8:8:1:1:6:6" }) end
+
+M.pane.swap = function() yabai({ "-m", "window", "--swap", "recent" }) end
+M.pane.super = function() yabai({ "-m", "window", "--toggle", "zoom-parent" }) end
+M.pane.split = function() yabai({ "-m", "window", "--toggle", "split" }) end
+
+M.pane.focusWest = function() yabai({ "-m", "window", "--focus", "west" }) end
+M.pane.focusEast = function() yabai({ "-m", "window", "--focus", "east" }) end
+M.pane.focusNorth = function() yabai({ "-m", "window", "--focus", "north" }) end
+M.pane.focusSouth = function() yabai({ "-m", "window", "--focus", "south" }) end
+
+M.space.focusWest = function() yabai({ "-m", "display", "--focus", "west" }) end
+M.space.focusEast = function() yabai({ "-m", "display", "--focus", "east" }) end
+
+M.layout.balance = function() yabai({ "-m", "space", "--balance" }) end
+M.layout.reset = function() yabai({ "-m", "space", "--equalize" }) end
+M.layout.flip = function() yabai({ "-m", "space", "--mirror", "y-axis" }) end
+M.layout.rotate = function() yabai({ "-m", "space", "--rotate", "90" }) end
 
 local getPosition = function(relative, toScreen)
   local max = hs.grid.getGrid(toScreen) or { w = 0, h = 0 }

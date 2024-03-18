@@ -22,6 +22,26 @@ hs.hotkey.bind(meh, "]", function() gridActions.setAllGrids(1, true) end)
 local singleUseActions = {
   { meh, "space", terminal.toggle },
 
+  { meh, "6", window.pane.split },
+  { meh, "7", window.pane.swap },
+  { meh, "8", window.layout.toggle },
+  { meh, "9", window.pane.float },
+
+  { meh, "0", window.pane.super },
+
+  { hyper, "6", window.layout.flip },
+  { hyper, "7", window.layout.rotate },
+  { hyper, "8", window.layout.balance },
+  { hyper, "9", window.layout.reset },
+
+  { meh, "h", window.pane.focusWest },
+  { meh, "j", window.pane.focusSouth },
+  { meh, "k", window.pane.focusNorth },
+  { meh, "l", window.pane.focusEast },
+
+  { hyper, "h", window.space.focusWest },
+  { hyper, "l", window.space.focusEast },
+
   { meh, "n", gridActions.rotate },
   { meh, "m", gridActions.scaleDown },
   { meh, ",", gridActions.scaleUp },
@@ -30,14 +50,8 @@ local singleUseActions = {
   { meh, "/", hs.grid.maximizeWindow },
   { meh, "\\", gridActions.moveToNextScreen },
 
-  { meh, "left", gridActions.moveToLeftHalf },
-  { meh, "right", gridActions.moveToRightHalf },
-  { meh, "up", gridActions.moveToVisor },
-  { meh, "down", gridActions.fitBelowVisor },
-
   { hyper, "p", window.presets },
-  { hyper, "8", window.focus },
-  { hyper, "6", window.test },
+  { hyper, "0", window.focus },
 }
 for _, v in ipairs(singleUseActions) do
   hs.hotkey.bind(v[1], v[2], function() v[3]() end)
@@ -46,15 +60,15 @@ end
 -- [[ REPEAT-WHEN-HELD HOTKEYS ]]
 local repeatableActions = {
   -- moving windows
-  { meh, "h", hs.grid.pushWindowLeft },
-  { meh, "j", hs.grid.pushWindowDown },
-  { meh, "k", hs.grid.pushWindowUp },
-  { meh, "l", hs.grid.pushWindowRight },
+  { meh, "y", hs.grid.pushWindowLeft },
+  { meh, "u", hs.grid.pushWindowDown },
+  { meh, "i", hs.grid.pushWindowUp },
+  { meh, "o", hs.grid.pushWindowRight },
   -- resizing windows
-  { hyper, "h", hs.grid.resizeWindowThinner },
-  { hyper, "j", hs.grid.resizeWindowTaller },
-  { hyper, "k", hs.grid.resizeWindowShorter },
-  { hyper, "l", hs.grid.resizeWindowWider },
+  { hyper, "y", hs.grid.resizeWindowThinner },
+  { hyper, "u", hs.grid.resizeWindowTaller },
+  { hyper, "i", hs.grid.resizeWindowShorter },
+  { hyper, "o", hs.grid.resizeWindowWider },
 }
 for _, v in ipairs(repeatableActions) do
   hs.hotkey.bind(v[1], v[2], function() v[3]() end, nil, function() v[3]() end)
