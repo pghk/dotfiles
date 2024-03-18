@@ -146,48 +146,4 @@ M.moveToNextScreen = function(window)
   window:moveToScreen(window:screen():next())
 end
 
-M.moveToRightHalf = function(window)
-  window = window or hs.window.focusedWindow()
-  local max = hs.grid.getGrid(window:screen())
-  if not max then
-    return
-  end
-  local new = { x = max.w / 2, y = 0, w = max.w / 2, h = max.h }
-  hs.grid.set(window, new)
-end
-
-M.moveToLeftHalf = function(window)
-  window = window or hs.window.focusedWindow()
-  local max = hs.grid.getGrid(window:screen())
-  if not max then
-    return
-  end
-  local new = { x = 0, y = 0, w = max.w / 2, h = max.h }
-  hs.grid.set(window, new)
-end
-
-local visorHeight = 0.33
-M.moveToVisor = function(window)
-  window = window or hs.window.focusedWindow()
-  local max = hs.grid.getGrid(window:screen())
-  if not max then
-    return
-  end
-  local offset = max.h * visorHeight
-  local new = { x = 0, y = 0, w = max.w, h = offset }
-  hs.grid.set(window, new)
-end
-
-M.fitBelowVisor = function(window)
-  window = window or hs.window.focusedWindow()
-  local current = hs.grid.get(window)
-  local max = hs.grid.getGrid(window:screen())
-  if not max or not current then
-    return
-  end
-  local offset = max.h * visorHeight
-  local new = { x = current.x, y = offset, w = current.w, h = max.h - offset }
-  hs.grid.set(window, new)
-end
-
 return M
