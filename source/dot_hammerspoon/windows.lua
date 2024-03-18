@@ -26,8 +26,8 @@ M.test = function() yabai({ "-m", "window", "--swap", "recent" }) end
 -- M.test = function() yabai({ "-m", "space", "--toggle", "gap" }) end
 -- M.test = function() yabai({ "-m", "window", "--focus", "east" }) end
 
-local resize = function(relative, screen)
-  local max = hs.grid.getGrid(screen) or { w = 0, h = 0 }
+local getPosition = function(relative, toScreen)
+  local max = hs.grid.getGrid(toScreen) or { w = 0, h = 0 }
   return {
     x = max.w * relative.x,
     y = max.h * relative.y,
@@ -35,8 +35,6 @@ local resize = function(relative, screen)
     h = max.h * (relative.h or (1 - relative.y)),
   }
 end
-
-local function moveAndSize(window, screen, spec) hs.grid.set(window, resize(spec, screen), screen) end
 
 local presets = {
   ["Microsoft Teams (work or school)"] = { x = 1 / 8, y = 0 },
@@ -48,34 +46,37 @@ M.presets = function()
     local application = window:application() or { title = "" }
     local app = application:title()
     if presets[app] ~= nil then
-      local new = resize(presets[app], window:screen())
-      hs.grid.set(window, new)
+      local pos = getPosition(presets[app], window:screen())
+      hs.grid.set(window, pos)
     end
   end
 end
 
+local cascade = function(index, count)
+  local rect = { x = 0, y = 0, w = 1, h = 1 }
+  if count > 1 then
+    local size = 1 / (count * 0.535)
+    local offset = (count - index) * ((1 - size) / (count - 1))
+    rect = { x = offset, y = offset, w = size, h = size }
+  end
+  return rect
+end
+
 M.focus = function()
   local screens = hs.screen.allScreens() or {}
-  local window = hs.window.focusedWindow()
+  local thisWindow = hs.window.focusedWindow()
   local others = {}
   local count = 0
   for _, v in pairs(hs.window.orderedWindows() or {}) do
-    if v ~= window and v:isStandard() and v:isVisible() then
+    if v ~= thisWindow and v:isStandard() and v:isVisible() then
       count = count + 1
       others[count] = v
     end
   end
 
-  moveAndSize(window, screens[1], { x = 0, y = 0, w = 1, h = 1 })
-
-  for i, v in ipairs(others or {}) do
-    local new = { x = 0, y = 0, w = 1, h = 1 }
-    if count > 1 then
-      local size = 1 / (count * 0.535)
-      local offset = (count - i) * ((1 - size) / (count - 1))
-      new = { x = offset, y = offset, w = size, h = size }
-    end
-    moveAndSize(v, screens[2], new)
+  for i, window in ipairs(others or {}) do
+    local pos = getPosition(cascade(i, count), screens[2])
+    hs.grid.set(window, pos, screens[2])
   end
 end
 
