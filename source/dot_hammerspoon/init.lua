@@ -86,8 +86,8 @@ local singleUseActions = {
   { hyper, "right", function() moveMouseOneScreen("east") end },
 
   { hyper, "p", function() window.presets() end },
-  { hyper, "y", function() window.layout() end },
   { hyper, "8", function() window.focus() end },
+  { hyper, "6", function() window.test() end },
 }
 for _, v in ipairs(singleUseActions) do
   hs.hotkey.bind(v[1], v[2], v[3])
@@ -107,5 +107,5 @@ local repeatableActions = {
   { hyper, "l", hs.grid.resizeWindowWider },
 }
 for _, v in ipairs(repeatableActions) do
-  hs.hotkey.bind(v[1], v[2], function() window.sticky(v[3]) end, nil, function() window.sticky(v[3]) end)
+  hs.hotkey.bind(v[1], v[2], function() v[3]() end, nil, function() v[3]() end)
 end
