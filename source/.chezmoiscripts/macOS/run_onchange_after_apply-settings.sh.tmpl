@@ -18,6 +18,7 @@ defaults write NSGlobalDomain KeyRepeat -int 2
 # Keyboard > Keyboard > Delay Until Repeat
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 # Keyboard > Shortcuts > Use keyboard navigation to move focus between controls
+# 
 defaults write nsglobaldomain AppleKeyboardUIMode -int 2
 # Trackpad > Point & Click > Tracking Speed
 defaults write NSGlobalDomain com.apple.trackpad.scaling -int 1
@@ -69,6 +70,8 @@ defaults write com.apple.dock magnification -int 0
 defaults write com.apple.dock show-recents -int 0
 # System Preferences > Dock > Minimize windows into application icon.
 defaults write com.apple.dock minimize-to-application -bool true
+# System Preferences > Dock > Automatically rearrange spaces
+defaults write com.apple.dock mru-spaces -bool false
 
 
 # com.apple.finder #

@@ -1,5 +1,6 @@
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
+tap "koekeishiya/formulae"
 
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
@@ -29,6 +30,8 @@ brew "screen"
 brew "tree"
 # Internet file retriever
 brew "wget"
+# A tiling window manager for macOS based on binary space partitioning.
+brew "koekeishiya/formulae/yabai"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
 
@@ -48,4 +51,3 @@ cask "hammerspoon"
 cask "karabiner-elements"
 # GPU-based terminal emulator
 cask "kitty"
-
