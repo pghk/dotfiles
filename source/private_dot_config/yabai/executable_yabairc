@@ -12,10 +12,12 @@ yabai -m config split_ratio 0.618
 
 # Never manage windows from these apps
 EXCLUDE=(
-  "Activity Monitor"
   ".*Settings$"
+  "Activity Monitor"
   "Calculator"
+  "Finder"
   "Karabiner-EventViewer"
+  "Shottr"
   "^Terminal Visor$"
 )
 for APP in ${EXCLUDE[@]}; do yabai -m rule --add app="${APP}" manage=off; done

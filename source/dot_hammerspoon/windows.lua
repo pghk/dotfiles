@@ -1,7 +1,10 @@
 local M = { space = {}, pane = {}, layout = {} }
+
+BREW_PATH = hs.execute("brew --prefix | tr -d '\n'", true)
 SPACE_LAYOUTS = {}
+
 -- Tiling window manager for macOS: https://github.com/koekeishiya/yabai
-local manager = "/opt/homebrew/bin/yabai"
+local manager = BREW_PATH .. "/bin/yabai"
 
 -- Call yabai commands via a task instead of os.execute(), to avoid lag
 local yabai = function(args)
@@ -13,21 +16,32 @@ local yabai = function(args)
     :start()
 end
 
-M.layout.toggle = function()
+M.space.toggleLayout = function()
   local thisSpace = hs.spaces.focusedSpace()
   local next = "bsp"
+  local msg = "Managed Layout"
+  local sound = "Frog"
   if SPACE_LAYOUTS[thisSpace] == "bsp" then
     next = "float"
+    msg = "Free Layout"
+    sound = "Blow"
   end
   SPACE_LAYOUTS[thisSpace] = next
   yabai({ "-m", "space", "--layout", next })
+  hs.notify
+    .new(nil, {
+      title = "Window Management",
+      informativeText = msg,
+      soundName = sound,
+    })
+    :send()
 end
 
 M.pane.float = function() yabai({ "-m", "window", "--toggle", "float", "--grid", "8:8:1:1:6:6" }) end
 
 M.pane.swap = function() yabai({ "-m", "window", "--swap", "recent" }) end
 M.pane.super = function() yabai({ "-m", "window", "--toggle", "zoom-parent" }) end
-M.pane.split = function() yabai({ "-m", "window", "--toggle", "split" }) end
+M.pane.rotate = function() yabai({ "-m", "window", "--toggle", "split" }) end
 
 M.pane.focusWest = function() yabai({ "-m", "window", "--focus", "west" }) end
 M.pane.focusEast = function() yabai({ "-m", "window", "--focus", "east" }) end
