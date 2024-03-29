@@ -54,7 +54,7 @@ M.space.focusEast = function() yabai({ "-m", "display", "--focus", "east" }) end
 M.layout.balance = function() yabai({ "-m", "space", "--balance" }) end
 M.layout.reset = function() yabai({ "-m", "space", "--equalize" }) end
 M.layout.flip = function() yabai({ "-m", "space", "--mirror", "y-axis" }) end
-M.layout.rotate = function() yabai({ "-m", "space", "--rotate", "90" }) end
+M.layout.rotate = function() yabai({ "-m", "space", "--rotate", "270" }) end
 
 local getPosition = function(relative, toScreen)
   local max = hs.grid.getGrid(toScreen) or { w = 0, h = 0 }
