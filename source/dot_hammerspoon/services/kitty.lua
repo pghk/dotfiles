@@ -6,8 +6,6 @@ local name = "Terminal Visor"
 local function openInstance()
   os.execute("/Applications/kitty.app/Contents/MacOS/kitty \z
     --title '" .. name .. "' --directory ~ \z
-    --start-as maximized \z
-    --override background_opacity=0.95 \z
     --override macos_hide_from_tasks=yes \z
     --override macos_quit_when_last_window_closed=yes \z
     &")
@@ -71,7 +69,17 @@ local moveToVisor = function(window)
   if not max then
     return
   end
-  hs.grid.set(window, { x = 0, y = 0, w = max.w, h = max.h * 0.33 })
+  local ratio = 0.618
+  local new = {
+    w = math.ceil(max.w * ratio),
+    h = math.floor(max.h * (ratio * ratio)),
+  }
+  hs.grid.set(window, {
+    x = math.ceil(max.w / 2 - new.w / 2),
+    y = math.floor(max.h * ratio - new.h + ratio),
+    w = new.w,
+    h = new.h,
+  })
 end
 
 M.toggle = function()
