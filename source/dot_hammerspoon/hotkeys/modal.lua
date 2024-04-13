@@ -51,8 +51,12 @@ module.setSpaceState()
 
 -- Automatically update state when user focus moves
 WindowWatcher = hs.window.filter.new()
-WindowWatcher:subscribe("windowFocused", function() module.setWindowState() end)
-SpaceWatcher = hs.spaces.watcher.new(function() module.setSpaceState() end)
+WindowWatcher:subscribe("windowFocused", function()
+  module.setWindowState()
+end)
+SpaceWatcher = hs.spaces.watcher.new(function()
+  module.setSpaceState()
+end)
 SpaceWatcher:start()
 
 -- When triggering operations that our watchers wouldn't see, have the window
@@ -66,7 +70,9 @@ module.cycleLayoutMode = function()
 end
 
 module.toggleWindowFloat = function()
-  local callback = function() module.setWindowState() end
+  local callback = function()
+    module.setWindowState()
+  end
   managed.window.toggleFloat(Context.window.floating, callback)
 end
 
