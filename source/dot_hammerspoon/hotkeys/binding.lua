@@ -10,13 +10,13 @@ local window = require("services.window.grid")
 local MEH = { "shift", "ctrl", "alt" }
 local HYPER = { "shift", "ctrl", "alt", "cmd" }
 
-hs.hotkey.bind(HYPER, "n", modal.cycleLayoutMode)
-hs.hotkey.bind(HYPER, "m", modal.toggleWindowFloat)
+hs.hotkey.bind(HYPER, "return", modal.cycleLayoutMode)
+hs.hotkey.bind(MEH, "n", managed.display.focusNext)
+hs.hotkey.bind(MEH, "m", modal.toggleWindowFloat)
 hs.hotkey.bind(MEH, "space", require("services.kitty").toggle)
 
 local tiledWindowActions = {
-  { MEH, "n", managed.display.focusNext },
-  { MEH, "m", managed.pane.super },
+  { HYPER, "m", managed.pane.super },
 
   { HYPER, "y", managed.space.rotate },
   { HYPER, "u", managed.space.flip },
@@ -38,8 +38,8 @@ local stackedWindowActions = {
 }
 
 local floatingWindowActions = {
-  { MEH, "n", window.moveToNextScreen },
-  { MEH, "m", window.maximize },
+  { HYPER, "n", window.moveToNextScreen },
+  { HYPER, "m", window.maximize },
 
   { MEH, "y", window.rotate },
   { MEH, "u", window.shrink },

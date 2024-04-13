@@ -1,5 +1,7 @@
 # vim: ft=bash
 
+# yabai -m config debug_output on
+
 # Set all padding and gaps to 6pt (default: 0)
 yabai -m config top_padding    8
 yabai -m config bottom_padding 8
@@ -17,15 +19,35 @@ yabai -m config mouse_follows_focus on
 yabai -m config mouse_drop_action stack
 
 # Don't manage windows from these apps
-EXCLUDE=(
-  ".*Settings$"
+APPS=(
   "Activity Monitor"
   "Calculator"
   "Finder"
   "Karabiner-EventViewer"
   "Messages"
   "Shottr"
+  "System Settings"
   "TablePlus"
-  "^Terminal Visor$"
 )
-for APP in ${EXCLUDE[@]}; do yabai -m rule --add app="${APP}" manage=off; done
+for A in "${APPS[@]}"; do yabai -m rule --add app="${A}" manage=off; done
+
+yabai -m rule --add app="Arc" title="Paul" manage=off
+yabai -m rule --add app="IntelliJ IDEA" title="Welcome to IntelliJ IDEA" manage=off
+
+# ARC=(
+#   "Paul"
+# )
+# for T in "${ARC[@]}"; do yabai -m rule --add app="Arc" title="${T}" manage=off; done
+# yabai -m rule --add app=".*" manage=off
+
+# yabai -m signal --add event=window_created action='
+#   yabai -m query --windows --window $YABAI_WINDOW_ID | \
+#     jq -er ".\"can-resize\"" && \
+#     yabai -m window $YABAI_WINDOW_ID --toggle float
+# '
+
+# yabai -m signal --add event=window_created action='
+#   yabai -m query --windows --window $YABAI_WINDOW_ID | jq -er ".\"can-resize\" or .\"is-floating\"" || \
+#   yabai -m window $YABAI_WINDOW_ID --toggle float && \
+#   yabai -m window $YABAI_WINDOW_ID --grid 3:3:1:1:1:1
+# '
