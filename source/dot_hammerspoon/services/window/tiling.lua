@@ -80,10 +80,18 @@ module.space.cycleLayout = function(current, callback)
   end
 end
 
-module.space.balance = function() yabai({ "-m", "space", "--balance" }) end
-module.space.reset = function() yabai({ "-m", "space", "--equalize" }) end
-module.space.flip = function() yabai({ "-m", "space", "--mirror", "y-axis" }) end
-module.space.rotate = function() yabai({ "-m", "space", "--rotate", "270" }) end
+module.space.balance = function()
+  yabai({ "-m", "space", "--balance" })
+end
+module.space.reset = function()
+  yabai({ "-m", "space", "--equalize" })
+end
+module.space.flip = function()
+  yabai({ "-m", "space", "--mirror", "y-axis" })
+end
+module.space.rotate = function()
+  yabai({ "-m", "space", "--rotate", "270" })
+end
 
 module.stack.focusNext = function()
   local callback = function(_, _, code)
@@ -103,14 +111,28 @@ module.stack.focusPrev = function()
   yabai({ "-m", "window", "--focus", "stack.prev" }, callback)
 end
 
-module.pane.swap = function() yabai({ "-m", "window", "--swap", "recent" }) end
-module.pane.super = function() yabai({ "-m", "window", "--toggle", "zoom-parent" }) end
-module.pane.rotate = function() yabai({ "-m", "window", "--toggle", "split" }) end
+module.pane.swap = function()
+  yabai({ "-m", "window", "--swap", "recent" })
+end
+module.pane.super = function()
+  yabai({ "-m", "window", "--toggle", "zoom-parent" })
+end
+module.pane.rotate = function()
+  yabai({ "-m", "window", "--toggle", "split" })
+end
 
-module.pane.focusWest = function() yabai({ "-m", "window", "--focus", "west" }) end
-module.pane.focusEast = function() yabai({ "-m", "window", "--focus", "east" }) end
-module.pane.focusNorth = function() yabai({ "-m", "window", "--focus", "north" }) end
-module.pane.focusSouth = function() yabai({ "-m", "window", "--focus", "south" }) end
+module.pane.focusWest = function()
+  yabai({ "-m", "window", "--focus", "west" })
+end
+module.pane.focusEast = function()
+  yabai({ "-m", "window", "--focus", "east" })
+end
+module.pane.focusNorth = function()
+  yabai({ "-m", "window", "--focus", "north" })
+end
+module.pane.focusSouth = function()
+  yabai({ "-m", "window", "--focus", "south" })
+end
 
 module.window.getState = function(callback)
   local process = function(queryResults)

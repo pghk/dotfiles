@@ -3,7 +3,9 @@ local module = {}
 ODD_HEIGHTS = { [1117] = "MBP_16", [982] = "MBP_14" }
 NOTCH_STATUS_BAR = 37
 
-local function hasNotch(h) return ODD_HEIGHTS[h] ~= nil end
+local function hasNotch(h)
+  return ODD_HEIGHTS[h] ~= nil
+end
 
 local function greatestCommonDivisor(a, b)
   while b ~= 0 do
