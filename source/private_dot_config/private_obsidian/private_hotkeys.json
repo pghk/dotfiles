@@ -7,6 +7,12 @@
         "Alt"
       ],
       "key": "["
+    },
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "X"
     }
   ],
   "app:toggle-right-sidebar": [
@@ -15,6 +21,12 @@
         "Alt"
       ],
       "key": "]"
+    },
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "C"
     }
   ],
   "workspace:next-tab": [
@@ -24,6 +36,13 @@
         "Ctrl"
       ],
       "key": "ArrowRight"
+    },
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "L"
     }
   ],
   "workspace:previous-tab": [
@@ -33,6 +52,13 @@
         "Ctrl"
       ],
       "key": "ArrowLeft"
+    },
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "H"
     }
   ],
   "templater-obsidian:insert-templater": [
@@ -42,6 +68,22 @@
         "Mod"
       ],
       "key": "E"
+    }
+  ],
+  "periodic-notes:next-daily-note": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "F"
+    }
+  ],
+  "periodic-notes:prev-daily-note": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "S"
     }
   ]
 }
