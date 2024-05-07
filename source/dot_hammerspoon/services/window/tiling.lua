@@ -29,10 +29,10 @@ module.display.focusNext = function()
   local callback = function(queryResults)
     local next = getNextDisplay(queryResults)
     if next ~= nil then
-      yabai({ "-m", "display", "--focus", tostring(next) })
+      yabai.display({ "--focus", tostring(next) })
     end
   end
-  yabai({ "-m", "query", "--displays" }, callback)
+  yabai.query({ "--displays" }, callback)
 end
 
 module.space.getState = function(callback)
@@ -44,14 +44,14 @@ module.space.getState = function(callback)
     end
     callback(state)
   end
-  yabai({ "-m", "query", "--spaces", "--space" }, process)
+  yabai.query({ "--spaces", "--space" }, process)
 end
 
 module.space.cycleLayout = function(current, callback)
   local options = { "bsp", "float", "stack" }
   local next = getNextOptionInCycle(options, current)
 
-  yabai({ "-m", "space", "--layout", next })
+  yabai.space({ "--layout", next })
   callback(next)
 
   local msg = {
@@ -81,57 +81,51 @@ module.space.cycleLayout = function(current, callback)
 end
 
 module.space.balance = function()
-  yabai({ "-m", "space", "--balance" })
+  yabai.space({ "--balance" })
 end
 module.space.reset = function()
-  yabai({ "-m", "space", "--equalize" })
+  yabai.space({ "--equalize" })
 end
 module.space.flip = function()
-  yabai({ "-m", "space", "--mirror", "y-axis" })
+  yabai.space({ "--mirror", "y-axis" })
 end
 module.space.rotate = function()
-  yabai({ "-m", "space", "--rotate", "270" })
+  yabai.space({ "--rotate", "270" })
 end
 
 module.stack.focusNext = function()
-  local callback = function(_, _, code)
-    if code == 1 then
-      yabai({ "-m", "window", "--focus", "stack.first" })
-    end
+  if not yabai.window({ "--focus", "stack.next" }) then
+    yabai.window({ "--focus", "stack.first" })
   end
-  yabai({ "-m", "window", "--focus", "stack.next" }, callback)
 end
 
 module.stack.focusPrev = function()
-  local callback = function(_, _, code)
-    if code == 1 then
-      yabai({ "-m", "window", "--focus", "stack.last" })
-    end
+  if not yabai.window({ "--focus", "stack.prev" }) then
+    yabai.window({ "--focus", "stack.last" })
   end
-  yabai({ "-m", "window", "--focus", "stack.prev" }, callback)
 end
 
 module.pane.swap = function()
-  yabai({ "-m", "window", "--swap", "recent" })
+  yabai.window({ "--swap", "recent" })
 end
 module.pane.super = function()
-  yabai({ "-m", "window", "--toggle", "zoom-parent" })
+  yabai.window({ "--toggle", "zoom-parent" })
 end
 module.pane.rotate = function()
-  yabai({ "-m", "window", "--toggle", "split" })
+  yabai.window({ "--toggle", "split" })
 end
 
 module.pane.focusWest = function()
-  yabai({ "-m", "window", "--focus", "west" })
+  yabai.window({ "--focus", "west" })
 end
 module.pane.focusEast = function()
-  yabai({ "-m", "window", "--focus", "east" })
+  yabai.window({ "--focus", "east" })
 end
 module.pane.focusNorth = function()
-  yabai({ "-m", "window", "--focus", "north" })
+  yabai.window({ "--focus", "north" })
 end
 module.pane.focusSouth = function()
-  yabai({ "-m", "window", "--focus", "south" })
+  yabai.window({ "--focus", "south" })
 end
 
 module.window.getState = function(callback)
@@ -147,16 +141,17 @@ module.window.getState = function(callback)
     end
     callback(state)
   end
-  yabai({ "-m", "query", "--windows", "--window" }, process)
+  yabai.query({ "--windows", "--window" }, process)
 end
 
 module.window.toggleFloat = function(currentlyFloating, callback)
-  local cmd = { "-m", "window", "--toggle", "float" }
+  local args = { "--toggle", "float" }
   if not currentlyFloating then
-    table.insert(cmd, "--grid")
-    table.insert(cmd, "8:8:1:1:6:6")
+    table.insert(args, "--grid")
+    table.insert(args, "8:8:1:1:6:6")
   end
-  yabai(cmd, callback)
+  yabai.window(args)
+  callback()
 end
 
 return module
