@@ -35,8 +35,6 @@ cask "bartender"
 cask "bbedit"
 # App to build and share containerized applications and microservices
 cask "docker"
-# Client for the Dropbox cloud storage service
-cask "dropbox"
 # Calendar software
 cask "fantastical"
 # Web browser
