@@ -1,3 +1,5 @@
+require("hs.ipc")
+
 local managed = require("services.window.tiling")
 
 Context = {
@@ -19,13 +21,9 @@ local handleChange = function()
   end
   if Context.space == "bsp" and not Context.window.floating then
     module.tile:enter()
-  else
-    module.tile:exit()
   end
   if Context.space == "stack" or Context.window.stacked then
     module.stack:enter()
-  else
-    module.stack:exit()
   end
 end
 
@@ -49,15 +47,21 @@ end
 module.setWindowState()
 module.setSpaceState()
 
--- Automatically update state when user focus moves
-WindowWatcher = hs.window.filter.new()
-WindowWatcher:subscribe("windowFocused", function()
+function HandleYabaiWindow(data)
+  -- local window = hs.json.decode(data) or {}
+  -- print(hs.inspect(data))
   module.setWindowState()
-end)
+end
+
 SpaceWatcher = hs.spaces.watcher.new(function()
   module.setSpaceState()
 end)
 SpaceWatcher:start()
+
+function HandleYabaiSpace(data)
+  -- local space = hs.json.decode(data) or {}
+  print(hs.inspect(data))
+end
 
 -- When triggering operations that our watchers wouldn't see, have the window
 -- manager call us back, so we can update state manually
