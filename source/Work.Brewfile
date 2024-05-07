@@ -11,3 +11,4 @@ cask "microsoft-teams"
 cask "ngrok"
 
 mas "OneDrive", id: 823766827
+mas "SonicWall Mobile Connect", id: 822514576

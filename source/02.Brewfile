@@ -16,8 +16,8 @@ brew "httpie"
 brew "moreutils"
 # Platform built on V8 to build network applications
 brew "node"
-# Powerful, clean, object-oriented scripting language
-brew "ruby"
+# Ruby version manager
+brew "rbenv"
 # Safe, concurrent, practical language
 brew "rust"
 # Change macOS audio source from the command-line
@@ -74,6 +74,8 @@ cask "visual-studio-code"
 
 mas "Bear", id: 1091189122
 mas "Irvue", id: 1039633667
+mas "Keymapp", id: 6472865291
 mas "Numbers", id: 409203825
 mas "PopClip", id: 445189367
+mas "WorldWideWeb", id: 1621370168
 
