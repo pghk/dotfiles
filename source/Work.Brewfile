@@ -5,10 +5,7 @@ brew "k6"
 # Small, simple certificate authority
 brew "minica"
 
-# Meet, chat, call, and collaborate in just one place
-cask "microsoft-teams"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
 
-mas "OneDrive", id: 823766827
 mas "SonicWall Mobile Connect", id: 822514576
