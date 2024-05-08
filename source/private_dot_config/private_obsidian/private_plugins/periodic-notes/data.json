@@ -1,16 +1,17 @@
 {
-  "showGettingStartedBanner": true,
+  "showGettingStartedBanner": false,
   "hasMigratedDailyNoteSettings": true,
   "hasMigratedWeeklyNoteSettings": false,
   "daily": {
-    "folder": "00–09 System/02 Notes/02.01 Daily",
-    "template": "00–09 System/05 Templates/05.02 Periodic/Daily.md",
+    "folder": "Daily",
+    "template": "Templates/Dynamic/Daily",
     "enabled": true
   },
   "weekly": {
-    "format": "",
-    "template": "",
-    "folder": ""
+    "format": "gggg-[W]WW",
+    "template": "Templates/Dynamic/Weekly.md",
+    "folder": "Weekly",
+    "enabled": true
   },
   "monthly": {
     "format": "",
