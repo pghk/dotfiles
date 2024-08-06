@@ -1,5 +1,3 @@
-local modal = require("hotkeys.modal")
-local managed = require("services.window.tiling")
 local window = require("services.window.grid")
 
 --[[
@@ -10,32 +8,32 @@ local window = require("services.window.grid")
 local MEH = { "shift", "ctrl", "alt" }
 local HYPER = { "shift", "ctrl", "alt", "cmd" }
 
-hs.hotkey.bind(HYPER, "return", modal.cycleLayoutMode)
-hs.hotkey.bind(MEH, "n", managed.display.focusNext)
-hs.hotkey.bind(MEH, "m", modal.toggleWindowFloat)
+-- hs.hotkey.bind(HYPER, "return", modal.cycleLayoutMode)
+-- hs.hotkey.bind(MEH, "n", managed.display.focusNext)
+-- hs.hotkey.bind(MEH, "m", modal.toggleWindowFloat)
 hs.hotkey.bind(MEH, "space", require("services.kitty").toggle)
-
-local tiledWindowActions = {
-  { HYPER, "m", managed.pane.super },
-
-  { HYPER, "y", managed.space.rotate },
-  { HYPER, "u", managed.space.flip },
-  { HYPER, "i", managed.pane.swap },
-  { HYPER, "o", managed.space.reset },
-
-  { MEH, "y", managed.pane.rotate },
-  { MEH, "o", managed.space.balance },
-
-  { MEH, "h", managed.pane.focusWest },
-  { MEH, "j", managed.pane.focusSouth },
-  { MEH, "k", managed.pane.focusNorth },
-  { MEH, "l", managed.pane.focusEast },
-}
-
-local stackedWindowActions = {
-  { MEH, "i", managed.stack.focusNext },
-  { MEH, "u", managed.stack.focusPrev },
-}
+--
+-- local tiledWindowActions = {
+--   { HYPER, "m", managed.pane.super },
+--
+--   { HYPER, "y", managed.space.rotate },
+--   { HYPER, "u", managed.space.flip },
+--   { HYPER, "i", managed.pane.swap },
+--   { HYPER, "o", managed.space.reset },
+--
+--   { MEH, "y", managed.pane.rotate },
+--   { MEH, "o", managed.space.balance },
+--
+--   { MEH, "h", managed.pane.focusWest },
+--   { MEH, "j", managed.pane.focusSouth },
+--   { MEH, "k", managed.pane.focusNorth },
+--   { MEH, "l", managed.pane.focusEast },
+-- }
+--
+-- local stackedWindowActions = {
+--   { MEH, "i", managed.stack.focusNext },
+--   { MEH, "u", managed.stack.focusPrev },
+-- }
 
 local floatingWindowActions = {
   { HYPER, "n", window.moveToNextScreen },
@@ -59,17 +57,17 @@ local floatingWindowRepeatActions = {
   { HYPER, "l", window.makeWider },
 }
 
-local function bindModalHotkeys(mode, list, repeating)
+local function bindHotkeys(list, repeating)
   for _, v in ipairs(list) do
     if repeating then
-      mode:bind(v[1], v[2], v[3], nil, v[3])
+      hs.hotkey.bind(v[1], v[2], v[3], nil, v[3])
     else
-      mode:bind(v[1], v[2], v[3])
+      hs.hotkey.bind(v[1], v[2], v[3])
     end
   end
 end
 
-bindModalHotkeys(modal.tile, tiledWindowActions)
-bindModalHotkeys(modal.float, floatingWindowActions)
-bindModalHotkeys(modal.float, floatingWindowRepeatActions, true)
-bindModalHotkeys(modal.stack, stackedWindowActions)
+-- bindModalHotkeys(modal.tile, tiledWindowActions)
+bindHotkeys(floatingWindowActions)
+bindHotkeys(floatingWindowRepeatActions, true)
+-- bindModalHotkeys(modal.stack, stackedWindowActions)
