@@ -54,30 +54,30 @@ module.space.cycleLayout = function(current, callback)
   yabai.space({ "--layout", next })
   callback(next)
 
-  local msg = {
-    title = "Window Management",
-    subtitle = "Changed layout",
-    informativeText = nil,
-    soundName = nil,
-  }
-  if next == "float" then
-    msg.title = "Floating space"
-    msg.soundName = "Glass"
-  end
-  if next == "bsp" then
-    msg.title = "Managed space"
-    msg.informativeText = "Binary space partitioning"
-    msg.soundName = "Frog"
-  end
-  if next == "stack" then
-    msg.title = "Managed space"
-    msg.informativeText = "Stacked windows"
-    msg.soundName = "Hero"
-  end
-  local notification = hs.notify.new(msg)
-  if notification then
-    notification:send()
-  end
+  -- local msg = {
+  --   title = "Window Management",
+  --   subtitle = "Changed layout",
+  --   informativeText = nil,
+  --   soundName = nil,
+  -- }
+  -- if next == "float" then
+  --   msg.title = "Floating space"
+  --   msg.soundName = "Glass"
+  -- end
+  -- if next == "bsp" then
+  --   msg.title = "Managed space"
+  --   msg.informativeText = "Binary space partitioning"
+  --   msg.soundName = "Frog"
+  -- end
+  -- if next == "stack" then
+  --   msg.title = "Managed space"
+  --   msg.informativeText = "Stacked windows"
+  --   msg.soundName = "Hero"
+  -- end
+  -- local notification = hs.notify.new(msg)
+  -- if notification then
+  --   notification:send()
+  -- end
 end
 
 module.space.balance = function()

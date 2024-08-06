@@ -2,10 +2,38 @@ require("hs.ipc")
 
 local managed = require("services.window.tiling")
 
+HotkeyModeIndicator = hs.menubar.new()
+
 Context = {
   space = "float",
   window = { floating = true, stacked = false },
 }
+
+local updateIcon = function()
+  local text = ""
+  if Context.space == "bsp" and not Context.window.floating then
+    text = "󰕰 "
+  end
+  if Context.space == "bsp" and Context.window.floating then
+    text = "◲"
+  end
+  if Context.space == "bsp" and Context.window.stacked then
+    text = "◧"
+  end
+  if Context.space == "stack" and not Context.window.floating then
+    text = "󰗚 "
+  end
+  if Context.space == "stack" and Context.window.floating then
+    text = "󰉧 "
+  end
+  if Context.space == "float" and not Context.window.floating then
+    text = "⬚"
+  end
+  if Context.space == "float" and Context.window.floating then
+    text = "🫥"
+  end
+  HotkeyModeIndicator:setTitle(text)
+end
 
 local module = {
   float = hs.hotkey.modal.new(),
@@ -25,6 +53,7 @@ local handleChange = function()
   if Context.space == "stack" or Context.window.stacked then
     module.stack:enter()
   end
+  updateIcon()
 end
 
 module.setWindowState = function()
@@ -60,7 +89,7 @@ SpaceWatcher:start()
 
 function HandleYabaiSpace(data)
   -- local space = hs.json.decode(data) or {}
-  print(hs.inspect(data))
+  -- print(hs.inspect(data))
 end
 
 -- When triggering operations that our watchers wouldn't see, have the window
@@ -68,7 +97,7 @@ end
 module.cycleLayoutMode = function()
   local callback = function(layoutName)
     Context.space = layoutName
-    module.setWindowState()
+    module.setSpaceState()
   end
   managed.space.cycleLayout(Context.space, callback)
 end
