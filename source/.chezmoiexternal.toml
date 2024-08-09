@@ -17,3 +17,9 @@ url = "https://github.com/vim-airline/vim-airline"
 [".config/vim/pack/default/start/vim-polyglot"]
 type = "git-repo"
 url = "https://github.com/sheerun/vim-polyglot"
+
+
+# Tiled scrollable window manager for MacOS. Inspired by PaperWM.
+[".hammerspoon/spoons/PaperWM.spoon"]
+type = "git-repo"
+url = "https://github.com/mogenson/PaperWM.spoon"
