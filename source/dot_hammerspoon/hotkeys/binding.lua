@@ -14,15 +14,15 @@ hs.hotkey.bind(HYPER, "return", modal.cycleLayoutMode)
 hs.hotkey.bind(MEH, "space", require("services.kitty").toggle)
 
 local tiledWindowActions = {
-  { MEH, "y", managed.column.push },
-  { MEH, "u", managed.window.makeThinner },
-  { MEH, "i", managed.window.center },
-  { MEH, "o", managed.window.makeWider },
-
-  { HYPER, "y", managed.column.pop },
-  { HYPER, "u", managed.window.makeShorter },
+  { HYPER, "y", managed.column.push },
+  { HYPER, "u", managed.window.center },
   { HYPER, "i", managed.window.fullWidth },
-  { HYPER, "o", managed.window.makeTaller },
+  { HYPER, "o", managed.column.pop },
+
+  { MEH, "y", managed.window.makeThinner },
+  { MEH, "u", managed.window.makeTaller },
+  { MEH, "i", managed.window.makeShorter },
+  { MEH, "o", managed.window.makeWider },
 
   { MEH, "h", managed.focus.left },
   { MEH, "j", managed.focus.down },
