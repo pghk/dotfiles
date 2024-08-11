@@ -1,4 +1,5 @@
 require("hs.ipc")
+utf8 = require("utf8")
 
 local managed = require("services.window.tiling")
 
@@ -7,12 +8,13 @@ HotkeyModeIndicator = hs.menubar.new()
 ManagerEnabled = false
 WindowManaged = false
 
-local updateIcon = function(floating)
-  local text = "󰉧 "
+local updateIcon = function()
+  local char = utf8.char(0x10088C)
   if WindowManaged then
-    text = "󱒇 "
+    char = utf8.char(0x101EFB)
   end
-  HotkeyModeIndicator:setTitle(text)
+  local title = hs.styledtext.new(char, { font = { name = "SF Pro", size = 14 } })
+  HotkeyModeIndicator:setTitle(title)
 end
 
 local module = {
