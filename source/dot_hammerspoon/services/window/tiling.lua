@@ -41,7 +41,7 @@ module.window.fullWidth = actions.full_width
 module.window.makeWider = actions.cycle_width
 module.window.makeTaller = actions.cycle_height
 module.window.makeThinner = actions.reverse_cycle_width
-module.window.makeTaller = actions.reverse_cycle_height
+module.window.makeShorter = actions.reverse_cycle_height
 
 module.column.push = actions.slurp_in
 module.column.pop = actions.barf_out
