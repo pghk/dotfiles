@@ -120,9 +120,33 @@ module.shrink = function(window)
   end
 end
 
+local getNextOptionInCycle = function(options, current)
+  local next
+  for k, v in pairs(options) do
+    if v == current then
+      next = #options + (k % #options) - (#options - 1)
+    end
+  end
+  return options[next]
+end
+
+local getNextSpace = function()
+  local options = hs.spaces.spacesForScreen()
+  local current = hs.spaces.activeSpaceOnScreen()
+  return getNextOptionInCycle(options, current)
+end
+
 module.moveToNextScreen = function(window)
   window = window or hs.window.focusedWindow()
   window:moveToScreen(window:screen():next())
+end
+
+module.moveToNextSpace = function(window)
+  window = window or hs.window.focusedWindow()
+  local space = getNextSpace()
+  hs.spaces.moveWindowToSpace(window, space)
+  hs.spaces.gotoSpace(space)
+  window:focus()
 end
 
 module.moveLeft = hs.grid.pushWindowLeft

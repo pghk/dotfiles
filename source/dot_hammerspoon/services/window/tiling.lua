@@ -13,29 +13,6 @@ for _, rule in ipairs(rules) do
   PaperWM.window_filter:setAppFilter(rule[1], rule[2])
 end
 
-local getNextOptionInCycle = function(options, current)
-  local next
-  for k, v in pairs(options) do
-    if v == current then
-      next = #options + (k % #options) - (#options - 1)
-    end
-  end
-  return options[next]
-end
-
-local getNextDisplay = function(displayJson)
-  local data = hs.json.decode(displayJson)
-  local options = {}
-  local current
-  for k, v in pairs(data or {}) do
-    options[k] = v.index
-    if v["has-focus"] then
-      current = v.index
-    end
-  end
-  return getNextOptionInCycle(options, current)
-end
-
 -- module.display.focusNext = function()
 -- local callback = function(queryResults)
 --   local next = getNextDisplay(queryResults)

@@ -14,11 +14,9 @@ hs.hotkey.bind(HYPER, "return", modal.cycleLayoutMode)
 hs.hotkey.bind(MEH, "space", require("services.kitty").toggle)
 
 local tiledWindowActions = {
-  { MEH, "y", managed.space.west },
   { MEH, "u", managed.window.makeTaller },
   { MEH, "i", managed.window.center },
   { MEH, "o", managed.window.makeWider },
-  { MEH, "p", managed.space.east },
 
   { MEH, "h", managed.focus.left },
   { MEH, "j", managed.focus.down },
@@ -40,7 +38,9 @@ local tiledWindowActions = {
 }
 
 local floatingWindowActions = {
-  { HYPER, "n", window.moveToNextScreen },
+  { MEH, "m", window.moveToNextScreen },
+  { MEH, "n", window.moveToNextSpace },
+
   { HYPER, "m", window.maximize },
 
   { MEH, "y", window.rotate },
