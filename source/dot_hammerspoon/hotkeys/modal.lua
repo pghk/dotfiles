@@ -23,6 +23,8 @@ local module = {
 }
 
 local handleChange = function(window)
+  WindowManaged = PaperWM.window_filter:pause():isWindowAllowed(window)
+  PaperWM.window_filter:resume()
   if WindowManaged then
     module.tile:enter()
     module.float:exit()
@@ -40,7 +42,6 @@ WindowWatcher:subscribe("windowFocused", handleChange)
 module.cycleLayoutMode = function()
   local window = hs.window.focusedWindow()
   if not ManagerEnabled then
-    WindowManaged = PaperWM.window_filter:isWindowAllowed(window)
     managed.enable()
     ManagerEnabled = true
   else
