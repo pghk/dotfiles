@@ -151,10 +151,10 @@ module.focusNextScreen = function(window)
     windows[1]:focus()
   else
     hs.window.desktop():focus()
-    local destFrame = screen:frame()
-    local newX = destFrame.x + (destFrame.w * 0.618)
-    local newY = destFrame.y + 12
-    hs.mouse.absolutePosition({ x = newX, y = newY })
+    -- local destFrame = screen:frame()
+    -- local newX = destFrame.x + (destFrame.w * 0.618)
+    -- local newY = destFrame.y + 12
+    -- hs.mouse.absolutePosition({ x = newX, y = newY })
   end
 end
 
@@ -163,7 +163,9 @@ module.moveToNextSpace = function(window)
   local space = getNextSpace()
   hs.spaces.moveWindowToSpace(window, space)
   hs.spaces.gotoSpace(space)
-  window:focus()
+  hs.timer.doAfter(0.5, function()
+    window:focus()
+  end)
 end
 
 module.moveLeft = hs.grid.pushWindowLeft

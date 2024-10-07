@@ -7,12 +7,13 @@ HotkeyModeIndicator = hs.menubar.new()
 
 ManagerEnabled = false
 WindowManaged = false
+local icons = {
+  float = 0x10088C,
+  tile = 0x101EFB,
+}
 
-local updateIcon = function()
-  local char = utf8.char(0x10088C)
-  if WindowManaged then
-    char = utf8.char(0x101EFB)
-  end
+local setIcon = function(code)
+  local char = utf8.char(code)
   local title = hs.styledtext.new(char, { font = { name = "SF Pro", size = 14 } })
   HotkeyModeIndicator:setTitle(title)
 end
@@ -22,25 +23,39 @@ local module = {
   tile = hs.hotkey.modal.new(),
 }
 
-local handleChange = function(window)
-  WindowManaged = PaperWM.window_filter:pause():isWindowAllowed(window)
-  PaperWM.window_filter:resume()
-  if WindowManaged then
+function module.float:entered()
+  setIcon(icons.float)
+end
+function module.tile:entered()
+  setIcon(icons.tile)
+end
+
+local handleChange = function(provided)
+  PaperWM.window_filter:pause()
+  local window = provided or hs.window.focusedWindow()
+  WindowManaged = PaperWM.window_filter:isWindowAllowed(window)
+  if ManagerEnabled and WindowManaged then
     module.tile:enter()
     module.float:exit()
-    updateIcon()
+    setIcon(icons.tile)
   else
     module.float:enter()
     module.tile:exit()
-    updateIcon()
+    setIcon(icons.float)
   end
+  PaperWM.window_filter:resume()
 end
 
 WindowWatcher = hs.window.filter.new()
-WindowWatcher:subscribe("windowFocused", handleChange)
+WindowWatcher:subscribe({ "windowFocused", "windowUnhidden" }, handleChange)
+AppWatcher = hs.application.watcher.new(function(appName, event, app)
+  if appName == "kitty" and event == hs.application.watcher.activated then
+    handleChange(app:mainWindow())
+  end
+end)
+AppWatcher:start()
 
 module.cycleLayoutMode = function()
-  local window = hs.window.focusedWindow()
   if not ManagerEnabled then
     managed.enable()
     ManagerEnabled = true
