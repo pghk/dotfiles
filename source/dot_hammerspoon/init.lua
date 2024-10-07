@@ -1,13 +1,9 @@
 hs.loadSpoon("EmmyLua")
 hs.loadSpoon("ReloadConfiguration")
-PaperWM = hs.loadSpoon("PaperWM")
 
 require("hotkeys.binding")
 require("services.window.grid")
 spoon.ReloadConfiguration:start()
-
-local modal = require("hotkeys.modal")
-modal.float:enter()
 
 hs.logger.defaultLogLevel = "info"
 hs.window.animationDuration = 0
