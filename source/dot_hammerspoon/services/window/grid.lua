@@ -141,6 +141,23 @@ module.moveToNextScreen = function(window)
   window:moveToScreen(window:screen():next())
 end
 
+module.focusNextScreen = function(window)
+  window = window or hs.window.focusedWindow()
+  local screen = window:screen():next()
+  local windows = hs.fnutils.filter(hs.window.orderedWindows(), function(w)
+    return w:screen() == screen
+  end) or {}
+  if #windows > 0 then
+    windows[1]:focus()
+  else
+    hs.window.desktop():focus()
+    local destFrame = screen:frame()
+    local newX = destFrame.x + (destFrame.w * 0.618)
+    local newY = destFrame.y + 12
+    hs.mouse.absolutePosition({ x = newX, y = newY })
+  end
+end
+
 module.moveToNextSpace = function(window)
   window = window or hs.window.focusedWindow()
   local space = getNextSpace()

@@ -5,8 +5,22 @@ local actions = PaperWM.actions
 
 local rules = {
   { "1Password", false },
-  { "Messages", false },
   { "IntelliJ IDEA", { allowTitles = ".* - .*" } },
+  { "Messages", false },
+  { "System Settings", false },
+  {
+    "Microsoft Teams",
+    {
+      allowTitles = {
+        "Activity |",
+        "Chat |",
+        "Teams and Channels |",
+        "Calendar |",
+        "OneDrive |",
+        "Calls |",
+      },
+    },
+  },
 }
 for _, rule in ipairs(rules) do
   print(hs.inspect(rule))

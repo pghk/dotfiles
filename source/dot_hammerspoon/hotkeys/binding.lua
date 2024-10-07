@@ -36,6 +36,7 @@ local tiledWindowActions = {
 }
 
 local floatingWindowActions = {
+  { MEH, "y", window.focusNextScreen },
   { MEH, "u", window.moveToNextSpace },
   { MEH, "i", window.center },
   { MEH, "o", window.moveToNextScreen },
