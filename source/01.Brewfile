@@ -39,6 +39,8 @@ brew "yq"
 cask "1password"
 # Command-line interface for 1Password
 cask "1password-cli"
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "aerospace"
 # Chromium based browser
 cask "arc"
 # Typeface made for developers
