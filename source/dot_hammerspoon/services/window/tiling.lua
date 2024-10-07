@@ -3,11 +3,21 @@ local module = { on = false, space = {}, window = {}, column = {}, focus = {} }
 -- local yabai = require("services.yabai")
 local actions = PaperWM.actions
 
+PaperWM.window_filter:setOverrideFilter({
+  allowRoles = "AXStandardWindow",
+})
+
 local rules = {
   { "1Password", false },
-  { "IntelliJ IDEA", { allowTitles = ".* - .*" } },
+  { "Bartender 5", false },
+  { "Fantastical Helper", false },
+  { "IntelliJ IDEA", { allowTitles = " – " } },
+  { "kitty", { rejectTitles = "Terminal Visor" } },
+  { "Kap", false },
   { "Messages", false },
   { "System Settings", false },
+  { "com.microsoft.teams2.notificationcenter", false },
+  { "Microsoft Outlook", { rejectTitles = "Reminder" } },
   {
     "Microsoft Teams",
     {
@@ -23,7 +33,6 @@ local rules = {
   },
 }
 for _, rule in ipairs(rules) do
-  print(hs.inspect(rule))
   PaperWM.window_filter:setAppFilter(rule[1], rule[2])
 end
 
@@ -73,9 +82,12 @@ local handleFocus = function(action)
     return
   end
   hs.timer.doAfter(hs.window.animationDuration, function()
+    if newFocus ~= hs.window.focusedWindow() then
+      return
+    end
     local destFrame = newFocus:frame()
     local newX = destFrame.x + (destFrame.w * 0.618)
-    local newY = destFrame.y + 12
+    local newY = destFrame.y + (destFrame.h * 0.382)
     hs.mouse.absolutePosition({ x = newX, y = newY })
   end)
 end
@@ -89,8 +101,6 @@ end
 module.focus.up = function()
   handleFocus(actions.focus_up)
 end
-module.focus.down = function()
-  handleFocus(actions.focus_down)
-end
+module.focus.down = function() end
 
 return module

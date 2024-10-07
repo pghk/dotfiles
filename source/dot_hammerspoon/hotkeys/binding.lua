@@ -10,19 +10,18 @@ local window = require("services.window.grid")
 local MEH = { "shift", "ctrl", "alt" }
 local HYPER = { "shift", "ctrl", "alt", "cmd" }
 
-hs.hotkey.bind(HYPER, "return", modal.cycleLayoutMode)
+hs.hotkey.bind(HYPER, "m", modal.cycleLayoutMode)
+hs.hotkey.bind(MEH, "n", window.focusNextScreen)
 hs.hotkey.bind(MEH, "space", require("services.kitty").toggle)
 
 local tiledWindowActions = {
-  { HYPER, "y", managed.column.push },
-  { HYPER, "u", managed.window.center },
-  { HYPER, "i", managed.window.fullWidth },
-  { HYPER, "o", managed.column.pop },
+  { MEH, "u", managed.window.makeWider },
+  { MEH, "i", managed.window.fullWidth },
+  { MEH, "o", managed.window.makeTaller },
 
-  { MEH, "y", managed.window.makeThinner },
-  { MEH, "u", managed.window.makeTaller },
-  { MEH, "i", managed.window.makeShorter },
-  { MEH, "o", managed.window.makeWider },
+  { HYPER, "u", managed.column.push },
+  { HYPER, "i", managed.window.center },
+  { HYPER, "o", managed.column.pop },
 
   { MEH, "h", managed.focus.left },
   { MEH, "j", managed.focus.down },
@@ -36,15 +35,14 @@ local tiledWindowActions = {
 }
 
 local floatingWindowActions = {
-  { MEH, "y", window.focusNextScreen },
-  { MEH, "u", window.moveToNextSpace },
-  { MEH, "i", window.center },
-  { MEH, "o", window.moveToNextScreen },
+  { MEH, "y", window.rotate },
+  { MEH, "u", window.shrink },
+  { MEH, "i", window.maximize },
+  { MEH, "o", window.grow },
 
-  { HYPER, "y", window.rotate },
-  { HYPER, "u", window.shrink },
-  { HYPER, "i", window.maximize },
-  { HYPER, "o", window.grow },
+  { HYPER, "u", window.moveToNextScreen },
+  { HYPER, "i", window.center },
+  { HYPER, "o", window.moveToNextSpace },
 }
 
 local floatingWindowRepeatActions = {
