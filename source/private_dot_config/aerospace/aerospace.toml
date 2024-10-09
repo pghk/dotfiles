@@ -49,9 +49,6 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-alt-shift-slash = 'layout tiles horizontal vertical'
-alt-shift-comma = 'layout accordion horizontal vertical'
-
 ctrl-alt-shift-h = 'focus left --ignore-floating'
 ctrl-alt-shift-j = 'focus down --ignore-floating'
 ctrl-alt-shift-k = 'focus up --ignore-floating'
@@ -62,27 +59,39 @@ ctrl-alt-shift-cmd-j = 'move down'
 ctrl-alt-shift-cmd-k = 'move up'
 ctrl-alt-shift-cmd-l = 'move right'
 
+ctrl-alt-shift-y = 'focus-monitor --wrap-around prev'
+ctrl-alt-shift-u = 'fullscreen'
+ctrl-alt-shift-i = 'workspace-back-and-forth'
+ctrl-alt-shift-o = 'focus-monitor --wrap-around next'
+
+ctrl-alt-shift-cmd-y = 'move-workspace-to-monitor --wrap-around prev'
+ctrl-alt-shift-cmd-u = 'workspace --wrap-around prev'
+ctrl-alt-shift-cmd-i = 'workspace --wrap-around next'
+ctrl-alt-shift-cmd-o = 'move-workspace-to-monitor --wrap-around next'
+
 ctrl-alt-shift-cmd-0 = 'resize smart -75'
 ctrl-alt-shift-cmd-minus = 'resize smart +75'
 
-ctrl-alt-shift-y = 'focus-monitor --wrap-around next'
-ctrl-alt-shift-u = 'fullscreen'
-ctrl-alt-shift-i = 'workspace-back-and-forth'
-ctrl-alt-shift-o = 'move-workspace-to-monitor --wrap-around next'
+alt-shift-slash = 'layout tiles horizontal vertical'
+alt-shift-comma = 'layout accordion horizontal vertical'
 
-alt-equal = 'workspace 0'
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
+# 􀺈  􀜞 􀝜 􀾗 􀟆 􁓔 􀒂 􁹢 􀀀
+# 􀀁 􀥱 􀟉 􀶻 􀝞 􀟋 
+# ♥ 􀊽 􀊿 􀒅 􀊾 􀠨 􀋃 
+# 􀂞 􀂜 􀂚 􀂘 􀂖 􀂔 􁡩 􀼱 􀠧 􀃔 􀃒 􀘙 􀃎 􀃌 􀃊 􀃈  􀘙 != 􀃐 
+alt-equal = 'workspace 􀀀 '
+alt-1 = 'workspace 􀀁 '
+alt-2 = 'workspace 􁹢 '
+alt-3 = 'workspace 􀥱 '
+alt-4 = 'workspace 􀟉 '
+alt-5 = 'workspace 􀋃 '
 
-ctrl-cmd-equal = 'move-node-to-workspace 0'
-ctrl-cmd-1 = 'move-node-to-workspace 1'
-ctrl-cmd-2 = 'move-node-to-workspace 2'
-ctrl-cmd-3 = 'move-node-to-workspace 3'
-ctrl-cmd-4 = 'move-node-to-workspace 4'
-ctrl-cmd-5 = 'move-node-to-workspace 5'
+ctrl-cmd-equal = 'move-node-to-workspace 􀀀 '
+ctrl-cmd-1 = 'move-node-to-workspace 􀀁 '
+ctrl-cmd-2 = 'move-node-to-workspace 􁹢 '
+ctrl-cmd-3 = 'move-node-to-workspace 􀥱 '
+ctrl-cmd-4 = 'move-node-to-workspace 􀟉 '
+ctrl-cmd-5 = 'move-node-to-workspace 􀋃 '
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
@@ -90,26 +99,30 @@ if.window-title-regex-substring = 'Terminal Visor'
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-id = 'com.apple.MobileSMS'
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
-run = 'move-node-to-workspace 0'
+run = 'move-node-to-workspace 􀀀 '
 
 [[on-window-detected]]
 if.during-aerospace-startup = true
 if.app-id = 'com.microsoft.teams2'
-run = 'move-node-to-workspace 0'
+run = 'move-node-to-workspace 􀀀 '
 
 [[on-window-detected]]
 if.during-aerospace-startup = true
 if.app-id = 'com.jetbrains.intellij'
-run = 'move-node-to-workspace 1'
+run = 'move-node-to-workspace 􀀁 '
 
 [[on-window-detected]]
 if.during-aerospace-startup = true
 if.app-id = 'net.kovidgoyal.kitty'
-run = 'move-node-to-workspace 2'
+run = 'move-node-to-workspace 􁹢 '
 
 [[on-window-detected]]
 if.during-aerospace-startup = true
 if.app-id = 'company.thebrowser.Browser'
-run = 'move-node-to-workspace 2'
+run = 'move-node-to-workspace 􁹢 '
 
