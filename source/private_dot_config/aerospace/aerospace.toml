@@ -44,36 +44,42 @@ f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling
 [mode.main.binding]
 alt-shift-semicolon = 'mode service'
 
-alt-shift-h = ['join-with left', 'mode main']
-alt-shift-j = ['join-with down', 'mode main']
-alt-shift-k = ['join-with up', 'mode main']
-alt-shift-l = ['join-with right', 'mode main']
+# Meh
+ctrl-alt-shift-0 = 'resize smart -75'
+ctrl-alt-shift-minus = 'resize smart +75'
+
+ctrl-alt-shift-u = 'workspace --wrap-around next'
+ctrl-alt-shift-i = 'workspace-back-and-forth'
+ctrl-alt-shift-o = 'workspace --wrap-around prev'
 
 ctrl-alt-shift-h = 'focus left --ignore-floating'
 ctrl-alt-shift-j = 'focus down --ignore-floating'
 ctrl-alt-shift-k = 'focus up --ignore-floating'
 ctrl-alt-shift-l = 'focus right --ignore-floating'
 
-ctrl-alt-shift-cmd-h = 'move left'
-ctrl-alt-shift-cmd-j = 'move down'
-ctrl-alt-shift-cmd-k = 'move up'
-ctrl-alt-shift-cmd-l = 'move right'
+ctrl-alt-shift-m = 'focus-monitor --wrap-around next'
+ctrl-alt-shift-n = ['move-workspace-to-monitor --wrap-around next', 'focus-monitor --wrap-around next']
 
-ctrl-alt-shift-y = 'focus-monitor --wrap-around prev'
-ctrl-alt-shift-u = 'fullscreen'
-ctrl-alt-shift-i = 'workspace-back-and-forth'
-ctrl-alt-shift-o = 'focus-monitor --wrap-around next'
+# Hyper
+ctrl-alt-shift-cmd-u = ['move-node-to-workspace --wrap-around next', 'workspace --wrap-around next']
+ctrl-alt-shift-cmd-i = 'fullscreen'
+ctrl-alt-shift-cmd-o = ['move-node-to-workspace --wrap-around prev', 'workspace --wrap-around prev']
 
-ctrl-alt-shift-cmd-y = 'move-workspace-to-monitor --wrap-around prev'
-ctrl-alt-shift-cmd-u = 'workspace --wrap-around prev'
-ctrl-alt-shift-cmd-i = 'workspace --wrap-around next'
-ctrl-alt-shift-cmd-o = 'move-workspace-to-monitor --wrap-around next'
+ctrl-alt-shift-cmd-h = ['move left']
+ctrl-alt-shift-cmd-j = ['move down']
+ctrl-alt-shift-cmd-k = ['move up']
+ctrl-alt-shift-cmd-l = ['move right']
 
-ctrl-alt-shift-cmd-0 = 'resize smart -75'
-ctrl-alt-shift-cmd-minus = 'resize smart +75'
+ctrl-alt-shift-cmd-m = ['move-node-to-monitor --wrap-around next', 'focus-monitor --wrap-around next']
 
-alt-shift-slash = 'layout tiles horizontal vertical'
-alt-shift-comma = 'layout accordion horizontal vertical'
+# Opt, Shift
+alt-shift-u = 'layout tiles horizontal vertical'
+alt-shift-o = 'layout accordion horizontal vertical'
+
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
 
 # 􀺈  􀜞 􀝜 􀾗 􀟆 􁓔 􀒂 􁹢 􀀀
 # 􀀁 􀥱 􀟉 􀶻 􀝞 􀟋 

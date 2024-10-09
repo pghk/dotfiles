@@ -9,8 +9,7 @@ local window = require("services.window.grid")
 local MEH = { "shift", "ctrl", "alt" }
 local HYPER = { "shift", "ctrl", "alt", "cmd" }
 
-hs.hotkey.bind(HYPER, "m", modal.cycleLayoutMode)
--- hs.hotkey.bind(MEH, "n", window.focusNextScreen)
+hs.hotkey.bind(HYPER, "p", modal.cycleLayoutMode)
 hs.hotkey.bind(MEH, "space", require("services.kitty").toggle)
 
 local floatingWindowActions = {
