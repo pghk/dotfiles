@@ -1,6 +1,12 @@
 # Start AeroSpace at login
 start-at-login = true
 
+after-startup-command = [
+  'move-workspace-to-monitor --workspace 􀀄  prev',
+  'move-workspace-to-monitor --workspace 􀀆  prev',
+  'move-workspace-to-monitor --workspace 􀀈  prev'
+]
+
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
@@ -48,9 +54,9 @@ alt-shift-semicolon = 'mode service'
 ctrl-alt-shift-0 = 'resize smart -75'
 ctrl-alt-shift-minus = 'resize smart +75'
 
-ctrl-alt-shift-u = 'workspace --wrap-around next'
+ctrl-alt-shift-u = 'workspace --wrap-around prev'
 ctrl-alt-shift-i = 'workspace-back-and-forth'
-ctrl-alt-shift-o = 'workspace --wrap-around prev'
+ctrl-alt-shift-o = 'workspace --wrap-around next'
 
 ctrl-alt-shift-h = 'focus left --ignore-floating'
 ctrl-alt-shift-j = 'focus down --ignore-floating'
@@ -58,12 +64,12 @@ ctrl-alt-shift-k = 'focus up --ignore-floating'
 ctrl-alt-shift-l = 'focus right --ignore-floating'
 
 ctrl-alt-shift-m = 'focus-monitor --wrap-around next'
-ctrl-alt-shift-n = ['move-workspace-to-monitor --wrap-around next', 'focus-monitor --wrap-around next']
+ctrl-alt-shift-n = ['move-workspace-to-monitor --wrap-around next']
 
 # Hyper
-ctrl-alt-shift-cmd-u = ['move-node-to-workspace --wrap-around next', 'workspace --wrap-around next']
+ctrl-alt-shift-cmd-u = ['move-node-to-workspace --wrap-around prev', 'workspace --wrap-around prev']
 ctrl-alt-shift-cmd-i = 'fullscreen'
-ctrl-alt-shift-cmd-o = ['move-node-to-workspace --wrap-around prev', 'workspace --wrap-around prev']
+ctrl-alt-shift-cmd-o = ['move-node-to-workspace --wrap-around next', 'workspace --wrap-around next']
 
 ctrl-alt-shift-cmd-h = ['move left']
 ctrl-alt-shift-cmd-j = ['move down']
@@ -84,51 +90,71 @@ alt-shift-l = ['join-with right', 'mode main']
 # 􀺈  􀜞 􀝜 􀾗 􀟆 􁓔 􀒂 􁹢 􀀀
 # 􀀁 􀥱 􀟉 􀶻 􀝞 􀟋 
 # ♥ 􀊽 􀊿 􀒅 􀊾 􀠨 􀋃 
-# 􀂞 􀂜 􀂚 􀂘 􀂖 􀂔 􁡩 􀼱 􀠧 􀃔 􀃒 􀘙 􀃎 􀃌 􀃊 􀃈  􀘙 != 􀃐 
-alt-equal = 'workspace 􀀀 '
-alt-1 = 'workspace 􀀁 '
-alt-2 = 'workspace 􁹢 '
-alt-3 = 'workspace 􀥱 '
-alt-4 = 'workspace 􀟉 '
-alt-5 = 'workspace 􀋃 '
+# 􁡩 􀼱 􀠧 
+# 􀃊 􀃌 􀃎 􀃐 􀃒 􀃔 􀃖 􀃘 􀃚 􀃈  􀘙 !=􀃐 
+# 􀀄 􀀆 􀀈 􀀊 􀀌 􀀎 􀀐 􀀒 􀀔
+alt-1 = 'workspace 􀃊 '
+alt-2 = 'workspace 􀃌 '
+alt-3 = 'workspace 􀃎 '
+alt-4 = 'workspace 􀃐 '
+alt-5 = 'workspace 􀃒 '
+alt-6 = 'workspace 􀃔 '
+alt-7 = 'workspace 􀃖 '
+alt-8 = 'workspace 􀀄 '
+alt-9 = 'workspace 􀀆 '
+alt-0 = 'workspace 􀀈 '
 
-ctrl-cmd-equal = 'move-node-to-workspace 􀀀 '
-ctrl-cmd-1 = 'move-node-to-workspace 􀀁 '
-ctrl-cmd-2 = 'move-node-to-workspace 􁹢 '
-ctrl-cmd-3 = 'move-node-to-workspace 􀥱 '
-ctrl-cmd-4 = 'move-node-to-workspace 􀟉 '
-ctrl-cmd-5 = 'move-node-to-workspace 􀋃 '
+ctrl-cmd-1 = 'move-node-to-workspace 􀃊 '
+ctrl-cmd-2 = 'move-node-to-workspace 􀃌 '
+ctrl-cmd-3 = 'move-node-to-workspace 􀃎 '
+ctrl-cmd-4 = 'move-node-to-workspace 􀃐 '
+ctrl-cmd-5 = 'move-node-to-workspace 􀃒 '
+ctrl-cmd-6 = 'move-node-to-workspace 􀃔 '
+ctrl-cmd-7 = 'move-node-to-workspace 􀃖 '
+ctrl-cmd-8 = 'move-node-to-workspace 􀀄 '
+ctrl-cmd-9 = 'move-node-to-workspace 􀀆 '
+ctrl-cmd-0 = 'move-node-to-workspace 􀀈 '
+
+[[on-window-detected]]
+if.during-aerospace-startup = true
+if.app-id = 'com.microsoft.Outlook'
+run = 'move-node-to-workspace 􀀄 '
+
+[[on-window-detected]]
+if.during-aerospace-startup = true
+if.app-id = 'com.microsoft.teams2'
+run = 'move-node-to-workspace 􀀄 '
+
+[[on-window-detected]]
+if.during-aerospace-startup = true
+if.app-id = 'net.kovidgoyal.kitty'
+run = 'move-node-to-workspace 􀃊 '
+
+[[on-window-detected]]
+if.during-aerospace-startup = true
+if.app-id = 'com.jetbrains.intellij'
+run = 'move-node-to-workspace 􀃌 '
+
+[[on-window-detected]]
+if.during-aerospace-startup = true
+if.app-id = 'company.thebrowser.Browser'
+run = 'move-node-to-workspace 􀃎 '
+
+[[on-window-detected]]
+if.during-aerospace-startup = true
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace 􀃐 '
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
 if.window-title-regex-substring = 'Terminal Visor'
-run = 'layout floating'
+run = ['layout floating']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
 run = 'layout floating'
 
 [[on-window-detected]]
-if.app-id = 'com.microsoft.Outlook'
-run = 'move-node-to-workspace 􀀀 '
-
-[[on-window-detected]]
-if.during-aerospace-startup = true
-if.app-id = 'com.microsoft.teams2'
-run = 'move-node-to-workspace 􀀀 '
-
-[[on-window-detected]]
-if.during-aerospace-startup = true
-if.app-id = 'com.jetbrains.intellij'
-run = 'move-node-to-workspace 􀀁 '
-
-[[on-window-detected]]
-if.during-aerospace-startup = true
-if.app-id = 'net.kovidgoyal.kitty'
-run = 'move-node-to-workspace 􁹢 '
-
-[[on-window-detected]]
-if.during-aerospace-startup = true
-if.app-id = 'company.thebrowser.Browser'
-run = 'move-node-to-workspace 􁹢 '
+if.app-id = 'app.kaleidoscope.v4'
+run = ['layout floating', 'move-node-to-workspace 􀃒 ']
 
