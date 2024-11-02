@@ -25,4 +25,14 @@ module.cycleLayoutMode = function()
   end
 end
 
+module.handleWindowFocus = function(_, _, event)
+  if event == "windowFocused" or "windowUnhidden" then
+    ManagerEnabled = false
+    module.float:enter()
+  else
+    ManagerEnabled = true
+    module.float:exit()
+  end
+end
+
 return module

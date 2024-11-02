@@ -49,6 +49,8 @@ f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling
 
 [mode.main.binding]
 alt-shift-semicolon = 'mode service'
+# Disable macOS "hide others" hotkey
+cmd-alt-h = []
 
 # Meh
 ctrl-alt-shift-0 = 'resize smart -75'
@@ -129,6 +131,7 @@ run = 'move-node-to-workspace 􀀄 '
 if.during-aerospace-startup = true
 if.app-id = 'net.kovidgoyal.kitty'
 run = 'move-node-to-workspace 􀃊 '
+check-further-callbacks = true
 
 [[on-window-detected]]
 if.during-aerospace-startup = true

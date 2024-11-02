@@ -13,14 +13,12 @@ hs.hotkey.bind(HYPER, "p", modal.cycleLayoutMode)
 hs.hotkey.bind(MEH, "space", require("services.kitty").toggle)
 
 local floatingWindowActions = {
-  { MEH, "y", window.rotate },
-  { MEH, "u", window.shrink },
-  { MEH, "i", window.maximize },
-  { MEH, "o", window.grow },
+  { MEH, "0", window.shrink },
+  { MEH, "-", window.grow },
+  { HYPER, "i", window.maximize },
 
-  { HYPER, "u", window.moveToNextScreen },
-  { HYPER, "i", window.center },
-  { HYPER, "o", window.moveToNextSpace },
+  { MEH, "y", window.rotate },
+  { HYPER, "y", window.center },
 }
 
 local floatingWindowRepeatActions = {
