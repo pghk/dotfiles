@@ -25,12 +25,13 @@ module.cycleLayoutMode = function()
   end
 end
 
-module.handleWindowFocus = function(_, _, event)
-  if event == "windowFocused" or "windowUnhidden" then
-    ManagerEnabled = false
+module.handleWindowFocus = function(window, app, event)
+  -- print(hs.inspect({ window:title(), app, event }))
+  if event == "windowFocused" or event == "windowUnhidden" then
+    -- print("floating " .. app)
     module.float:enter()
   else
-    ManagerEnabled = true
+    -- print("managing " .. app)
     module.float:exit()
   end
 end
