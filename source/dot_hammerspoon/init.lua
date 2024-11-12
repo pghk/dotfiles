@@ -15,9 +15,10 @@ local modal = require("hotkeys.modal")
 WindowWatcher = hs.window.filter.new({
   "Hammerspoon",
   "Kaleidoscope",
-  kitty = { allowTitles = "Terminal Visor" },
+  -- kitty = { allowTitles = "Terminal Visor" },
   "Messages",
 })
+
 WindowWatcher:subscribe(
   { "windowFocused", "windowUnfocused", "windowHidden", "windowUnhidden" },
   modal.handleWindowFocus

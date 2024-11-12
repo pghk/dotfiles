@@ -14,7 +14,7 @@ end
 -- Thanks to https://github.com/folke/dot/blob/master/hammerspoon/quake.lua
 local function getInstance()
   if visor_pid then
-    local app = hs.application(visor_pid)
+    local app = hs.application.applicationForPID(visor_pid)
     if app and app:isRunning() then
       return app
     end

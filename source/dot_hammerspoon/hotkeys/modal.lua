@@ -28,10 +28,8 @@ end
 module.handleWindowFocus = function(window, app, event)
   -- print(hs.inspect({ window:title(), app, event }))
   if event == "windowFocused" or event == "windowUnhidden" then
-    -- print("floating " .. app)
     module.float:enter()
   else
-    -- print("managing " .. app)
     module.float:exit()
   end
 end
