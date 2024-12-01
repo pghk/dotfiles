@@ -19,15 +19,15 @@ Library
 .ssh
 {{- end }}
 {{ if ne .chezmoi.os "darwin" }}
+.Brewfile
 .chezmoiscripts/macOS/**
-.config/1Password
-.config/git
-.config/ideavim
-.config/karabiner
-.config/nvim/lazy-lock.json
 .hammerspoon
+.local
 .mackup
 .mackup.cfg
 .ssh
 Library
+{{- end }}
+{{ if  ne .chezmoi.os "linux" }}
+.chezmoiscripts/linux/**
 {{- end }}

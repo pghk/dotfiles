@@ -1,0 +1,10 @@
+{{ if ne .chezmoi.os "darwin" }}
+aerospace
+ideavim
+kitty
+nvim
+1Password
+karabiner
+obsidian
+yabai
+{{ end }}

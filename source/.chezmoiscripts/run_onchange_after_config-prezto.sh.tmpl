@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-set -o errexit -o nounset -o pipefail -o xtrace
+set -o errexit -o nounset -o xtrace
 
 {{ $sha := "/.config/zsh/.zprezto/.git/refs/heads/master" -}}
 {{ if stat (joinPath .chezmoi.homeDir $sha ) -}}

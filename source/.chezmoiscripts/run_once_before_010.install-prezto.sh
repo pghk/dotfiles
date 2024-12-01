@@ -1,5 +1,5 @@
-#!/usr/bin/env zsh
-set -o errexit -o nounset -o pipefail -o xtrace
+#!/usr/bin/env sh
+set -o errexit -o nounset -o xtrace
 
 # Installs a nice configuration framework for Zsh
 
