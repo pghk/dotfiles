@@ -1,37 +1,42 @@
+HotkeyModeTiled = true
+HotkeyModeIndicator = hs.menubar.new()
 ManagerEnabled = true
-
-local cmd = hs.execute("brew --prefix | tr -d '\n'", true) .. "/bin/aerospace"
-local aerospace = function(args)
-  local output, status = hs.execute(cmd .. " " .. table.concat(args, " "))
-  if output ~= "" then
-    print(output)
-  end
-  return status
-end
 
 local module = {
   float = hs.hotkey.modal.new(),
 }
 
-module.cycleLayoutMode = function()
-  if ManagerEnabled then
-    aerospace({ "enable off" })
-    ManagerEnabled = false
+local icons = {
+  float = 0x1014A0,
+  tile = 0x1029EE,
+}
+
+local setIcon = function(code)
+  local char = utf8.char(code)
+  local title = hs.styledtext.new(char, { font = { name = "SF Pro", size = 14 } })
+  HotkeyModeIndicator:setTitle(title)
+end
+
+setIcon(icons.tile)
+
+module.cycleHotkeyMode = function()
+  if HotkeyModeTiled then
     module.float:enter()
   else
-    aerospace({ "enable on" })
-    ManagerEnabled = true
     module.float:exit()
   end
 end
 
-module.handleWindowFocus = function(window, app, event)
-  -- print(hs.inspect({ window:title(), app, event }))
-  if event == "windowFocused" or event == "windowUnhidden" then
-    module.float:enter()
-  else
-    module.float:exit()
-  end
+function module.float:entered()
+  HotkeyModeTiled = false
+  setIcon(icons.float)
 end
+
+function module.float:exited()
+  HotkeyModeTiled = true
+  setIcon(icons.tile)
+end
+
+-- print(hs.inspect({ window:title(), app, event }))
 
 return module

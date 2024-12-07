@@ -1,4 +1,5 @@
 local modal = require("hotkeys.modal")
+local tiling = require("services.window.tiling")
 local window = require("services.window.grid")
 
 --[[
@@ -9,7 +10,12 @@ local window = require("services.window.grid")
 local MEH = { "shift", "ctrl", "alt" }
 local HYPER = { "shift", "ctrl", "alt", "cmd" }
 
-hs.hotkey.bind(HYPER, "p", modal.cycleLayoutMode)
+hs.hotkey.bind({ "alt", "shift" }, "space", modal.cycleHotkeyMode)
+hs.hotkey.bind({ "alt", "shift" }, "i", function()
+  tiling.toggleWindowLayout()
+  modal.cycleHotkeyMode()
+end)
+
 hs.hotkey.bind(MEH, "space", require("services.kitty").toggle)
 
 local floatingWindowActions = {
