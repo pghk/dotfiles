@@ -11,10 +11,10 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
 fi
 
 export VISUAL=vi
+export HISTDB_FILE=$HOME/.local/share/zsh/zsh-history.db
 
 {{- if eq .chezmoi.os "darwin" }}
 export SSH_AUTH_SOCK=$HOME/.config/1Password/ssh/agent.sock
-export HISTDB_FILE=$HOME/.local/share/zsh/zsh-history.db
 export PATH="$HOME/Library/Application Support/Herd/bin":$PATH
 export HERD_PHP_82_INI_SCAN_DIR="$HOME/Library/Application Support/Herd/config/php/82/"
 {{- end }}
