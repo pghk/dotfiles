@@ -1,1 +1,38 @@
-.zprezto/runcoms/zlogout
+#
+# Executes commands at logout.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+print_line () {
+	printf "\e[3m%${COLUMNS}s\e[0m\n" $1
+}
+
+# Execute code only if STDERR is bound to a TTY.
+[[ -o INTERACTIVE && -t 2 ]] && {
+
+	echo "\n\n"
+
+	INDEX=$(($RANDOM % 26 + 1))
+	case $INDEX in
+		3) print_line "EASY COME, EASY GO..." ;;
+		11) print_line "THE END" ;;
+		12) print_line "TO BE CONTINUED" ;;
+		13) print_line "DO YOU HAVE A COMRADE?" ;;
+		15) print_line "SLEEPING BEAST" ;;
+		17) print_line "LIFE IS BUT A DREAM..." ;;
+		22) print_line "SEE YOU SPACE SAMURAI..." ;;
+		23) print_line "" ;;
+		24)
+			print_line "SEE YOU COWGIRL,   "
+			print_line "SOMEDAY, SOMEWHERE!"
+			;;
+		25) print_line "TO BE CONTINUED" ;;
+		26) print_line "YOU'RE GONNA CARRY THAT WEIGHT." ;;
+		*) print_line "SEE YOU SPACE COWBOY..." ;;
+	esac
+
+echo
+
+} >&2
