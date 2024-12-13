@@ -10,7 +10,7 @@ if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; t
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
-export VISUAL=vi
+export VISUAL=nvim
 export HISTDB_FILE=$HOME/.local/share/zsh/zsh-history.db
 
 {{- if eq .chezmoi.os "darwin" }}
