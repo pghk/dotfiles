@@ -17,8 +17,6 @@ default-root-container-layout = 'tiles'
 # Mouse lazily follows any focus (window or workspace)
 on-focus-changed = ['move-mouse window-lazy-center']
 
-accordion-padding = 280
-
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 [gaps]
 inner.horizontal = 8
@@ -118,12 +116,11 @@ ctrl-cmd-9 = 'move-node-to-workspace 􀀆 '
 ctrl-cmd-0 = 'move-node-to-workspace 􀀈 '
 
 [[on-window-detected]]
-if.during-aerospace-startup = true
 if.app-id = 'com.microsoft.Outlook'
+if.window-title-regex-substring = 'Inbox'
 run = 'move-node-to-workspace 􀀄 '
 
 [[on-window-detected]]
-if.during-aerospace-startup = true
 if.app-id = 'com.microsoft.teams2'
 run = 'move-node-to-workspace 􀀄 '
 
@@ -159,5 +156,8 @@ run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'app.kaleidoscope.v4'
-run = ['layout floating', 'move-node-to-workspace 􀃒 ']
+run = ['layout floating']
 
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = ['move-node-to-workspace 􀀈 ']
