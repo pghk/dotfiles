@@ -16,14 +16,14 @@ alias dot=chezmoi
 export KEYTIMEOUT=1
 
 # Store history in a database, with larkery/zsh-histdb
-if [[ -s "$ZDOTDIR/zsh-histdb/sqlite-history.zsh" ]]; then
+HISTORY_PLUGIN="$ZDOTDIR/zsh-histdb/sqlite-history.zsh"
+if [[ -n ${HISTDB_FILE+x} && -w $HISTDB_FILE && -s $HISTORY_PLUGIN ]]; then
 	HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
 	source "$ZDOTDIR/zsh-histdb/sqlite-history.zsh"
 	source "$ZDOTDIR/zsh-histdb/histdb-interactive.zsh"
 	autoload -Uz add-zsh-hook
+	bindkey "^r" _histdb-isearch
 fi
-
-bindkey "^r" _histdb-isearch
 
 # Suggest most frequently issued (and successful) command from this || any dir
 _zsh_autosuggest_strategy_histdb_top() {
