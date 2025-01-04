@@ -47,13 +47,13 @@ Utilities/Terminal (in order to be able to set macOS settings
 later via the `defaults` command)
 5. `curl https://raw.githubusercontent.com/pghk/dotfiles/develop/scripts/install.sh > setup.sh`
 and run it
-7. Answer prompts from install script, choosing the profile `init`
+7. Answer prompts from install script, choosing the profile `Shell`
 8. Wait for software to be installed and macOS settings to be
 applied, then reboot
 9. Start [Kitty](https://sw.kovidgoyal.net/kitty/), Karabiner,
 Hammerspoon
 10. `dot init` - answer prompts again, choosing the profile
-`(personal|work)`
+`(Personal|Work)`
 12. Sign in to iCloud etc
 13. `dot apply` to install more software
 14. Start Alfred, Bartender, iStat menus

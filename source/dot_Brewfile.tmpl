@@ -10,14 +10,14 @@ brew "bats-core/bats-core/bats-support"
 {{ if not (env "CI") -}}
 {{-   include "01.Brewfile" -}}
 
-{{-   if not (eq .profile "init") -}}
+{{-   if not (eq .profile "Shell") -}}
 {{-     include "02.Brewfile" -}}
 
-{{-     if eq .profile "work" -}}
+{{-     if eq .profile "Work" -}}
 {{-       include "Work.Brewfile" -}}
 {{-     end -}}
 
-{{-     if eq .profile "personal" -}}
+{{-     if eq .profile "Personal" -}}
 {{-       include "Home.Brewfile" -}}
 {{-     end -}}
 {{-   end -}}
