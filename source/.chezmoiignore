@@ -1,6 +1,7 @@
 *?.Brewfile
 **/.DS_Store
 .hammerspoon/Spoons/EmmyLua.spoon/annotations
+.config/nvim/lazyvim.json
 .config/obsidian/app.json
 .config/obsidian/bookmarks.json
 .config/obsidian/daily-notes.json
@@ -28,6 +29,6 @@ Library
 .ssh
 Library
 {{- end }}
-{{ if  ne .chezmoi.os "linux" }}
+{{ if ne .chezmoi.os "linux" }}
 .chezmoiscripts/linux/**
 {{- end }}
