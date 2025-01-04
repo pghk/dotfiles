@@ -14,8 +14,12 @@ brew "grep"
 brew "httpie"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
+# Open source relational database management system
+brew "mysql"
 # Platform built on V8 to build network applications
 brew "node"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
 # Ruby version manager
 brew "rbenv"
 # Safe, concurrent, practical language
@@ -25,7 +29,7 @@ brew "switchaudio-osx"
 # Send macOS User Notifications from the command-line
 brew "terminal-notifier"
 # CLI tool that moves files or folder to the trash
-brew "trash"
+brew "trash", link: true
 
 # Application launcher and productivity software
 cask "alfred"
@@ -33,12 +37,18 @@ cask "alfred"
 cask "bartender"
 # Text, code, and markup editor
 cask "bbedit"
+# Database version management tool
+cask "dbngin"
 # App to build and share containerized applications and microservices
 cask "docker"
 # Calendar software
 cask "fantastical"
 # Web browser
 cask "firefox"
+cask "font-ia-writer-quattro"
+cask "font-jetbrains-mono"
+cask "font-sf-pro"
+cask "font-symbols-only-nerd-font"
 # Laravel and PHP development environment manager
 cask "herd"
 # System monitoring app
@@ -70,6 +80,8 @@ cask "transmit"
 # Open-source code editor
 cask "visual-studio-code"
 
+mas "1Password for Safari", id: 1569813296
+mas "Anybox", id: 1593408455
 mas "Bear", id: 1091189122
 mas "Irvue", id: 1039633667
 mas "Keymapp", id: 6472865291
