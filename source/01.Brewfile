@@ -51,3 +51,5 @@ cask "hammerspoon"
 cask "karabiner-elements"
 # GPU-based terminal emulator
 cask "kitty"
+# Tool that provides consistent, highly configurable symbols for apps
+cask "sf-symbols"
