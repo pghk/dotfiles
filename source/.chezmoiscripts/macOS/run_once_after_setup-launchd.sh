@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 set -o errexit -o nounset -o pipefail -o xtrace
 
-DEF="$HOME"/.local/share/chezmoi/assets/auto.prune_downloads.plist
-LAUNCH=~/Library/LaunchAgents
-AGENT=com."$USER".prune_downloads.plist
+SOURCE="${HOME}/.local/share/chezmoi/assets"
+TARGET=~/Library/LaunchAgents
 
-mkdir -p $LAUNCH
-cp "$DEF" "${LAUNCH}/${AGENT}"
-sed -i '' "s/USER/$USER/g" "${LAUNCH}/${AGENT}"
-launchctl bootstrap gui/"$(id -u "$USER")" "${LAUNCH}/${AGENT}"
+AGENTS=(
+  "dev.paulhendrick.prune_downloads.plist"
+  "com.1password.SSH_AUTH_SOCK.plist"
+)
+
+mkdir -p $TARGET
+for AGENT in ${AGENTS[*]}; do
+  cp "$SOURCE/${AGENT}" "${TARGET}/${AGENT}"
+  sed -i '' "s/USER/$USER/g" "${TARGET}/${AGENT}"
+  launchctl bootstrap gui/"$(id -u "$USER")" "${TARGET}/${AGENT}"
+done
