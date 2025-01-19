@@ -120,54 +120,6 @@ module.shrink = function(window)
   end
 end
 
-local getNextOptionInCycle = function(options, current)
-  local next
-  for k, v in pairs(options) do
-    if v == current then
-      next = #options + (k % #options) - (#options - 1)
-    end
-  end
-  return options[next]
-end
-
-local getNextSpace = function()
-  local options = hs.spaces.spacesForScreen()
-  local current = hs.spaces.activeSpaceOnScreen()
-  return getNextOptionInCycle(options, current)
-end
-
-module.moveToNextScreen = function(window)
-  window = window or hs.window.focusedWindow()
-  window:moveToScreen(window:screen():next())
-end
-
-module.focusNextScreen = function(window)
-  window = window or hs.window.focusedWindow()
-  local screen = window:screen():next()
-  local windows = hs.fnutils.filter(hs.window.orderedWindows(), function(w)
-    return w:screen() == screen
-  end) or {}
-  if #windows > 0 then
-    windows[1]:focus()
-  else
-    hs.window.desktop():focus()
-    -- local destFrame = screen:frame()
-    -- local newX = destFrame.x + (destFrame.w * 0.618)
-    -- local newY = destFrame.y + 12
-    -- hs.mouse.absolutePosition({ x = newX, y = newY })
-  end
-end
-
-module.moveToNextSpace = function(window)
-  window = window or hs.window.focusedWindow()
-  local space = getNextSpace()
-  hs.spaces.moveWindowToSpace(window, space)
-  hs.spaces.gotoSpace(space)
-  hs.timer.doAfter(0.5, function()
-    window:focus()
-  end)
-end
-
 module.moveLeft = hs.grid.pushWindowLeft
 module.moveDown = hs.grid.pushWindowDown
 module.moveUp = hs.grid.pushWindowUp
@@ -177,64 +129,6 @@ module.makeTaller = hs.grid.resizeWindowTaller
 module.makeShorter = hs.grid.resizeWindowShorter
 module.makeWider = hs.grid.resizeWindowWider
 module.maximize = hs.grid.maximizeWindow
-
---[[
-   Experimental
-]]
-
-local getPosition = function(relative, toScreen)
-  local max = hs.grid.getGrid(toScreen) or { w = 0, h = 0 }
-  return {
-    x = max.w * relative.x,
-    y = max.h * relative.y,
-    w = max.w * (relative.w or (1 - relative.x)),
-    h = max.h * (relative.h or (1 - relative.y)),
-  }
-end
-
-local presets = {
-  ["Microsoft Teams (work or school)"] = { x = 1 / 8, y = 0 },
-  ["Mail"] = { x = 0, y = 0 },
-}
-
-module.presets = function()
-  for _, window in pairs(hs.window.visibleWindows() or {}) do
-    local application = window:application() or { title = "" }
-    local app = application:title()
-    if presets[app] ~= nil then
-      local pos = getPosition(presets[app], window:screen())
-      hs.grid.set(window, pos)
-    end
-  end
-end
-
-local cascade = function(index, count)
-  local rect = { x = 0, y = 0, w = 1, h = 1 }
-  if count > 1 then
-    local size = 1 / (count * 0.535)
-    local offset = (count - index) * ((1 - size) / (count - 1))
-    rect = { x = offset, y = offset, w = size, h = size }
-  end
-  return rect
-end
-
-module.focus = function()
-  local screens = hs.screen.allScreens() or {}
-  local thisWindow = hs.window.focusedWindow()
-  local others = {}
-  local count = 0
-  for _, v in pairs(hs.window.orderedWindows() or {}) do
-    if v ~= thisWindow and v:isStandard() and v:isVisible() then
-      count = count + 1
-      others[count] = v
-    end
-  end
-
-  for i, window in ipairs(others or {}) do
-    local pos = getPosition(cascade(i, count), screens[2])
-    hs.grid.set(window, pos, screens[2])
-  end
-end
 
 --[[
     Partitions every screen for the purposes of window management.

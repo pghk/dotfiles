@@ -18,10 +18,3 @@ url = "https://github.com/vim-airline/vim-airline"
 type = "git-repo"
 url = "https://github.com/sheerun/vim-polyglot"
 
-{{ if eq .chezmoi.os "darwin" }}
-# Tiled scrollable window manager for MacOS. Inspired by PaperWM.
-[".hammerspoon/spoons/PaperWM.spoon"]
-type = "git-repo"
-url = "https://github.com/mogenson/PaperWM.spoon"
-{{ end }}
-

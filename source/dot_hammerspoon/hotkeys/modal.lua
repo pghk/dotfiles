@@ -1,14 +1,18 @@
-HotkeyModeTiled = true
+---@class hs.menubar
 HotkeyModeIndicator = hs.menubar.new()
-ManagerEnabled = true
+HotkeyModeIndicator:setTooltip("Hotkey mode")
 
-local module = {
-  float = hs.hotkey.modal.new(),
+local M = {
+  mode = "move",
+  modes = {
+    move = hs.hotkey.modal.new():enter(),
+    focus = hs.hotkey.modal.new(),
+  },
 }
 
 local icons = {
-  float = 0x1014A0,
-  tile = 0x1029EE,
+  move = 0x1014A0,
+  focus = 0x1029EE,
 }
 
 local setIcon = function(code)
@@ -17,26 +21,26 @@ local setIcon = function(code)
   HotkeyModeIndicator:setTitle(title)
 end
 
-setIcon(icons.tile)
+M.modes.move:enter()
 
-module.cycleHotkeyMode = function()
-  if HotkeyModeTiled then
-    module.float:enter()
+M.cycleHotkeyMode = function()
+  if M.mode == "move" then
+    M.mode = "focus"
+    M.modes.move:exit()
+    M.modes.focus:enter()
   else
-    module.float:exit()
+    M.mode = "move"
+    M.modes.focus:exit()
+    M.modes.move:enter()
   end
 end
 
-function module.float:entered()
-  HotkeyModeTiled = false
-  setIcon(icons.float)
+function M.modes.move:entered()
+  setIcon(icons.move)
 end
 
-function module.float:exited()
-  HotkeyModeTiled = true
-  setIcon(icons.tile)
+function M.modes.move:exited()
+  setIcon(icons.focus)
 end
 
--- print(hs.inspect({ window:title(), app, event }))
-
-return module
+return M

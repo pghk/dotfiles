@@ -40,7 +40,7 @@ local function ensureOnCurrentScreen(window)
   if not window then
     return
   end
-  local thisScreen = hs.screen.mainScreen()
+  local thisScreen = hs.mouse.getCurrentScreen()
   local windowScreen = window:screen()
   if windowScreen ~= thisScreen then
     window:moveToScreen(thisScreen)
