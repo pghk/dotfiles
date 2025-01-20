@@ -80,12 +80,3 @@ cask "transmit"
 # Open-source code editor
 cask "visual-studio-code"
 
-mas "1Password for Safari", id: 1569813296
-mas "Anybox", id: 1593408455
-mas "Bear", id: 1091189122
-mas "Irvue", id: 1039633667
-mas "Keymapp", id: 6472865291
-mas "Numbers", id: 409203825
-mas "PopClip", id: 445189367
-mas "WorldWideWeb", id: 1621370168
-
