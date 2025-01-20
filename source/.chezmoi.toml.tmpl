@@ -5,12 +5,17 @@
 {{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $profiles := list "Shell" "Personal" "Work" -}}
 {{- $profile := promptChoice "Install profile" $profiles -}}
+{{- $useOP := promptBool "Connect to 1Password" false -}}
+{{- $opVault := "" -}}
+{{- if $useOP -}}
+    {{- $opVault = promptString "Using which vault" "private" -}}
+{{- end -}}
 
 [data]
     email = {{ $email | quote }}
     profile = {{ $profile | quote }}
-    {{- if not (eq $profile "Shell") }}
-    opVault = {{ $profile | quote }}
+    {{- if $useOP }}
+    opVault = {{ $opVault | quote }}
     {{- end }}
 
 [merge]
