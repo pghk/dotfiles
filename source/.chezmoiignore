@@ -1,5 +1,6 @@
 *?.Brewfile
 **/.DS_Store
+**/node_modules
 .hammerspoon/Spoons/EmmyLua.spoon/annotations
 .config/nvim/lazyvim.json
 .config/obsidian/app.json
