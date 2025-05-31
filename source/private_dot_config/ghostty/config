@@ -1,0 +1,16 @@
+window-padding-x = 16 
+window-padding-y = 16
+
+theme = MaterialOceanic
+
+font-size = 18 
+font-family = Berkeley Mono
+font-style = Book
+font-style-italic = Oblique
+font-style-bold-italic = Bold Oblique
+
+adjust-cell-height = 15%
+
+keybind = global:shift+ctrl+alt+space=toggle_quick_terminal
+keybind = shift+command+h=previous_tab
+keybind = shift+command+l=next_tab

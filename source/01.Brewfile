@@ -47,7 +47,7 @@ cask "font-symbols-only-nerd-font"
 cask "hammerspoon"
 # Keyboard customizer
 cask "karabiner-elements"
-# GPU-based terminal emulator
-cask "kitty"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
 # Tool that provides consistent, highly configurable symbols for apps
 cask "sf-symbols"

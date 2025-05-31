@@ -32,7 +32,6 @@ local HYPER = { "shift", "ctrl", "alt", "cmd" }
 --
 local actions = {
   { { "alt", "shift" }, "space", modal.cycleHotkeyMode },
-  { MEH, "space", require("services.kitty").toggle },
 
   { MEH, "0", window.shrink },
   { MEH, "-", window.grow },
