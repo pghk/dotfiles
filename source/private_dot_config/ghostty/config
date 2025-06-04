@@ -9,8 +9,11 @@ font-style = Book
 font-style-italic = Oblique
 font-style-bold-italic = Bold Oblique
 
-adjust-cell-height = 15%
+adjust-cell-height = 35%
 
 keybind = global:shift+ctrl+alt+space=toggle_quick_terminal
+quick-terminal-position = center
+
 keybind = shift+command+h=previous_tab
 keybind = shift+command+l=next_tab
+
