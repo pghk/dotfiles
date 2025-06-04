@@ -1,11 +1,12 @@
 return {
   -- Configurable 'statuscolumn' and click handlers
   "luukvbaal/statuscol.nvim",
+  lazy = false,
   config = function()
     local builtin = require("statuscol.builtin")
     require("statuscol").setup({
       relculright = true,
-      ft_ignore = { "alpha", "dashboard" },
+      ft_ignore = { "snacks_dashboard" },
       segments = {
         {
           sign = { name = { "Diagnostic" }, maxwidth = 1 },
