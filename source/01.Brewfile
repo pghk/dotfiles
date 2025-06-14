@@ -2,6 +2,8 @@ tap "homebrew/bundle"
 tap "homebrew/services"
 tap "nikitabobko/tap"
 
+# Improved shell history for zsh, bash, fish and nushell
+brew "atuin"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
 # Get a file from an HTTP, HTTPS or FTP server

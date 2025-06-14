@@ -14,8 +14,8 @@ load "${TEST_BREW_PREFIX}/lib/bats-assert/load.bash"
     assert_output --regexp '^\/Users\/[[:alpha:]]+\/.config$'
 }
 @test "Command History database installed" {
-    run type histdb
-    assert_output --regexp 'function'
+    run command -v atuin
+    assert_success
 }
 @test "Vim is customized" {
     n=$(ls $HOME/.vim/pack/default/start | wc -l)

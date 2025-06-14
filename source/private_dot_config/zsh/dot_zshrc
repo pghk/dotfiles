@@ -15,27 +15,10 @@ alias dot=chezmoi
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
 export KEYTIMEOUT=1
 
-# Store history in a database, with larkery/zsh-histdb
-HISTORY_PLUGIN="$ZDOTDIR/zsh-histdb/sqlite-history.zsh"
-if [[ -n ${HISTDB_FILE+x} && -w $HISTDB_FILE && -s $HISTORY_PLUGIN ]]; then
-	HISTDB_TABULATE_CMD=(sed -e $'s/\x1f/\t/g')
-	source "$ZDOTDIR/zsh-histdb/sqlite-history.zsh"
-	source "$ZDOTDIR/zsh-histdb/histdb-interactive.zsh"
-	autoload -Uz add-zsh-hook
-	bindkey "^r" _histdb-isearch
-fi
-
-# Suggest most frequently issued (and successful) command from this || any dir
-_zsh_autosuggest_strategy_histdb_top() {
-	local query="select commands.argv from
-history left join commands on history.command_id = commands.rowid
-left join places on history.place_id = places.rowid
-where commands.argv LIKE '$(sql_escape $1)%'
-and history.exit_status = 0
-group by commands.argv
-order by places.dir != '$(sql_escape $PWD)', count(*) desc limit 1"
-	suggestion=$(_histdb_query "$query")
+# Store history in a database, using https://atuin.sh
+eval "$(atuin init zsh --disable-up-arrow)"
+_zsh_autosuggest_strategy_atuin() {
+    suggestion=$(atuin search --exit 0 --cmd-only --limit 1 --search-mode prefix "$1")
 }
-ZSH_AUTOSUGGEST_STRATEGY=(histdb_top completion)
 
 ADDENDUM="${ZDOTDIR:-HOME}/.zshrc_custom"; [ -f $ADDENDUM ] && . $ADDENDUM
