@@ -5,7 +5,7 @@ SOURCE="${HOME}/.local/share/chezmoi/assets"
 TARGET=~/Library/LaunchAgents
 
 AGENTS=(
-  "dev.paulhendrick.prune_downloads.plist"
+  "com.pghk.prune_downloads.plist"
   "com.1password.SSH_AUTH_SOCK.plist"
 )
 
