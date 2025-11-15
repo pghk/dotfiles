@@ -11,9 +11,14 @@ font-style-bold-italic = Bold Oblique
 
 adjust-cell-height = 15%
 
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+
 keybind = global:shift+ctrl+alt+space=toggle_quick_terminal
 quick-terminal-position = center
 quick-terminal-autohide = false
+quick-terminal-size = 1472px,828px
+quick-terminal-animation-duration = 0
 
 keybind = shift+command+h=previous_tab
 keybind = shift+command+l=next_tab
