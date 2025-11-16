@@ -1,67 +1,91 @@
+---@diagnostic disable: undefined-global
+
 local modal = require("hotkeys.modal")
 local tiling = require("services.window.tiling")
 local window = require("services.window.grid")
 
-local function bindHotkeys(list)
-  for _, v in ipairs(list) do
-    hs.hotkey.bind(v[1], v[2], v[3])
-  end
-end
+---@type table|nil
+local registry = hs.loadSpoon("HotkeyRegistry")
+assert(registry, "Failed to load HotkeyRegistry Spoon")
 
-local function bindModalHotkeys(mode, list, repeating)
-  for _, v in ipairs(list) do
-    if repeating then
-      mode:bind(v[1], v[2], v[3], nil, v[3])
-    else
-      mode:bind(v[1], v[2], v[3])
+registry:registerActions("modal", modal)
+registry:registerActions("window", window)
+registry:registerActions("tiling", tiling)
+registry:setRegistryPath(hs.configdir .. "/hotkeys/registry.json")
+
+local function bindFromRegistry()
+    local function categorizeHotkeys(hotkeys)
+        local globalBindings = {}
+        local modalBindings = {}
+
+        for _, hotkey in ipairs(hotkeys) do
+            if not hotkey.action then
+                goto continue
+            end
+
+            local action = registry:resolveAction(hotkey.action)
+            if not action then
+                print(string.format("Warning: Could not resolve action: %s", hotkey.action))
+                goto continue
+            end
+
+            local binding = { hotkey.modifiers, hotkey.key, action }
+
+            if hotkey.mode == "global" then
+                table.insert(globalBindings, binding)
+            else
+                modalBindings[hotkey.mode] = modalBindings[hotkey.mode] or {}
+                table.insert(modalBindings[hotkey.mode], binding)
+            end
+
+            ::continue::
+        end
+
+        return globalBindings, modalBindings
     end
-  end
+
+    local function bindGlobalHotkeys(bindings)
+        for _, binding in ipairs(bindings) do
+            hs.hotkey.bind(binding[1], binding[2], binding[3])
+        end
+    end
+
+    local function bindModalHotkeys(modalBindings)
+        local function isRepeatableMode(modeName)
+            return modeName == "move"
+        end
+
+        for modeName, bindings in pairs(modalBindings) do
+            local mode = modal.modes[modeName]
+            if not mode then
+                hs.alert.show("Modal mode not found: " .. modeName)
+                goto continue
+            end
+
+            for _, binding in ipairs(bindings) do
+                if isRepeatableMode(modeName) then
+                    mode:bind(binding[1], binding[2], binding[3], nil, binding[3])
+                else
+                    mode:bind(binding[1], binding[2], binding[3])
+                end
+            end
+
+            ::continue::
+        end
+    end
+
+    local hotkeys = registry:parseHotkeys(true)
+    local globalBindings, modalBindings = categorizeHotkeys(hotkeys)
+
+    bindGlobalHotkeys(globalBindings)
+    bindModalHotkeys(modalBindings)
 end
 
---[[
-    Hotkey bindings
-]]
+registry.onRegistryLoaded = function()
+    print("Registry loaded, rebinding hotkeys...")
+    bindFromRegistry()
+end
 
--- note: hyper + [,.] are reserved by macOS
-local MEH = { "shift", "ctrl", "alt" }
-local HYPER = { "shift", "ctrl", "alt", "cmd" }
-
--- bound elsewhere
--- { MEH, "u", space left },
--- { MEH, "o", space right },
---
-local actions = {
-  { { "alt", "shift" }, "space", modal.cycleHotkeyMode },
-
-  { MEH, "0", window.shrink },
-  { MEH, "-", window.grow },
-
-  { MEH, "i", window.center },
-  { HYPER, "i", window.maximize },
-  { HYPER, "u", window.rotate },
-
-  { HYPER, "h", tiling.actions.pushWindow },
-  { HYPER, "j", tiling.actions.pullWindow },
-  { HYPER, "k", tiling.actions.swapWindows },
-  { HYPER, "l", tiling.actions.mouseNextScreen },
-
-  { MEH, "h", tiling.actions.focusWest },
-  { MEH, "j", tiling.actions.focusSouth },
-  { MEH, "k", tiling.actions.focusNorth },
-  { MEH, "l", tiling.actions.focusEast },
-}
-
-local modalActions = {
-  { MEH, "h", window.moveLeft },
-  { MEH, "j", window.moveDown },
-  { MEH, "k", window.moveUp },
-  { MEH, "l", window.moveRight },
-
-  { HYPER, "h", window.makeThinner },
-  { HYPER, "j", window.makeTaller },
-  { HYPER, "k", window.makeShorter },
-  { HYPER, "l", window.makeWider },
-}
-
-bindHotkeys(actions)
-bindModalHotkeys(modal.modes.move, modalActions, true)
+registry:enableUrlHandler()
+registry:loadRegistry()
+registry:startWatching()
