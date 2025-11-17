@@ -1,0 +1,55 @@
+{
+  "modifiers": {
+    "meh": {
+      "keys": ["shift", "ctrl", "alt"], "aliases": ["✧", "⇧⌃⌥"]
+    },
+    "hyper": {
+      "keys": ["shift", "ctrl", "alt", "cmd"], "aliases": ["✦", "⇧⌃⌥⌘"]
+    },
+    "alt+shift": {
+      "keys": ["alt", "shift"]
+    }
+  },
+  "modes": {
+    "global": {
+      "alt+shift": {
+        "space": { "description": "Cycle hotkey mode", "action": "modal.cycleHotkeyMode" }
+      },
+      "meh": {
+        "u": { "reserved": true, "description": "Move left a space", "app": "macOS" },
+        "i": { "description": "Center window", "action": "window.center" },
+        "o": { "reserved": true, "description": "Move right a space", "app": "macOS" },
+
+        "h": { "description": "Focus window west", "action": "tiling.actions.focusWest" },
+        "j": { "description": "Focus window south", "action": "tiling.actions.focusSouth" },
+        "k": { "description": "Focus window north", "action": "tiling.actions.focusNorth" },
+        "l": { "description": "Focus window east", "action": "tiling.actions.focusEast" }
+      },
+      "hyper": {
+        "u": { "description": "Shrink window", "action": "window.shrink" },
+        "i": { "description": "Maximize window", "action": "window.maximize" },
+        "o": { "description": "Grow window", "action": "window.grow" },
+        "p": { "description": "Rotate window", "action": "window.rotate" },
+
+        "h": { "description": "Push window to other screen", "action": "tiling.actions.pushWindow" },
+        "j": { "description": "Pull window from other screen", "action": "tiling.actions.pullWindow" },
+        "k": { "description": "Swap windows", "action": "tiling.actions.swapWindows" },
+        "l": { "description": "Move mouse to next screen", "action": "tiling.actions.mouseNextScreen" }
+      }
+    },
+    "move": {
+      "meh": {
+        "h": { "description": "Move window left", "action": "window.moveLeft" },
+        "j": { "description": "Move window down", "action": "window.moveDown" },
+        "k": { "description": "Move window up", "action": "window.moveUp" },
+        "l": { "description": "Move window right", "action": "window.moveRight" }
+      },
+      "hyper": {
+        "h": { "description": "Make window thinner", "action": "window.makeThinner" },
+        "j": { "description": "Make window taller", "action": "window.makeTaller" },
+        "k": { "description": "Make window shorter", "action": "window.makeShorter" },
+        "l": { "description": "Make window wider", "action": "window.makeWider" }
+      }
+    }
+  }
+}
