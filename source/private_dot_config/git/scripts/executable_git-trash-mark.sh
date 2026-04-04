@@ -97,7 +97,7 @@ git rev-parse --verify "$base_ref" >/dev/null 2>&1 \
 #----------------------------------------
 # Locate optional external check
 #----------------------------------------
-hook_script="${XDG_CONFIG_HOME:-$HOME/.config}/git/scripts/git-trash-should-mark.sh"
+hook_script="${XDG_CONFIG_HOME:-$HOME/.config}/git/scripts/git-branch-is-deletable.sh"
 has_hook=0
 [[ -x "$hook_script" ]] && has_hook=1
 

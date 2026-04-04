@@ -43,7 +43,7 @@
 	prev-branch = "!git reflog | grep -o 'checkout: moving from [^ ]* to [^ ]*' | awk '{print $NF}' | awk '!seen[$0]++' | tail -n +2 | head -n 1"
 	branch-hist = "!git reflog | grep -o 'checkout: moving from [^ ]* to [^ ]*' | awk '{print $NF}' | awk '!seen[$0]++' | tail -n +2 | head"
 	diff-grep = !$XDG_CONFIG_HOME/git/scripts/git-diff-grep.sh
-	new = "!$XDG_CONFIG_HOME/git/scripts/git-work.sh new"
-	pr  = "!$XDG_CONFIG_HOME/git/scripts/git-work.sh pr"
-	trash-mark   = "!$XDG_CONFIG_HOME/git/scripts/git-trash-mark.sh"
-	trash-delete = "!$XDG_CONFIG_HOME/git/scripts/git-trash-delete.sh"
+	new = "!$XDG_CONFIG_HOME/git/scripts/git-create-work-branch.sh new"
+	pr  = "!$XDG_CONFIG_HOME/git/scripts/git-create-work-branch.sh pr"
+	tree-shake = "!$XDG_CONFIG_HOME/git/scripts/git-trash-mark.sh"
+	trash-empty = "!$XDG_CONFIG_HOME/git/scripts/git-trash-empty.sh"
