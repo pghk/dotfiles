@@ -1,0 +1,16 @@
+[
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "J": "editor::MoveLineDown",
+      "K": "editor::MoveLineUp"
+    }
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "shift-l": "pane::activate-next-item",
+      "shift-h": "pane::activate-previous-item"
+    }
+  }
+]

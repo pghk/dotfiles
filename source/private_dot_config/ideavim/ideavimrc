@@ -1,10 +1,6 @@
-source ~/.vim/vimrc
+source ~/.config/vim/vimrc.shared
 
 if has('ide')
-    nnoremap <S-l> :tabnext<CR>
-    nnoremap <S-h> :tabprev<CR>\
-    set ideajoin
-    set clipboard^=ideaput
 	" built-in plugins
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-commentary'
@@ -60,5 +56,8 @@ if has('ide')
 	nmap <leader>gt <Action>(GotoTest)
 	" nmap <leader>gf <Action>(Back)
 	" nmap <leader>gb <Action>(Forward)
+
+	set ideajoin
+	set clipboard^=ideaput
 
 endif

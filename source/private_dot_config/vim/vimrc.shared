@@ -1,0 +1,23 @@
+let mapleader = " "
+
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set scrolloff=3
+
+" Move highlighted lines
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Delete / replace without yanking
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+xnoremap <leader>p "_dP
+
+" Tab navigation
+nnoremap <S-l> :tabnext<CR>
+nnoremap <S-h> :tabprev<CR>
+
+" Clear search highlighting
+nnoremap <silent> <CR> :noh<CR><CR>
