@@ -16,8 +16,18 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { import = "plugins" },
-}, {
-  install = { missing = true },
+  spec = {
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    { import = "lazyvim.plugins.extras.linting.eslint" },
+    { import = "lazyvim.plugins.extras.formatting.prettier" },
+    { import = "plugins" },
+  },
+  defaults = { lazy = false, version = false },
+  install = { missing = true, colorscheme = { "material" } },
   checker = { enabled = true, notify = false },
+  performance = {
+    rtp = {
+      disabled_plugins = { "gzip", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
+    },
+  },
 })
