@@ -2,14 +2,14 @@
 local opt = vim.opt
 
 opt.fillchars = {
-  foldopen = "▾",
-  foldclose = "▸",
+  foldopen = "",
+  foldclose = "",
   foldsep = " ",
 }
 
 opt.list = false
 opt.listchars = {
-  tab = " ",
+  tab = " ",
   space = "·",
   trail = "•",
   extends = "❯",
