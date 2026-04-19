@@ -9,8 +9,8 @@
   {
     "context": "vim_mode == normal",
     "bindings": {
-      "shift-l": "pane::activate-next-item",
-      "shift-h": "pane::activate-previous-item"
+      "shift-l": "pane::activate_next_item",
+      "shift-h": "pane::activate_previous_item"
     }
   }
 ]
