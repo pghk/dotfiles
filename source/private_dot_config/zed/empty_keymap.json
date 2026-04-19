@@ -10,7 +10,7 @@
     "context": "vim_mode == normal",
     "bindings": {
       "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePrevItem"
+      "shift-h": "pane::ActivatePreviousItem"
     }
   }
 ]
