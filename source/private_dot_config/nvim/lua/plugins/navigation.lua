@@ -13,7 +13,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      "echasnovski/mini.icons",
+      "nvim-mini/mini.icons",
     },
     keys = {
       { "<leader>e", "<cmd>Neotree toggle<CR>", desc = "File tree" },

@@ -3,7 +3,7 @@
 return {
   -- Icons (used by lualine, neo-tree, dashboard)
   {
-    "echasnovski/mini.icons",
+    "nvim-mini/mini.icons",
     lazy = false,
     config = function()
       require("mini.icons").setup()
@@ -38,7 +38,7 @@ return {
   -- Statusline
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "echasnovski/mini.icons" },
+    dependencies = { "nvim-mini/mini.icons" },
     opts = {
       options = {
         component_separators = { left = "", right = "" },
@@ -67,7 +67,7 @@ return {
 
   -- Indent scope indicator
   {
-    "echasnovski/mini.indentscope",
+    "nvim-mini/mini.indentscope",
     config = function()
       require("mini.indentscope").setup({ symbol = "│" })
       vim.api.nvim_create_autocmd("FileType", {
@@ -119,7 +119,7 @@ return {
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
-    dependencies = { "echasnovski/mini.icons" },
+    dependencies = { "nvim-mini/mini.icons" },
     opts = function()
       local logo = [[
 ████╗    ███╗ ████████╗  ████████╗  ███╗   ███╗ ███╗ ████╗    ████╗
