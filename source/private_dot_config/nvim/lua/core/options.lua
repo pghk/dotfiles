@@ -2,8 +2,8 @@
 local opt = vim.opt
 
 opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
+  foldopen = "▾",
+  foldclose = "▸",
   foldsep = " ",
 }
 
