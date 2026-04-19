@@ -1,0 +1,4 @@
+-- Neovim-specific keymaps that extend vimrc.shared.
+-- vimrc.shared already covers: visual J/K (move lines), <leader>d/<leader>p
+-- (delete/replace without yanking), <S-h>/<S-l> (tab nav), <CR> (clear search).
+-- Add here only keymaps that require Neovim APIs or have no Vimscript equivalent.
