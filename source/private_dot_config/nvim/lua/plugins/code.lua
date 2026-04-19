@@ -69,7 +69,7 @@ return {
       vim.opt.completeopt:append("noselect")
 
       -- Server-specific configuration
-      require("lspconfig").lua_ls.setup({
+      vim.lsp.config("lua_ls", {
         settings = {
           Lua = {
             workspace = { library = vim.api.nvim_get_runtime_file("", true) },
