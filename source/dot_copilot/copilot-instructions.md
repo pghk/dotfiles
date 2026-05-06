@@ -18,3 +18,11 @@ The user agent instructions (AGENTS.md) are auto-loaded at session start via `CO
 | User copilot instructions | `~/.copilot/copilot-instructions.md` | This file; loaded from `$HOME/.copilot/` |
 | User skills | `~/.agents/skills/<name>/SKILL.md` | Invokable by name in any project; directory is a git repo |
 | Admit codebase | `/Users/paul.hendrick/local/admit/main` | Separate app sharing Hub's DB; Hub migrations are local/test only — Admit's Phinx migrations govern production schema |
+
+## Local projects
+
+Projects in `~/local/hub`, `~/local/admit`, and `~/local/enroll` use git worktrees. New worktrees may be missing a `.env` file. If any code or tooling complains about a missing env file, copy one from the sibling `../dev` worktree before proceeding:
+
+```sh
+cp ../dev/.env .env
+```
