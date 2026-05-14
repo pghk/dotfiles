@@ -19,13 +19,13 @@
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 3.1 | Start a new session and confirm instructions load correctly from AGENTS.md | pending | |
+| 3.1 | Start a new session and confirm instructions load correctly from AGENTS.md | done | Confirmed: rules present in context at session start |
 | 3.2 | Confirm no universal content remains in copilot-instructions.md | done | |
 
 ## Phase 4: Documentation
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 4.1 | Update dotfiles `AGENTS.md` to document the two-file convention | pending | |
+| 4.1 | Update dotfiles `AGENTS.md` to document the two-file convention | done | Added "Agent instructions: two-file convention" section |
 | 4.2 | Decide how to track `~/.agents/AGENTS.md` — chezmoi or extend the skills repo | done | Added to chezmoi as `source/dot_agents/AGENTS.md` |
 

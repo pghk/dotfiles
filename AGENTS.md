@@ -61,6 +61,21 @@ chezmoi unmanaged           # list files not managed by chezmoi
 chezmoi source-path $FILE   # print source path for a target path
 ```
 
+## Agent instructions: two-file convention
+
+Agent instructions are split across two files:
+
+| File | Purpose | Tracked? |
+|------|---------|---------|
+| `~/.agents/AGENTS.md` | Universal behaviour rules, skill conventions, file map | Yes — chezmoi (`source/dot_agents/AGENTS.md`) |
+| `~/.copilot/copilot-instructions.md` | Machine-specific paths, local projects, local file map rows | No — intentionally local |
+
+`~/.agents/AGENTS.md` is always-on: `COPILOT_CUSTOM_INSTRUCTIONS_DIRS=~/.agents` in
+`~/.config/zsh/.zshrc_custom` makes Copilot load it in every session without manual setup.
+
+`~/.copilot/copilot-instructions.md` must **not** be added to chezmoi — its content is
+machine-specific.
+
 ## This file
 
 `AGENTS.md` lives at the repo root and is **not** managed by chezmoi. Editing it
