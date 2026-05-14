@@ -65,3 +65,24 @@ chezmoi source-path $FILE   # print source path for a target path
 
 `AGENTS.md` lives at the repo root and is **not** managed by chezmoi. Editing it
 directly is all that's needed — no `apply` or `re-add` step required.
+
+## Obsidian config
+
+`~/.config/obsidian/` (chezmoi source: `source/private_dot_config/private_obsidian/`)
+is a **template** for vault config, not a live Obsidian config. Obsidian reads from the
+vault's `.obsidian/` directory, not from here. The vault path is in user-level copilot
+instructions.
+
+**Files tracked in dotfiles** (and expected in the vault):
+- `appearance.json`, `hotkeys.json`, `community-plugins.json`, `core-plugins.json`
+- `scripts/`, `snippets/`, `templates/`
+
+**Files only in the vault** (not tracked in dotfiles):
+- `plugins/*/data.json` — plugin settings
+- `workspace.json`, `core-plugins-migration.json` — Obsidian-managed runtime state
+- `app.json` — gitignored in this repo (see `.chezmoiignore`)
+
+**Sync is manual and bidirectional.** After editing dotfiles, the user must copy
+changed files into the vault's `.obsidian/`. After configuring something in Obsidian,
+the vault's `.obsidian/` may need to be copied back into dotfiles to keep them in sync.
+Remind the user to sync after making changes here.
