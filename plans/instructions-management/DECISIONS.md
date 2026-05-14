@@ -43,6 +43,20 @@ or automation. Acceptable given how infrequently new machines are set up.
 
 ---
 
+### ADR-3: Drop `## Startup` section from copilot-instructions.md
+
+**Date:** 2026-05-14  
+**Status:** accepted
+
+**Context:** The section documented how `COPILOT_CUSTOM_INSTRUCTIONS_DIRS` loads AGENTS.md.
+It was meta-commentary, not an instruction.
+
+**Decision:** Dropped. Agents don't need to be told how they were loaded.
+
+**Consequences:** None.
+
+---
+
 ## ADR Template
 
 ```
