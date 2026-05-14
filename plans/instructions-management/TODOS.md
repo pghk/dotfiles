@@ -1,34 +1,30 @@
 # Tasks
 
-## Phase 1: Discovery
+## Phase 1: Content audit
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1.1 | Find where `COPILOT_CUSTOM_INSTRUCTIONS_DIRS` is currently set | pending | Not in zshenv, zshrc, or any tracked file found so far |
-| 1.2 | Confirm what chezmoi data variables are already defined in `.chezmoi.toml.tmpl` | pending | Ensure new vars don't conflict |
-| 1.3 | Audit full content of `~/.copilot/copilot-instructions.md` for anything that should NOT go in the template | pending | Check for anything session-specific or experimental |
+| 1.1 | Review full content of `~/.copilot/copilot-instructions.md` and categorise each section as universal or local | pending | |
+| 1.2 | Review `~/.agents/AGENTS.md` for any content that should move or be consolidated | pending | |
 
-## Phase 2: Design
-
-| # | Task | Status | Notes |
-|---|------|--------|-------|
-| 2.1 | Add `obsidianVault` and `admitCodebase` promptStringOnce vars to `.chezmoi.toml.tmpl` | pending | Decide naming convention for path vars |
-| 2.2 | Design the template structure for `copilot-instructions.md.tmpl` | pending | Universal content + `{{ .chezmoidata.obsidianVault }}` style refs |
-| 2.3 | Decide where `COPILOT_CUSTOM_INSTRUCTIONS_DIRS` should be set and how | pending | zshenv vs. zshrc vs. launchctl — whichever is tracked and runs before CLI |
-
-## Phase 3: Implementation
+## Phase 2: Migration
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 3.1 | Add path vars to `.chezmoi.toml.tmpl` | pending | Depends on 2.1 |
-| 3.2 | Create `source/dot_copilot/copilot-instructions.md.tmpl` | pending | Replaces untracked live file |
-| 3.3 | Track `COPILOT_CUSTOM_INSTRUCTIONS_DIRS` in shell config | pending | Depends on 2.3 |
-| 3.4 | Run `chezmoi apply` and verify rendered file is correct | pending | |
-| 3.5 | Verify CLI loads instructions at session start (no manual steps) | pending | |
+| 2.1 | Move universal instructions (behaviour rules, skill conventions) from copilot-instructions.md to `~/.agents/AGENTS.md` | pending | Depends on 1.1 |
+| 2.2 | Strip copilot-instructions.md down to local-only content (paths, file map local rows) | pending | Depends on 1.1 |
+| 2.3 | Commit changes to agents repo | pending | Depends on 2.1 |
 
-## Phase 4: Cleanup
+## Phase 3: Verification
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 4.1 | Remove any now-redundant content from `~/.agents/AGENTS.md` | pending | Only if content has moved to template |
-| 4.2 | Update AGENTS.md in dotfiles repo to reflect the new system | pending | |
+| 3.1 | Start a new session and confirm instructions load correctly from AGENTS.md | pending | |
+| 3.2 | Confirm no universal content remains in copilot-instructions.md | pending | |
+
+## Phase 4: Documentation
+
+| # | Task | Status | Notes |
+|---|------|--------|-------|
+| 4.1 | Update dotfiles `AGENTS.md` to document the two-file convention | pending | |
+

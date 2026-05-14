@@ -4,73 +4,44 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ git (dotfiles repo)                                         │
+│ git (agents repo: ~/.agents/)                               │
 │                                                             │
-│  source/dot_copilot/copilot-instructions.md.tmpl  ──────┐  │
-│  source/.chezmoi.toml.tmpl  (promptStringOnce vars)     │  │
-└─────────────────────────────────────────────────────────│──┘
-                                                          │ chezmoi apply
-                                                          ▼
+│  AGENTS.md  ← universal instructions (all machines)        │
+│  skills/    ← invokable skills                             │
+└──────────────────────────┬──────────────────────────────────┘
+                           │ loaded via COPILOT_CUSTOM_INSTRUCTIONS_DIRS
+                           ▼
 ┌─────────────────────────────────────────────────────────────┐
 │ machine-local (not tracked)                                 │
 │                                                             │
-│  ~/.config/chezmoi/chezmoi.toml  (stores prompted values)  │
-│  ~/.copilot/copilot-instructions.md  (rendered output)  ◄──┘
-└─────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────┐
-│ git (agents repo)                                           │
+│  ~/.config/zsh/.zshrc_custom                               │
+│    export COPILOT_CUSTOM_INSTRUCTIONS_DIRS="$HOME/.agents" │
 │                                                             │
-│  ~/.agents/AGENTS.md  (always-on project-agnostic rules)   │
-└─────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────┐
-│ shell environment                                           │
-│                                                             │
-│  COPILOT_CUSTOM_INSTRUCTIONS_DIRS=~/.agents                 │
-│  (set in tracked shell config — location TBD)              │
+│  ~/.copilot/copilot-instructions.md  ← local paths only    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-## Template structure
+## Content split
 
-`copilot-instructions.md.tmpl` renders to `~/.copilot/copilot-instructions.md`:
+### `~/.agents/AGENTS.md` (tracked)
 
-```
-# User Instructions
+- Behaviour rules: "Commit completed work", etc.
+- Skill invocation: "Always load judgement"
+- Skill management conventions
+- File map — rows with stable/universal paths and descriptions
+- Any instruction that should apply on every machine using Copilot
 
-[universal behaviour rules — hardcoded in template]
+### `~/.copilot/copilot-instructions.md` (local, untracked)
 
-## Skill management
+- File map rows with machine-specific paths (Obsidian vault, codebase paths)
+- Any local project notes or machine-specific overrides
+- Nothing else
 
-[universal skill conventions — hardcoded in template]
+## Setup on a new machine (manual steps)
 
-## File map
+1. Clone agents repo to `~/.agents/`
+2. Add `export COPILOT_CUSTOM_INSTRUCTIONS_DIRS="$HOME/.agents"` to `~/.config/zsh/.zshrc_custom`
+3. Create `~/.copilot/copilot-instructions.md` with local paths
 
-| Name | Path | Notes |
-| ---- | ---- | ----- |
-| ...static rows... |
-| Obsidian vault | {{ .chezmoidata.obsidianVault }} | ... |
-| Admit codebase  | {{ .chezmoidata.admitCodebase }}  | ... |
-```
+> **TBD** — open question 1: fate of `## Startup` section in copilot-instructions.md
 
-> **TBD** — full template content, open question 1 (other machine-specific vars)
-
-## chezmoi data variables
-
-> **TBD** — exact variable names and promptStringOnce syntax, pending task 2.1
-
-## `COPILOT_CUSTOM_INSTRUCTIONS_DIRS` placement
-
-> **TBD** — open question 2 (where is it currently set, and where should it live)
-
-## Loading sequence at session start
-
-1. Copilot CLI reads `~/.copilot/copilot-instructions.md` (primary, always present)
-2. Copilot CLI reads `AGENTS.md` files from `COPILOT_CUSTOM_INSTRUCTIONS_DIRS` (secondary)
-3. Project-level `AGENTS.md` loaded from CWD hierarchy (tertiary)
-
-## Error handling / degraded states
-
-> **TBD** — what happens if chezmoi apply hasn't been run on a new machine yet?
-> Consider whether the template should have sensible defaults for optional path vars.
