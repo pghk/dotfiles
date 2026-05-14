@@ -13,7 +13,7 @@
 |---|------|--------|-------|
 | 2.1 | Move universal instructions (behaviour rules, skill conventions) from copilot-instructions.md to `~/.agents/AGENTS.md` | done | |
 | 2.2 | Strip copilot-instructions.md down to local-only content (paths, file map local rows) | done | |
-| 2.3 | Commit changes to agents repo | blocked | `~/.agents/AGENTS.md` is not inside any git repo — `~/.agents/skills/` is a separate repo; AGENTS.md is untracked. Tracking gap to resolve. |
+| 2.3 | Commit changes to agents repo | done | `~/.agents/AGENTS.md` added to chezmoi (`source/dot_agents/AGENTS.md`) |
 
 ## Phase 3: Verification
 
@@ -27,5 +27,5 @@
 | # | Task | Status | Notes |
 |---|------|--------|-------|
 | 4.1 | Update dotfiles `AGENTS.md` to document the two-file convention | pending | |
-| 4.2 | Decide how to track `~/.agents/AGENTS.md` — chezmoi or extend the skills repo | pending | New gap discovered during migration |
+| 4.2 | Decide how to track `~/.agents/AGENTS.md` — chezmoi or extend the skills repo | done | Added to chezmoi as `source/dot_agents/AGENTS.md` |
 
