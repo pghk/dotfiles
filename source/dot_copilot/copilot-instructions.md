@@ -18,6 +18,7 @@ The user agent instructions (AGENTS.md) are auto-loaded at session start via `CO
 | User copilot instructions | `~/.copilot/copilot-instructions.md` | This file; loaded from `$HOME/.copilot/` |
 | User skills | `~/.agents/skills/<name>/SKILL.md` | Invokable by name in any project; directory is a git repo |
 | Admit codebase | `/Users/paul.hendrick/local/admit/main` | Separate app sharing Hub's DB; Hub migrations are local/test only — Admit's Phinx migrations govern production schema |
+| Obsidian vault | `~/Library/CloudStorage/OneDrive-VenturEdSolutions/Notes` | Git repo (`local/dev`), synced via OneDrive; `.obsidian/` is the live config |
 
 ## Local projects
 
