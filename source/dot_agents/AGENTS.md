@@ -3,9 +3,8 @@
 - Before making any code changes, invoke the `git` skill. Commit at
   logical checkpoints while working — each verified state is a commit
   point. Never present completed work with uncommitted changes.
-- Invoke `governing-principles` only when a task needs shared principle guidance on
-  necessity, framing, tone, or documentation accuracy; otherwise prefer the more
-  specific task skill that already owns the work.
+- Invoke `governing-principles` when a task needs shared principle guidance on
+  necessity, framing, tone, or documentation accuracy.
 - Invoke the project-level `testing` skill whenever you write, modify, or adapt tests of any kind.
 - Before citing something as an established pattern or convention in this codebase, verify it exists in a stable canonical branch and has been there long enough to be considered conventional. A pattern introduced recently on the current feature branch is not an established convention. If you mean a framework or community convention, say so and cite that directly.
 
