@@ -1,0 +1,5 @@
+#!/bin/bash
+export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin
+
+find "$HOME/Downloads" -maxdepth 1 -mindepth 1 -mtime +30 -print0 \
+  | xargs -0 trash

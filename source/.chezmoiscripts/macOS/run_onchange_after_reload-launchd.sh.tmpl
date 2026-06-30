@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -o errexit -o nounset -o pipefail
+
+LABEL="dev.paulhendrick.automation.cleanup-downloads"
+PLIST="{{ .chezmoi.homeDir }}/Library/LaunchAgents/${LABEL}.plist"
+GUI="gui/$(id -u)"
+
+mkdir -p "$(dirname "${PLIST}")"
+cat > "${PLIST}" << 'PLIST_EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>dev.paulhendrick.automation.cleanup-downloads</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>{{ .chezmoi.homeDir }}/Applications/cleanup-downloads.app/Contents/MacOS/runner</string>
+	</array>
+	<key>StartInterval</key>
+	<integer>86400</integer>
+	<key>StandardOutPath</key>
+	<string>/tmp/dev.paulhendrick.automation.cleanup-downloads.out</string>
+	<key>StandardErrorPath</key>
+	<string>/tmp/dev.paulhendrick.automation.cleanup-downloads.err</string>
+</dict>
+</plist>
+PLIST_EOF
+
+launchctl bootout "${GUI}/${LABEL}" 2>/dev/null || true
+launchctl bootstrap "${GUI}" "${PLIST}"
