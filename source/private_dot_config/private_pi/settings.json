@@ -1,0 +1,47 @@
+{
+  "lastChangelogVersion": "0.84.2",
+  "theme": "dark",
+  "packages": [
+    "git:github.com/obra/superpowers",
+    "npm:pi-subagents"
+  ],
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.6-terra",
+  "defaultThinkingLevel": "medium",
+  "subagents": {
+    "defaultModel": "gpt-5.6-terra",
+    "defaultThinking": "medium",
+    "agentOverrides": {
+      "scout": {
+        "model": "mai-code-1.1-flash",
+        "thinking": "low",
+        "defaultContext": "fresh"
+      },
+      "researcher": {
+        "model": "gpt-5.6-luna",
+        "thinking": "high",
+        "defaultContext": "fresh"
+      },
+      "worker": {
+        "model": "gpt-5.6-luna",
+        "thinking": "medium",
+        "defaultContext": "fresh"
+      },
+      "reviewer": {
+        "model": "claude-sonnet-5",
+        "thinking": "medium",
+        "defaultContext": "fresh"
+      },
+      "delegate": {
+        "model": "gpt-5.6-terra",
+        "thinking": "medium",
+        "defaultContext": "fresh"
+      },
+      "oracle": {
+        "model": "gpt-5.6-sol",
+        "thinking": "high",
+        "defaultContext": "fork"
+      }
+    }
+  }
+}
