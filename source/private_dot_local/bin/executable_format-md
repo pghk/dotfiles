@@ -1,0 +1,82 @@
+#!/usr/bin/env node
+
+import { execSync } from "node:child_process";
+import { createRequire } from "node:module";
+import { readFile, writeFile } from "node:fs/promises";
+
+// 1. Locate Prettier (local or global)
+async function loadPrettier() {
+  try {
+    return await import("prettier");
+  } catch {}
+
+  // Fallback to global npm root or Homebrew
+  try {
+    const globalRoot = execSync("npm root -g", { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+    const req = createRequire(`${globalRoot}/package.json`);
+    return req("prettier");
+  } catch {}
+
+  process.stderr.write("Error: 'prettier' is not installed locally or globally (npm i -g prettier).\n");
+  process.exit(1);
+}
+
+const prettier = await loadPrettier();
+
+const baseOptions = {
+  printWidth: 100,
+  tabWidth: 2,
+  useTabs: false,
+  embeddedLanguageFormatting: "auto",
+};
+
+async function formatMarkdown(content, filepath = "file.md") {
+  // re-join hard-wrapped paragraphs
+  const unwrapped = await prettier.format(content, {
+    ...baseOptions,
+    filepath,
+    proseWrap: "never",
+  });
+  // expand table columns to align
+  return await prettier.format(unwrapped, {
+    ...baseOptions,
+    filepath,
+    proseWrap: "preserve",
+  });
+}
+
+async function readStream(stream) {
+  const chunks = [];
+  for await (const chunk of stream) chunks.push(chunk);
+  return Buffer.concat(chunks).toString("utf8");
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const inPlace = args.includes("-i") || args.includes("--in-place") || args.includes("-w") || args.includes("--write");
+  const files = args.filter((a) => !a.startsWith("-"));
+
+  // Pipeline mode (stdin -> stdout)
+  if (files.length === 0 || args.includes("-")) {
+    const input = await readStream(process.stdin);
+    const output = await formatMarkdown(input, "stdin.md");
+    process.stdout.write(output);
+    return;
+  }
+
+  // File mode
+  for (const file of files) {
+    const source = await readFile(file, "utf8");
+    const formatted = await formatMarkdown(source, file);
+    if (inPlace) {
+      if (source !== formatted) await writeFile(file, formatted, "utf8");
+    } else {
+      process.stdout.write(formatted);
+    }
+  }
+}
+
+main().catch((err) => {
+  process.stderr.write(`${err.message}\n`);
+  process.exit(1);
+});
