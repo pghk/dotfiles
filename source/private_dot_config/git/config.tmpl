@@ -4,6 +4,7 @@
 
 [core]
 	excludesfile = ~/.config/git/ignore
+	hooksPath = ~/.config/git/hooks
 
 [pull]
 	ff = only
@@ -31,6 +32,9 @@
 [mergetool "Kaleidoscope"]
 	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 	trustexitcode = true
+
+[rerere]
+	enabled = true
 
 [alias]
 	last = log -n 1
