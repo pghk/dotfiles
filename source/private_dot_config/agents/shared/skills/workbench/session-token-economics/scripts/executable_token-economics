@@ -1,0 +1,285 @@
+#!/usr/bin/env python3
+"""Measure where a Pi session's billed prompt tokens go.
+
+Reads session JSONL, bills each assistant turn's resident context, and attributes
+that cost to the tool results occupying it.
+"""
+
+import argparse
+import hashlib
+import json
+import re
+import statistics
+import sys
+from collections import defaultdict
+
+ECHO_MARKERS = ("Canonical final patch:", "Canonical formatted region:")
+
+CATEGORIES = (
+    ("ledger", lambda n, p: n == "read" and p.endswith("progress.md")),
+    ("plan", lambda n, p: n == "read" and p.endswith("plan.md")),
+    ("instructions", lambda n, p: n == "read" and ("/skills/" in p or p.endswith("AGENTS.md"))),
+    ("search", lambda n, p: n == "bash" and re.search(r"\b(rg|grep|find|ls)\b", p) is not None),
+    ("git-diff", lambda n, p: n == "bash" and re.search(r"git (diff|show|log)", p) is not None),
+    ("subagent", lambda n, p: n.startswith("subagent")),
+    ("edit-write", lambda n, p: n in ("edit", "write")),
+    ("other-read", lambda n, p: n == "read"),
+    ("other", lambda n, p: True),
+)
+
+
+def fail(message):
+    print(f"error: {message}", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def label(name, args):
+    if not isinstance(args, dict):
+        return ""
+    for key in ("path", "url", "command", "query", "task", "agent"):
+        value = args.get(key)
+        if isinstance(value, str):
+            return value
+    return json.dumps(args)[:200]
+
+
+def categorise(name, target):
+    for category, matches in CATEGORIES:
+        if matches(name, target):
+            return category
+    return "other"
+
+
+def parse(path, markers):
+    """Return ordered assistant turns and tool results with their landing turn."""
+    turns, tools, calls = [], [], {}
+    try:
+        handle = open(path, encoding="utf-8")
+    except OSError as error:
+        fail(f"cannot read {path}: {error}")
+    with handle:
+        for number, line in enumerate(handle, 1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                print(f"warning: {path}:{number} is not JSON; skipped", file=sys.stderr)
+                continue
+            if record.get("type") != "message":
+                continue
+            message = record["message"]
+            role = message.get("role")
+            if role == "assistant":
+                usage = message.get("usage") or {}
+                cost = usage.get("cost") or {}
+                turns.append(
+                    {
+                        "context": sum(usage.get(k, 0) or 0 for k in ("input", "cacheRead", "cacheWrite")),
+                        "output": usage.get("output", 0) or 0,
+                        "tokens": {k: usage.get(k, 0) or 0 for k in ("input", "cacheRead", "cacheWrite", "output")},
+                        "cost": {k: cost.get(k, 0) or 0 for k in ("input", "cacheRead", "cacheWrite", "output", "total")},
+                    }
+                )
+                for item in message.get("content", []):
+                    if item.get("type") == "toolCall":
+                        calls[item.get("id")] = (item.get("name"), item.get("arguments"))
+            elif role == "toolResult":
+                name, args = calls.get(message.get("toolCallId"), (None, None))
+                name = message.get("toolName") or name or "unknown"
+                content = message.get("content")
+                text = ""
+                if isinstance(content, list):
+                    text = "".join(c.get("text", "") or "" for c in content if isinstance(c, dict))
+                elif content is not None:
+                    text = str(content)
+                echo = 0
+                for marker in markers:
+                    index = text.find(marker)
+                    if index >= 0:
+                        echo = max(echo, len(text[index:].encode("utf-8")))
+                target = label(name, args)
+                tools.append(
+                    {
+                        "name": name,
+                        "target": target,
+                        "category": categorise(name, target),
+                        "bytes": len(text.encode("utf-8")) - echo,
+                        "echo_bytes": echo,
+                        "landed": len(turns),
+                        "sha256": hashlib.sha256(text.encode("utf-8")).hexdigest()[:12],
+                    }
+                )
+    if not turns:
+        fail(f"{path} contains no assistant turns with usage")
+    return turns, tools
+
+
+def calibrate(turns, tools, minimum_bytes):
+    """Bytes per context token, measured from turns dominated by one tool result."""
+    landing = defaultdict(list)
+    for tool in tools:
+        landing[tool["landed"]].append(tool)
+    ratios = []
+    for index in range(1, len(turns)):
+        arrivals = landing.get(index, [])
+        if len(arrivals) != 1:
+            continue
+        payload = arrivals[0]["bytes"] + arrivals[0]["echo_bytes"]
+        if payload < minimum_bytes:
+            continue
+        delta = turns[index]["context"] - turns[index - 1]["context"] - turns[index - 1]["output"]
+        if delta > 0:
+            ratios.append(payload / delta)
+    return (statistics.median(ratios), len(ratios)) if ratios else (None, 0)
+
+
+def analyse(path, args):
+    turns, tools = parse(path, args.markers)
+    total = len(turns)
+    billed = sum(t["context"] for t in turns)
+    peak = max(t["context"] for t in turns)
+    measured, samples = calibrate(turns, tools, args.calibration_floor)
+    ratio = args.bytes_per_token or measured or 4.0
+
+    for tool in tools:
+        held = total - tool["landed"]
+        tool["held"] = held
+        tool["resident"] = tool["bytes"] / ratio * held
+        tool["echo_resident"] = tool["echo_bytes"] / ratio * held
+
+    resident = sum(t["resident"] for t in tools)
+    echo_resident = sum(t["echo_resident"] for t in tools)
+    prompt_tokens = sum(t["tokens"][k] for t in turns for k in ("input", "cacheRead", "cacheWrite"))
+    prompt_cost = sum(t["cost"][k] for t in turns for k in ("input", "cacheRead", "cacheWrite"))
+
+    categories = defaultdict(lambda: {"results": 0, "bytes": 0, "resident": 0.0})
+    for tool in tools:
+        bucket = categories[tool["category"]]
+        bucket["results"] += 1
+        bucket["bytes"] += tool["bytes"]
+        bucket["resident"] += tool["resident"]
+
+    seen, repeats = defaultdict(int), {"results": 0, "bytes": 0, "resident": 0.0}
+    for tool in tools:
+        if tool["name"] != "read":
+            continue
+        seen[tool["target"]] += 1
+        if seen[tool["target"]] > 1:
+            repeats["results"] += 1
+            repeats["bytes"] += tool["bytes"]
+            repeats["resident"] += tool["resident"]
+
+    return {
+        "session": path,
+        "turns": total,
+        "billed_prompt_tokens": billed,
+        "peak_context": peak,
+        "residency_multiplier": billed / peak if peak else 0,
+        "cost": {k: round(sum(t["cost"][k] for t in turns), 4) for k in ("input", "cacheRead", "cacheWrite", "output", "total")},
+        "dollars_per_prompt_megatoken": round(1e6 * prompt_cost / prompt_tokens, 4) if prompt_tokens else 0,
+        "bytes_per_token": {"used": round(ratio, 2), "measured": round(measured, 2) if measured else None, "samples": samples},
+        "resident_tokens": {"agent": round(resident), "extension_echo": round(echo_resident)},
+        "categories": {
+            name: {
+                "results": v["results"],
+                "bytes": v["bytes"],
+                "resident_share": round(100 * v["resident"] / resident, 1) if resident else 0,
+            }
+            for name, v in sorted(categories.items(), key=lambda kv: -kv[1]["resident"])
+        },
+        "repeat_reads": {
+            "results": repeats["results"],
+            "bytes": repeats["bytes"],
+            "resident_share": round(100 * repeats["resident"] / resident, 1) if resident else 0,
+        },
+        "instruction_reads": [
+            {"target": t["target"], "bytes": t["bytes"], "held": t["held"], "sha256": t["sha256"]}
+            for t in tools
+            if t["category"] == "instructions"
+        ],
+        "largest_residents": [
+            {
+                "resident_share": round(100 * t["resident"] / resident, 2) if resident else 0,
+                "tool": t["name"],
+                "bytes": t["bytes"],
+                "held": t["held"],
+                "target": t["target"][:100],
+            }
+            for t in sorted(tools, key=lambda x: -x["resident"])[: args.top]
+        ],
+    }
+
+
+def render(report):
+    r = report
+    print(f"== {r['session']}")
+    print(
+        f"   turns {r['turns']}  billed {r['billed_prompt_tokens']:,}  peak {r['peak_context']:,}  "
+        f"residency {r['residency_multiplier']:.1f}x  cost ${r['cost']['total']:.2f}"
+    )
+    c = r["cost"]
+    print(
+        f"   cost split: cacheRead ${c['cacheRead']:.2f}  cacheWrite ${c['cacheWrite']:.2f}  "
+        f"output ${c['output']:.2f}  (${r['dollars_per_prompt_megatoken']:.3f}/Mtok prompt)"
+    )
+    b = r["bytes_per_token"]
+    note = f"measured {b['measured']} from {b['samples']} turns" if b["measured"] else "not measurable; assumed"
+    print(f"   bytes/token: using {b['used']} ({note})")
+    e = r["resident_tokens"]
+    print(f"   resident tokens: agent {e['agent']:,}  extension echo {e['extension_echo']:,}")
+    print(f"   repeat reads: {r['repeat_reads']['results']} results, {r['repeat_reads']['bytes']:,}B, {r['repeat_reads']['resident_share']}% of resident")
+    print("   -- residency by category --")
+    for name, v in r["categories"].items():
+        print(f"      {name:<14} n={v['results']:<4} {v['bytes']:>9,}B  {v['resident_share']:>5.1f}%")
+    print("   -- largest residents --")
+    for t in r["largest_residents"]:
+        print(f"      {t['resident_share']:>5.2f}%  {t['tool']:<10} {t['bytes']:>8,}B held={t['held']:<4} {t['target']}")
+    if r["instruction_reads"]:
+        print("   -- instruction reads (match sha256 against git blobs to pin the version) --")
+        for t in r["instruction_reads"]:
+            print(f"      {t['sha256']}  {t['bytes']:>7,}B held={t['held']:<4} {t['target']}")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Measure where a Pi session's billed prompt tokens go.",
+        epilog="Example: token-economics ~/.config/pi/sessions/*/2026-*.jsonl --json",
+    )
+    parser.add_argument("sessions", nargs="+", help="session JSONL file(s)")
+    parser.add_argument("--json", action="store_true", help="emit JSON instead of a report")
+    parser.add_argument("--top", type=int, default=15, help="largest residents to list (default: 15)")
+    parser.add_argument(
+        "--bytes-per-token",
+        type=float,
+        help="override the measured ratio; prose is ~4, aligned-table diffs ~11",
+    )
+    parser.add_argument(
+        "--calibration-floor",
+        type=int,
+        default=3000,
+        help="smallest lone tool result used to measure the ratio (default: 3000)",
+    )
+    parser.add_argument(
+        "--marker",
+        dest="markers",
+        action="append",
+        help="extension echo marker; text from it onward is billed separately. Replaces the built-in markers",
+    )
+    args = parser.parse_args()
+    if not args.markers:
+        args.markers = list(ECHO_MARKERS)
+
+    reports = [analyse(path, args) for path in args.sessions]
+    if args.json:
+        json.dump(reports if len(reports) > 1 else reports[0], sys.stdout, indent=2)
+        print()
+    else:
+        for report in reports:
+            render(report)
+            print()
+
+
+if __name__ == "__main__":
+    main()
