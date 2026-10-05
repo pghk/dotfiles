@@ -103,6 +103,7 @@ app level for when not in vim mode.
 | Window management bindings | `~/.hammerspoon/hotkeys/registry.json` |
 | Physical key remapping | `~/.config/karabiner/karabiner.json` |
 | Voyager keyboard layout | `~/.config/voyager/` (see `voyager-layout`) |
+| cmux shortcuts (tabs, workspaces) | `~/.config/cmux/cmux.json` |
 
 All managed by chezmoi at `~/.local/share/chezmoi/source/`.
 
@@ -118,6 +119,9 @@ For vim keymaps across all editors, see the `vim` skill.
 - `alt+F`, `alt+S` → Obsidian daily notes
 - `alt+cmd+E` → Obsidian Templater
 - `meh+u`, `meh+o` → macOS space navigation
+- `ctrl+tab`, `ctrl+shift+tab` → next/previous tab in every app; apps that
+  default to something else are rebound to these
+- `cmd+ctrl+[`, `cmd+ctrl+]` → previous/next cmux workspace
 
 **Safe zones for new bindings:**
 - `<leader>+*` inside editors (space is vim leader, doesn't reach OS layer)
@@ -148,13 +152,32 @@ Re-read the source if the layout may have changed.
 
 These keys do not auto-repeat and cannot be held for letter repetition.
 
-### Combos (30ms window, permissive hold)
+**Chordal hold:** a mod-tap held under the same hand as the next key resolves
+as a tap. So `V` held + `C` types "vc", not Cmd+C. A shortcut on left-hand
+letters needs the right-hand mod-tap (`M` for Cmd), the left thumb's one-shot
+Cmd, or the Nav layer's dedicated keys. Check this when choosing a new
+shortcut that the Voyager has to type.
+
+### Thumbs and layers
+
+| Key | Tap | Hold |
+|---|---|---|
+| Left thumb, outer | One-shot Cmd (double tap locks) | Cmd |
+| Left thumb, inner | One-shot Nav layer (double tap locks) | Nav while held |
+| Right thumb, inner | One-shot Sym layer (double tap locks) | Sym while held |
+| Right thumb, outer | Space | Space |
+
+The top-left key is the same kind of one-shot key for the Num layer. See
+`~/.config/voyager/README.md` for what each layer holds.
+
+### Combos (30ms window)
 
 | Keys | Output | Editor impact |
 |---|---|---|
-| `K` + `J` | Enter | ⚠️ `kj` in vim normal mode fires Enter |
-| `D` + `F` | One-shot symbols layer | `df` alone (no third key) activates layer |
-| `I` + `U` | Backspace | `iu` together fires Backspace |
+| `K` + `J` | Enter | ⚠️ A fast `kj` roll in vim normal mode can fire Enter |
+| `D` + `F` | One-shot Sym layer | ⚠️ A fast `df` roll can open Sym instead of typing `df` |
+| `I` + `U` | Backspace | ⚠️ A fast `iu` roll can fire Backspace |
 
-`df<x>` motions work normally in vim — the third keypress cancels the combo.
-`kj` typed within 30ms fires Enter by design (intentional vim-style shortcut).
+A combo fires only when both keys go down within 30ms, so typing `df`, `kj`
+or `iu` one key after the other doesn't trigger it. Pressing them together
+does, which is how the combos are used.

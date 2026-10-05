@@ -12,16 +12,15 @@ description: >
 The layout is QMK source in `~/.config/voyager/`, managed by chezmoi. Edit it
 at `~/.local/share/chezmoi/source/private_dot_config/voyager/` and commit there.
 Oryx can't import QMK source, so layout changes are made here, not in Oryx.
-Always read the current source rather than a previous
-summary.
+Always read the current source rather than a previous summary.
 
-- **Build:** `~/.config/voyager/build.sh` compiles against ZSA's QMK fork
-  (pinned in the script) in the QMK CLI container, so Docker must be running.
-  It prints the path of the built `.bin`.
-- **Flash:** `zapp flash <path to .bin>`, then press the Voyager's reset
-  button.
+`~/.config/voyager/README.md` covers building, flashing, the layers, one-shot
+behaviour and the lighting scheme. Read it before changing the layout.
+
 - **Overview:** `~/.config/voyager/cheatsheet.py` prints every layer and
   combo as Markdown tables, read from `keymap.c`.
+- **Verify a change:** build, then have the user flash and try it. A clean
+  build only shows the keymap compiles; behaviour needs the board.
 
 ---
 
@@ -29,7 +28,7 @@ summary.
 
 | File | What it contains |
 |---|---|
-| `keymap.c` | Layer definitions, combos, custom keycodes, RGB — **primary source** |
+| `keymap.c` | Layer definitions, combos, custom keycodes, key lighting — **primary source** |
 | `config.h` | Timing settings (tapping term, combo term), feature flags |
 | `rules.mk` | QMK feature enablement |
 | `keymap.json` | QMK community modules the keymap uses (`zsa/defaults`) |
@@ -72,6 +71,13 @@ clusters closest to the center on each half.
 | `OSL(n)` | One-shot: next keypress uses layer n, then returns |
 | `QK_LLCK` | Layer lock: lock current layer on until pressed again |
 
+### Modifiers and shortcuts
+| Keycode | Behaviour |
+|---|---|
+| `OSM(MOD_*)` | One-shot modifier: applies to the next key on tap, locks on double tap, plain modifier when held |
+| `G(kc)`, `C(kc)`, `S(kc)`, `A(kc)` | Sends `kc` with Cmd, Ctrl, Shift or Opt; nest them for several (`S(G(KC_LEFT))`) |
+| `CW_TOGG` | Caps Word: capitalises the next word |
+
 ### Dual-role keys
 | Keycode | Behaviour |
 |---|---|
@@ -98,20 +104,30 @@ const uint16_t PROGMEM comboN[] = { KC_A, KC_B, COMBO_END };
 COMBO(comboN, output_keycode)
 ```
 
-`COMBO_TERM` in `config.h` is the window in milliseconds. With
-`PERMISSIVE_HOLD` enabled, combos can fire even if one key is released before
-the other within the window.
+`COMBO_TERM` in `config.h` is the window in milliseconds: a combo fires only
+when all its keys go down within it, so typing the keys one after another
+doesn't trigger it. `COMBO_COUNT` in `config.h` must match the number of
+entries in `key_combos[]`.
+
+### Lighting
+Key colours come from each key's keycode on the active layer, in
+`key_color()` in `keymap.c`. A new key takes its colour automatically. A kind
+of keycode `key_color()` doesn't recognise stays dark, so give it a case
+there, and a label in `cheatsheet.py`, which prints unknown keycodes raw.
+
+The legacy `RGB_*` lighting keycodes control underglow strips, which the
+Voyager doesn't have, so they do nothing. Its key lighting uses the `RM_*`
+keycodes (`RM_VALU`, `RM_TOGG` and so on).
 
 ---
 
 ## What to extract and report
 
-When parsing a new layout, produce:
+When asked to describe the layout, produce:
 
 1. **Layer summary table** — name/purpose of each layer and how it's accessed
-2. **Visual grid per layer** — ASCII grid showing every key position; use `___`
-   for transparent, `---` for blocked. Show hold-behaviour in parentheses for
-   mod-tap/layer-tap keys.
+2. **Visual grid per layer** — run `cheatsheet.py` rather than drawing grids
+   by hand
 3. **Mod-tap inventory** — all keys with hold≠tap behaviour, in one list. These
    affect editor behaviour: holding these keys in vim or any editor triggers the
    modifier, not the letter.
