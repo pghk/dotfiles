@@ -21,4 +21,5 @@ _zsh_autosuggest_strategy_atuin() {
     suggestion=$(atuin search --exit 0 --cmd-only --limit 1 --search-mode prefix "$1")
 }
 
+. "$HOME/.local/bin/env"
 ADDENDUM="${ZDOTDIR:-HOME}/.zshrc_custom"; [ -f $ADDENDUM ] && . $ADDENDUM
