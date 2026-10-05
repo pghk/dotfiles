@@ -5,43 +5,51 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
+enum layers {
+  BASE,
+  SYM,
+  NAV,
+  NUM,
+  SELECT,
+};
+
 enum custom_keycodes {
   MAC_SIRI = ZSA_SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_voyager(
-    OSL(3),         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           MAC_SIRI,       
+  [BASE] = LAYOUT_voyager(
+    OSL(NUM),         KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           MAC_SIRI,       
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,        
     MEH_T(KC_ESCAPE),KC_A,           KC_S,           KC_D,           KC_F,           KC_G,                                           KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOTE,       
     KC_LEFT_SHIFT,  KC_Z,           MT(MOD_LCTL, KC_X),MT(MOD_LALT, KC_C),MT(MOD_LGUI, KC_V),KC_B,                                           KC_N,           MT(MOD_RGUI, KC_M),MT(MOD_RALT, KC_COMMA),MT(MOD_RCTL, KC_DOT),KC_SLASH,       KC_RIGHT_SHIFT, 
-                                                    OSM(MOD_LGUI),  OSL(2),                                         OSL(1),         KC_SPACE
+                                                    OSM(MOD_LGUI),  OSL(NAV),                                         OSL(SYM),         KC_SPACE
   ),
-  [1] = LAYOUT_voyager(
+  [SYM] = LAYOUT_voyager(
     KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,                                          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
     KC_HASH,        KC_CIRC,        KC_EQUAL,       KC_UNDS,        KC_DLR,         KC_ASTR,                                        KC_EXLM,        KC_LCBR,        KC_LPRN,        KC_RPRN,        KC_RCBR,        CW_TOGG,
     KC_TILD,        KC_LABK,        KC_PIPE,        KC_MINUS,       KC_RABK,        KC_PERC,                                        C(S(KC_TAB)),   C(KC_TAB),      KC_LBRC,        KC_RBRC,        KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_AMPR,        KC_AT,          KC_GRAVE,       KC_PLUS,        KC_BSLS,                                        G(C(KC_LBRC)),  G(C(KC_RBRC)),  G(KC_LBRC),     G(KC_RBRC),     KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
-  [2] = LAYOUT_voyager(
+  [NAV] = LAYOUT_voyager(
     KC_BRID,        KC_BRIU,        KC_MCTL,        KC_LPAD,        RM_VALD,        RM_VALU,                                        KC_MPRV,        KC_MPLY,        KC_MNXT,        KC_MUTE,        KC_VOLD,        KC_VOLU,
     KC_TRANSPARENT, KC_TRANSPARENT, G(KC_LBRC),     C(S(KC_TAB)),   C(KC_TAB),      G(KC_RBRC),                                     G(KC_LEFT),     A(KC_LEFT),     KC_PGUP,        A(KC_RIGHT),    G(KC_RIGHT),    KC_HOME,
-    TO(0),          G(KC_A),        OSM(MOD_LALT),  OSM(MOD_LGUI),  TG(4),          KC_TRANSPARENT,                                     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
+    TO(BASE),          G(KC_A),        OSM(MOD_LALT),  OSM(MOD_LGUI),  TG(SELECT),          KC_TRANSPARENT,                                     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, G(KC_Z),        G(KC_X),        G(KC_C),        G(KC_V),        G(S(KC_Z)),                                     G(KC_UP),       KC_BSPC,        KC_PGDN,        KC_DEL,         G(KC_DOWN),     KC_END,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
-  [3] = LAYOUT_voyager(
+  [NUM] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_KP_EQUAL,    KC_KP_SLASH,    KC_KP_ASTERISK, KC_TRANSPARENT, KC_BSPC,        
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_MINUS,    KC_NO,          
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_NO,          KC_KP_4,        KC_KP_5,        KC_KP_6,        KC_KP_PLUS,     KC_KP_ENTER,    
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_SPACE,       KC_KP_1,        KC_KP_2,        KC_KP_3,        KC_KP_PLUS,     KC_TRANSPARENT, 
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_KP_0,        KC_KP_DOT
   ),
-  [4] = LAYOUT_voyager(
+  [SELECT] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 S(G(KC_LEFT)),  S(A(KC_LEFT)),  S(KC_PGUP),     S(A(KC_RIGHT)), S(G(KC_RIGHT)), S(KC_HOME),
-    TO(0),          G(KC_A),        KC_TRANSPARENT, KC_TRANSPARENT, TG(4),          KC_TRANSPARENT,                                 S(KC_LEFT),     S(KC_DOWN),     S(KC_UP),       S(KC_RIGHT),    KC_TRANSPARENT, KC_TRANSPARENT,
+    TO(BASE),          G(KC_A),        KC_TRANSPARENT, KC_TRANSPARENT, TG(SELECT),          KC_TRANSPARENT,                                 S(KC_LEFT),     S(KC_DOWN),     S(KC_UP),       S(KC_RIGHT),    KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, G(KC_Z),        G(KC_X),        G(KC_C),        G(KC_V),        KC_TRANSPARENT,                                 S(G(KC_UP)),    KC_BSPC,        S(KC_PGDN),     KC_DEL,         S(G(KC_DOWN)),  S(KC_END),
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
@@ -61,7 +69,7 @@ const uint16_t PROGMEM combo2[] = { KC_I, KC_U, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ENTER),
-    COMBO(combo1, OSL(1)),
+    COMBO(combo1, OSL(SYM)),
     COMBO(combo2, KC_BSPC),
 };
 
@@ -217,12 +225,12 @@ bool rgb_matrix_indicators_user(void) {
       }
       keypos_t pos = {.row = row, .col = col};
       uint16_t keycode = keymap_key_to_keycode(layer, pos);
-      uint16_t base_keycode = keymap_key_to_keycode(0, pos);
+      uint16_t base_keycode = keymap_key_to_keycode(BASE, pos);
       // The key that opened a layer is also the way out of it.
       if (keycode == KC_TRANSPARENT && IS_QK_ONE_SHOT_LAYER(base_keycode) && QK_ONE_SHOT_LAYER_GET_LAYER(base_keycode) == layer) {
         keycode = base_keycode;
       }
-      HSV hsv = layer == 0 ? base_key_color(keycode) : key_color(keycode);
+      HSV hsv = layer == BASE ? base_key_color(keycode) : key_color(keycode);
       RGB rgb = hsv.v ? hsv_to_rgb_with_value(hsv) : (RGB){0, 0, 0};
       rgb_matrix_set_color(led, rgb.r, rgb.g, rgb.b);
     }
