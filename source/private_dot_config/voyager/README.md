@@ -10,6 +10,8 @@ The directory is deployed by chezmoi. Edit it in the chezmoi source and commit t
 2. Run `./build.sh`. It fetches ZSA's QMK fork into `~/.cache/voyager` on first use, compiles this keymap, and prints the path of the firmware.
 3. Run `zapp flash <firmware path>`, then press the Voyager's reset button.
 
+`./cheatsheet.py` prints a Markdown cheat sheet of every layer and combo, read from `keymap.c`.
+
 The fork is pinned by commit in `build.sh`. To move to a newer ZSA firmware, change the hash, then build, flash and test before committing.
 
 ## Files
