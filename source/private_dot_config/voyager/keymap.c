@@ -24,13 +24,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,        
     MEH_T(KC_ESCAPE),KC_A,           KC_S,           KC_D,           KC_F,           KC_G,                                           KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOTE,       
     KC_LEFT_SHIFT,  KC_Z,           MT(MOD_LCTL, KC_X),MT(MOD_LALT, KC_C),MT(MOD_LGUI, KC_V),KC_B,                                           KC_N,           MT(MOD_RGUI, KC_M),MT(MOD_RALT, KC_COMMA),MT(MOD_RCTL, KC_DOT),KC_SLASH,       KC_RIGHT_SHIFT, 
-                                                    KC_LEFT_GUI,    OSL(2),                                         MO(1),          KC_SPACE
+                                                    KC_LEFT_GUI,    OSL(2),                                         OSL(1),         KC_SPACE
   ),
   [1] = LAYOUT_voyager(
-    TO(0),          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, TO(0),          
-    KC_HASH,        KC_CIRC,        KC_EQUAL,       KC_UNDS,        KC_DLR,         KC_ASTR,                                        KC_EXLM,        KC_LCBR,        KC_LPRN,        KC_RPRN,        KC_RCBR,        KC_TRANSPARENT, 
-    KC_TILD,        KC_LABK,        KC_PIPE,        KC_MINUS,       KC_RABK,        KC_PERC,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_LBRC,        KC_RBRC,        KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, KC_AMPR,        KC_AT,          KC_GRAVE,       KC_PLUS,        KC_BSLS,                                        KC_TRANSPARENT, MAC_SIRI,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,                                          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,
+    KC_HASH,        KC_CIRC,        KC_EQUAL,       KC_UNDS,        KC_DLR,         KC_ASTR,                                        KC_EXLM,        KC_LCBR,        KC_LPRN,        KC_RPRN,        KC_RCBR,        CW_TOGG,
+    KC_TILD,        KC_LABK,        KC_PIPE,        KC_MINUS,       KC_RABK,        KC_PERC,                                        C(S(KC_TAB)),   C(KC_TAB),      KC_LBRC,        KC_RBRC,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_AMPR,        KC_AT,          KC_GRAVE,       KC_PLUS,        KC_BSLS,                                        G(C(KC_LBRC)),  G(C(KC_RBRC)),  G(KC_LBRC),     G(KC_RBRC),     KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [2] = LAYOUT_voyager(

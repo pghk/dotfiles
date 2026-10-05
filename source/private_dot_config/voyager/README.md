@@ -26,13 +26,13 @@ The fork is pinned by commit in `build.sh`. To move to a newer ZSA firmware, cha
 | # | Layer | Reached by |
 |---|---|---|
 | 0 | Base: QWERTY with a number row | — |
-| 1 | Symbols | Hold the right thumb's inner key, or the `d`+`f` combo for one symbol |
+| 1 | Symbols | Right thumb's inner key: tap for one key, double-tap to lock, hold for momentary. The `d`+`f` combo also gives one key |
 | 2 | Navigation | Left thumb's inner key: tap for one key, double-tap to lock, hold for momentary |
 | 3 | Numpad | Top-left key: hold for momentary, tap repeatedly to lock |
 | 4 | Function keys | Hold the top-right key; the layer stays on after release |
 | 5 | Media and lighting | The `8`+`7` combo toggles it |
 
-Every layer has a top-corner key back to base. On Function keys it's the top-right key, held.
+Every layer except Symbols has a top-corner key back to base; on Function keys it's the top-right key, held. Symbols and Navigation also unlock with their own key.
 
 ## Behaviour
 
@@ -53,7 +53,9 @@ Every layer has a top-corner key back to base. On Function keys it's the top-rig
 
 **Navigation.** Arrows sit on `hjkl`, with paging, Home/End, Backspace, Delete and browser back/forward around them. The left hand has Cmd+A on `a` and Cmd+Z/X/C/V on `z x c v`, so editing works one-handed while the other hand is on the mouse.
 
+**Symbols.** The number row is F1–F12. The right hand switches between tabs (Ctrl+Shift+Tab / Ctrl+Tab on `h j`), cmux workspaces (Cmd+Ctrl+[ / ] on `n m`) and browser history (Cmd+[ / ] on `, .`), so these work one-handed while the left hand is on the mouse. Caps Word sits at the end of the top letter row.
+
 **Custom keys.**
-- **Dictation** (`MAC_SIRI`) sends the consumer usage that macOS treats as dictation. It's on the Symbols and Navigation layers.
+- **Dictation** (`MAC_SIRI`) sends the consumer usage that macOS treats as dictation. It's on the Navigation layer.
 - **Top-right on base:** Cmd+Ctrl+F (full screen) on tap; holding it moves to the Function keys layer.
 - **Top-right on Function keys:** F12 on tap; holding it returns to base.
