@@ -1,13 +1,13 @@
 {
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.99.2",
   "theme": "dark",
   "packages": [
-    "git:github.com/obra/superpowers",
-    "npm:pi-subagents"
+    "npm:pi-subagents",
+    "npm:pi-web-access"
   ],
   "defaultProvider": "github-copilot",
   "defaultModel": "gpt-5.6-terra",
-  "defaultThinkingLevel": "medium",
+  "defaultThinkingLevel": "high",
   "subagents": {
     "defaultModel": "gpt-5.6-terra",
     "defaultThinking": "medium",
@@ -41,6 +41,54 @@
         "model": "gpt-5.6-sol",
         "thinking": "high",
         "defaultContext": "fork"
+      }
+    },
+    "modelScope": {
+      "enforce": true,
+      "strict": true,
+      "agents": {
+        "scout": {
+          "allow": [
+            "*/mai-code-1.1-flash"
+          ]
+        },
+        "researcher": {
+          "allow": [
+            "*/mai-code-1.1-flash",
+            "*/gpt-5.6-luna"
+          ]
+        },
+        "worker": {
+          "allow": [
+            "*/mai-code-1.1-flash",
+            "*/gpt-5.6-luna",
+            "*/gpt-5.6-terra"
+          ]
+        },
+        "reviewer": {
+          "allow": [
+            "*/claude-sonnet-5",
+            "*/gpt-5.6-sol"
+          ]
+        },
+        "delegate": {
+          "allow": [
+            "*/gpt-5.6-luna",
+            "*/gpt-5.6-terra"
+          ]
+        },
+        "oracle": {
+          "allow": [
+            "*/gpt-5.6-sol",
+            "*/claude-opus-5"
+          ]
+        },
+        "task-reviewer": {
+          "allow": [
+            "*/gpt-5.6-terra",
+            "*/gpt-5.6-sol"
+          ]
+        }
       }
     }
   }
