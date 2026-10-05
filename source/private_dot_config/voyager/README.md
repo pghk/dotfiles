@@ -16,7 +16,7 @@ The fork is pinned by commit in `build.sh`. To move to a newer ZSA firmware, cha
 
 | File | Contents |
 |---|---|
-| `keymap.c` | Layers, combos, custom keys, per-key tapping terms, LED colours |
+| `keymap.c` | Layers, combos, custom keys, LED colours |
 | `config.h` | Timing and tap-hold behaviour |
 | `rules.mk` | Enabled QMK features |
 | `keymap.json` | QMK community modules (`zsa/defaults`) |
@@ -36,6 +36,8 @@ The keys for Symbols, Navigation and Numpad are one-shots: tap for one key, doub
 ## Behaviour
 
 **Mod-taps.** The bottom row's `x c v` and `m , .` give Ctrl, Alt and Cmd when held, mirrored on each hand. The key in the Caps Lock position is Esc on tap and Meh (Ctrl+Alt+Shift) on hold; holding it with `v` gives Hyper (Meh+Cmd). Chordal hold resolves a mod-tap as a tap when the next key is on the same hand, so a modifier chord needs the mod-tap on the opposite hand to the key it modifies.
+
+**One-shot Cmd.** The left thumb's outer key applies Cmd to the next key, so left-hand Cmd shortcuts work one-handed without a hold. Like the one-shot layers, a double tap locks it, which makes Cmd+Tab a lock, Tabs, and a tap to release; held, it's an ordinary Cmd.
 
 **Combos** (30 ms window):
 
