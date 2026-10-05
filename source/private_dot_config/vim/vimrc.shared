@@ -5,6 +5,7 @@ set smartcase
 set hlsearch
 set incsearch
 set scrolloff=3
+set spelloptions+=camel
 
 " Move highlighted lines
 vnoremap J :m '>+1<CR>gv=gv
