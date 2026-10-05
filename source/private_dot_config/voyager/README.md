@@ -26,18 +26,16 @@ The fork is pinned by commit in `build.sh`. To move to a newer ZSA firmware, cha
 | # | Layer | Reached by |
 |---|---|---|
 | 0 | Base: QWERTY with a number row | — |
-| 1 | Symbols | Right thumb's inner key: tap for one key, double-tap to lock, hold for momentary. The `d`+`f` combo also gives one key |
-| 2 | Navigation | Left thumb's inner key: tap for one key, double-tap to lock, hold for momentary |
-| 3 | Numpad | Top-left key: hold for momentary, tap repeatedly to lock |
-| 4 | Function keys | Hold the top-right key; the layer stays on after release |
-| 5 | Media and lighting | The `8`+`7` combo toggles it |
-| 6 | Select | The `f` key on Navigation toggles it |
+| 1 | Symbols | Right thumb's inner key, or the `d`+`f` combo for one key |
+| 2 | Navigation | Left thumb's inner key |
+| 3 | Numpad | Top-left key |
+| 4 | Select | The `f` key on Navigation toggles it |
 
-Every layer has a key back to base: a top corner on Numpad and Media, the top-right key held on Function keys, and the Esc position on Navigation and Select. Symbols and Navigation also unlock with their own key.
+The keys for Symbols, Navigation and Numpad are one-shots: tap for one key, double-tap to lock, tap again to unlock, or hold for momentary. Navigation and Select also return to base from the Esc position.
 
 ## Behaviour
 
-**Mod-taps.** The bottom row's `x c v` and `m , .` give Ctrl, Alt and Cmd when held, mirrored on each hand. The key in the Caps Lock position is Esc on tap and Meh (Ctrl+Alt+Shift) on hold. Chordal hold resolves a mod-tap as a tap when the next key is on the same hand, so a modifier chord needs the mod-tap on the opposite hand to the key it modifies.
+**Mod-taps.** The bottom row's `x c v` and `m , .` give Ctrl, Alt and Cmd when held, mirrored on each hand. The key in the Caps Lock position is Esc on tap and Meh (Ctrl+Alt+Shift) on hold; holding it with `v` gives Hyper (Meh+Cmd). Chordal hold resolves a mod-tap as a tap when the next key is on the same hand, so a modifier chord needs the mod-tap on the opposite hand to the key it modifies.
 
 **Combos** (30 ms window):
 
@@ -46,11 +44,8 @@ Every layer has a key back to base: a top corner on Numpad and Media, the top-ri
 | `k`+`j` | Enter |
 | `u`+`i` | Backspace |
 | `d`+`f` | One-shot Symbols |
-| `8`+`7` | Toggle Media and lighting |
-| Esc/Meh + left-thumb Cmd | Hyper (Ctrl+Alt+Shift+Cmd) |
-| Play + Next | Back to base |
 
-**One-shot layers.** A second tap within the tapping term (200 ms, QMK's default) locks the layer, and another tap unlocks it. A one-shot has no timeout, so a tapped layer waits for the next key.
+**One-shot layers.** The double tap that locks a layer must land within the tapping term (200 ms, QMK's default). A one-shot has no timeout, so a tapped layer waits for the next key. Turning a locked layer off any other way also clears its lock.
 
 **Navigation.** Each right-hand key sends a whole macOS text motion: arrows on `hjkl`; word back/forward (Opt+←/→) on `u o`; line start/end (Cmd+←/→) on `y p`; document top/bottom (Cmd+↑/↓) on `n /`; Page Up/Down on `i ,`; Backspace and Delete on `m .`; Home and End in the outer column. The left hand has:
 - Cmd+A on `a` and Cmd+Z/X/C/V on `z x c v`, so editing works one-handed while the other hand is on the mouse. Redo (Cmd+Shift+Z) is on `b`;
@@ -64,7 +59,6 @@ The number row follows the Mac's function row: display brightness, Mission Contr
 
 **Symbols.** The number row is F1–F12. The right hand switches between tabs (Ctrl+Shift+Tab / Ctrl+Tab on `h j`), cmux workspaces (Cmd+Ctrl+[ / ] on `n m`) and browser history (Cmd+[ / ] on `, .`), so these work one-handed while the left hand is on the mouse. Caps Word sits at the end of the top letter row.
 
-**Custom keys.**
-- **Dictation** (`MAC_SIRI`) sends the consumer usage that macOS treats as dictation. It's on Navigation, on `g`.
-- **Top-right on base:** Cmd+Ctrl+F (full screen) on tap; holding it moves to the Function keys layer.
-- **Top-right on Function keys:** F12 on tap; holding it returns to base.
+**Numpad.** The right hand is a ten-key pad: 7-8-9 on `u i o`, 4-5-6 on `j k l`, 1-2-3 on `m , .`, and 0 and `.` on the right thumb, with operators, Enter and Backspace around it. Holding the top-left key with the left pinky while typing digits with the right hand works as well as locking it.
+
+**Dictation.** The top-right key on base sends the consumer usage that macOS treats as dictation (`MAC_SIRI` in `keymap.c`).
