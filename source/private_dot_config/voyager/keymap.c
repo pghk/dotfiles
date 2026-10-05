@@ -184,7 +184,13 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
-
+layer_state_t layer_state_set_user(layer_state_t state) {
+  // A lock outliving its layer would make the layer key's next tap only unlock.
+  if (get_oneshot_layer_state() == ONESHOT_TOGGLED && !(state & ((layer_state_t)1 << get_oneshot_layer()))) {
+    reset_oneshot_layer();
+  }
+  return state;
+}
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
