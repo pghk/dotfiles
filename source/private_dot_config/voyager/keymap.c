@@ -78,59 +78,155 @@ void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 }
 
-const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [0] = { {89,93,210}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {252,251,150}, {0,0,0}, {0,0,0}, {89,93,210}, {89,93,210}, {0,0,0}, {23,247,217}, {0,0,0}, {114,237,255}, {165,237,255}, {197,211,194}, {0,0,0}, {197,211,194}, {89,93,210}, {0,0,0}, {89,93,210}, {89,93,210}, {0,0,0}, {0,0,0}, {89,93,210}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {77,247,237}, {77,247,237}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {197,211,194}, {165,237,255}, {114,237,255}, {0,0,0}, {23,247,217}, {89,93,210}, {46,255,255} },
+static const HSV WHITE  = {89, 93, 210};
+static const HSV PURPLE = {197, 211, 194};
+static const HSV BLUE   = {165, 237, 255};
+static const HSV CYAN   = {114, 237, 255};
+static const HSV ORANGE = {23, 247, 217};
+static const HSV RED    = {252, 251, 150};
+static const HSV GREEN  = {77, 247, 237};
+static const HSV YELLOW = {46, 255, 255};
+static const HSV GREY   = {81, 115, 163};
+static const HSV DARK   = {0, 0, 0};
 
-    [1] = { {89,93,210}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {81,255,255}, {23,247,217}, {165,237,255}, {114,237,255}, {77,247,237}, {23,247,217}, {23,247,217}, {252,251,150}, {114,237,255}, {114,237,255}, {252,251,150}, {197,211,194}, {0,0,0}, {197,211,194}, {252,251,150}, {23,247,217}, {46,255,255}, {114,237,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {89,93,210}, {197,211,194}, {114,237,255}, {165,237,255}, {165,237,255}, {114,237,255}, {0,0,0}, {0,0,0}, {0,0,0}, {252,251,150}, {252,251,150}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
-
-    [2] = { {89,93,210}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {197,211,194}, {165,237,255}, {0,0,0}, {165,237,255}, {0,0,0}, {89,93,210}, {0,0,0}, {252,251,150}, {114,237,255}, {252,251,150}, {0,0,0}, {0,0,0}, {77,247,237}, {77,247,237}, {77,247,237}, {77,247,237}, {0,0,0}, {0,0,0}, {197,211,194}, {0,0,0}, {114,237,255}, {0,0,0}, {0,0,0}, {0,0,0}, {40,255,255}, {0,0,0} },
-
-    [3] = { {0,0,0}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {81,115,163}, {0,0,0}, {81,115,163}, {165,237,255}, {197,211,194}, {23,247,217}, {81,115,163}, {252,251,150}, {81,115,163}, {0,0,0}, {0,0,0}, {0,0,0}, {114,237,255}, {81,115,163}, {81,115,163}, {0,0,0}, {0,0,0}, {0,0,0}, {46,255,255}, {77,247,237}, {89,93,210}, {0,0,0}, {0,0,0}, {0,0,0}, {47,255,255}, {81,115,163}, {0,0,0}, {89,93,210} },
-
-};
-
-void set_layer_color(int layer) {
-  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    HSV hsv = {
-      .h = pgm_read_byte(&ledmap[layer][i][0]),
-      .s = pgm_read_byte(&ledmap[layer][i][1]),
-      .v = pgm_read_byte(&ledmap[layer][i][2]),
-    };
-    if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( i, 0, 0, 0 );
-    } else {
-        RGB rgb = hsv_to_rgb_with_value(hsv);
-        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+static uint16_t combo_output(uint16_t keycode) {
+  for (uint16_t i = 0; i < COMBO_COUNT; i++) {
+    for (const uint16_t *keys = key_combos[i].keys; pgm_read_word(keys) != COMBO_END; keys++) {
+      if (pgm_read_word(keys) == keycode) {
+        return key_combos[i].keycode;
+      }
     }
   }
+  return KC_NO;
+}
+
+static HSV mod_color(uint8_t mods) {
+  if ((mods & MOD_MEH) == MOD_MEH) {
+    return RED;
+  }
+  // A shortcut with several modifiers takes the most significant one's colour.
+  if (mods & MOD_LGUI) {
+    return PURPLE;
+  }
+  if (mods & MOD_LCTL) {
+    return CYAN;
+  }
+  if (mods & MOD_LALT) {
+    return BLUE;
+  }
+  return ORANGE;
+}
+
+static HSV key_color(uint16_t keycode) {
+  switch (keycode) {
+    case QK_TO ... QK_TO_MAX:
+    case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
+    case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+      return WHITE;
+    case KC_LEFT_CTRL:
+    case KC_RIGHT_CTRL:
+      return CYAN;
+    case KC_LEFT_SHIFT:
+    case KC_RIGHT_SHIFT:
+    case CW_TOGG:
+      return ORANGE;
+    case KC_LEFT_ALT:
+    case KC_RIGHT_ALT:
+      return BLUE;
+    case KC_LEFT_GUI:
+    case KC_RIGHT_GUI:
+      return PURPLE;
+    case KC_RIGHT ... KC_UP:
+    case KC_PGUP:
+    case KC_PGDN:
+    case KC_HOME:
+    case KC_END:
+    case KC_BSPC:
+    case KC_DEL:
+    case KC_ENTER:
+    case KC_KP_ENTER:
+      return GREEN;
+    case KC_BRID:
+    case KC_BRIU:
+    case KC_MCTL:
+    case KC_LPAD:
+    case RM_VALD:
+    case RM_VALU:
+    case KC_MPRV:
+    case KC_MPLY:
+    case KC_MNXT:
+    case KC_MUTE:
+    case KC_VOLD:
+    case KC_VOLU:
+    case MAC_SIRI:
+      return YELLOW;
+    case KC_MINUS ... KC_SLASH:
+    case KC_EXLM ... KC_RPRN:
+    case KC_UNDS ... KC_QUES:
+    case KC_KP_1 ... KC_KP_DOT:
+      return GREY;
+    // Inverse operations get opposite hues.
+    case KC_KP_PLUS:
+      return RED;
+    case KC_KP_MINUS:
+      return CYAN;
+    case KC_KP_ASTERISK:
+      return ORANGE;
+    case KC_KP_SLASH:
+      return BLUE;
+    case KC_KP_EQUAL:
+      return YELLOW;
+  }
+  if (IS_QK_MOD_TAP(keycode)) {
+    return mod_color(QK_MOD_TAP_GET_MODS(keycode));
+  }
+  if (IS_QK_ONE_SHOT_MOD(keycode)) {
+    return mod_color(QK_ONE_SHOT_MOD_GET_MODS(keycode));
+  }
+  if (IS_QK_MODS(keycode)) {
+    return mod_color(QK_MODS_GET_MODS(keycode));
+  }
+  return DARK;
+}
+
+static HSV base_key_color(uint16_t keycode) {
+  uint16_t output = combo_output(keycode);
+  if (output != KC_NO) {
+    return key_color(output);
+  }
+  // Base symbols are typed like letters, so only the other layers light them.
+  if (keycode >= KC_MINUS && keycode <= KC_SLASH) {
+    return DARK;
+  }
+  return key_color(keycode);
 }
 
 bool rgb_matrix_indicators_user(void) {
-  if (!keyboard_config.disable_layer_led) { 
-    switch (biton32(layer_state)) {
-      case 0:
-        set_layer_color(0);
-        break;
-      case 1:
-        set_layer_color(1);
-        break;
-      case 2:
-        set_layer_color(2);
-        break;
-      case 3:
-        set_layer_color(3);
-        break;
-     default:
-        if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-          rgb_matrix_set_color_all(0, 0, 0);
-        }
-    }
-  } else {
+  if (keyboard_config.disable_layer_led) {
     if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
       rgb_matrix_set_color_all(0, 0, 0);
     }
+    return true;
   }
-
+  uint8_t layer = get_highest_layer(layer_state);
+  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+      uint8_t led = g_led_config.matrix_co[row][col];
+      if (led == NO_LED) {
+        continue;
+      }
+      keypos_t pos = {.row = row, .col = col};
+      uint16_t keycode = keymap_key_to_keycode(layer, pos);
+      uint16_t base_keycode = keymap_key_to_keycode(0, pos);
+      // The key that opened a layer is also the way out of it.
+      if (keycode == KC_TRANSPARENT && IS_QK_ONE_SHOT_LAYER(base_keycode) && QK_ONE_SHOT_LAYER_GET_LAYER(base_keycode) == layer) {
+        keycode = base_keycode;
+      }
+      HSV hsv = layer == 0 ? base_key_color(keycode) : key_color(keycode);
+      RGB rgb = hsv.v ? hsv_to_rgb_with_value(hsv) : (RGB){0, 0, 0};
+      rgb_matrix_set_color(led, rgb.r, rgb.g, rgb.b);
+    }
+  }
   return true;
 }
 

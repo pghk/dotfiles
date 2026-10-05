@@ -16,7 +16,7 @@ The fork is pinned by commit in `build.sh`. To move to a newer ZSA firmware, cha
 
 | File | Contents |
 |---|---|
-| `keymap.c` | Layers, combos, custom keys, LED colours |
+| `keymap.c` | Layers, combos, custom keys, key lighting |
 | `config.h` | Timing and tap-hold behaviour |
 | `rules.mk` | Enabled QMK features |
 | `keymap.json` | QMK community modules (`zsa/defaults`) |
@@ -64,3 +64,28 @@ The number row follows the Mac's function row: display brightness, Mission Contr
 **Numpad.** The right hand is a ten-key pad: 7-8-9 on `u i o`, 4-5-6 on `j k l`, 1-2-3 on `m , .`, and 0 and `.` on the right thumb, with operators, Enter and Backspace around it. Holding the top-left key with the left pinky while typing digits with the right hand works as well as locking it.
 
 **Dictation.** The top-right key on base sends the consumer usage that macOS treats as dictation (`MAC_SIRI` in `keymap.c`).
+
+## Lighting
+
+Each key's colour comes from what it does on the active layer, so the lighting follows the keymap without being kept in step by hand. The firmware assigns colours by keycode in `key_color()` in `keymap.c`.
+
+Colour mostly shows which modifier a key sends: the modifiers on base and the shortcut keys on other layers share one colour per modifier. A purple key on Navigation sends Cmd plus something, so the same action on a plain Mac keyboard means holding Cmd.
+
+| Colour | Meaning |
+|---|---|
+| Purple | Cmd, or a shortcut using it |
+| Blue | Opt, or a shortcut using it |
+| Cyan | Ctrl, or a shortcut using it |
+| Orange | Shift, or a shortcut using it; Caps Word |
+| Red | Meh (Esc/Meh's hold) |
+| Green | A plain action key: arrows, paging, Home/End, Backspace, Delete, Enter |
+| Yellow | System: media, volume, brightness, Mission Control, Launchpad, dictation |
+| White | Changes layer, including every way out of the active one |
+| Grey | A character the layer types: symbols on Symbols, digits on Numpad |
+| Dark | Types a letter, digit or Space on base, or falls through to a lower layer |
+
+- **Several modifiers:** a shortcut takes the most significant one's colour, in the order Cmd, Ctrl, Opt, Shift. That's why Select's shifted word and line jumps keep Navigation's blue and purple while its arrows turn orange.
+- **Base:** symbol keys stay dark, because they type like letters. A combo's keys take the colour of the combo's output: `d`/`f` white, `j`/`k` and `u`/`i` green.
+- **Numpad:** the operators get their own colours so they stand out from the grey digits, with inverse operations on opposite hues: `+` red and `−` cyan, `*` orange and `/` blue, `=` yellow.
+- **Ways out:** the key that opened a layer falls through to base on that layer, and it's lit white there as the way out.
+- **Brightness:** Nav's `4` and `5` keys dim and brighten all of it.
