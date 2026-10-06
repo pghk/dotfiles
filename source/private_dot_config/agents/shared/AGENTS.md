@@ -29,7 +29,7 @@ This machine's `cat` is BSD, not GNU — it has no `-A`/`-e` flags. Use `od -c` 
 
 ### Skills
 
-Re-check available skills when the activity within a task changes: reviewing to authoring, tests to production code, planning to executing. A project-level skill for an activity does not substitute for the user-level skill or principle governing it; load both.
+Re-check available skills when the activity within a task changes: reviewing to authoring, tests to production code, planning to executing. Load every skill whose description matches the activity, principles included; a loaded skill does not discharge another's trigger, and a project-level skill does not substitute for the user-level skills governing the same activity.
 
 ### Communication
 
