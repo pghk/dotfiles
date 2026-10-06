@@ -106,13 +106,16 @@ a cited pattern is unverified rather than presenting it as established.
 Breaking production code on purpose is the strongest evidence available here
 and the only step that leaves the tree dirty. Bound it:
 
-- Copy the file before editing it, and restore from that copy rather than
-  editing it back.
+- Restore with `git checkout -- <file>` when the file was clean before the
+  mutation; otherwise copy it first and restore from the copy. Do not edit it
+  back by hand.
 - Re-run to the recorded baseline afterwards. Restoration is not confirmed by
   the absence of an error.
 - Rebuild whatever the test actually loads. A mutation of a source that a
   bundle is built from proves nothing until the bundle is rebuilt, and a
   staleness guard that misses that source will show you a false green.
+- When a rebuild is costly, batch mutations that reach disjoint tests into
+  one run; re-run any surprising green in isolation.
 - Confirm the tree with a check that sees ignored files. `git status` reports
   clean for a deleted build artifact or runtime marker, so "clean tree" from
   it alone is not evidence that a mutation was undone.
