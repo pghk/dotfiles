@@ -101,10 +101,11 @@ When the session contains two or more fixes to one mechanism, apply
 [Attack the Premise](../principles/principle-attack-the-premise/SKILL.md)
 before proposing rules that assume the mechanism.
 Apply [Encode Lessons in Structure](../principles/principle-encode-lessons-in-structure/SKILL.md)
-when a recurring rule or compliance failure needs durable enforcement. Load
-[Build the Lever](../principles/principle-build-the-lever/SKILL.md) only when
-substantial repeated work, weak reviewability, or a reusable script, codemod,
-generator, or skill would make this class of work cheaper and safer. Apply [Subtract
+when a recurring rule or compliance failure needs durable enforcement. Read
+[Build the Lever](../principles/principle-build-the-lever/SKILL.md) whenever
+the signal list contains repeated manual work, a hand-reproduced check, or
+rework; its description cannot trigger it, so this step is how it enters a
+retro. Apply [Subtract
 Before You Add](../principles/principle-subtract-before-you-add/SKILL.md) when
 choosing among changes: refine an existing owner and remove redundant process
 before adding machinery. Keep these responsibilities distinct; do not copy
