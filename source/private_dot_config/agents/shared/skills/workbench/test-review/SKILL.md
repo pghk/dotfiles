@@ -34,7 +34,16 @@ specification.
 first.** Produce the findings, then propose the change and wait for agreement.
 Editing before the review is complete means editing without knowing which
 claims the test protects, and the edits land on whichever symptom is loudest —
-usually a failure the test did not cause.
+usually a failure the test did not cause. Shape proposals under
+[Subtract Before You Add](../../principles/principle-subtract-before-you-add/SKILL.md):
+deletion is a proposal, and it comes before a stronger assertion.
+
+**No test is presumed to deserve its existence.** Before judging how well a
+test makes its claim, ask whether the claim is worth making: name a user of
+the subject who would be harmed if the claim were false. A claim nobody
+depends on — framework behavior, a trivial accessor, a shape the type system
+already enforces, a fixture's own content — earns deletion, not a better
+assertion, however discriminating it could be made.
 
 Once a change is agreed, the review is over for that finding and a different
 skill owns the edit. A rewritten or new test is authored under the same
@@ -105,7 +114,9 @@ a cited pattern is unverified rather than presenting it as established.
 ### Mutating to confirm
 
 Breaking production code on purpose is the strongest evidence available here
-and the only step that leaves the tree dirty. Bound it:
+and the only step that leaves the tree dirty. It is the claim-matched evidence
+[Prove It Works](../../principles/principle-prove-it-works/SKILL.md) requires
+before "this test discriminates" is reported. Bound it:
 
 - Restore with `git checkout -- <file>` when the file was clean before the
   mutation; otherwise copy it first and restore from the copy. Do not edit it
@@ -300,10 +311,12 @@ selector names only that.
 Order findings by consequence, not by line number:
 
 1. **Inert** — the test cannot fail, or cannot fail for the reason it claims
-2. **Unclaimed** — real behavior no test protects
-3. **Misallocated** — the claim is real but the layer or instrument is wrong
-4. **Brittle** — the test fails on correct changes
-5. **Noisy** — redundant, or collapses its own diagnostics
+2. **Unwarranted** — the claim discriminates but no user of the subject
+   depends on it; the finding is deletion
+3. **Unclaimed** — real behavior no test protects
+4. **Misallocated** — the claim is real but the layer or instrument is wrong
+5. **Brittle** — the test fails on correct changes
+6. **Noisy** — redundant, or collapses its own diagnostics
 
 For each: the location, the claim it purports to make, the evidence, and the
 mutation that does or does not reach it. Distinguish defects in the *test*
