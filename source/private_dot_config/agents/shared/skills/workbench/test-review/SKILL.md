@@ -16,7 +16,9 @@ description: >
 # Test Review
 
 Judge whether existing tests or proposed test claims can distinguish correct
-behavior from incorrect behavior. Report findings with evidence.
+behavior from incorrect behavior. Report findings with evidence. Load
+[Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md)
+with this skill: its rules are the standard every assertion is judged against.
 
 For a class- or suite-level review, first state the subject's public input,
 output, and responsibility in one sentence. Map the test groups to that
@@ -35,9 +37,8 @@ claims the test protects, and the edits land on whichever symptom is loudest —
 usually a failure the test did not cause.
 
 Once a change is agreed, the review is over for that finding and a different
-skill owns the edit. A rewritten or new test is authored under
-[Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md);
-load it before writing. A finding resolved in the *subject* is a production
+skill owns the edit. A rewritten or new test is authored under the same
+principle. A finding resolved in the *subject* is a production
 change: load the applicable area skill and any change-impact skill before
 editing, then re-enter this review for the test that results.
 
