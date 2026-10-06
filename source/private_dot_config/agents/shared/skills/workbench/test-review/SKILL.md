@@ -9,6 +9,8 @@ description: >
   asked whether tests are meaningful, test realistic failures, read like a
   behavioral spec, cover the right behavior, or could have caught a bug—even
   when no test files exist yet or the request does not use the word “review.”
+  Also use when asked to fix, improve, clean up, strengthen, or rewrite
+  existing tests: the review comes before the edit.
 ---
 
 # Test Review
@@ -31,6 +33,13 @@ first.** Produce the findings, then propose the change and wait for agreement.
 Editing before the review is complete means editing without knowing which
 claims the test protects, and the edits land on whichever symptom is loudest —
 usually a failure the test did not cause.
+
+Once a change is agreed, the review is over for that finding and a different
+skill owns the edit. A rewritten or new test is authored under
+[Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md);
+load it before writing. A finding resolved in the *subject* is a production
+change: load the applicable area skill and any change-impact skill before
+editing, then re-enter this review for the test that results.
 
 A test file cannot be reviewed by reading it. Every finding below requires
 reading the code the test exercises. A review conducted on the test text alone
@@ -301,7 +310,6 @@ Do not write a report file unless asked.
 
 ## Scope
 
-[Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md)
-governs authoring; this skill remains focused on evaluating existing or proposed
-tests. A rewrite that changes which behavior is protected is a design decision,
-not a cleanup.
+This skill evaluates existing or proposed tests; authoring belongs to the
+principle linked above. A rewrite that changes which behavior is protected is a
+design decision, not a cleanup.
