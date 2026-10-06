@@ -56,6 +56,7 @@ description: "What it does. Use when <triggers and keywords>."
 4. Name what the edit makes redundant and remove it: text the new guidance subsumes, a restatement of a bundled asset or reference, or a rule the addition now covers. A skill that only ever grows is accreting — each addition answered a real failure, and none of them is why the skill became expensive to load.
 5. If the description no longer reflects actual triggers, revise it (see [Descriptions](#descriptions))
 6. Report the byte count before and after. Where the file grew, say what was removed to pay for it, or state that nothing was.
+7. Track the change: skills live under `~/.config/agents`, which is not a git repository. Follow [Tracking changes](../../README.md#tracking-changes).
 
 ## Descriptions
 
