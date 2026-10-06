@@ -32,6 +32,9 @@ metadata:
 - Every assertion must discriminate: it should fail for the known bad case or a
   credible perturbation. If replacing imported production functions with
   inert or `undefined` behavior would still pass, rewrite or delete the test.
+- Before pinning a literal value, name a correct design change that would alter
+  it. If one exists, assert a relationship between two observations of the
+  subject instead, and reshape a brittle assertion before deleting it.
 - Assert a semantic value completely enough to identify it to its consumer. An
   action normally requires its kind and target together; a notice requires its
   kind, target, and relevant occurrence data. Counts and isolated fields do not
