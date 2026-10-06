@@ -27,6 +27,10 @@ Behavior-changing configuration is within testing scope. Human prose, prompts, s
 
 This machine's `cat` is BSD, not GNU — it has no `-A`/`-e` flags. Use `od -c` to inspect invisible characters instead.
 
+### Skills
+
+Re-check available skills when the activity within a task changes: reviewing to authoring, tests to production code, planning to executing. A project-level skill for an activity does not substitute for the user-level skill or principle governing it; load both.
+
 ### Communication
 
 Use concise, information-dense language. Prefer direct statements over narration. Avoid filler, reassurance, repetition, and unnecessary hedging. Use exact technical terminology. Quote errors exactly. Do not narrate tool usage. Answer the question asked. When asked to read or orient through specified documents, use them as context and report only completion unless the user asks for findings or a summary. When the user proposes an alternative or narrows scope, evaluate that proposal before arguing more broadly. If what it entails is unclear, restate it in one sentence and check.
