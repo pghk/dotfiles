@@ -26,7 +26,8 @@ in chat, show only what each revision changed. Per concern it records:
 - **members**: paths, plus `stage-hunks.py --list` hunks for a file shared
   between concerns
 - **depends on / needed by**
-- **open questions**
+- **open questions**, including each proposed merge of a fixed entry into
+  this concern
 
 The map also lists **intended differences**: anything the clean branch
 deliberately adds, changes, or omits relative to `<orig>`, each approved by
@@ -34,10 +35,16 @@ the user. An original commit that already is one concern is a fixed entry,
 cherry-picked unchanged; merging it into another concern needs the user's
 decision, especially when its message states intent ("easy to drop later").
 
-Alternate two modes, revising the map after each:
+The map is built over rounds of conversation, each more detailed than the
+last. The first response reads a horizontal pass and states in plain terms
+what the branch appears to aim for and the steps it took toward that goal:
+an informal first draft of the concerns and their order. Each later round
+refines where the user steers, from concerns to members to shared files.
+Write the map file once the overview in chat has settled.
 
-- **Horizontal pass** across the whole range. The first turn is one, ending
-  with the initial map and its uncertain clusters:
+Each round alternates two modes:
+
+- **Horizontal pass** across the whole range. The first is:
 
       git log --reverse --oneline --name-only <base>..<orig>
       git diff --stat <base> <orig>
