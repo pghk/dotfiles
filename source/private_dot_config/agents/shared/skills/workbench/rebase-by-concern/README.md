@@ -28,14 +28,24 @@ index. Churn inside the original history (a line added, then fixed) collapses
 automatically into the concern that owns the final line. Renames, deletions,
 mode changes, and binaries need no special handling.
 
-Breadth before depth. The first turn reads only `git log --oneline
---name-only` and `git diff --stat` for the range (a few thousand tokens on a
-79-commit, 129-file branch, versus ~55k for the net diff and ~150k for the
-per-commit diffs) and proposes a sketch: tentative concerns, rough order,
-unresolved clusters. The depth loop then works the sketch one concern at a
-time, reading only that concern's paths. Discoveries revise the sketch;
-placement mistakes are corrected with ordinary `git rebase -i` on the short
-clean branch (`--autosquash` to merge, a reordered todo to insert).
+Concerns come in two shapes: layers (foundations and infrastructure that
+span features) and features (one feature end to end, with its demo, tests,
+and docs). Finding them alternates horizontal passes across the whole range
+with vertical probes into one uncertain cluster. The first pass reads only
+`git log --oneline --name-only` and `git diff --stat` (a few thousand tokens
+on a 79-commit, 129-file branch, versus ~55k for the net diff and ~150k for
+the per-commit diffs). Each probe tests the map: a feature that pulls in
+shared tokens reveals a layer, and a page exercising several features splits
+across them. The map records each concern's kind, members, dependencies, and
+open questions, plus the intended differences from `<orig>`; order follows
+from kinds and dependencies.
+
+Nothing is committed until the map is complete and the user approves it.
+Approval covers committing the whole map; the agent returns only when
+execution departs from it. Each commit is verified as it is made, so a hunk
+staged into the wrong concern surfaces at that commit. Placement mistakes
+are corrected with ordinary `git rebase -i` on the short clean branch
+(`--autosquash` to merge, a reordered todo to insert).
 
 ## Known issues
 
@@ -44,7 +54,7 @@ clean branch (`--autosquash` to merge, a reordered todo to insert).
   commit is coherent, so this is tractable.
 - A concern that must be split out of an already-placed commit requires
   `git rebase -i` with an `edit` stop and manual re-staging. Prefer deciding
-  the split before committing; the sketch exists to make that the common case.
+  the split before committing; the map exists to make that the common case.
 - Original commit identity is not preserved; the mapping from a final hunk
   to the commit that introduced it is recovered on demand with
   `git log <base>..<orig> -- <path>`, not carried along.
