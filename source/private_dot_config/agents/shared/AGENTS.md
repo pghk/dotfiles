@@ -27,6 +27,10 @@ Behavior-changing configuration is within testing scope. Human prose, prompts, s
 
 This machine's `cat` is BSD, not GNU — it has no `-A`/`-e` flags. Use `od -c` to inspect invisible characters instead.
 
+### Tool calls
+
+Operations that share a path (`rm`, `create`, `chmod`, `edit`, `mv`) depend on each other. Issue them in separate sequential calls.
+
 ### Skills
 
 Re-check available skills when the activity within a task changes: reviewing to authoring, tests to production code, planning to executing. Load every skill whose description matches the activity, principles included; a loaded skill does not discharge another's trigger, and a project-level skill does not substitute for the user-level skills governing the same activity.
