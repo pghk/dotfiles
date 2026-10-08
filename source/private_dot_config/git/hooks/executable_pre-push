@@ -86,7 +86,13 @@ while true; do
   answer=$(printf '%s' "$answer" | tr '[:upper:]' '[:lower:]')
   case "$answer" in
     y | yes)
-      "$scripts_dir/git-pint.sh" --blame-ignore -- "${files[@]}" >/dev/null || true
+      formatted=()
+      while IFS= read -r line; do
+        [[ -n "$line" ]] && formatted+=("$line")
+      done < <("$scripts_dir/git-pint.sh" -- "${files[@]}" || true)
+      if ((${#formatted[@]})); then
+        "$scripts_dir/git-commit-format.sh" -- "${formatted[@]}" >/dev/null || true
+      fi
       echo "" >&2
       echo "Push aborted so you can review the formatting commit(s); run 'git push' again." >&2
       exit 1

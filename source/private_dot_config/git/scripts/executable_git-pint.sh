@@ -1,27 +1,21 @@
 #!/usr/bin/env bash
-# git-pint — format changed PHP files with Laravel Pint and commit the result
+# git-pint — format changed PHP files with Laravel Pint, leaving the changes uncommitted
 # Usage:
-#   git pint [<base>] [--test | --diff] [--blame-ignore] [-- <file>...]
+#   git pint [<base>] [--test | --diff] [-- <file>...]
 #
 # Files: PHP files changed in merge-base(<base>, HEAD)..HEAD, or the files after `--`.
 # <base> defaults to origin/HEAD.
 # Files with staged or unstaged edits are skipped.
 #
-#   (default)        format, commit "<prefix>Format PHP files with Pint", print the new SHA on stdout
+#   (default)        format; print the changed files on stdout (commit them with git commit-format)
 #   --test           report files needing formatting; change nothing
 #   --diff           show the diff Pint would make; change nothing
-#   --blame-ignore   after committing, run git blame-ignore on the new commit
 #
 # Exit: 0 clean or done, 1 files need formatting (--test), 2 error (parse errors, bad base), 3 Pint not installed.
 
 set -euo pipefail
 
-script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-# shellcheck source=lib/jira-prefix.sh
-. "$script_dir/lib/jira-prefix.sh"
-
 mode=format
-blame_ignore=0
 explicit=0
 base=""
 files=()
@@ -30,7 +24,6 @@ while (($#)); do
   case "$1" in
     --test) mode=test ;;
     --diff) mode=diff ;;
-    --blame-ignore) blame_ignore=1 ;;
     --)
       shift
       explicit=1
@@ -147,19 +140,6 @@ if [[ "$mode" == diff ]]; then
   exit 0
 fi
 
-git add -- "${changed[@]}"
-commit_args=(-q -m "$(jira_prefix)Format PHP files with Pint")
-if [[ -n "$summary" ]]; then
-  commit_args+=(-m "$summary")
-fi
-git commit "${commit_args[@]}" -- "${changed[@]}"
-
-sha=$(git rev-parse HEAD)
 trap - INT TERM
-echo "pint: formatted ${#changed[@]} files in $(git rev-parse --short "$sha")" >&2
-
-if ((blame_ignore)); then
-  "$script_dir/git-blame-ignore.sh" "$sha" >&2
-fi
-
-echo "$sha"
+echo "pint: formatted ${#changed[@]} files (uncommitted); run 'git commit-format'" >&2
+printf '%s\n' "${changed[@]}"
