@@ -6,7 +6,7 @@ usage() {
     cat >&2 <<'EOF'
 Usage:
   resolve-scope.sh <repository> [--no-fetch] candidates [<source>]
-  resolve-scope.sh <repository> [--no-fetch] review <target> <source>
+  resolve-scope.sh <repository> [--no-fetch] review <target> <source> [--strictness <level>] [--context <level>]
 EOF
     exit 64
 }
@@ -54,6 +54,23 @@ relationship() {
         printf 'source-ancestor-of-target\n'
     else
         printf 'diverged\n'
+    fi
+}
+
+strictness_levels='blockers defects risks maintainability polish'
+context_levels='patch local informed behavioral external'
+
+print_level() {
+    local dimension=$1
+    local level=$2
+    local levels=$3
+
+    if [[ -z "$level" ]]; then
+        printf 'CONFIRM_REQUIRED\t%s\t%s\n' "$dimension" "$levels"
+    elif [[ " $levels " == *" $level "* ]]; then
+        printf '%s\t%s\n' "$(tr '[:lower:]' '[:upper:]' <<< "$dimension")" "$level"
+    else
+        error 64 $'unknown-level\t'"$dimension"$'\t'"$level"
     fi
 }
 
@@ -161,6 +178,8 @@ resolve_candidates() {
 resolve_review() {
     local target_ref=${1:-}
     local source_ref=${2:-}
+    local strictness=
+    local context=
     local target
     local source
     local relation
@@ -168,7 +187,17 @@ resolve_review() {
     local target_only
     local source_only
 
-    [[ -n "$target_ref" && -n "$source_ref" && $# -eq 2 ]] || usage
+    [[ -n "$target_ref" && -n "$source_ref" ]] || usage
+    shift 2
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --strictness) [[ $# -ge 2 ]] || usage; strictness=$2; shift 2 ;;
+            --context) [[ $# -ge 2 ]] || usage; context=$2; shift 2 ;;
+            *) usage ;;
+        esac
+    done
+    print_level strictness "$strictness" "$strictness_levels" > /dev/null
+    print_level context "$context" "$context_levels" > /dev/null
     target=$(resolve_commit "$target_ref")
     source=$(resolve_commit "$source_ref")
     relation=$(relationship "$target" "$source")
@@ -192,6 +221,8 @@ resolve_review() {
     printf 'SOURCE_ONLY_COUNT\t%s\n' "$source_only"
     print_review_counts "$target" "$source"
     printf 'INSPECTION\tthree-dot\n'
+    print_level strictness "$strictness" "$strictness_levels"
+    print_level context "$context" "$context_levels"
 }
 
 repository_input=${1:-}

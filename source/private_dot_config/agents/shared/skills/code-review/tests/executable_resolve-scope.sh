@@ -315,6 +315,51 @@ test_rejects_repository_without_base_candidates() {
     assert_contains "$output" $'ERROR\tno-base-candidates'
 }
 
+test_requires_confirmation_for_omitted_levels() {
+    local repository
+    local output
+
+    repository=$(new_repository omitted-levels)
+    commit_change "$repository" 'Feature one'
+
+    output=$("$resolver" "$repository" --no-fetch review HEAD~1 HEAD --context informed)
+
+    assert_contains "$output" $'CONFIRM_REQUIRED\tstrictness\tblockers defects risks maintainability polish'
+    assert_contains "$output" $'CONTEXT\tinformed'
+    assert_not_contains "$output" $'CONFIRM_REQUIRED\tcontext'
+}
+
+test_proceeds_when_both_levels_are_supplied() {
+    local repository
+    local output
+
+    repository=$(new_repository supplied-levels)
+    commit_change "$repository" 'Feature one'
+
+    output=$("$resolver" "$repository" --no-fetch review HEAD~1 HEAD --strictness risks --context patch)
+
+    assert_contains "$output" $'STRICTNESS\trisks'
+    assert_contains "$output" $'CONTEXT\tpatch'
+    assert_not_contains "$output" $'CONFIRM_REQUIRED\t'
+}
+
+test_rejects_unknown_level() {
+    local repository
+    local output
+    local status
+
+    repository=$(new_repository unknown-level)
+    commit_change "$repository" 'Feature one'
+
+    set +e
+    output=$("$resolver" "$repository" --no-fetch review HEAD~1 HEAD --strictness strict 2>&1)
+    status=$?
+    set -e
+
+    [[ $status -ne 0 ]] || fail 'expected an unknown level to fail'
+    assert_contains "$output" $'ERROR\tunknown-level\tstrictness\tstrict'
+}
+
 run_test 'lists base candidates without selecting one' test_lists_base_candidates_without_selecting_one
 run_test 'reports diverged review as three-dot diff' test_reports_diverged_review_as_three_dot_diff
 run_test 'reports three-dot review with multiple merge bases' test_reports_three_dot_review_with_multiple_merge_bases
@@ -326,5 +371,8 @@ run_test 'stops when fetch fails' test_stops_when_fetch_fails
 run_test 'rejects a shallow repository' test_rejects_shallow_repository
 run_test 'lists candidates from every configured remote' test_lists_candidates_from_every_configured_remote
 run_test 'rejects a repository without base candidates' test_rejects_repository_without_base_candidates
+run_test 'requires confirmation for omitted levels' test_requires_confirmation_for_omitted_levels
+run_test 'proceeds when both levels are supplied' test_proceeds_when_both_levels_are_supplied
+run_test 'rejects an unknown level' test_rejects_unknown_level
 
 printf '1..%d\n' "$test_count"

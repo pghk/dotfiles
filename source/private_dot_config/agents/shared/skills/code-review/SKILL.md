@@ -44,7 +44,8 @@ Do not change directories for scope resolution.
 
 - `scripts/resolve-scope.sh "$PWD" candidates [<source>]` when the target is
   missing; omitted source means `HEAD`.
-- `scripts/resolve-scope.sh "$PWD" review <target> <source>` when both are known.
+- `scripts/resolve-scope.sh "$PWD" review <target> <source> [--strictness <level>]
+  [--context <level>]` when both are known; pass only levels the requester stated.
 
 The resolver fetches and prunes every configured remote before resolving refs,
 then fails closed if fetching fails. Place `--no-fetch` after the repository path
@@ -70,12 +71,11 @@ Capture the command's exit status and stderr. Warnings, including Git's choice
 when multiple merge bases exist, are verification context rather than alternate
 scope or a confirmation trigger. Stop only when Git cannot produce the patch.
 
-Confirm before reviewing when the target or another value was selected
-automatically, or the source-only set is empty or unusually large. Show one
-combined confirmation containing the immutable target, source, commit count, and
-proposed settings. Whenever strictness or context was omitted, include the
-complete five-option scale for that dimension. Explicit target/source reviews
-with both levels supplied may proceed directly.
+Confirm before reviewing when the target was selected automatically, the
+resolver prints `CONFIRM_REQUIRED`, or the source-only set is empty or unusually
+large. Show one combined confirmation containing the immutable target, source,
+commit count, and proposed settings, with the full scale for each dimension the
+resolver lists.
 
 ## Strictness: Concerns in Scope
 
