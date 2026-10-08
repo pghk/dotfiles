@@ -12,8 +12,9 @@ would otherwise look like a bug.
 
 ## Naming
 
-Name variables for what they represent, not their ownership perspective.
-Prefer domain terms (`$studentEventIds`, `$familyEventIds`) over ownership
+Name variables, functions, and helpers for the role they play for whoever
+uses them, not for ownership perspective or a property that is true but
+irrelevant to that use. Prefer domain terms (`$studentEventIds`, `$familyEventIds`) over ownership
 labels (`$ownEventIds`, `$myEventIds`). The reader cares what the data IS,
 not whose it is.
 
