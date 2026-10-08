@@ -1,172 +1,103 @@
 #!/usr/bin/env bash
-# pre-push: Run Laravel Pint on changed PHP files for matching branches.
+# pre-push: offer to format PHP files in the pushed range with Laravel Pint.
 #
-# If Pint makes changes:
-# 1. Commits formatting changes with fixer summary in body.
-# 2. Updates blame.ignoreRevsFile (if configured) via git-blame-ignore.sh.
-# 3. Aborts the push so changes can be reviewed.
+# Exits early when the push has no PHP changes or no terminal is available.
+# Pint parse errors abort the push. Formatting changes are committed by
+# `git pint --blame-ignore`, and the push is aborted so they can be reviewed.
+#
+# Debug: PREPUSH_DEBUG=1 prints the hook arguments and stdin.
+# Bypass: git push --no-verify
 
 set -euo pipefail
 
-# Check branch regex gate (defaults to branches ending in /pr, e.g. JIRA-12345/pr)
-branch_pattern=$(git config pint.branchPattern || echo '.*/pr$')
+remote_name="${1-}"
+remote_url="${2-}"
+scripts_dir="${XDG_CONFIG_HOME:-$HOME/.config}/git/scripts"
 
-# Check if pint binary is available
-PINT_BIN="${COMPOSER_HOME:-$HOME/.config/composer}/vendor/bin/pint"
-if [[ ! -x "$PINT_BIN" ]]; then
-  # Fall back to project vendor/bin/pint if present
-  if [[ -x "./vendor/bin/pint" ]]; then
-    PINT_BIN="./vendor/bin/pint"
-  else
-    # Pint not installed globally or locally; skip hook gracefully
-    exit 0
-  fi
+push_stdin=$(cat)
+
+if [[ -n "${PREPUSH_DEBUG-}" ]]; then
+  {
+    echo "pre-push args: remote_name=$remote_name remote_url=$remote_url"
+    echo "pre-push stdin (local_ref local_sha remote_ref remote_sha):"
+    echo "$push_stdin"
+  } >&2
 fi
 
-# Determine Jira prefix from branch name if present
-get_prefix() {
-  local branch="$1"
-  local jira_key
-  if jira_key=$(echo "$branch" | grep -oE '[A-Z]+-[0-9]+' | head -1); then
-    echo "${jira_key} - "
-  else
-    echo ""
-  fi
-}
-
-# Collect php files changed across all pushed refs matching the branch pattern
+head_sha=$(git rev-parse HEAD)
 raw_files=""
 
 while read -r local_ref local_sha remote_ref remote_sha; do
-  # Ignore branch deletion (local_sha is all zeros)
-  if echo "$local_sha" | grep -qE '^0+$'; then
+  [[ "$local_sha" =~ ^0+$ ]] && continue
+  [[ "$remote_ref" == refs/heads/* ]] || continue
+
+  # Pint formats the working tree and `git pint` commits onto HEAD.
+  if [[ "$local_sha" != "$head_sha" ]]; then
+    echo "pre-push: skipping $local_ref (not the checked-out commit)" >&2
     continue
   fi
 
-  # Extract local branch name
-  branch_name="${local_ref#refs/heads/}"
-  if [[ "$branch_name" == "$local_ref" ]]; then
-    # Not a head ref (e.g. tag or raw commit push), skip
-    continue
-  fi
-
-  # Check gate
-  if ! echo "$branch_name" | grep -qE "$branch_pattern"; then
-    continue
-  fi
-
-  # Determine diff range
-  if echo "$remote_sha" | grep -qE '^0+$'; then
-    # New remote branch: find merge base against default/upstream branch or origin/HEAD
-    default_base=""
-    for candidate in origin/main origin/master origin/local/dev main master local/dev; do
-      if git rev-parse --verify "$candidate" >/dev/null 2>&1; then
-        default_base="$candidate"
-        break
-      fi
-    done
-
-    if [[ -n "$default_base" ]]; then
-      base_commit=$(git merge-base "$local_sha" "$default_base" 2>/dev/null || echo "")
-      if [[ -n "$base_commit" ]]; then
-        range="$base_commit..$local_sha"
-      else
-        range="$local_sha"
-      fi
-    else
-      # Fallback: inspect commits reachable only by local_sha
-      range="$local_sha"
+  if [[ "$remote_sha" =~ ^0+$ ]]; then
+    # New remote branch: commits no remote-tracking ref contains.
+    remotes_filter="--remotes=$remote_name"
+    if [[ -z "$(git for-each-ref --count=1 "refs/remotes/$remote_name" 2>/dev/null)" ]]; then
+      remotes_filter="--remotes"
     fi
+    listed=$(git log --format= --name-only -z --diff-filter=ACMR "$local_sha" --not "$remotes_filter" -- '*.php' | tr '\0' '\n' || true)
   else
-    range="$remote_sha..$local_sha"
+    listed=$(git diff --name-only -z --diff-filter=ACMR "$remote_sha..$local_sha" -- '*.php' 2>/dev/null | tr '\0' '\n' || true)
   fi
+  raw_files+="$listed"$'\n'
+done <<< "$push_stdin"
 
-  # Find changed PHP files (added, copied, modified, renamed)
-  if echo "$range" | grep -q '\.\.'; then
-    diff_files=$(git diff --name-only --diff-filter=ACMR "$range" -- '*.php' || true)
-  else
-    diff_files=$(git diff-tree --no-commit-id --name-only -r --diff-filter=ACMR "$range" -- '*.php' || true)
-  fi
-
-  while IFS= read -r f; do
-    if [[ -n "$f" && -f "$f" ]]; then
-      raw_files="${raw_files}${f}"$'\n'
-    fi
-  done <<< "$diff_files"
-done
-
-# If no PHP files changed on gated branches, allow push
-if [[ -z "${raw_files//[$'\t\r\n ']/}" ]]; then
-  exit 0
-fi
-
-# Deduplicate files and store in array
-unique_files=()
+files=()
 while IFS= read -r line; do
   if [[ -n "$line" ]]; then
-    unique_files+=("$line")
+    files+=("$line")
   fi
 done < <(printf '%s' "$raw_files" | sort -u)
 
-if [[ ${#unique_files[@]} -eq 0 ]]; then
+if ((${#files[@]} == 0)); then
   exit 0
 fi
 
-# Run Pint on the target files
+if ! (: </dev/tty) 2>/dev/null; then
+  echo "pre-push: PHP files changed but no terminal is available; skipping Pint (run 'git pint')" >&2
+  exit 0
+fi
+
 set +e
-PINT_OUTPUT=$("$PINT_BIN" "${unique_files[@]}" --format=json 2>/dev/null)
-PINT_EXIT=$?
+"$scripts_dir/git-pint.sh" --test -- "${files[@]}"
+status=$?
 set -e
 
-# Check if Pint modified any files
-changed_files=$(git diff --name-only -- "${unique_files[@]}")
-if [[ -z "$changed_files" ]]; then
-  exit 0
-fi
+case "$status" in
+  0 | 3) exit 0 ;;
+  1) ;;
+  *)
+    echo "pre-push: push aborted; fix the errors above (bypass: git push --no-verify)" >&2
+    exit 1
+    ;;
+esac
 
-echo "========================================================" >&2
-echo "Laravel Pint formatted PHP files in your push." >&2
-echo "========================================================" >&2
-
-# Build summary body from Pint JSON output if available
-summary_body=""
-if [[ -n "$PINT_OUTPUT" ]] && command -v jq >/dev/null 2>&1; then
-  summary_body=$(jq -r '
-    if .files then
-      .files[] | "- \(.name // .path): \(.fixers | join(", "))"
-    else
-      empty
-    end
-  ' <<< "$PINT_OUTPUT" 2>/dev/null || true)
-fi
-
-current_branch=$(git branch --show-current || echo "")
-prefix=$(get_prefix "$current_branch")
-
-# Stage changed PHP files and commit
-git add -- "${unique_files[@]}"
-
-commit_msg="${prefix}Format PHP files with Pint"
-if [[ -n "$summary_body" ]]; then
-  git commit -m "$commit_msg" -m "$summary_body"
-else
-  git commit -m "$commit_msg"
-fi
-
-formatting_sha=$(git rev-parse HEAD)
-
-# Update ignore-revs file if configured
-ignore_file=$(git config blame.ignoreRevsFile || echo "")
-if [[ -n "$ignore_file" ]]; then
-  scripts_dir="${XDG_CONFIG_HOME:-$HOME/.config}/git/scripts"
-  if [[ -x "$scripts_dir/git-blame-ignore.sh" ]]; then
-    "$scripts_dir/git-blame-ignore.sh" "$formatting_sha"
-  fi
-fi
-
-echo "" >&2
-echo "Created formatting commit(s). Push has been aborted so you can review." >&2
-echo "Please inspect the new commit(s) and re-run 'git push'." >&2
-echo "========================================================" >&2
-
-exit 1
+while true; do
+  printf 'Format with Pint? [y]es / [N]o, push as is / [d]iff / [a]bort push: ' >&2
+  IFS= read -r answer </dev/tty || answer=n
+  answer=$(printf '%s' "$answer" | tr '[:upper:]' '[:lower:]')
+  case "$answer" in
+    y | yes)
+      "$scripts_dir/git-pint.sh" --blame-ignore -- "${files[@]}" >/dev/null || true
+      echo "" >&2
+      echo "Push aborted so you can review the formatting commit(s); run 'git push' again." >&2
+      exit 1
+      ;;
+    d | diff)
+      "$scripts_dir/git-pint.sh" --diff -- "${files[@]}" || true
+      ;;
+    a | abort)
+      echo "pre-push: push aborted" >&2
+      exit 1
+      ;;
+    n | no | "") exit 0 ;;
+  esac
+done

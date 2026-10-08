@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# pre-commit: reject staged PHP files that fail `php -l`.
+# Bypass: git commit --no-verify
+
+set -euo pipefail
+
+command -v php >/dev/null 2>&1 || exit 0
+
+failed=0
+while IFS= read -r -d '' file; do
+  if ! output=$(git show ":$file" | php -d display_errors=1 -d log_errors=0 -l 2>&1); then
+    echo "pre-commit: syntax error in $file" >&2
+    echo "$output" | grep -v '^Errors parsing' | sed -e '/^$/d' -e "s# in Standard input code# in $file#" -e 's/^/  /' >&2
+    failed=1
+  fi
+done < <(git diff --cached --name-only -z --diff-filter=ACMR -- '*.php')
+
+if ((failed)); then
+  echo "pre-commit: commit aborted. Bypass with: git commit --no-verify" >&2
+  exit 1
+fi
