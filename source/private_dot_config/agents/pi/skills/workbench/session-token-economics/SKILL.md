@@ -1,7 +1,8 @@
 ---
 name: session-token-economics
 description: >
-  Measure where a Pi session's billed tokens actually go. Use when asked to analyse token cost, context bloat, or spend for a coordinator or agent session; to compare runs before and after a skill, prompt, or extension change; or to answer why a run cost so much, what is filling the context window, or whether a change genuinely reduced token use. Also use before claiming a context-economy change worked. Keywords: token economics, token cost, context bloat, billed tokens, cacheRead, residency, expensive run, session analysis, ~/.config/pi/sessions.
+  Analyse where a Pi session's billed tokens go: cost, context bloat, residency. Compares runs before and after a skill, prompt, or extension change.
+disable-model-invocation: true
 ---
 
 # Session Token Economics
@@ -13,7 +14,7 @@ Sessions are JSONL under `~/.config/pi/sessions/<encoded-cwd>/`, one file per se
 A turn is billed for everything resident in its context, so a tool result costs its own size multiplied by the number of turns that follow it. Late-arriving bulk is cheap and early-arriving bulk is expensive, independent of whether it was ever used again.
 
 ```sh
-skills/workbench/session-token-economics/scripts/token-economics SESSION_JSONL [--json] [--top N]
+scripts/token-economics SESSION_JSONL [--json] [--top N]
 ```
 
 It reports turns, billed prompt tokens, peak context, the residency multiplier, the cost split, residency by category, repeat reads, the largest individual residents, and a hash for every instruction file read. `--help` lists the rest.
