@@ -59,7 +59,7 @@ Describe artifacts in terms of their purpose, responsibilities, boundaries, and 
 - what they replaced
 - what they are not
 - historical decisions
-- rejected alternatives
+- alternatives a future reader would not propose
 
 Documentation and comments explain what is true, not what became true. Comments describe behavior, not changes.
 
