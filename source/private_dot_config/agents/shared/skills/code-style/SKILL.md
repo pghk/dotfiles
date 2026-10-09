@@ -66,6 +66,10 @@ Before keeping a comment, delete it and reread the code. Keep it only if a
 specific question remains that the code cannot answer. For a comment written
 in the same edit as the code it describes, deletion is the default outcome.
 
+Before rewording a comment you didn't write, recover why its code exists from
+the commit and its history. If that reason no longer holds, delete the comment
+instead.
+
 Once a comment has earned its place, length is the only thing left to fix.
 When prose runs long, compress it to capture just the essence — don't delete
 it. One short sentence that preserves the *why* is better than either a
