@@ -22,20 +22,20 @@ A commit message states what the change does and why it exists. Keep it brief an
 **Body (if needed):**
 
 - Include when the subject alone doesn't convey what and why; skip when it does
-- Open by completing the shape the subject started: for a fix, the failure or the condition that triggers it; for a feature, the process it allows or the benefit. Expand on the subject; do not repeat it
+- Open by completing the shape the subject started: for a fix, what would occur and the condition that triggers it, written as the failure the change removes ("an export would time out when…"), not as current behaviour; for a feature, the process it allows or the benefit. Expand on the subject; do not repeat it
 - Write in present tense about what the change does. Describe the result, not the transition: no "now", "no longer", or problem told as history ("Reviewing X meant…")
-- The benefit is a task the reader performs or a failure they stop seeing, not the existence of what the change adds: "so that a UI change can be reviewed from before/after captures", not "so that pages have gallery tests"
+- The benefit is a task the reader performs or a failure they stop seeing, not the existence of what the change adds: "so that support staff can resend an invitation without engineering help", not "so that invitations have a resend action"
 - Describe a failure as someone would report it, not by the mechanism producing it; the diff shows the causal chain. For a fix, add regression provenance when known. Where a ticket or issue exists, carry only what a reader holding it still lacks
-- State effects a reader wouldn't predict from the subject, especially behaviour that changes outside it
+- State behaviour a reader would see change outside the subject's scope. If nothing observable changes elsewhere, say nothing
 - Leave the change set to the diff. Do not inventory it, whether as bullets or as prose opening "Adds…", "Wraps…". Do not restate documentation the commit adds or changes
-- At most one explanatory statement, placed last: the organising principle the change applies and the property that follows from it, or the present constraint that decides the approach. "Every GET/POST pair now has its own name matching its controller, so no name reaches another verb's URI by coincidence" earns its place; a list of the renames does not. An alternative a future reader might propose may appear, with why it doesn't fit
+- At most one explanatory statement, placed last: the organising principle the change applies and the property that follows from it, or the present constraint that decides the approach. State it at the coarsest level that stays true of this diff: the property, the means named once, and its purpose. "Test fixture data is generated deterministically using Faker's seed, to minimise diff noise" earns its place; a list of which values come from where does not. An alternative a future reader might propose may appear, with why it doesn't fit. For a fix, the statement explains how the change prevents the failure: the property the corrected code holds and why that property excludes the fault
 - Write for a reader who arrives later with no memory of the session. What you tried, verified, or ruled out, and corrections made during the work, do not appear
 - Describe behaviour a reader can observe. Name a symbol when it's the only way to say which thing you mean
 - Write plain sentences, one thought each, not semicolon chains. Make each pronoun point to one noun. Give each concept one name, using the codebase's names; do not invent terms
 - Reference a prior commit by 7-char short hash, with a parenthetical qualifier where the reference needs a condition attached
 - Wrap at 72 chars
 
-**Check the draft:** Before committing, test every body sentence and delete it if it repeats the subject, describes a transition rather than the result, or says something the diff already shows — including usage, commands, layout, or naming given by documentation in the diff. Then confirm the body states every effect outside the subject's scope.
+**Check the draft:** Before committing, test every body sentence and delete it if it repeats the subject, describes a transition rather than the result, or says something the diff already shows — including usage, commands, layout, or naming given by documentation in the diff. Then confirm the body states every observable change outside the subject's scope.
 
 **Auto-Clarity**
 
