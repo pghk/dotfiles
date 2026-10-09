@@ -68,8 +68,8 @@ Keep the split fixed across iterations so you're comparing apples to apples.
 
 1. Evaluate on train and validation sets
 2. Identify failures in the **train set only**
-   - Should-trigger failures → description too narrow; broaden scope or add context
-   - Should-not-trigger failures → description too broad; add specificity or exclusions
+   - Should-trigger failures → first check the name and the nearest overlapping skill; add the one trigger or discriminator that separates them, not more phrasings
+   - Should-not-trigger failures → add the scope limit that excludes the near-miss
 3. Revise the description — address the general category, not the specific query (keyword-matching specific failed queries is overfitting)
 4. Repeat until train set passes or improvement stalls
 5. Select the best iteration by **validation pass rate** — the last iteration may have overfit
@@ -79,16 +79,18 @@ Five iterations is usually enough. If no improvement, the issue may be with the 
 ## Applying the result
 
 1. Update `description` in `SKILL.md` frontmatter
-2. Verify under 1024 characters
+2. Verify it is under 1024 characters and follows the size guidance in `SKILL.md`
 3. Sanity-check: run 5–10 fresh prompts (never part of the eval set)
 
 Before/after example:
 
 ```yaml
 # Before
-description: Process CSV files.
-
-# After
 description: >
   Analyze CSV and tabular data files — compute summary statistics, add derived columns, generate charts, and clean messy data. Use this skill when the user has a CSV, TSV, or Excel file and wants to explore, transform, or visualize the data, even if they don't explicitly mention "CSV" or "analysis."
+
+# After
+description: "Use when exploring, transforming, or charting a CSV, TSV, or Excel file."
 ```
+
+The "after" keeps the trigger and drops the contents list and the "even if they don't mention" clause. Add a clause back only when a trigger test shows a near-miss firing or a neighbour winning.

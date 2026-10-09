@@ -1,8 +1,6 @@
 ---
 name: code-review
-description: >
-  Use when asked to review, audit, inspect, or find issues in one or more Git
-  commits, a commit range, a branch, or changes since a base.
+description: "Use when asked to review, audit, or find issues in Git commits, a commit range, a branch, or changes since a base."
 ---
 
 # Code Review

@@ -1,6 +1,6 @@
 ---
 name: vs-design-system
-description: Use when inspecting, reviewing, or comparing the VenturEd Solutions Design System, its components, tokens, Storybook stories, Ravenna prototypes, or gaps against Hub behavior.
+description: "Use for the VenturEd Solutions Design System: components, tokens, stories, Ravenna prototypes, or gaps against Hub behavior."
 ---
 
 # VenturEd Solutions Design System

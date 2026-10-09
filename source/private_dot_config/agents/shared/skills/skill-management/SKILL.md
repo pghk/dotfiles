@@ -1,7 +1,7 @@
 ---
 name: skill-management
 description: >
-  Create, update, review, or maintain Agent Skills. Use when asked to "create a skill", "make a new skill", "scaffold a skill", "update a skill", "edit a skill", "improve a skill", "add a skill", or when modifying SKILL.md files or skill directories. Also use when asked to fix a skill's description, improve discoverability, or add scripts to a skill. Also use when evaluating why a skill did or did not trigger, or diagnosing whether a trigger change would fix a recurring gap.
+  Create, update, review, or maintain Agent Skills and their SKILL.md files, including fixing a skill's description or diagnosing why a skill did or did not trigger.
 ---
 
 # Skill Authoring
@@ -25,7 +25,7 @@ Measure `SKILL.md` in bytes (`wc -c`), not lines: prose here is unwrapped, so a 
 | Field | Required | Constraints |
 | --- | --- | --- |
 | `name` | Yes | 1–64 chars, lowercase letters/numbers/hyphens, no leading/trailing/consecutive hyphens, must match folder name |
-| `description` | Yes | 1–1024 chars. What it does and when to use it. Include keywords. |
+| `description` | Yes | 1–1024 chars. The trigger, as short as it can be; see [Descriptions](#descriptions). |
 | `license` | No | License name or bundled file reference |
 | `compatibility` | No | Environment requirements (product, packages, network) |
 | `metadata` | No | Arbitrary key-value pairs |
@@ -60,16 +60,16 @@ description: "What it does. Use when <triggers and keywords>."
 
 ## Descriptions
 
-The description is the **only** discovery mechanism. It loads at startup for every skill; the body only loads if the description matches the task.
+The description is the **only** discovery mechanism. The listing shows each skill's name and description at startup; the body loads only after the model invokes the skill. The model matches the current task against the listing, so a description needs only enough to be picked over the other listed skills.
 
-Principles:
+A description must carry no more than it takes to win that match:
 
-- **Write for activation, not summary.** Describe the situation that should trigger the skill, not what it contains.
-- **Use imperative phrasing.** "Use when…" not "This skill does…"
-- **Include keywords** a user might say — direct and indirect.
-- **Be specific about scope.** Name what it does _not_ cover if adjacent skills exist.
-- **Be pushy.** Explicitly list edge cases: "even if they don't mention X directly."
-- Stay under 1024 characters.
+- **Start from the name.** A name that says what the skill does (`bug-fix`, `to-tickets`, `commit`) is matched on its own. Add only what the name lacks.
+- **State the trigger, not the contents.** One clause or a keyword list, such as `review tests, audit tests, test plan, before rewriting tests`. A comma list of keywords triggers as reliably as a full sentence. Leave out what the skill finds, produces, or contains; the body covers that.
+- **Spend extra characters only on discrimination.** Name the trigger that separates the skill from its nearest overlapping neighbour (`dig` against `why`), or the scope limit that stops it firing on near-miss tasks. Both are worth their cost; repeated phrasings, example queries, and "even if they don't mention X" clauses are not.
+- **Size.** Aim for 150–250 characters; the hard limit is 1024. Harnesses may cap the combined size of all listed descriptions and drop the ones that do not fit; the harness instructions give the limit. A skill with `disable-model-invocation: true` is not listed and is exempt.
+
+These rules come from trigger tests on Copilot CLI 1.0.95 with Sonnet 5.5, where a keyword list matched a full sentence, and an empty description still triggered on every skill whose name is self-describing except the one that overlaps a neighbour.
 
 Read [references/descriptions.md](references/descriptions.md) when you need to test whether a description triggers reliably or optimize an existing one.
 

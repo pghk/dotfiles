@@ -1,6 +1,6 @@
 ---
 name: principle-experience-first
-description: "Apply when product, UX, or feature-scope tradeoffs come up. Choose user delight over implementation convenience; ship fewer polished features over more rough ones."
+description: "Apply when scoping a feature or designing a UI or public API surface and implementation convenience conflicts with the consumer's experience."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-experience-first"

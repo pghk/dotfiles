@@ -1,6 +1,6 @@
 ---
 name: principle-exhaust-the-design-space
-description: "Apply when facing a novel UI interaction or architectural decision with no precedent in the codebase. Build 2-3 competing prototypes and compare side by side before committing."
+description: "Apply to a novel UI interaction or architectural decision with no precedent in the codebase: prototype 2-3 options before committing."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-exhaust-the-design-space"

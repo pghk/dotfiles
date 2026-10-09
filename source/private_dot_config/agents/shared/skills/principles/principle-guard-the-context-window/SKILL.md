@@ -1,6 +1,6 @@
 ---
 name: principle-guard-the-context-window
-description: "Apply when context is filling up: large outputs, long files, repeated reads, fan-out planning. Route bulk to subagents; keep summaries in the main thread, not raw payloads."
+description: "Apply before reading large files, running verbose commands, or planning fan-out: keep bulk out of the main context."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-guard-the-context-window"

@@ -1,11 +1,12 @@
 ---
 name: to-tickets
-description: "Use when the user explicitly asks to turn a specification into tickets, such as ‘turn this spec into tickets’. Decompose the accepted spec into vertical tracer-bullet ticket files; do not implement or route the work."
+description: "Manual only. Decompose the current spec into vertical tracer-bullet ticket files; no implementation or routing."
 license: MIT
 metadata:
   source: "https://github.com/mattpocock/skills/tree/74ca5fe077456a0b3b2f5310cf9430999fd0b5fd/skills/engineering/to-tickets"
   upstream-revision: "74ca5fe077456a0b3b2f5310cf9430999fd0b5fd"
   provenance: "adapted-from-upstream"
+disable-model-invocation: true
 ---
 
 # To Tickets

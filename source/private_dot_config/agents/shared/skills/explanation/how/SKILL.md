@@ -1,17 +1,7 @@
 ---
 name: how
 description: >
-  Explain how a system, subsystem, feature, request, or code path works when
-  the user asks “how does X work?”, requests a runtime or code walkthrough,
-  or needs ownership, placement, layering, lifecycle, or a subsystem mental
-  model. Trace present mechanics and cite real paths and symbols. Do not use
-  for historical motivation, design rationale, or tradeoffs (use why), or for
-  a pedagogical synthesis (use teach).
-license: MIT
-metadata:
-  source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/how"
-  upstream-revision: "e31650eea443aaea1e84cc15d88c13f40080b275"
-  provenance: "adapted-from-upstream"
+  Explain how a system, feature, or code path works now: runtime walkthrough, ownership, layering, lifecycle. Not design rationale (why) or a lesson (teach).
 ---
 
 # How

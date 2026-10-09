@@ -1,6 +1,6 @@
 ---
 name: principle-build-the-lever
-description: "Apply to any non-trivial work, not just bulk work: edits, migrations, analyses, checks. Build the tool that does it or proves it (codemod, script, generator, or a skill your subagents follow) instead of working by hand. The tool is the artifact a reviewer can rerun."
+description: "Apply when work repeats across many files or units, or when a check or analysis should be rerunnable: build a script, codemod, or generator instead of working by hand."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-build-the-lever"
@@ -10,11 +10,11 @@ disable-model-invocation: true
 ---
 # Build the Lever
 
-When the work isn't trivial, build the tool that does it instead of doing it by hand.
+When work repeats across many files or units, or a check or analysis should be rerunnable, build the tool that does it instead of doing it by hand.
 
 **Why:** Two payoffs. Throughput: a codemod, generator, or script does the work the same way every time and reruns for free. Confidence: the tool is one artifact a reviewer can read and rerun to check the work. Hand-done changes can only be re-verified by redoing them. A deterministic script turns "trust me" into "run this".
 
-**Pattern:** Default to building the lever. Skip it only when the task is trivial, a couple of obvious edits you can see at a glance.
+**Pattern:** Build the lever when the work repeats or a reviewer should be able to rerun it. Skip it when the task is a couple of obvious edits you can see at a glance.
 
 - Do the first unit by hand to learn the recipe, then build the tool. Prove it by rerunning it on that unit and diffing against your hand-done version. Make the lever safe to rerun.
 - Codemod or script for edits, generator for repetitive files, a dump-to-sqlite query for analysis, a rerunnable check for verification.
@@ -23,6 +23,6 @@ When the work isn't trivial, build the tool that does it instead of doing it by 
 - Applying this principle produces a file. If you cited it and there is no codemod, script, generator, or delegate skill in the diff, you didn't apply it.
 - Commit the lever when the work outlives the session.
 
-**Balance:** The bar is triviality, not repetition. A one-off still earns a lever when the lever is what makes the work checkable. Build the smallest script that does or proves the job, never a framework.
+**Balance:** Repetition justifies a lever, and so does checkability: a one-off still earns one when the lever is what makes the work checkable. Build the smallest script that does or proves the job, never a framework.
 
 This is throughput and reviewability for the work in front of you.

@@ -1,11 +1,12 @@
 ---
 name: to-spec
-description: "Use when the user explicitly asks to turn the current conversation or request into a spec, such as ‘turn this into a spec’. Synthesize a local Markdown specification; do not route or implement the work."
+description: "Manual only. Synthesize the current conversation into a local Markdown spec at docs/plans/<date>-<slug>/spec.md; no routing or implementation."
 license: MIT
 metadata:
   source: "https://github.com/mattpocock/skills/tree/74ca5fe077456a0b3b2f5310cf9430999fd0b5fd/skills/engineering/to-spec"
   upstream-revision: "74ca5fe077456a0b3b2f5310cf9430999fd0b5fd"
   provenance: "adapted-from-upstream"
+disable-model-invocation: true
 ---
 
 # To Spec

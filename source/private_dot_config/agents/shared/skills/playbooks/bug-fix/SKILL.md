@@ -1,6 +1,6 @@
 ---
 name: bug-fix
-description: "Use for a reported defect, broken or failing behavior, or an explicit request to debug and fix a bug. Establish a credible reproduction before investigating implementation or changing production code."
+description: "Use for a reported defect or failing behavior, or a request to debug a bug; reproduce it before investigating or changing code."
 license: MIT
 metadata:
   source: "https://github.com/mattpocock/skills/tree/74ca5fe077456a0b3b2f5310cf9430999fd0b5fd/skills/engineering/diagnosing-bugs"

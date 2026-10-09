@@ -1,6 +1,6 @@
 ---
 name: principle-subtract-before-you-add
-description: "Apply when planning or implementing a change that adds or alters behavior, validation, abstractions, prompts, compatibility, scaffolding, or process: remove unnecessary complexity before adding what the contract requires."
+description: "Apply before adding behavior, validation, abstraction, compatibility, or process: remove what the existing design makes unnecessary first."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-subtract-before-you-add"

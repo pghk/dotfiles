@@ -1,6 +1,6 @@
 ---
 name: principle-model-the-domain
-description: "Apply when writing stateful logic, or when code branches a lot or repeats a shape assumption across files. Encode the domain in a structure instead of scattered conditionals."
+description: "Apply when adding another branch or flag to existing logic, or writing stateful code; pick a structure (state machine, union, registry) that makes invalid states impossible."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-model-the-domain"

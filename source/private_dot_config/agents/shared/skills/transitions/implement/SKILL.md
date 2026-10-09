@@ -1,6 +1,6 @@
 ---
 name: implement
-description: "Use for an explicit /skill:implement invocation or an unambiguous request to implement, build, or fix a defined piece of work. Accept a scoped request, specification, or stable vertical ticket files; do not use as a universal router."
+description: "Use when asked to implement, build, or fix a defined piece of work from a request, spec, or tickets."
 license: MIT
 metadata:
   source: "https://github.com/mattpocock/skills/tree/74ca5fe077456a0b3b2f5310cf9430999fd0b5fd/skills/engineering/implement"

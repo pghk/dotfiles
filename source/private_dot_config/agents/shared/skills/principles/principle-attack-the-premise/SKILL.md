@@ -1,6 +1,6 @@
 ---
 name: principle-attack-the-premise
-description: "Apply when two or more fixes that share one premise have failed the same gate. Take a census of which actors hold the imbalance before the next fix, then question the premise instead of writing another fix that assumes it."
+description: "Apply when a second fix for the same problem fails: write down the premise every attempt shared and question it before another fix."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-attack-the-premise"

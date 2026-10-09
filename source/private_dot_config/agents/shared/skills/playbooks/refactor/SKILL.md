@@ -1,6 +1,7 @@
 ---
 name: refactor
-description: "Use for an explicit behavior-preserving refactor or implementation simplification on a bounded scope. Do not use for feature behavior, bug fixes, formatting/naming/comment/docs-only cleanup, or architecture redesign that changes boundaries, contracts, or ownership."
+description: >
+  Behavior-preserving refactor or simplification of bounded code. Not for features, bug fixes, formatting or naming-only cleanup, or architecture redesign.
 metadata:
   author: "Paul Hendrick"
   provenance: "local-composition"

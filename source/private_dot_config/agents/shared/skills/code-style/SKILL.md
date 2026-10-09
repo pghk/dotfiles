@@ -1,9 +1,6 @@
 ---
 name: code-style
-description: >
-  Personal code style preferences that apply across all projects. Use when
-  writing or reviewing anything in a repository — application code, tests,
-  comments, docblocks, and documentation.
+description: "Use when writing or reviewing code, tests, comments, docblocks, or documentation in any repository."
 ---
 
 Write self-documenting code first. Prose covers what the code can't carry:

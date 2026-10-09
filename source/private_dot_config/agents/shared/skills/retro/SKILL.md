@@ -1,6 +1,6 @@
 ---
 name: retro
-description: "Use for an explicit retrospective request such as retro, reflect, session learnings, what did we learn, or an end-of-session retrospective. Review the active conversation for reusable learning: corrections, successful techniques, clarified domain knowledge, missed skill triggers, friction, and preventable rework. Suggest it proactively only after repeated corrections, repeated tool errors, preventable rework, or clear mounting friction; do not run it for every session or a one-off mistake."
+description: "Review the conversation and propose lasting improvements to skills, instructions, and tooling. Use for an explicit retro ('retro', 'what did we learn'). Suggest unprompted only after repeated corrections, rework, or mounting friction."
 license: MIT
 metadata:
   source: "https://github.com/mattpocock/skills/tree/74ca5fe077456a0b3b2f5310cf9430999fd0b5fd/skills/in-progress/retro"

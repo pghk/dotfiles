@@ -1,12 +1,11 @@
 ---
 name: principle-type-system-discipline
-description: "Apply when designing types, reviewing a function signature, or writing code in any statically-typed language. Make illegal states unrepresentable, brand semantic primitives, parse external data at boundaries, refuse to lie to the compiler, exhaust variants, derive from authoritative schemas."
+description: "Apply when designing types or function signatures in a statically typed language, or when reaching for a cast, `any`, or non-null assertion."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-type-system-discipline"
   upstream-revision: "e31650eea443aaea1e84cc15d88c13f40080b275"
   provenance: "adapted-from-upstream"
-disable-model-invocation: true
 ---
 
 # Type System Discipline

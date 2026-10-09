@@ -1,39 +1,38 @@
 ---
 name: dig
 description: >
-  Recover the "why" behind a commit when rebasing, reordering, or branch
-  copying has broken the original context chain. Use when a commit message
-  feels thin, when you want to know what problem a change actually solves,
-  when a change was ported from another branch and lost its origin story,
-  or when asked to research a commit, trace a change, explain why something
-  was done, find the original context, understand the history behind code,
-  or improve a commit message with real context. Keywords: why was this
-  changed, trace commit history, origin of change, dig into commit, find
-  context for commit, explain this change, knowledge gap, rebased history,
-  ported commit.
+  Search git history, other branches, the reflog, and past sessions for the origin or evolution of a commit, symbol, or approach: why a change was made, whether a problem was solved elsewhere, or where work was lost.
 ---
 
 # Dig
 
-Recover the full "why" behind a commit by tracing it across git history,
-other branches, and session records. The immediate commit message is often
-thin — written during a rebase or copy hop — and the real context lives
-elsewhere.
+Recover the history of a subject by tracing it across git history, other
+branches, the reflog, and session records. The subject is a commit, a class
+member or symbol, a problem, or an approach. What the current branch shows is
+often incomplete: messages are thin after rebases and copies, other branches
+hold divergent versions, and work can be lost before it merges.
 
 ---
 
 ## When to use this
 
-Rebasing, reordering, and branch copying are routine in this workflow. Each
-hop can erode context:
+- **Why a change was made.** Rebasing, reordering, and branch copying are
+  routine in this workflow, and each hop can erode context:
+  - A fix written with a detailed message gets squashed into a feature commit
+  - A WIP stash entry holds the original reasoning
+  - The real diagnosis was written in a session turn, not in git
+  - A commit references an earlier commit by SHA that no longer exists on
+    the current branch
+- **Whether a problem was solved before.** The solution may live on another
+  branch or in an earlier session.
+- **How something evolved.** A class member or approach may have diverged
+  across branches; the answer is each version and how they relate.
+- **Where work went.** Something that should be in the current branch may
+  have been lost before it was merged.
 
-- A fix written with a detailed message gets squashed into a feature commit
-- A WIP stash entry holds the original reasoning
-- The real diagnosis was written in a session turn, not in git
-- A commit references an earlier commit by SHA that no longer exists on
-  the current branch
-
-Dig works backward from the commit to reconstruct the full story.
+With a commit as the subject, work backward from it to the full story. With
+any other subject, locate the candidate commits (steps 2–6) and then treat each
+as the commit in step 1.
 
 ---
 

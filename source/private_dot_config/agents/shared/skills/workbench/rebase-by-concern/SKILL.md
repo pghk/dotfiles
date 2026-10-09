@@ -1,7 +1,8 @@
 ---
 name: rebase-by-concern
 description: >
-  Reorganize a messy branch's commit history into one commit per logical concern, through a collaborative back-and-forth rather than a single-shot rewrite. Use when asked to clean up, squash, reorder, or split commits across a branch or range, or to "make this branch reviewable."
+  Reorganize a messy branch into one commit per logical concern, collaboratively, on a new branch. Use to clean up, squash, reorder, or split commits, or make a branch reviewable.
+disable-model-invocation: true
 ---
 
 Build a clean history forward: a new branch from `<base>`, one commit per
@@ -25,6 +26,9 @@ in chat, show only what each revision changed. Per concern it records:
   *fix* (an ad-hoc or scope-adjacent change; one concern each)
 - **members**: paths, plus `stage-hunks.py --list` hunks for a file shared
   between concerns
+- **purpose**: why the concern exists and what it changes for the reader,
+  in the terms settled with the user
+- **message**: the commit message, drafted from the purpose
 - **depends on / needed by**
 - **open questions**, including each proposed merge of a fixed entry into
   this concern
@@ -40,7 +44,11 @@ last. The first response reads a horizontal pass and states in plain terms
 what the branch appears to aim for and the steps it took toward that goal:
 an informal first draft of the concerns and their order. Each later round
 refines where the user steers, from concerns to members to shared files.
-Write the map file once the overview in chat has settled.
+Write the map file once the overview in chat has settled. Each round also
+firms up every concern's purpose until its message can be written from the
+conversation. An original message may be reused verbatim when it accurately
+and fully describes the concern's purpose; a merged or split concern gets a
+message for its settled purpose, never messages joined from several originals.
 
 Each round alternates two modes:
 
@@ -74,7 +82,8 @@ every hunk of a shared file has an owner, and no open question remains.
 
 ## Approval gate
 
-Post the complete map and ask the user to approve committing it. Stage and
+Post the complete map, messages included, and ask the user to approve
+committing it. Stage and
 commit nothing until they do.
 
 ## Commit the map
@@ -85,12 +94,12 @@ Approval covers every concern, in map order. Per concern:
    whole files (handles adds, deletes, renames, modes, binaries; name both
    sides of a rename); `stage-hunks.py <orig> <path> --hunks 1,3` for part
    of a file; `git cherry-pick <sha>` for a fixed entry.
-2. Commit with its final message.
+2. Commit with the approved message from the map.
 3. Verify: build the affected assets and run the concern's tests.
 4. `git diff --stat HEAD <orig>` shows what remains.
 
 Stop and return to the user when execution departs from the map: a hunk no
-concern owns, a member that won't stage cleanly, a failing check, or a
+concern owns, a diff that contradicts its approved message, a member that won't stage cleanly, a failing check, or a
 concern that needs splitting. Revise the map together, then resume.
 
 Done when `git diff HEAD <orig>` shows exactly the approved intended

@@ -1,16 +1,7 @@
 ---
 name: teach
 description: >
-  Teach a subsystem, change, concept, or code path when the user asks “teach
-  me”, “help me understand”, or requests a pedagogical explanation. Build a
-  learning sequence and mental model from purpose through flow, example,
-  rationale, and consequences. Use how or why directly for a focused mechanics
-  or rationale question instead of forcing a lesson.
-license: MIT
-metadata:
-  source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/teach"
-  upstream-revision: "e31650eea443aaea1e84cc15d88c13f40080b275"
-  provenance: "adapted-from-upstream"
+  Teach a concept, subsystem, or change as a learning sequence when asked to 'teach me' or 'help me understand'. For a focused how or why question, use those directly.
 ---
 
 # Teach

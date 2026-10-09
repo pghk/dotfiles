@@ -1,7 +1,7 @@
 ---
 name: commit
 description: >
-  Commit message conventions: subject shape, body content, and the mechanics of writing and rewriting messages. Use when running git commit, composing commit message text including inline in a shell command, rewording, squashing, amending, editing messages during a rebase, or committing on your own initiative mid-task.
+  Commit message conventions and the mechanics of writing or rewriting them. Use when composing, rewording, squashing, or amending a message, including commits made on your own initiative.
 ---
 
 A commit message states what the change does and why it exists. Keep it brief and plain.

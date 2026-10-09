@@ -1,6 +1,6 @@
 ---
 name: show-your-work
-description: "Maintain a compact, reviewable decision trail for multi-agent, multi-session, unattended, or otherwise hard-to-audit work, or when the user invokes /show-your-work."
+description: "Use for multi-agent, multi-session, or unattended work whose decisions someone must audit later."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/show-me-your-work"

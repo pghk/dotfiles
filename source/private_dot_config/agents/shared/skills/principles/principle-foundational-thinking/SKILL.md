@@ -1,12 +1,11 @@
 ---
 name: principle-foundational-thinking
-description: "Apply before writing logic: choosing core types and data structures, sequencing scaffold-vs-feature work, asking what concurrent actors share. Get the data structures right so downstream code becomes obvious."
+description: "Apply when starting a feature or planning a multi-phase change: what to build first (data shape, shared scaffold) and what concurrent actors share."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-foundational-thinking"
   upstream-revision: "e31650eea443aaea1e84cc15d88c13f40080b275"
   provenance: "adapted-from-upstream"
-disable-model-invocation: true
 ---
 
 # Foundational Thinking

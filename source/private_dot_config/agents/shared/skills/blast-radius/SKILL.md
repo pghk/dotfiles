@@ -1,6 +1,6 @@
 ---
 name: blast-radius
-description: "Use for an explicit blast-radius or what-could-this-break request, or when assessing a change whose safety depends on effects beyond the diff or local module. Find and prove the one or two non-local safety facts; do not stop at listing callers."
+description: "Use for a blast-radius or 'what could this break?' request, or when a change's safety depends on effects beyond the diff."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/blast-radius"

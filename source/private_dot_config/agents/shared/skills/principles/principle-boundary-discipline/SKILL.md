@@ -1,6 +1,6 @@
 ---
 name: principle-boundary-discipline
-description: "Apply when wiring validation, error handling, or framework adapters. Concentrate guards at system boundaries (CLI, config, network, external APIs); trust internal types and keep business logic in pure functions."
+description: "Apply when adding validation or error handling, or writing framework/CLI/handler wiring: guards belong at system boundaries, logic in pure functions."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-boundary-discipline"

@@ -1,7 +1,8 @@
 ---
 name: rewriting-squashed-commits
 description: >
-  Use when asked to rewrite, reword, or fix up commit messages across a git commit range — especially a range produced by iterative squashing, where each message is a concatenation of earlier commit subjects/bodies separated by blank lines, or where a Jira/ticket key needs to replace a gitmoji prefix ahead of opening a PR.
+  Rewrite commit messages across a range, especially after iterative squashing left concatenated messages, or when a ticket key must replace the gitmoji prefix before a PR.
+disable-model-invocation: true
 ---
 
 # Rewriting a Squashed Commit Range

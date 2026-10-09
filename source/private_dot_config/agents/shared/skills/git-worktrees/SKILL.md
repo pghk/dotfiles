@@ -1,6 +1,7 @@
 ---
 name: git-worktrees
-description: "Use when creating, preparing, or working in a git worktree, or when a fresh worktree lacks vendor, node_modules, or .env. Links dependencies from the main tree via script. Keywords: git worktree, worktree add, new worktree, symlink node_modules, vendor, .env, sibling checkout."
+description: >
+  Create or prepare a git worktree, or fix one lacking vendor, node_modules, or .env by linking them from the main tree.
 ---
 
 # Git worktrees

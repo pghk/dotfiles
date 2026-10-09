@@ -1,17 +1,7 @@
 ---
 name: why
 description: >
-  Explain why a system, subsystem, feature, or code shape works this way when
-  the user asks “why does X work this way?”, asks for design rationale,
-  historical choices, regressions, postmortems, or evidence-backed tradeoffs.
-  Establish the decision and reconstruct its rationale from reachable evidence.
-  Do not use for present runtime mechanics (use how) or a learning sequence
-  (use teach).
-license: MIT
-metadata:
-  source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/why"
-  upstream-revision: "e31650eea443aaea1e84cc15d88c13f40080b275"
-  provenance: "adapted-from-upstream"
+  Explain why a system or code is shaped this way: design rationale, history, regressions, tradeoffs, from reachable evidence. Not present mechanics (how).
 ---
 
 # Why

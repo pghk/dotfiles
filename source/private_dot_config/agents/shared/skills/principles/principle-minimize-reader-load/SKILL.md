@@ -1,6 +1,6 @@
 ---
 name: principle-minimize-reader-load
-description: "Apply when reviewing or shaping code that's hard to trace. Count layers between question and answer, and hidden state in the reader's head; collapse one-caller wrappers and shrink mutable scope."
+description: "Apply when adding a wrapper, adapter, layer, or mutable state, or reviewing code that is hard to trace: weigh the cost to the next reader."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-minimize-reader-load"

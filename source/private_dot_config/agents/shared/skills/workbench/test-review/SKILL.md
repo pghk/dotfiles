@@ -1,16 +1,8 @@
 ---
 name: test-review
 description: >
-  Use when reviewing, auditing, or judging existing or proposed tests, test
-  plans, and test acceptance criteria. Finds tests that pass but catch nothing,
-  planned claims with no observable SUT boundary, tests that assert the harness
-  instead of the subject, tests at a layer that adds no observation power,
-  assertions that cannot fail, and selector or instrument misuse. Use when
-  asked whether tests are meaningful, test realistic failures, read like a
-  behavioral spec, cover the right behavior, or could have caught a bug—even
-  when no test files exist yet or the request does not use the word “review.”
-  Also use when asked to fix, improve, clean up, strengthen, or rewrite
-  existing tests: the review comes before the edit.
+  Judge whether tests, test plans, or acceptance criteria can tell correct behavior from incorrect, and report findings with evidence before any edit.
+disable-model-invocation: true
 ---
 
 # Test Review

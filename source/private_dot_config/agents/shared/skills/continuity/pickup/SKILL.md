@@ -1,11 +1,7 @@
 ---
 name: pickup
 description: >
-  Reconstruct durable project progress and resume an accepted task from the
-  live repository state. Use when the user says pickup, pick this back up,
-  resume this project or work, where did this project leave off, or asks to
-  reconstruct progress because adequate guidance is missing. Keywords: pickup,
-  resume work, pick back up, where did this leave off, reconstruct progress.
+  Reconstruct project progress from the live repository state and resume the accepted task. Use for 'pickup', 'pick this back up', 'where did we leave off'.
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/recall"

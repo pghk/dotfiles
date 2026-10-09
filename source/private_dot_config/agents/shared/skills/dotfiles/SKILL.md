@@ -1,9 +1,6 @@
 ---
 name: dotfiles
-description: >
-  How to work with this user's chezmoi-managed dotfiles repo. Use when asked
-  to modify dotfiles, config files, or shell setup from any project context —
-  not just when already inside the chezmoi repo.
+description: "Use when modifying dotfiles, config files, or shell setup, from any project; they live in a chezmoi repo."
 ---
 
 ## Repo location

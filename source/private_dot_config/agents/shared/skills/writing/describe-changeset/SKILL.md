@@ -1,7 +1,8 @@
 ---
 name: describe-changeset
 description: >
-  Describe a branch changeset for a pull request, focused on what reviewers need to know before merging. Use when asked to "describe this changeset", "write a PR description", "compose a PR message", "draft a pull request description", or "what should I put in the PR". This skill prepares review context. It does not conduct code review or create the pull request.
+  Write a PR description for a branch: what reviewers need to know before merging. Not a code review, and does not create the PR.
+disable-model-invocation: true
 ---
 
 # Describe Changeset

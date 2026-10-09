@@ -1,7 +1,8 @@
 ---
 name: plan-qa
 description: >
-  Plan manual browser QA for a branch against a deployed environment. Use when asked to "write QA steps", "write a test plan", "what should QA check", "write QA notes", "how do we verify this in staging/preview", or to describe verification for a ticket or release. The reader knows the application but not the code, infrastructure, or diff, so every step must be an action they take and an outcome they can see. Distinct from describe-changeset, which briefs reviewers, and from automated test authoring.
+  Write manual browser QA steps for a branch, for testers who have not seen the code. Use for "what should QA check" or "how do we verify this in staging/preview". Not a reviewer briefing (describe-changeset).
+disable-model-invocation: true
 ---
 
 # Plan QA

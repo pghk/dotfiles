@@ -1,6 +1,6 @@
 ---
 name: principle-encode-lessons-in-structure
-description: "Use when the same instruction or correction recurs, compliance fails repeatedly, or you are deciding how to make a recurring rule enforceable. Prefer a structural mechanism over another textual instruction."
+description: "Use when a correction or instruction recurs, a rule keeps being missed, or you are about to add another reminder; enforce it with structure instead."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-encode-lessons-in-structure"
