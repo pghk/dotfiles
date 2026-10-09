@@ -6,6 +6,8 @@
 
 Never push. Completion does not authorize merge, branch deletion, discard, or workspace cleanup. Preserve the branch and workspace unless the user explicitly requests a separate action.
 
+Load the `commit` skill before writing or rewording any commit message.
+
 Commit each discrete unit of completed work immediately after verifying it, before reporting back to the user. Do not wait for perfect concern boundaries before committing. Tend history continuously:
 
 - merge redundant commits

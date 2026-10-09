@@ -1,10 +1,10 @@
 ---
 name: commit
 description: >
-  Style manual for git commit message format — subject line and body conventions. Use when running git commit, composing commit message text including inline in a shell command, rewording, squashing, amending, editing messages during a rebase, or committing on your own initiative mid-task.
+  Commit message conventions: subject shape, body content, and the mechanics of writing and rewriting messages. Use when running git commit, composing commit message text including inline in a shell command, rewording, squashing, amending, editing messages during a rebase, or committing on your own initiative mid-task.
 ---
 
-A commit message answers why this change needs to exist. Keep it terse and exact.
+A commit message states what the change does and why it exists. Keep it brief and plain.
 
 ## Rules
 
@@ -13,27 +13,33 @@ A commit message answers why this change needs to exist. Keep it terse and exact
 - `<gitmoji> <imperative summary>`
 - Capitalize first word after emoji
 - Imperative mood: completes statement "If applied, this commit will [subject]"
+- Say what the change does and why, in the shape of its kind, as far as it fits: a fix as "fix a bug where <actual> would occur when <repro>", a feature as "add <capability> allowing <process>, so that <benefit>". Fill each slot with brief plain words
 - Name the effect on the system, at the coarsest level that stays true — the outcome a reader would notice, not the artifact you opened
 - ≤50 chars when possible, hard cap 72
 - No trailing period
+- If the subject can't name the change without joining two effects, split the commit before writing the message
 
 **Body (if needed):**
 
-- Include when the subject alone doesn't fully convey why
-- Skip when the why is self-evident, or the subject covers both what and why
-- For a bug fix, lead with the observable failure in its actual operating or test context and the condition that triggers it. Follow with regression provenance when known. Provenance never substitutes for the problem statement; both are facts a reader can't recover from the diff
-- State the problem as it presents itself, not as the mechanism producing it — the causal chain is the diff's to show. Pitch it where a ticket would: the failure someone would report, and the condition it happens under. Where a ticket or issue exists, carry only what a reader holding it still lacks
-- State the why as the problem that existed, not the chosen solution restated as a need — "we need X so that X" begs the question; name the problem X solves
-- Divide the labour: the message establishes the problem, the diff shows the response. Restating the change set — whether as a bulleted inventory or as prose opening "Adds…", "Wraps…", "Asserts instead…" — takes the diff's and the PR's job
-- A curated what is not an inventory. The organising principle the change applies, and the property that follows from it, are nowhere in a diff of individual edits — "every GET/POST pair now has its own name matching its controller, so no name reaches another verb's URI by coincidence" earns its place; a list of the renames does not. Where the body states one, put it last, after the problem
+- Include when the subject alone doesn't convey what and why; skip when it does
+- Open by completing the shape the subject started: for a fix, the failure or the condition that triggers it; for a feature, the process it allows or the benefit. Expand on the subject; do not repeat it
+- Write in present tense about what the change does. Describe the result, not the transition: no "now", "no longer", or problem told as history ("Reviewing X meant…")
+- The benefit is a task the reader performs or a failure they stop seeing, not the existence of what the change adds: "so that a UI change can be reviewed from before/after captures", not "so that pages have gallery tests"
+- Describe a failure as someone would report it, not by the mechanism producing it; the diff shows the causal chain. For a fix, add regression provenance when known. Where a ticket or issue exists, carry only what a reader holding it still lacks
+- State effects a reader wouldn't predict from the subject, especially behaviour that changes outside it
+- Leave the change set to the diff. Do not inventory it, whether as bullets or as prose opening "Adds…", "Wraps…". Do not restate documentation the commit adds or changes
+- At most one explanatory statement, placed last: the organising principle the change applies and the property that follows from it, or the present constraint that decides the approach. "Every GET/POST pair now has its own name matching its controller, so no name reaches another verb's URI by coincidence" earns its place; a list of the renames does not. An alternative a future reader might propose may appear, with why it doesn't fit
+- Write for a reader who arrives later with no memory of the session. What you tried, verified, or ruled out, and corrections made during the work, do not appear
 - Describe behaviour a reader can observe. Name a symbol when it's the only way to say which thing you mean
-- Write about the codebase, not about the work of changing it. The reader arrives later with no memory of the session: what you tried, verified, or ruled out is not their concern
+- Write plain sentences, one thought each, not semicolon chains. Make each pronoun point to one noun. Give each concept one name, using the codebase's names; do not invent terms
 - Reference a prior commit by 7-char short hash, with a parenthetical qualifier where the reference needs a condition attached
 - Wrap at 72 chars
 
+**Check the draft:** Before committing, test every body sentence and delete it if it repeats the subject, describes a transition rather than the result, or says something the diff already shows — including usage, commands, layout, or naming given by documentation in the diff. Then confirm the body states every effect outside the subject's scope.
+
 **Auto-Clarity**
 
-Always include body for: breaking changes, security fixes, data migrations, anything reverting a prior commit. Never compress these into subject-only — future debuggers need the context. This mandates a body's presence, not its length: a few lines carrying the problem and its trigger meet the bar.
+Always include body for: breaking changes, security fixes, data migrations, anything reverting a prior commit. Never compress these into subject-only — future debuggers need the context. This mandates a body's presence, not its length: a few lines carrying what changes and why meet the bar.
 
 **Publication rewrites**
 
@@ -43,7 +49,7 @@ When preparing an unpublished feature branch for publication:
 - Keep fixes for problems that predate the feature as separate commits
 - Drop temporary plans and execution-evidence commits unless they are explicitly part of the deliverable
 
-After squash, fixup, or reorder, reread every surviving message against its final combined diff. Remove rationale about eliminated code, rejected approaches, or development process that the resulting commit does not contain.
+After squash, fixup, or reorder, reread every surviving message against its final combined diff. Remove rationale about code the resulting commit does not contain, and any account of the development process.
 
 **Multi-line commit invocation**
 
