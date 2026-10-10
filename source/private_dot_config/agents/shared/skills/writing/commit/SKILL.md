@@ -4,7 +4,7 @@ description: >
   Commit message conventions and the mechanics of writing or rewriting them. Use when composing, rewording, squashing, or amending a message, including commits made on your own initiative.
 ---
 
-A commit message states what the change does and why it exists. Keep it brief and plain.
+A commit message explains why the change exists. The subject identifies the change for a reader scanning many commits: its kind and the area it touches. The body gives a self-contained explanation for someone examining the changed code: what effect the change has on the system, and why it belongs there. Keep it brief and plain.
 
 ## Rules
 
@@ -12,30 +12,44 @@ A commit message states what the change does and why it exists. Keep it brief an
 
 - `<gitmoji> <imperative summary>`
 - Capitalize first word after emoji
-- Imperative mood: completes statement "If applied, this commit will [subject]"
-- Say what the change does and why, in the shape of its kind, as far as it fits: a fix as "fix a bug where <actual> would occur when <repro>", a feature as "add <capability> allowing <process>, so that <benefit>". Fill each slot with brief plain words
-- Name the effect on the system, at the coarsest level that stays true — the outcome a reader would notice, not the artifact you opened
+- Complete the sentence "If merged, this commit will..." with an imperative phrase
+- Say what the change does and why, in the shape of its kind, as far as it fits: a fix as "fix a bug where <actual> would occur when <repro>", a feature as "add <capability> allowing <process>, so that <benefit>"
+- Name the purpose and affected area at the coarsest level that stays true. Put supporting detail in the body
 - ≤50 chars when possible, hard cap 72
 - No trailing period
 - If the subject can't name the change without joining two effects, split the commit before writing the message
 
 **Body (if needed):**
 
-- Include when the subject alone doesn't convey what and why; skip when it does
-- Open by completing the shape the subject started: for a fix, what would occur and the condition that triggers it, written as the failure the change removes ("an export would time out when…"), not as current behaviour; for a feature, the process it allows or the benefit. Expand on the subject; do not repeat it
-- Write in present tense about what the change does. Describe the result, not the transition: no "now", "no longer", or problem told as history ("Reviewing X meant…")
+- Include when the change needs explanation beyond a brief summary; skip when it doesn't
+- **Make the change the actor in the body's opening sentence.** Explain what it enables, prevents, or makes easier, and connect that effect to why the change exists. Describe unwanted behavior as the problem that effect addresses
+- Follow with details that explain how the effect is achieved. Include concrete diagnostics and implementation details where they support the explanation; leave inventories of edits and restatements of changed documentation to the diff
 - The benefit is a task the reader performs or a failure they stop seeing, not the existence of what the change adds: "so that support staff can resend an invitation without engineering help", not "so that invitations have a resend action"
-- Describe a failure as someone would report it, not by the mechanism producing it; the diff shows the causal chain. For a fix, add regression provenance when known. Where a ticket or issue exists, carry only what a reader holding it still lacks
+- Describe undesired behavior in terms a reader would recognize. For a fix, add regression provenance when known, tied to what the fix addresses. Where a ticket or issue exists, carry only what a reader holding it still lacks
 - State behaviour a reader would see change outside the subject's scope. If nothing observable changes elsewhere, say nothing
-- Leave the change set to the diff. Do not inventory it, whether as bullets or as prose opening "Adds…", "Wraps…". Do not restate documentation the commit adds or changes
-- At most one explanatory statement, placed last: the organising principle the change applies and the property that follows from it, or the present constraint that decides the approach. State it at the coarsest level that stays true of this diff: the property, the means named once, and its purpose. "Test fixture data is generated deterministically using Faker's seed, to minimise diff noise" earns its place; a list of which values come from where does not. An alternative a future reader might propose may appear, with why it doesn't fit. For a fix, the statement explains how the change prevents the failure: the property the corrected code holds and why that property excludes the fault
+- Include at most one additional explanatory statement about the principle, constraint, or alternative that decides the approach. Name the means once and connect it to the property it provides
 - Write for a reader who arrives later with no memory of the session. What you tried, verified, or ruled out, and corrections made during the work, do not appear
 - Describe behaviour a reader can observe. Name a symbol when it's the only way to say which thing you mean
 - Write plain sentences, one thought each, not semicolon chains. Make each pronoun point to one noun. Give each concept one name, using the codebase's names; do not invent terms
 - Reference a prior commit by 7-char short hash, with a parenthetical qualifier where the reference needs a condition attached
 - Wrap at 72 chars
 
-**Check the draft:** Before committing, test every body sentence and delete it if it repeats the subject, describes a transition rather than the result, or says something the diff already shows — including usage, commands, layout, or naming given by documentation in the diff. Then confirm the body states every observable change outside the subject's scope.
+**Example bodies:**
+
+```text
+This identifies Alpha routes with no gallery coverage record, helping
+developers find screens that need captures before reviewing a UI change.
+The check also flags stale route names and recognizes explicit
+uncaptured entries.
+```
+
+```text
+This lets tests reuse the same Google sign-in setup, so provider changes
+can be maintained in one place. The shared fixture configures sign-in
+and creates its matching identity-provider record.
+```
+
+**Check the draft:** Read the body's first sentence without the subject or later sentences. Identify what this change accomplishes and why it matters; both must be clear from that sentence. If either is missing, rewrite the opening before committing. Then read the whole body: distinguish behavior that motivates the change from behavior it establishes, retain details that support the explanation, and state every observable change outside the subject's scope.
 
 **Auto-Clarity**
 
