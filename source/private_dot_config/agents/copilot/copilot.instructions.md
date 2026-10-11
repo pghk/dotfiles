@@ -25,6 +25,17 @@ skills available", so it cannot auto-trigger. Observed on 1.0.95:
 When adding or lengthening a description, check that every auto-triggering skill
 still appears with its description.
 
+## Question dialogs
+
+The `ask_user` form collects an answer; it does not pose the question.
+Reasoning is not output: a plan to "present this to the user" or "check in
+with the user" is unfulfilled until the presentation appears as chat text, and
+writing a file does not fulfil it either. Before opening the form, write the
+question in chat — what is being decided, what it turns on, the recommended
+answer and why. Referring to things already in the conversation or reachable
+in the repository is fine. Option labels name the choices; the reasoning lives
+in the chat text.
+
 ## Configuration layout
 
 Skills and `AGENTS.md` resolve through `~/.copilot` → `~/.config/copilot` →
