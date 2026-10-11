@@ -78,7 +78,11 @@ Default order, which the user may override:
    lands with the last dependency it needs.
 
 The map is complete when every path in `git diff --stat <base> <orig>` and
-every hunk of a shared file has an owner, and no open question remains.
+every hunk of a shared file has an owner. A question about the map is asked
+with the map, never apart from it: post the draft with each open question
+marked at the entry it affects. An option that would make a commit's content
+depart from `<orig>` is named as a departure, not offered as a neutral
+alternative or default.
 
 ## Approval gate
 
