@@ -27,14 +27,10 @@ still appears with its description.
 
 ## Question dialogs
 
-The `ask_user` form collects an answer; it does not pose the question.
-Reasoning is not output: a plan to "present this to the user" or "check in
-with the user" is unfulfilled until the presentation appears as chat text, and
-writing a file does not fulfil it either. Before opening the form, write the
-question in chat — what is being decided, what it turns on, the recommended
-answer and why. Referring to things already in the conversation or reachable
-in the repository is fine. Option labels name the choices; the reasoning lives
-in the chat text.
+Ask a question that arises within a discussion in prose, and let the user
+answer in chat. Use `ask_user` only once the chat text has presented the
+options and the context needed to choose between them; a plan to present
+them, in reasoning or a file, does not count.
 
 ## Configuration layout
 
