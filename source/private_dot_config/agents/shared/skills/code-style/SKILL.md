@@ -1,6 +1,6 @@
 ---
 name: code-style
-description: "Use when writing or reviewing code, tests, comments, docblocks, or documentation in any repository."
+description: "Load before the first edit to code, a test, a comment, a docblock, or documentation, and again whenever the kind of artifact being edited changes."
 ---
 
 Write self-documenting code first. Prose covers what the code can't carry:

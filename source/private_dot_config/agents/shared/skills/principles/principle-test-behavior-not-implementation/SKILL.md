@@ -1,6 +1,6 @@
 ---
 name: principle-test-behavior-not-implementation
-description: "Use whenever writing, changing, or reviewing automated tests or assertions."
+description: "Load before writing or changing any automated test or assertion."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-test-behavior-not-implementation"
