@@ -47,8 +47,10 @@ metadata:
 - Keep one coherent behavioral claim per test, and assert only behavior named
   by that test. Move independently meaningful output to its own test instead
   of using incidental assertions to characterize or stabilize a fixture.
-  Avoid redundant claims across layers unless each layer adds observation
-  power.
+  Test a behavior where it is implemented. A test through another call site
+  or layer adds observation power with what that path contributes: the input
+  the call site supplies, or, from a caller, the stored effect proving it sent
+  the right request. A response that echoes the request cannot show this.
 - If no credible maintained test seam exists, do not add a weak test. Use the
   applicable executable or manual observation and state its preservation limit.
 
