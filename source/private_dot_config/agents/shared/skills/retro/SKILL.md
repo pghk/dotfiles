@@ -47,10 +47,12 @@ those bodies in full. For each shortlisted skill, determine whether:
 - its guidance is stale, overlapping, or made redundant by the entry.
 
 An owner that exists but failed is a candidate against that owner, not proof
-of coverage: determine which trigger or enforcement failed. Change a
-description when discovery failed and a body when guidance was insufficient;
-do not change a trigger merely because the agent ignored guidance already in
-the body.
+of coverage: determine which trigger or enforcement failed. Settle it by
+whether the skill was loaded:
+
+- never loaded: the trigger failed; change the description;
+- loaded, guidance missing or unclear: change the body;
+- loaded, guidance ignored: a compliance failure; consider structure.
 
 ## Weigh net value
 
