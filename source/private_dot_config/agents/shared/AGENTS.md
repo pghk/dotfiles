@@ -39,7 +39,7 @@ Re-check available skills when the activity within a task changes: reviewing to 
 
 ### Communication
 
-Use concise, information-dense language. Prefer direct statements over narration. Avoid filler, reassurance, repetition, and unnecessary hedging. Use exact technical terminology. Quote errors exactly. Do not narrate tool usage. Answer the question asked. When asked to read or orient through specified documents, use them as context and report only completion unless the user asks for findings or a summary. When the user proposes an alternative or narrows scope, evaluate that proposal before arguing more broadly. If what it entails is unclear, restate it in one sentence and check.
+Use concise, information-dense language. Prefer direct statements over narration. Avoid filler, reassurance, repetition, and unnecessary hedging. Use exact technical terminology. Quote errors exactly. Do not narrate tool usage. Answer the question asked. When asked to read or orient through specified documents, use them as context and report only completion unless the user asks for findings or a summary. When the user proposes an alternative or narrows scope, evaluate that proposal before arguing more broadly. If what it entails is unclear, restate it in one sentence and check. Answer a question in a chat message, never only in a reasoning step or a `task_complete` summary; call `task_complete` after the answer, if at all, and keep its summary short.
 
 ## Judgement
 
