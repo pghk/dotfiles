@@ -12,7 +12,7 @@ as a source of composition intent.
 
 | Question | Source |
 |---|---|
-| What does a component or prototype look like? | `https://design.venturedsolutions.com/` |
+| What does a component or prototype look like? | A rendered page; see [Rendering](#rendering) |
 | What exact markup, states, tokens, or behavior does it define? | `~/Projects/us-suite-design-system` source |
 | What appears together on Ravenna screens? | `ravenna-suite/core/` or the Admissions prototype source |
 
@@ -26,6 +26,10 @@ under the canonical clone. Do not search the active Hub checkout for it.
 
 Read [the source map](references/source-map.md) before inspecting a component.
 It maps Storybook titles to exact `stories/*.stories.js` files.
+
+Read [the Admissions page map](references/admissions-prototype.md) before
+locating, navigating to, or rendering a page of the Ravenna Admissions
+prototype. It lists each page, how to reach it, and where its markup lives.
 
 Shared sources:
 
@@ -46,15 +50,15 @@ ravenna-suite/core/   standalone Ravenna Core prototype
 - Ravenna prototypes are authoritative for composition, not literal values.
 - Hub determines its own component boundaries: translate capabilities, not
   Storybook class scaffolds.
-- Distinguish visual evidence from source evidence. Use the online Storybook
-  for rendering; read source before making a markup or behavior claim.
+- Distinguish visual evidence from source evidence. Render for appearance;
+  read source before making a markup or behavior claim.
 - When comparing with Hub, inspect the Design System source and Hub source as
   separate evidence targets before synthesizing a recommendation.
 
-## Online Storybook
+## Rendering
 
-Use `https://design.venturedsolutions.com/` when a visual question needs a
-rendered answer. Do not start a local server unless the online site is
-unavailable and source-based visual inspection is insufficient.
-
-The local source can be inspected without Storybook running.
+`https://design.venturedsolutions.com/` requires Entra ID sign-in, so agents
+cannot fetch it; point the user to it when they need to look themselves.
+Render Admissions prototype pages with `scripts/render-prototype.mjs`, as the
+Admissions page map describes. Do not start Storybook; the local source can
+be inspected without it.
