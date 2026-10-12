@@ -26,7 +26,8 @@ A commit message explains why the change exists. The subject identifies the chan
 - Follow with details that explain how the effect is achieved. Include concrete diagnostics and implementation details where they support the explanation; leave inventories of edits and restatements of changed documentation to the diff
 - The benefit is a task the reader performs or a failure they stop seeing, not the existence of what the change adds: "so that support staff can resend an invitation without engineering help", not "so that invitations have a resend action"
 - Describe undesired behavior in terms a reader would recognize. For a fix, add regression provenance when known, tied to what the fix addresses. Where a ticket or issue exists, carry only what a reader holding it still lacks
-- State behaviour a reader would see change outside the subject's scope. If nothing observable changes elsewhere, say nothing
+- State behaviour a reader would see change outside the subject's scope, keeping the change as the actor ("It also amends …"). If nothing observable changes elsewhere, say nothing
+- Claim only the effect the change itself has. When the outcome depends on the caller, say what the change allows them to do
 - Include at most one additional explanatory statement about the principle, constraint, or alternative that decides the approach. Name the means once and connect it to the property it provides
 - Write for a reader who arrives later with no memory of the session. What you tried, verified, or ruled out, and corrections made during the work, do not appear
 - Describe behaviour a reader can observe. Name a symbol when it's the only way to say which thing you mean
@@ -34,19 +35,13 @@ A commit message explains why the change exists. The subject identifies the chan
 - Reference a prior commit by 7-char short hash, with a parenthetical qualifier where the reference needs a condition attached
 - Wrap at 72 chars
 
-**Example bodies:**
+**Example body:**
 
 ```text
 This identifies Alpha routes with no gallery coverage record, helping
 developers find screens that need captures before reviewing a UI change.
 The check also flags stale route names and recognizes explicit
 uncaptured entries.
-```
-
-```text
-This lets tests reuse the same Google sign-in setup, so provider changes
-can be maintained in one place. The shared fixture configures sign-in
-and creates its matching identity-provider record.
 ```
 
 **Check the draft:** Read the body's first sentence without the subject or later sentences. Identify what this change accomplishes and why it matters; both must be clear from that sentence. If either is missing, rewrite the opening before committing. Then read the whole body: distinguish behavior that motivates the change from behavior it establishes, retain details that support the explanation, and state every observable change outside the subject's scope.
