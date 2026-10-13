@@ -1,7 +1,7 @@
 ---
 name: git-worktrees
 description: >
-  Create or prepare a git worktree, or fix one lacking vendor, node_modules, or .env by linking them from the main tree.
+  Create or prepare a git worktree and its local dependencies.
 ---
 
 # Git worktrees
@@ -13,14 +13,18 @@ git worktree add ../<name> -b <branch>
 bash <skill-dir>/scripts/prepare-worktree.sh ../<name>
 ```
 
-The script symlinks `node_modules`, `vendor`, and `.env` from the main worktree into the new one. A fresh worktree has none of these because they are untracked. Run it instead of copying `.env` or reinstalling; agents often cannot read or write `.env` directly.
+The script clones `vendor` with copy-on-write when supported, otherwise copies it, and regenerates local autoload files with `--no-scripts --no-plugins`. Reuse requires matching `composer.lock` files; otherwise run `composer install` in the target. Existing paths are preserved.
 
-## Source of the links
+It symlinks `node_modules` and `.env`; agents often cannot read or write `.env` directly.
+
+## Source
 
 The source is the main worktree, the first entry of `git worktree list`. Git records it, so no directory naming or sibling layout is assumed. For a bare repository or a different source, pass `--source DIR`.
 
-Pass `--item NAME` (repeatable) to link other untracked paths, replacing the default list. Use `--dry-run` to preview; `--help` lists flags.
+Pass `--item NAME` (repeatable) to select untracked paths, replacing the default list; items other than `vendor` are symlinked. Use `--dry-run` to preview and `--help` for flags.
 
 ## Shared state
 
-A link is not a copy. Installing or upgrading dependencies from inside the worktree modifies the main tree's `node_modules`/`vendor`, and editing `.env` changes it everywhere. When a branch changes the lockfile, replace that link with a real install: remove the symlink, then run the package manager in the worktree.
+`vendor` is independent. Installing into linked `node_modules` or editing linked `.env` changes the source. When a branch changes its JavaScript lockfile, replace the `node_modules` link with a local install.
+
+Validate script changes with `python3 <skill-dir>/scripts/test_prepare_worktree.py` (Git, PHP, Composer). Set `WORKTREE_PEST_SOURCE` to a checkout with Pest installed to include its disposable-worktree test.
