@@ -12,37 +12,34 @@ For each session id, run:
 
 That transcript is everything you may read from the session, plus any artifact under its `## Files` heading (read `.md` and `.tsv` files there; they often hold a decisions trail or handoff). A turn marked `touched:` first edited those surviving paths.
 
-Record intent and justification, not implementation. The assistant's statements carry the reasoning: what a change is for, why it takes this form rather than another, what it rejected and why. The user's replies are the verdict on them. Read each assistant turn with the user message that follows it and record the pair. The test for an item: would a reviewer of the finished commits need it to understand why the code is shaped this way? A selector, property name, or file qualifies only when an alternative to it was weighed; how a thing was wired up, fixed up, or verified does not.
+Recover the deliberation, not a log of what was decided when. The output is read later by someone writing commit messages and documentation who needs to explain why the code is shaped this way; they will not reopen the transcript. The assistant's statements carry most of the reasoning: what a change is for, which alternatives were weighed, what rejected each, what changed its mind. The user's replies are verdicts and corrections. Read each assistant turn with the user message that follows it.
 
-Write `<output-dir>/<session-id>.md`:
+Write `<output-dir>/<session-id>.md`, one entry per question the session worked out, grouped by topic rather than by time:
 
 ```markdown
 # <session summary> — <session-id>
 window: <first turn timestamp> → <last turn timestamp>
 clusters: <cluster ids from changes.md this session touched>
 
-## Decisions
-- [<turn>] <assistant statement, quoted or closely paraphrased> → [<turn>] <user verdict: "quote" if it corrects or adds, else accepted> — <cluster id or path>
-
-## Reversals
-- [<turn>] <X was proposed or built> → [<turn>] <"user quote" or assistant statement that moved to Y, with the reason> — <cluster id>
-
-## Justifications
-- [<turn>] <assistant's one-sentence reason the change takes this form> — <cluster id>
-
-## Orphan intent
-- [<turn>] <statement> — not present at <orig>: <what you checked>
+## <Question, as a short phrase> — <cluster ids>
+Question: <what had to be decided and why it arose>
+Considered: <each position, with the reason given for it; include the assistant's own earlier position when it reversed itself>
+Settled: <the outcome and the argument that decided it; quote the decisive sentence, whoever said it>
+Left open: <consequences deferred, conflicts raised and not resolved; omit if none>
+At orig: <present | absent: what you checked>
+Turns: <n, m, …>
 
 ## Lessons
-- [<turn>] <a correction the user made about how the agent should work, or a procedure that recurred>
+- <a correction the user made about how the agent should work, or a procedure that recurred> [turns]
 ```
 
-Rules for what qualifies:
+Rules:
 
-- An assistant statement qualifies when the behavior or constraint it argues for is present at `<orig>`. Confirm with one `git grep` or `git show <orig>:<path> | grep` for a symbol or phrase the statement names. If it is absent, record the statement under Orphan intent with what you checked. Quote the assistant where its wording is precise; paraphrase only to shorten. Skip progress reports, verification narration, and tool output summaries.
-- Quote the user verbatim only where their message adds direction the assistant did not propose, or corrects or rejects a proposal. A reply that agrees is recorded as `accepted`, not quoted.
-- A reversal is any place the direction changed: a rejected proposal, an approach abandoned, a value re-tuned. Keep the reason; it is the most valuable line in the file.
-- One line per item, prefixed with its turn number so the main agent can reopen the transcript at that turn.
+- An entry is complete when its Settled line could be pasted into a commit body or doc paragraph as the explanation. If it only says what was chosen, the reasoning is missing: go back to the turns.
+- Every position gets its reason. A rejected alternative with its reason is as valuable as the chosen one; a reversal is two positions in one entry, with what changed the mind between them.
+- Quote the user verbatim where they add direction or correct a proposal; record agreement as agreement. Quote the assistant where its wording states a principle precisely.
+- `At orig`: confirm the settled behavior with one `git grep` or `git show <orig>:<path> | grep` for a symbol or phrase it names. When absent, the entry stays; the main agent needs to know the discussed design and the final code diverged.
+- A selector, property name, or file belongs in an entry only when an alternative to it was weighed. How a thing was wired up, fixed up, or verified is not deliberation; skip progress reports and tool narration.
 - Lessons are about the agent's method, not the product; they are candidates for a skill, not a commit.
 
-Leave a section empty rather than padding it. Do not summarize the session narrative; do not write commit messages.
+Do not summarize the session narrative and do not write commit messages; the entries are the material for them.

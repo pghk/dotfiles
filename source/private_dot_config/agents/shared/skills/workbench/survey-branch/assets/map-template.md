@@ -16,7 +16,7 @@ Ordered as they will be committed. Each entry's `members` must account for every
 - kind: layer | feature | fix | fixed (original <sha>, cherry-picked unchanged)
 - members: <paths; `path (hunks 1,3)` for a shared file>
 - intent: <what this change is for, in the author's terms>
-- justification: <newest first; reversals as "was X → Y because Z"; cite `sessions/<id>.md` [turn]>
+- justification: <why this form and what was rejected, newest first; cite `sessions/<id>.md` entry title>
 - homes: <intent item → message | doc <path> | comment <path> | test <path> | skill <name>>
 - depends on: <concern numbers>
 - needed by: <concern numbers>
@@ -40,9 +40,9 @@ Paths or hunks in `changes.md` with no supporting session evidence. Each resolve
 
 ## Orphan intent
 
-Decisions in `sessions/` with no surviving code. Each resolves to superseded (by concern n), deliberately abandoned (reason), or a follow-up outside this branch.
+Deliberation entries in `sessions/` whose settled behavior is absent at `orig`. Each resolves to superseded (by concern n), deliberately abandoned (reason), or a follow-up outside this branch.
 
-- <statement> `sessions/<id>.md` [turn] — <resolution>
+- <entry title> `sessions/<id>.md` — <resolution>
 
 ## Decisions
 

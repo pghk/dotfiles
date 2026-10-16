@@ -27,7 +27,7 @@ Dispatch one sub-agent per batch of sessions totalling about 150 KB of transcrip
 
 ## 3. Draft the map in one pass
 
-Copy [assets/map-template.md](assets/map-template.md) to `map.md` and fill it completely from `changes.md` and `sessions/*.md`, without asking questions first. Per cluster: find its decisions and justifications across sessions, newest first; the latest grounded statement governs the intent, earlier ones become justification or a reversal. Clusters with no session evidence go to **Unexplained changes**; digest items whose code is gone go to **Orphan intent**. An original commit that already is one concern is a `fixed` entry.
+Copy [assets/map-template.md](assets/map-template.md) to `map.md` and fill it completely from `changes.md` and `sessions/*.md`, without asking questions first. Per cluster: gather its deliberation entries across sessions, newest first; the latest entry present at `orig` governs the intent, earlier ones supply justification and rejected alternatives. Clusters with no session evidence go to **Unexplained changes**; entries marked absent at `orig` go to **Orphan intent**. An original commit that already is one concern is a `fixed` entry.
 
 Choose each intent item's home:
 
