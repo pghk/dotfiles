@@ -11,7 +11,7 @@ Produce `.notes/<slug>/map.md`: the branch's concerns, each with its intent, jus
 
 `<base>` is the last commit to keep; `<orig>` is the tip of the original branch; `<slug>` is the branch name with `/` replaced by `-`. Notes live in `.notes/<slug>/` inside the worktree; on first run add `.notes/` to `$(git rev-parse --git-path info/exclude)`.
 
-If `map.md` exists, read its front matter and resume at its `status`. If `orig` there is behind the branch tip, survey only the new range (steps 1–2 with `<old orig>..<new orig>`, digesting only sessions whose last turn is after the previous survey), merge the results into the existing files, and update `orig`.
+If `map.md` exists, read its front matter and resume at its `status`. Without it, a step whose output file already exists is done: `changes.md` for step 1, `sessions/<id>.md` per session for step 2. If `orig` there is behind the branch tip, survey only the new range (steps 1–2 with `<old orig>..<new orig>`, digesting only sessions whose last turn is after the previous survey), merge the results into the existing files, and update `orig`.
 
 ## 1. Change survey
 
@@ -22,6 +22,8 @@ Write `.notes/<slug>/paths.txt` from `git diff --name-only <base> <orig>`. Dispa
 List candidates:
 
     python3 scripts/sessions.py list <orig_branch> <first commit author date> --cwd <worktree>
+
+Work carried over from an earlier branch was deliberated in that branch's sessions: when `changes.md` or the log shows ported commits, run `list` again for each such branch with its own start date and add those sessions to the candidates.
 
 Dispatch one sub-agent per batch of sessions totalling about 150 KB of transcript (size column of `list`; a large session alone) with [references/session-digest-brief.md](references/session-digest-brief.md); batches run in parallel. Done when `sessions/<id>.md` exists for every candidate. Record `status: mapping`.
 
