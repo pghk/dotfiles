@@ -13,9 +13,11 @@ Subcommands:
       The bounded transcript a digester may read: checkpoint
       summaries; every user message; the assistant response only for
       turns that first touched a path listed in FILE (one
-      repository-relative path per line) and for the final turn. Each
-      turn names the surviving paths it touched, so a statement can be
-      tied to the change it informed.
+      repository-relative path per line), for the turn before each such
+      turn (where a proposal usually precedes the edit that the user's
+      reply authorized), and for the final turn. Each turn names the
+      surviving paths it touched, so a statement can be tied to the
+      change it informed.
 
 The store records only the first touch of each file per session, so a
 turn's path list is "files this session first edited here".
@@ -94,6 +96,7 @@ def cmd_transcript(args):
         (args.session_id,),
     ).fetchall()
     last_index = turns[-1][0] if turns else None
+    shown = {i for i in by_turn} | {i - 1 for i in by_turn} | {last_index}
 
     for turn_index, timestamp, user_message, assistant_response in turns:
         paths = by_turn.get(turn_index, [])
@@ -101,10 +104,10 @@ def cmd_transcript(args):
         if paths:
             print("touched: " + ", ".join(paths))
         print(f"\n### User\n{user_message or ''}\n")
-        if paths or turn_index == last_index:
+        if turn_index in shown:
             print(f"### Assistant\n{assistant_response or ''}\n")
         else:
-            print("### Assistant\n(omitted: no surviving path touched)\n")
+            print("### Assistant\n(omitted: no surviving path touched here or in the next turn)\n")
 
 
 def main():
