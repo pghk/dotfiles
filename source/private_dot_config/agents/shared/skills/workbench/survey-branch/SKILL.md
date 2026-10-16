@@ -23,7 +23,7 @@ List candidates:
 
     python3 scripts/sessions.py list <orig_branch> <first commit author date> --cwd <worktree>
 
-Dispatch one sub-agent per batch of up to five sessions with [references/session-digest-brief.md](references/session-digest-brief.md); batches run in parallel. Done when `sessions/<id>.md` exists for every candidate. Record `status: mapping`.
+Dispatch one sub-agent per batch of sessions totalling about 150 KB of transcript (size column of `list`; a large session alone) with [references/session-digest-brief.md](references/session-digest-brief.md); batches run in parallel. Done when `sessions/<id>.md` exists for every candidate. Record `status: mapping`.
 
 ## 3. Draft the map in one pass
 

@@ -7,20 +7,15 @@ Subcommands:
       Candidate sessions that may have produced the branch's commits:
       sessions on <branch> or started in <cwd>, whose last turn is at
       or after <since-iso>. Tab-separated: id, first turn, last turn,
-      turn count, summary.
+      turn count, transcript size in bytes, summary.
 
   transcript <session-id> --paths FILE [--db PATH]
-      The bounded transcript a digester may read: checkpoint
-      summaries; every user message; the assistant response only for
-      turns that first touched a path listed in FILE (one
-      repository-relative path per line), for the turn before each such
-      turn (where a proposal usually precedes the edit that the user's
-      reply authorized), and for the final turn. Each turn names the
-      surviving paths it touched, so a statement can be tied to the
-      change it informed.
-
-The store records only the first touch of each file per session, so a
-turn's path list is "files this session first edited here".
+      The full conversation: checkpoint summaries, the session's
+      artifact files, and every turn. A turn that first edited a path
+      listed in FILE (one repository-relative path per line) is
+      annotated with those paths, so a statement can be tied to the
+      change it informed. The store records only the first touch of
+      each file per session, so later edits carry no annotation.
 """
 
 import argparse
@@ -29,6 +24,7 @@ import sqlite3
 import sys
 
 DEFAULT_DB = os.path.expanduser("~/.copilot/session-store.db")
+SESSION_STATE = os.path.expanduser("~/.copilot/session-state")
 
 
 def connect(path):
@@ -41,7 +37,9 @@ def cmd_list(args):
     db = connect(args.db)
     rows = db.execute(
         """
-        SELECT s.id, MIN(t.timestamp), MAX(t.timestamp), COUNT(t.id), COALESCE(s.summary, '')
+        SELECT s.id, MIN(t.timestamp), MAX(t.timestamp), COUNT(t.id),
+               SUM(COALESCE(LENGTH(t.user_message), 0) + COALESCE(LENGTH(t.assistant_response), 0)),
+               COALESCE(s.summary, '')
         FROM sessions s JOIN turns t ON t.session_id = s.id
         WHERE (s.branch = ? OR s.cwd = ?)
         GROUP BY s.id
@@ -89,14 +87,17 @@ def cmd_transcript(args):
     ):
         print(f"## Checkpoint {number}: {title}\n{overview or ''}\n{work_done or ''}\n")
 
+    files_dir = os.path.join(SESSION_STATE, args.session_id, "files")
+    if os.path.isdir(files_dir) and os.listdir(files_dir):
+        print("## Files\n" + "\n".join(
+            os.path.join(files_dir, name) for name in sorted(os.listdir(files_dir))) + "\n")
+
     by_turn = touched(db, args.session_id, surviving(args.paths))
     turns = db.execute(
         "SELECT turn_index, timestamp, user_message, assistant_response FROM turns "
         "WHERE session_id = ? ORDER BY turn_index",
         (args.session_id,),
     ).fetchall()
-    last_index = turns[-1][0] if turns else None
-    shown = {i for i in by_turn} | {i - 1 for i in by_turn} | {last_index}
 
     for turn_index, timestamp, user_message, assistant_response in turns:
         paths = by_turn.get(turn_index, [])
@@ -104,10 +105,7 @@ def cmd_transcript(args):
         if paths:
             print("touched: " + ", ".join(paths))
         print(f"\n### User\n{user_message or ''}\n")
-        if turn_index in shown:
-            print(f"### Assistant\n{assistant_response or ''}\n")
-        else:
-            print("### Assistant\n(omitted: no surviving path touched here or in the next turn)\n")
+        print(f"### Assistant\n{assistant_response or ''}\n")
 
 
 def main():
