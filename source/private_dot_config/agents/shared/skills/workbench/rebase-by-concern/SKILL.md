@@ -22,7 +22,7 @@ Per concern, in map order:
 
 Stop and return to the user when execution departs from the map: a hunk no concern owns, a diff that contradicts its message, a member that won't stage cleanly, a failing check, or a concern that needs splitting. Revise the map together, append the revision to **Decisions**, then resume.
 
-Done when `git diff HEAD <orig>` shows exactly the approved intended differences. Set `status: done`.
+When `git diff HEAD <orig>` shows exactly the approved intended differences, dispatch one sub-agent with [references/history-review-brief.md](references/history-review-brief.md). Fix each reported item with the corrections below, re-run the review until it reports nothing, then set `status: done`.
 
 ## Corrections (plain git on the short clean branch)
 

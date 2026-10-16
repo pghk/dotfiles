@@ -47,9 +47,13 @@ Order: fixes; infrastructure layers; foundation layers, each before its first co
 
 Post the draft's open questions in chat, grouped by concern, each with the recommended answer. The user answers in chat or edits `map.md` directly; re-read the file before each round. A round covers only open items. Probe the repository only to settle a specific open question: `git diff <base> <orig> -- <path>`, `git log <base>..<orig> -- <path>`, or the session transcript, searched for a phrase from the entry. Append each settled item to **Decisions**.
 
-## 5. Approval
+## 5. Review the map
 
-When no `open:` lines remain and every residue item is resolved, post the complete map and ask once for approval. On approval set `status: approved`, append the decision, and return. Execution is [rebase-by-concern](../rebase-by-concern/SKILL.md).
+When no `open:` lines remain and every residue item is resolved, dispatch one sub-agent with [references/map-review-brief.md](references/map-review-brief.md). Turn each reported item into an `open:` line or a residue item and return to step 4. Done when the review reports nothing.
+
+## 6. Approval
+
+Post the complete map and ask once for approval. On approval set `status: approved`, append the decision, and return. Execution is [rebase-by-concern](../rebase-by-concern/SKILL.md).
 
 ## Context discipline
 
