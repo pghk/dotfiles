@@ -31,15 +31,7 @@ Dispatch one sub-agent per batch of sessions totalling about 150 KB of transcrip
 
 Copy [assets/map-template.md](assets/map-template.md) to `map.md` and fill it completely from `changes.md` and `sessions/*.md`, without asking questions first. Per cluster: gather its deliberation entries across sessions, newest first; the latest entry present at `orig` governs the intent, earlier ones supply justification and rejected alternatives. Clusters with no session evidence go to **Unexplained changes**; entries marked absent at `orig` go to **Orphan intent**. An original commit that already is one concern is a `fixed` entry.
 
-Choose each intent item's home:
-
-- **message**: why this change, now, in this form; knowledge only history needs
-- **doc**: a contract or behavior a reader must know without history
-- **comment**: a non-obvious local constraint, at the line where it bites
-- **test**: behavior that must not regress
-- **skill**: a procedure the agent repeated or a correction the user made more than once (from the digests' Lessons)
-
-A home other than message becomes an entry under **Intended differences**.
+Give each intent item a provisional `home` (message, doc, comment, test, or skill); step 6 verifies it against the code.
 
 Order: fixes; infrastructure layers; foundation layers, each before its first consumer; features in dependency order. Draft every message. Mark each uncertainty as an `open:` line at the entry it affects, stating what would settle it. Reuse an original message verbatim only when it fully states the settled intent.
 
@@ -51,7 +43,11 @@ Post the draft's open questions in chat, grouped by concern, each with the recom
 
 When no `open:` lines remain and every residue item is resolved, dispatch one sub-agent with [references/map-review-brief.md](references/map-review-brief.md). Turn each reported item into an `open:` line or a residue item and return to step 4. Done when the review reports nothing.
 
-## 6. Approval
+## 6. Audit how the code captures the intent
+
+Dispatch sub-agents per batch of concerns with [references/intent-capture-brief.md](references/intent-capture-brief.md). Merge each finding into the concern: `homes` becomes `captured <path>` or the home the audit chose, and every drafted addition (message sentence, doc paragraph, comment, test, skill rule) is appended to the concern's message or listed in full under **Intended differences** with its concern. Each addition is an `open:` item until the user accepts it; return to step 4 for them.
+
+## 7. Approval
 
 Post the complete map and ask once for approval. On approval set `status: approved`, append the decision, and return. Execution is [rebase-by-concern](../rebase-by-concern/SKILL.md).
 

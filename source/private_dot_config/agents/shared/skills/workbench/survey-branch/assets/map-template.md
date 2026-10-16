@@ -17,7 +17,7 @@ Ordered as they will be committed. Each entry's `members` must account for every
 - members: <paths; `path (hunks 1,3)` for a shared file>
 - intent: <what this change is for, in the author's terms>
 - justification: <why this form and what was rejected, newest first; cite `sessions/<id>.md` entry title>
-- homes: <intent item → message | doc <path> | comment <path> | test <path> | skill <name>>
+- homes: <intent item → captured <path> | message | doc <path> | comment <path> | test <path> | skill <name>>
 - depends on: <concern numbers>
 - needed by: <concern numbers>
 - message: |
@@ -28,9 +28,9 @@ Ordered as they will be committed. Each entry's `members` must account for every
 
 ## Intended differences
 
-Content the clean branch adds, changes, or omits relative to `orig`, each approved. Authored additions (doc paragraph, comment, test, skill edit) that carry an intent item whose home is not the commit message are listed here with the concern they land in.
+Content the clean branch adds, changes, or omits relative to `orig`, each approved. An addition that carries an intent item (doc paragraph, comment, test, skill rule) is written out in full here, with its file and anchor, under the concern it lands in.
 
-- <description> — concern <n> — approved <date>
+- concern <n> — <doc|comment|test|skill> `<path>` § <anchor>: <full text> — approved <date>
 
 ## Unexplained changes
 
