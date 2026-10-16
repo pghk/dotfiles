@@ -43,7 +43,7 @@ Order: fixes; infrastructure layers; foundation layers, each before its first co
 
 ## 4. Close open questions
 
-Post the draft's open questions in chat, grouped by concern, each with the recommended answer. The user answers in chat or edits `map.md` directly; re-read the file before each round. A round covers only open items. Probe the repository only to settle a specific open question: `git diff <base> <orig> -- <path>`, `git log <base>..<orig> -- <path>`, or the transcript at a cited turn. Append each settled item to **Decisions**.
+Post the draft's open questions in chat, grouped by concern, each with the recommended answer. The user answers in chat or edits `map.md` directly; re-read the file before each round. A round covers only open items. Probe the repository only to settle a specific open question: `git diff <base> <orig> -- <path>`, `git log <base>..<orig> -- <path>`, or the session transcript, searched for a phrase from the entry. Append each settled item to **Decisions**.
 
 ## 5. Approval
 
@@ -51,4 +51,4 @@ When no `open:` lines remain and every residue item is resolved, post the comple
 
 ## Context discipline
 
-Never read a session transcript whole, a per-commit diff, or an unqualified `git diff <base> <orig>`. Evidence enters through `changes.md` and `sessions/*.md`; the map cites them by cluster id and `[turn]`.
+Never read a session transcript whole, a per-commit diff, or an unqualified `git diff <base> <orig>`. Evidence enters through `changes.md` and `sessions/*.md`; the map cites them by cluster id and entry title.

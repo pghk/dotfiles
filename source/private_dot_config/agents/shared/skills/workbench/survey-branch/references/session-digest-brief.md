@@ -14,7 +14,7 @@ That transcript is everything you may read from the session, plus any artifact u
 
 Recover the deliberation, not a log of what was decided when. The output is read later by someone writing commit messages and documentation who needs to explain why the code is shaped this way; they will not reopen the transcript. The assistant's statements carry most of the reasoning: what a change is for, which alternatives were weighed, what rejected each, what changed its mind. The user's replies are verdicts and corrections. Read each assistant turn with the user message that follows it.
 
-Write `<output-dir>/<session-id>.md`, one entry per question the session worked out, grouped by topic rather than by time:
+Write `<output-dir>/<session-id>.md`, one entry per question the session worked out, grouped by topic:
 
 ```markdown
 # <session summary> — <session-id>
@@ -27,10 +27,9 @@ Considered: <each position, with the reason given for it; include the assistant'
 Settled: <the outcome and the argument that decided it; quote the decisive sentence, whoever said it>
 Left open: <consequences deferred, conflicts raised and not resolved; omit if none>
 At orig: <present | absent: what you checked>
-Turns: <n, m, …>
 
 ## Lessons
-- <a correction the user made about how the agent should work, or a procedure that recurred> [turns]
+- <a correction the user made about how the agent should work, or a procedure that recurred>
 ```
 
 Rules:
