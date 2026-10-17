@@ -30,12 +30,17 @@ usually a failure the test did not cause. Shape proposals under
 [Subtract Before You Add](../../principles/principle-subtract-before-you-add/SKILL.md):
 deletion is a proposal, and it comes before a stronger assertion.
 
-**No test is presumed to deserve its existence.** Before judging how well a
-test makes its claim, ask whether the claim is worth making: name a user of
-the subject who would be harmed if the claim were false. A claim nobody
-depends on — framework behavior, a trivial accessor, a shape the type system
-already enforces, a fixture's own content — earns deletion, not a better
-assertion, however discriminating it could be made.
+**Distinguish development evidence from a durable regression contract.** A test can convincingly verify a particular fix without deserving permanent maintenance. Evaluate each claim against the subject's expected behavior, including components awaiting adoption.
+
+Before improving an assertion, identify:
+
+- **The lasting obligation:** what must remain true for the subject to fulfill its responsibility?
+- **A legitimate evolution:** what acceptable change to presentation, implementation, or composition would make this assertion fail? Would that failure identify broken behavior, or merely require updating the test?
+- **The carrying cost:** what execution, fixture, diagnostic, and maintenance machinery does the test require, and what useful regression evidence does that machinery buy?
+
+Signals of temporary development evidence include preserving surrounding details "without changing" them; pinning the particular value or mechanism chosen for a fix; reconstructing a calculation or rendering model inside the test; and exercising a narrowly arranged state while claiming a broader guarantee. These are investigation prompts, not deletion rules. Read the subject and its contract before deciding whether the detail is incidental. Exact values and visual relationships can themselves be durable requirements.
+
+Choose the smallest justified outcome: **remove** checks whose distinction is not worth maintaining; **trim** incidental assertions from a valuable test; **refactor** when a durable obligation has an unnecessarily brittle or expensive expression; **keep** when the test provides useful protection at reasonable cost. A valuable underlying requirement does not automatically justify strengthening or replacing every test associated with it.
 
 Once a change is agreed, the review is over for that finding and a different
 skill owns the edit. A rewritten or new test is authored under the same
@@ -127,14 +132,7 @@ before "this test discriminates" is reported. Bound it:
 Mutate the subject under review, never the environment that runs it. Needing
 to change build or server state to get a run is the blocked case above.
 
-A mutation that demonstrates discrimination must model a plausible *accidental*
-change — a rename, a refactor, an unrelated cleanup. A mutation that
-deliberately reimplements the exact behavior the test claims to guard (adding
-back the code path it exists to prevent) proves the assertion can go red, not
-that the behavior is worth guarding: a change that conspicuous would surface in
-code review regardless of the test. If the only mutation that reddens an
-assertion is that kind, the finding is "this test cannot fail by accident," not
-"this test is valuable."
+Mutation establishes sensitivity to a particular defect, not the value of retaining the test. Use plausible accidental changes to assess discrimination after evaluating the claim's durability. A mutation result applies only to the assertions it exercises; it does not establish the value or worthlessness of the whole test.
 
 ## Suite-level responsibility map
 
@@ -303,8 +301,7 @@ selector names only that.
 Order findings by consequence, not by line number:
 
 1. **Inert** — the test cannot fail, or cannot fail for the reason it claims
-2. **Unwarranted** — the claim discriminates but no user of the subject
-   depends on it; the finding is deletion
+2. **Unwarranted** — the asserted distinction does not warrant permanent protection under the subject's contract; explain what would be lost by removing it and why that loss is acceptable.
 3. **Unclaimed** — real behavior no test protects
 4. **Misallocated** — the claim is real but the layer or instrument is wrong
 5. **Brittle** — the test fails on correct changes
