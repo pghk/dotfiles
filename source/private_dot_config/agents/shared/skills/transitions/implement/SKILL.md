@@ -68,6 +68,8 @@ agent as the integration owner and resolve discoveries against the accepted
 authority before expanding scope. Apply relevant focused skills and playbooks
 proportionately; do not mandate TDD or a universal workflow.
 
+Require self-contained final worker handoffs: commit IDs, exact checks and results, unresolved limits, and direct paths to review artifacts must be available to the integration owner in the final handoff.
+
 Use [show-your-work](../../continuity/show-your-work/SKILL.md) for multi-agent,
 multi-session, unattended, or otherwise hard-to-audit execution. Keep its one
 decision trail instead of creating a report hierarchy or ledger. Request
