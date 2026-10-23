@@ -1,56 +1,58 @@
 ---
 name: survey-branch
 description: >
-  Recover what a WIP branch's changes are for from its net diff and the chat sessions that produced them, and settle an approved concern map in .notes/ that rebase-by-concern executes.
+  Settle with the user what a WIP branch is for, its primary concern and the concerns around it, and assign every hunk of its net diff to them in an approved .notes/ map that rebase-by-concern executes.
 disable-model-invocation: true
 ---
 
-Produce `.notes/<slug>/map.md`: the branch's concerns, each with its intent, justification, where that intent should live, and its commit message, approved by the user. Sub-agents read the evidence; the main agent reads only their outputs and cross-references them with the user. Nothing in git changes.
+Produce `.notes/<slug>/map.md`, approved by the user: the branch's primary concern, the concerns ordered around it, and an owner for every hunk of the net diff. The primary concern comes first because every other concern is defined against it. The user is the authority on intent; the evidence tools below inform the conversation and answer questions of fact. Nothing in git changes.
 
 ## Setup
 
-`<base>` is the last commit to keep; `<orig>` is the tip of the original branch; `<slug>` is the branch name with `/` replaced by `-`. Notes live in `.notes/<slug>/` inside the worktree; on first run add `.notes/` to `$(git rev-parse --git-path info/exclude)`.
+`<base>` is the last commit to keep; `<orig>` is the tip of the original branch; `<slug>` is the branch name with `/` replaced by `-`. Notes live in `.notes/<slug>/` inside the worktree; on first run add `.notes/` to `$(git rev-parse --git-path info/exclude)` and copy [assets/map-template.md](assets/map-template.md) to `map.md`. If `map.md` exists, read it and resume at its `status`. If the branch tip has moved past `orig`, update `orig`, run `hunks.py check`, and assign what it reports; reassign the hunks of any split path the new commits touched, since its hunk numbers may have shifted.
 
-If `map.md` exists, read its front matter and resume at its `status`. Without it, a step whose output file already exists is done: `changes.md` for step 1, `sessions/<id>.md` per session for step 2. If `orig` there is behind the branch tip, survey only the new range (steps 1–2 with `<old orig>..<new orig>`, digesting only sessions whose last turn is after the previous survey), merge the results into the existing files, and update `orig`.
+`hunks.py` is [../rebase-by-concern/scripts/hunks.py](../rebase-by-concern/scripts/hunks.py); run it with `--help` for the id and map formats.
 
-## 1. Change survey
+## Evidence tools
 
-Write `.notes/<slug>/paths.txt` from `git diff --name-only <base> <orig>`. Dispatch one sub-agent with [references/change-survey-brief.md](references/change-survey-brief.md). Done when `changes.md` exists and every path in `paths.txt` appears in a cluster.
+Take the cheapest tool that answers the question in hand. Each later tool costs more context or a sub-agent.
 
-## 2. Session survey
+1. Commit subjects: `git log --format='%h %s' <base>..<orig>`. A body, `git log -1 --format=%b <sha>`, when its subject suggests the reasoning is there.
+2. Shape of the change: `git diff --stat <base> <orig>`, or `--dirstat=files` when the stat exceeds about 100 paths; `hunks.py list <base> <orig>` for status and hunk count per path, `--hunks <path>` for one file's hunks.
+3. One path's diff: `git diff <base> <orig> -- <path>`.
+4. Sessions: `python3 scripts/sessions.py list <orig_branch> <first commit author date> --cwd <worktree>` for candidates and their summaries; `sessions.py search '<terms>' --sessions <ids>` to find where a question was discussed; `sessions.py transcript <id> --turns A-B` to read around a hit. Work ported from an earlier branch was deliberated in that branch's sessions; when the log shows ported commits, list that branch's sessions too.
+5. Session digest: when a concern's reasoning is spread across whole sessions, write `git diff --name-only <base> <orig>` to `.notes/<slug>/paths.txt` and dispatch one sub-agent per batch of about 150 KB of transcript (size column of `list`) with [references/session-digest-brief.md](references/session-digest-brief.md). Digests persist in `sessions/<id>.md`.
+6. Change survey: when the branch is too large to orient from tools 1–2, dispatch one sub-agent with [references/change-survey-brief.md](references/change-survey-brief.md). It writes `changes.md`.
 
-List candidates:
+Never read a session transcript whole, a per-commit diff, or an unqualified `git diff <base> <orig>`.
 
-    python3 scripts/sessions.py list <orig_branch> <first commit author date> --cwd <worktree>
+## Conversation
 
-Work carried over from an earlier branch was deliberated in that branch's sessions: when `changes.md` or the log shows ported commits, run `list` again for each such branch with its own start date and add those sessions to the candidates.
+Steps 1 and 2 run in frontier rounds, as in [brainstorming](../../brainstorming/SKILL.md): each round asks every open question that is ready to answer, in one numbered message, each with context and a recommended answer. Settle questions of fact with the evidence tools instead of asking. Record each answer in `map.md` and append it to **Decisions**; the user may edit `map.md` directly, so re-read it before each round.
 
-Dispatch one sub-agent per batch of sessions totalling about 150 KB of transcript (size column of `list`; a large session alone) with [references/session-digest-brief.md](references/session-digest-brief.md); batches run in parallel. Done when `sessions/<id>.md` exists for every candidate. Record `status: mapping`.
+## 1. Primary concern
 
-## 3. Draft the map in one pass
+Orient with tools 1, 2, and the summaries from `sessions.py list`. Post a guess at the **Primary concern** section (statement, intent, justification, boundary) with the evidence behind each part, then refine it with the user. Done when the user accepts the section; set `status: concerns`.
 
-Copy [assets/map-template.md](assets/map-template.md) to `map.md` and fill it completely from `changes.md` and `sessions/*.md`, without asking questions first. Per cluster: gather its deliberation entries across sessions, newest first; the latest entry present at `orig` governs the intent, earlier ones supply justification and rejected alternatives. Clusters with no session evidence go to **Unexplained changes**; entries marked absent at `orig` go to **Orphan intent**. An original commit that already is one concern is a `fixed` entry.
+## 2. Concerns around it
 
-Give each intent item a provisional `home` (message, doc, comment, test, or skill); step 6 verifies it against the code.
+Propose the remaining concerns, each defined against the primary's boundary, in commit order by tier:
 
-Order: fixes; infrastructure layers; foundation layers, each before its first consumer; features in dependency order. Draft every message. Mark each uncertainty as an `open:` line at the entry it affects, stating what would settle it. Reuse an original message verbatim only when it fully states the settled intent.
+- **misc**: organisational changes the user puts first in a branch, though nothing depends on them;
+- **dependency**: changes the primary concern needs, each before its first consumer;
+- **primary**;
+- **supporting**: changes made around the primary that it does not need.
 
-## 4. Close open questions
+One concern is one commit. Fill every field of the template entry, including a drafted message; `disposition: split:<branch>` marks a concern that belongs on another branch. Done when the user accepts the list; set `status: assigning`.
 
-Post the draft's open questions in chat, grouped by concern, each with the recommended answer. The user answers in chat or edits `map.md` directly; re-read the file before each round. A round covers only open items. Probe the repository only to settle a specific open question: `git diff <base> <orig> -- <path>`, `git log <base>..<orig> -- <path>`, or the session transcript, searched for a phrase from the entry. Append each settled item to **Decisions**.
+## 3. Assign hunks
 
-## 5. Review the map
+Give every path from `hunks.py list` to one concern's `members` or to **Dropped** with a reason. Name hunks (`path#2,3`) only for a path that serves more than one concern. When owners are not evident from the concerns and the stat, dispatch one sub-agent with [references/hunk-assignment-brief.md](references/hunk-assignment-brief.md). Post each uncertain owner with a recommendation. A hunk that fits no concern reopens step 2. Done when `hunks.py check map.md` exits 0; set `status: review`.
 
-When no `open:` lines remain and every residue item is resolved, dispatch one sub-agent with [references/map-review-brief.md](references/map-review-brief.md). Turn each reported item into an `open:` line or a residue item and return to step 4. Done when the review reports nothing.
+## 4. Review
 
-## 6. Audit how the code captures the intent
+Dispatch one sub-agent with [references/map-review-brief.md](references/map-review-brief.md). Take each reported item to the user as a question or fix it in the map, then re-run the review. Done when it reports nothing.
 
-Dispatch sub-agents per batch of concerns with [references/intent-capture-brief.md](references/intent-capture-brief.md). Merge each finding into the concern: `homes` becomes `captured <path>` or the home the audit chose, and every drafted addition (message sentence, doc paragraph, comment, test, skill rule) is appended to the concern's message or listed in full under **Intended differences** with its concern. Each addition is an `open:` item until the user accepts it; return to step 4 for them.
-
-## 7. Approval
+## 5. Approval
 
 Post the complete map and ask once for approval. On approval set `status: approved`, append the decision, and return. Execution is [rebase-by-concern](../rebase-by-concern/SKILL.md).
-
-## Context discipline
-
-Never read a session transcript whole, a per-commit diff, or an unqualified `git diff <base> <orig>`. Evidence enters through `changes.md` and `sessions/*.md`; the map cites them by cluster id and entry title.

@@ -3,46 +3,42 @@ base: <sha>
 orig: <sha>
 orig_branch: <name>
 clean_branch: <name>
-status: mapping
+status: primary
 ---
 
 # Map: <orig_branch>
 
+## Primary concern
+
+- statement: <one sentence: what this branch is for>
+- intent: <what the change achieves, in the user's terms>
+- justification: <why this form and what was rejected; cite commits, session turns, or `sessions/<id>.md` entries>
+- boundary: <what belongs to it, and what does not>
+
 ## Concerns
 
-Ordered as they will be committed. Each entry's `members` must account for every path in `changes.md`; a path serving two concerns names its hunks.
+Ordered as they will be committed: misc, dependency, primary, supporting. `members` lists paths, or `path#n,m` hunks for a path serving more than one concern; `hunks.py` reads `members`, `disposition`, and `message`.
 
 ### 1. <short name>
-- kind: layer | feature | fix | fixed (original <sha>, cherry-picked unchanged)
-- members: <paths; `path (hunks 1,3)` for a shared file>
-- intent: <what this change is for, in the author's terms>
-- justification: <why this form and what was rejected, newest first; cite `sessions/<id>.md` entry title>
-- homes: <intent item → captured <path> | message | doc <path> | comment <path> | test <path> | skill <name>>
+- tier: misc | dependency | primary | supporting
+- disposition: keep | split:<branch>
+- intent: <what this change is for>
+- justification: <why this form and what was rejected, with citations>
 - depends on: <concern numbers>
-- needed by: <concern numbers>
+- members:
+    - <path>
+    - <path#2,3>
 - message: |
     <gitmoji> <subject>
 
     <body>
-- open: <questions, each marked with what would settle it; delete when settled>
+- open: <question, with what would settle it; delete when settled>
 
-## Intended differences
+## Dropped
 
-Content the clean branch adds, changes, or omits relative to `orig`, each approved. An addition that carries an intent item (doc paragraph, comment, test, skill rule) is written out in full here, with its file and anchor, under the concern it lands in.
+Hunks of `<base>..<orig>` left out of the clean branch.
 
-- concern <n> — <doc|comment|test|skill> `<path>` § <anchor>: <full text> — approved <date>
-
-## Unexplained changes
-
-Paths or hunks in `changes.md` with no supporting session evidence. Each resolves to a concern (with intent recovered from the diff and log), a drop with reason, or a follow-up.
-
-- <path or cluster> — <resolution>
-
-## Orphan intent
-
-Deliberation entries in `sessions/` whose settled behavior is absent at `orig`. Each resolves to superseded (by concern n), deliberately abandoned (reason), or a follow-up outside this branch.
-
-- <entry title> `sessions/<id>.md` — <resolution>
+- <path or path#n> — <reason>
 
 ## Decisions
 

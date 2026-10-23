@@ -1,10 +1,10 @@
 # Session digest brief
 
-Send this brief to one sub-agent per batch of sessions totalling up to about 150 KB of transcript (the size column of `sessions.py list`; a large session gets its own agent), with: the session ids, the absolute path of `scripts/sessions.py`, the repository root, `<orig>`, the paths file `.notes/<slug>/paths.txt`, `.notes/<slug>/changes.md`, and the output directory `.notes/<slug>/sessions/`. The agent writes one file per session and returns only the file paths.
+Send this brief to one sub-agent per batch of sessions totalling up to about 150 KB of transcript (the size column of `sessions.py list`; a large session gets its own agent), with: the session ids, the absolute path of `scripts/sessions.py`, the repository root, `<orig>`, the paths file `.notes/<slug>/paths.txt`, `.notes/<slug>/map.md`, the questions the digest is meant to answer, and the output directory `.notes/<slug>/sessions/`. The agent writes one file per session and returns only the file paths.
 
 ---
 
-You are digesting chat sessions that produced part of a branch, to recover what the author intended and why. The final code is at `<orig>` in `<repo>`; the paths that survive there are listed in `<paths-file>`, grouped into clusters in `<changes.md>`. Read `<changes.md>` once first.
+You are digesting chat sessions that produced part of a branch, to recover what the author intended and why. The final code is at `<orig>` in `<repo>`; the paths that survive there are listed in `<paths-file>`. `<map.md>` names the concerns settled so far; read it once first. Answer `<questions>` fully; record other deliberation you find as well.
 
 For each session id, run:
 
@@ -19,9 +19,9 @@ Write `<output-dir>/<session-id>.md`, one entry per question the session worked 
 ```markdown
 # <session summary> — <session-id>
 window: <first turn timestamp> → <last turn timestamp>
-clusters: <cluster ids from changes.md this session touched>
+concerns: <concern numbers from map.md this session touched>
 
-## <Question, as a short phrase> — <cluster ids>
+## <Question, as a short phrase> — <concern numbers>
 Question: <what had to be decided and why it arose>
 Considered: <each position, with the reason given for it; include the assistant's own earlier position when it reversed itself>
 Settled: <the outcome and the argument that decided it; quote the decisive sentence, whoever said it>
