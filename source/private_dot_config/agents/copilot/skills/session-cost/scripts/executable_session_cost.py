@@ -68,9 +68,14 @@ def aiu(nano):
 
 
 def table(headers, rows):
-    out = ["| " + " | ".join(headers) + " |", "|" + "|".join("---" for _ in headers) + "|"]
-    out += ["| " + " | ".join(str(c) for c in row) + " |" for row in rows]
-    return "\n".join(out)
+    cells = [[str(c) for c in row] for row in rows]
+    widths = [max(len(h), *(len(r[i]) for r in cells), 3) for i, h in enumerate(headers)]
+
+    def line(values):
+        return "| " + " | ".join(v.ljust(w) for v, w in zip(values, widths)) + " |"
+
+    return "\n".join([line(headers), "|" + "|".join("-" * (w + 2) for w in widths) + "|"]
+                     + [line(r) for r in cells])
 
 
 def snippet(text, width=70):
