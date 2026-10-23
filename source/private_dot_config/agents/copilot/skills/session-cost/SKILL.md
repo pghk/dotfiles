@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Session cost report
 
-Run `python3 scripts/session_cost.py <session-id-or-prefix>` (or `--latest`) from this skill's directory. `--help` lists the flags.
+Run `python3 scripts/session_cost.py <session-id-or-prefix>` (or `--latest`) from this skill's directory. `--list` prints recent session ids with branch, AIU and summary. `--help` lists the flags.
 
 The report reads `~/.copilot/session-store.db` and the session's `events.jsonl`, and prints markdown:
 

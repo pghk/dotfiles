@@ -78,20 +78,35 @@ def snippet(text, width=70):
     return text if len(text) <= width else text[: width - 1] + "…"
 
 
+def list_sessions(db, limit):
+    rows = db.execute(
+        "SELECT s.id, s.updated_at, s.branch, s.summary, COALESCE(SUM(e.total_nano_aiu), 0) nano "
+        "FROM sessions s LEFT JOIN assistant_usage_events e ON e.session_id = s.id "
+        "GROUP BY s.id ORDER BY s.updated_at DESC LIMIT ?", (limit,)).fetchall()
+    print(table(["Id", "Updated (UTC)", "Branch", "AIU", "Summary"],
+                [[r["id"], r["updated_at"][:16].replace("T", " "), r["branch"] or "",
+                  f"{aiu(r['nano']):,.0f}", snippet(r["summary"] or "", 50)] for r in rows]))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("session", nargs="?", help="Session id or unique prefix")
     parser.add_argument("--latest", action="store_true", help="Use the most recently active session")
+    parser.add_argument("--list", type=int, nargs="?", const=15, metavar="N",
+                        help="List the N most recently active sessions with their ids (default 15) and exit")
     parser.add_argument("--top", type=int, default=8, help="Rows in the top-spenders table (default 8)")
     parser.add_argument("--trend", type=int, default=5, help="Recent sessions to compare against (default 5, 0 to skip)")
     parser.add_argument("--db", default=str(COPILOT / "session-store.db"), help="Path to session-store.db")
     args = parser.parse_args()
 
-    if not args.session and not args.latest:
-        parser.error("give a session id or --latest")
+    if not args.session and not args.latest and args.list is None:
+        parser.error("give a session id, --latest, or --list")
 
     db = sqlite3.connect(f"file:{args.db}?mode=ro", uri=True)
     db.row_factory = sqlite3.Row
+    if args.list is not None:
+        list_sessions(db, args.list)
+        return
     session_id = latest_session(db) if args.latest else resolve_session(db, args.session)
 
     calls = db.execute(
