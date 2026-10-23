@@ -6,6 +6,17 @@ applyTo: "**"
 
 Apply these instructions together with the shared `AGENTS.md` configuration.
 
+## Copilot documentation
+
+For Copilot CLI questions, consult installed `copilot help <topic>` or `copilot <command> --help` for version-specific behavior. Discover topics with `copilot help --help`. Prefer installed help when published documentation describes a different version.
+
+For broader guidance, use the [GitHub Docs APIs](https://docs.github.com/llms.txt):
+
+- Discover current article paths with `https://docs.github.com/api/search/v1?query=<encoded-query>&language=en&version=free-pro-team%40latest`.
+- Fetch a selected article as Markdown with `https://docs.github.com/api/article/body?pathname=<encoded-article-path>`.
+
+Load only relevant topics or articles.
+
 ## Skill listing budget
 
 The skill listing in context has a character cap, set by the `SKILL_CHAR_BUDGET`
