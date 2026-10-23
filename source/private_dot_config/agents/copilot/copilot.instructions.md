@@ -45,6 +45,6 @@ them, in reasoning or a file, does not count.
 
 ## Configuration layout
 
-Skills and `AGENTS.md` resolve through `~/.copilot` → `~/.config/copilot` →
-`~/.config/agents/copilot`. `~/.config/agents` is a chezmoi-managed target, not
-a git repository: see `shared/README.md` for how to track changes.
+Use canonical paths under `~/.config/agents` for reads, edits and chezmoi operations. Shared skills live in `~/.config/agents/shared/skills/`. When a supplied alias has an unknown target, resolve it once with `realpath` and reuse the resolved path.
+
+`~/.config/agents` is a chezmoi-managed target, not a git repository. Read `~/.config/agents/shared/README.md` for how to track changes.
