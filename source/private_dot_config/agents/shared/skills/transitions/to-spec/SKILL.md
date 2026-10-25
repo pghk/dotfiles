@@ -46,6 +46,10 @@ Do not conduct a broad interview by default. Write these sections:
 - **Constraints** — required boundaries, compatibility, and relevant evidence.
 - **Non-goals** — explicit exclusions.
 
+A constraint or non-goal that the user did not state or approve is an
+assumption. Record it as unresolved or as an implementation default, never as
+a decision or exclusion.
+
 Before finishing, trace every explicit user decision into the specification or
 identify it as unresolved; do not replace a concrete decision with a broader
 principle that permits a materially different result. For work that preserves
