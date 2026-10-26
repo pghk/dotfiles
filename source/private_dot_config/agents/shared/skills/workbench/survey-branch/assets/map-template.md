@@ -17,10 +17,10 @@ status: primary
 
 ## Concerns
 
-Ordered as they will be committed: misc, dependency, primary, supporting. `members` lists paths, or `path#n,m` hunks for a path serving more than one concern; `hunks.py` reads `members`, `disposition`, and `message`.
+Ordered as they will be committed: misc, supporting, dependency, primary. `members` lists paths, or `path#n,m` hunks for a path serving more than one concern; `hunks.py` reads `members`, `disposition`, and `message`.
 
 ### 1. <short name>
-- tier: misc | dependency | primary | supporting
+- tier: misc | supporting | dependency | primary
 - disposition: keep | split:<branch>
 - intent: <what this change is for>
 - justification: <why this form and what was rejected, with citations>
@@ -31,7 +31,7 @@ Ordered as they will be committed: misc, dependency, primary, supporting. `membe
 - message: |
     <gitmoji> <subject>
 
-    <body>
+    <body, only when the subject needs one>
 - open: <question, with what would settle it; delete when settled>
 
 ## Dropped

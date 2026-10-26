@@ -18,4 +18,4 @@ Report under these headings, each item one line with the concern number it conce
 
 **Dropped deliberation.** When digests exist: an entry marked present at `orig` that no concern cites. Name the entry and the concern it appears to belong to.
 
-Do not comment on wording or style, and do not check coverage; `hunks.py check` has done that.
+Omit items the Decisions log records as settled with the user. Do not comment on wording or style, and do not check coverage; `hunks.py check` has done that.

@@ -39,13 +39,15 @@ Orient with tools 1, 2, and the summaries from `sessions.py list`. Post a guess 
 Propose the remaining concerns, each defined against the primary's boundary, in commit order by tier:
 
 - **misc**: organisational changes the user puts first in a branch, though nothing depends on them;
+- **supporting**: changes made alongside the primary that improve what it builds on, though it does not require them, each before what it supports;
 - **dependency**: changes the primary concern needs, each before its first consumer;
-- **primary**;
-- **supporting**: changes made around the primary that it does not need.
+- **primary**.
 
-One concern is one commit. Fill every field of the template entry, including a drafted message; `disposition: split:<branch>` marks a concern that belongs on another branch. Done when the user accepts the list; set `status: assigning`.
+One concern is one commit. Fill every field of the template entry. Draft a concern's message once the user accepts its intent; until then post the intent as a question. `disposition: split:<branch>` marks a concern that belongs on another branch. Done when the user accepts the list; set `status: assigning`.
 
 ## 3. Assign hunks
+
+When an early concern is mechanical (a rename, move, or reformat) and later concerns rewrite the same lines, no hunk split gives its commit a tree that builds. Build it first as a stage: replay its commits onto `base` in a scratch index (`git apply --3way`), pin the result as `refs/survey/<slug>/stage1`, and give its concerns a `map-stage1.md` whose `orig` is that commit. Then set `map.md`'s `base` to it and `stage1_map: map-stage1.md`, and assign the remaining hunks against it.
 
 Give every path from `hunks.py list` to one concern's `members` or to **Dropped** with a reason. Name hunks (`path#2,3`) only for a path that serves more than one concern. When owners are not evident from the concerns and the stat, dispatch one sub-agent with [references/hunk-assignment-brief.md](references/hunk-assignment-brief.md). Post each uncertain owner with a recommendation. A hunk that fits no concern reopens step 2. Done when `hunks.py check map.md` exits 0; set `status: review`.
 
