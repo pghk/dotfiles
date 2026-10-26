@@ -9,11 +9,11 @@ Build a clean history forward: a new branch from `base`, one commit per concern 
 
 ## Preconditions
 
-Read `.notes/<slug>/map.md` front matter. Require `status: approved`, `orig` equal to the tip of `orig_branch`, and `python3 scripts/hunks.py check <map>` exiting 0; otherwise stop and name [survey-branch](../survey-branch/SKILL.md) as the next step. Then `git switch -c <clean_branch> <base>`, set `status: executing`, and append the start to **Decisions**.
+Read `.notes/<slug>/map.md` front matter. Require `status: approved`, `orig` equal to the tip of `orig_branch`, and `python3 scripts/hunks.py check <map>` exiting 0; otherwise stop and name [survey-branch](../survey-branch/SKILL.md) as the next step. A map whose front matter names `stage1_map` was split at a mechanical change that shares lines with later concerns: its `base` is that stage's `orig`, and the stage map must also pass `check`. Then `git switch -c <clean_branch> <base>`, using the stage map's `base` when there is one, set `status: executing`, and append the start to **Decisions**.
 
 ## Build
 
-1. `python3 scripts/hunks.py build <map>` commits every concern not marked `split:` in map order, with its message.
+1. `python3 scripts/hunks.py build <map>` commits every concern not marked `split:` in map order, with its message. With a `stage1_map`, build it first, then the map. `<base>` in the steps below is then the stage map's `base`.
 2. Verify every commit: `git rebase --exec '<build and test command>' <base>`, using the repository's checks for the affected assets and tests. A failure stops the rebase at the commit that broke.
 3. `python3 scripts/hunks.py verify <map>` exits 0: the branch holds exactly the map's kept concerns.
 
