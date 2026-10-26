@@ -161,6 +161,32 @@ class HunksTest(unittest.TestCase):
         self.assertEqual(self.repo.show("HEAD~1", "tail.txt"), "a\nb\nc\nd\ne\nf\ng\nh\nEND")
         self.assertEqual(self.repo.show("HEAD", "tail.txt"), "A\nb\nc\nd\ne\nf\ng\nh\nEND")
 
+    def test_build_separates_changes_one_unchanged_line_apart(self):
+        self.repo.git("switch", "-q", "main")
+        self.repo.write("near.txt", "a\nb\nc\n")
+        self.base = self.repo.commit("near base")
+        self.repo.git("switch", "-q", "-c", "near")
+        self.repo.write("near.txt", "A\nb\nC\n")
+        self.orig = self.repo.commit("near change")
+        self.write_map(concern(1, ["near.txt#2"], "last"), concern(2, ["near.txt#1"], "first"))
+        self.repo.git("switch", "-q", "-c", "clean", self.base)
+        self.repo.run("build", self.map)
+        self.assertEqual(self.repo.show("HEAD~1", "near.txt"), "a\nb\nC\n")
+        self.assertEqual(self.repo.show("HEAD", "near.txt"), "A\nb\nC\n")
+
+    def test_build_applies_bare_insertions_and_deletions_separately(self):
+        self.repo.git("switch", "-q", "main")
+        self.repo.write("near.txt", "a\nb\nc\nd\n")
+        self.base = self.repo.commit("near base")
+        self.repo.git("switch", "-q", "-c", "near")
+        self.repo.write("near.txt", "start\na\nb\nd\nend\n")
+        self.orig = self.repo.commit("near change")
+        self.write_map(concern(1, ["near.txt#2"], "delete"), concern(2, ["near.txt#1,3"], "insert"))
+        self.repo.git("switch", "-q", "-c", "clean", self.base)
+        self.repo.run("build", self.map)
+        self.assertEqual(self.repo.show("HEAD~1", "near.txt"), "a\nb\nd\n")
+        self.assertEqual(self.repo.show("HEAD", "near.txt"), "start\na\nb\nd\nend\n")
+
     def test_verify_names_paths_that_depart_from_the_map(self):
         self.write_map(concern(1, ["app.txt", "new.txt", "old.txt"], "one"))
         self.repo.git("switch", "-q", "-c", "clean", self.base)

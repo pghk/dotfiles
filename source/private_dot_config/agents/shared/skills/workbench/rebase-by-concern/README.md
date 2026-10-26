@@ -38,8 +38,9 @@ resolution and no hand-edited history.
 
 ## Known issues
 
-- A hunk is the unit of assignment. Two changes separated by six or fewer
-  unchanged lines share a hunk and cannot go to different concerns.
+- A hunk is the unit of assignment. Only consecutive changed lines share a
+  hunk, so a change that mixes two concerns within adjacent lines cannot go
+  to different concerns.
 - Original commit identity is not preserved; the mapping from a final hunk
   to the commit that introduced it is recovered on demand with
   `git log <base>..<orig> -- <path>`, not carried along.

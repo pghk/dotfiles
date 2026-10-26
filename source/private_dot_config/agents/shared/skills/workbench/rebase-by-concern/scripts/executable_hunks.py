@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Assign the net change of a branch to concerns and build it as commits.
 
-Hunks are those of `git diff --no-renames <base> <orig>`, numbered per path
-from 1. Ids are stable for a given base and orig: `path` names the whole file,
+Hunks are those of `git diff --no-renames --unified=0 <base> <orig>`,
+numbered per path from 1, so changes separated by any unchanged line are
+separate hunks. Ids are stable for a given base and orig: `path` names the whole file,
 `path#2` or `path#1,3` names hunks of it. A rename is a deleted path and an
 added path; binary, added, deleted, and mode-only changes are whole files.
 
@@ -125,7 +126,8 @@ def changes(base, orig):
             out[parts[2].decode()].binary = True
     for change in out.values():
         if not change.binary:
-            diff = git("diff", "--no-renames", "--no-ext-diff", base, orig, "--", change.path)
+            diff = git("diff", "--no-renames", "--no-ext-diff", "--unified=0", "--inter-hunk-context=0",
+                       base, orig, "--", change.path)
             change.hunks = parse_hunks(diff)
     return out
 
