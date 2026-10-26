@@ -70,7 +70,7 @@ The external source snapshots are:
 
 **Superpowers** contributes the base design-conversation method in [`brainstorming`](brainstorming/SKILL.md), the technical-feedback discipline in [`receiving-code-review`](receiving-code-review/SKILL.md), and parts of the completion and test-quality principles.
 
-**Matt Pocock skills** contribute the three delivery transitions, the diagnosing-bugs basis of `bug-fix`, the frontier protocol in `brainstorming`, the external handoff pattern, one source for `retro`, the `wait-what` behavior incorporated into [`bro`](bro/SKILL.md), and the [writing-for-agents reference](skill-management/references/writing-for-agents.md).
+**Matt Pocock skills** contribute the three delivery transitions, the diagnosing-bugs basis of `bug-fix`, the frontier protocol in `brainstorming`, the external handoff pattern, one source for `retro`, the `wait-what` behavior incorporated into [`bro`](bro/SKILL.md), the glossary discipline in [`domain-modeling`](workbench/domain-modeling/SKILL.md), and the [writing-for-agents reference](skill-management/references/writing-for-agents.md).
 
 **Poteto/Pstack** contributes a selection of principles and [`show-your-work`](continuity/show-your-work/SKILL.md), plus the bases for [`blast-radius`](blast-radius/SKILL.md), `ad-hoc-playbook`, `retro`, `pickup`, `bro`, [`how`](explanation/how/SKILL.md), [`why`](explanation/why/SKILL.md), [`teach`](explanation/teach/SKILL.md), `technical-writing`, and `unslop`. Its test guidance also informs `bug-fix` and the test-quality principle.
 
