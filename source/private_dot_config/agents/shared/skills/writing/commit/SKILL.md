@@ -23,7 +23,7 @@ A commit message explains why the change exists. The subject identifies the chan
 
 - Include when the change needs explanation beyond a brief summary; skip when it doesn't
 - **Make the change the actor in the body's opening sentence.** Explain what it enables, prevents, or makes easier, and connect that effect to why the change exists. Describe unwanted behavior as the problem that effect addresses
-- Follow with details that explain how the effect is achieved. Include concrete diagnostics and implementation details where they support the explanation; leave inventories of edits and restatements of changed documentation to the diff
+- Follow with details that explain how the effect is achieved. Include concrete diagnostics and implementation details where they support the explanation; leave inventories of edits and restatements of changed documentation or tests to the diff
 - The benefit is a task the reader performs or a failure they stop seeing, not the existence of what the change adds: "so that support staff can resend an invitation without engineering help", not "so that invitations have a resend action"
 - Describe undesired behavior in terms a reader would recognize. For a fix, add regression provenance when known, tied to what the fix addresses. Where a ticket or issue exists, carry only what a reader holding it still lacks
 - State behaviour a reader would see change outside the subject's scope, keeping the change as the actor ("It also amends …"). If nothing observable changes elsewhere, say nothing
