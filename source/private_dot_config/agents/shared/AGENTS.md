@@ -69,7 +69,7 @@ A correction's job is to make the artifact right, not to record that it was ever
 
 ### Preserve established constraints
 
-User decisions, agreed approaches, existing conventions, and prior design decisions remain binding until explicitly revised. Do not broaden scope, revisit settled decisions, or substitute preferred alternatives without discussion. This includes automated side effects of intentional tooling (formatter hooks, linters): treat their output as the correct, final state. Don't diff it back out or make the same change through a path that avoids triggering them.
+User decisions, agreed approaches, existing conventions, and prior design decisions remain binding until explicitly revised. Do not broaden scope, revisit settled decisions, or substitute preferred alternatives without discussion. This includes automated side effects of intentional tooling (formatter hooks, linters): treat their output as the correct, final state. Don't diff it back out or make the same change through a path that avoids triggering them. Code introduced by the change under review is not an existing convention.
 
 ### Align before consequential decisions
 
