@@ -30,8 +30,9 @@ Subcommands:
       hunks of built concerns 1..N. Absolute, so it can be rerun.
 
   build MAP [--dry-run]
-      From a clean checkout of base, stages and commits each built concern
-      in map order with its message.
+      From a clean checkout of base's tree, such as the result of building
+      an earlier map whose orig is this map's base, stages and commits each
+      built concern in map order with its message.
 
   verify MAP [--rev REV]
       Compares REV (default HEAD) with base plus every built concern.
@@ -359,8 +360,8 @@ def cmd_build(args):
         for e in plan:
             print("{}\t{}".format(e["n"], e["message"].splitlines()[0]))
         return 0
-    head = git("rev-parse", "HEAD").strip()
-    base = git("rev-parse", front["base"] + "^{commit}").strip()
+    head = git("rev-parse", "HEAD^{tree}").strip()
+    base = git("rev-parse", front["base"] + "^{tree}").strip()
     if head != base or git("status", "--porcelain"):
         die("build needs a clean checkout of base {}. Try: git switch -c <clean_branch> {}".format(
             front["base"], front["base"]))

@@ -148,6 +148,14 @@ class HunksTest(unittest.TestCase):
         self.assertEqual(result.returncode, 2)
         self.assertEqual(self.repo.git("rev-parse", "HEAD").strip(), self.orig)
 
+    def test_build_starts_from_any_commit_with_the_tree_of_base(self):
+        self.write_map(concern(1, ["app.txt", "new.txt", "old.txt"], "one"))
+        self.repo.git("switch", "-q", "-c", "clean", self.base)
+        self.repo.git("commit", "-q", "--allow-empty", "-m", "same tree as base")
+        result = self.repo.run("build", self.map)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.repo.git("rev-parse", "HEAD^{tree}"), self.repo.git("rev-parse", self.orig + "^{tree}"))
+
     def test_build_preserves_a_missing_final_newline(self):
         self.repo.git("switch", "-q", "main")
         self.repo.write("tail.txt", "a\nb\nc\nd\ne\nf\ng\nh\nend")
