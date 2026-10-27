@@ -13,17 +13,19 @@ Use only when the user explicitly invokes this skill. Conduct a read-only review
 
 Accept an explicit commit or range, staged or unstaged changes, or a bounded set of authored artifacts. Ask when the requested surface is ambiguous. Pin Git revisions when applicable; inspect uncommitted work in the requested index or working-tree state. Named artifacts need no Git history.
 
-Establish purpose, required behavior, constraints, and material reasoning from governing sources: the user's statements, accepted specifications and decisions, tickets, and a concern map or past sessions when relevant. Retain the source of each intent item. Messages and implementation are evidence to assess against that authority. Ask before judging an item whose governing intent is unresolved.
+Establish purpose, required behavior, constraints, and material reasoning from governing sources: the user's statements, accepted specifications and decisions, tickets, a survey-branch concern map at `.notes/<slug>/map.md`, and the sessions that produced the work. Retain the source of each intent item. Governing sources, messages, and implementation are evidence to assess against that authority, not review targets; review only artifacts in the requested scope. Ask before judging an item whose governing intent is unresolved.
 
 ## Check expression
 
-For each established item, identify the artifacts its readers need and inspect their actual contents and relationships. Check for sufficient expression, omissions, contradictions, misleading representations, and information placed where its reader will not find it. Adequate code structure can carry an item without prose. Do not demand an addition to every artifact or expand into unrelated code-quality review.
+Before judging, list each intent item with the artifacts its reader would consult (code names and structure, tests, docs, comments, messages, skills), and mark each inspected and sufficient, deficient, or not inspected. Before proposing a comment, state the structural alternative weighed.
+
+For each established item, inspect those artifacts' actual contents and relationships. Check for sufficient expression, omissions, contradictions, misleading representations, and information placed where its reader will not find it. Adequate code structure can carry an item without prose. Do not demand an addition to every artifact or expand into unrelated code-quality review.
 
 Review directly unless independent breadth justifies delegation under the active agent instructions. For an authorized delegated slice, use [references/intent-review-brief.md](references/intent-review-brief.md) with its explicit scope, governing sources, and the paths of this procedure and the principle.
 
 ## Report proposed corrections
 
-State the reviewed scope and governing sources. Group findings by affected work, with commit attribution when applicable. For each finding, provide:
+State the reviewed scope, governing sources, and each intent item's artifact coverage, including what was not inspected. Group findings by affected work, with commit attribution when applicable. For each finding, provide:
 
 - The intent item and its source.
 - The affected path or message, quoted evidence or the inspected location of an omission, and what its reader cannot recover or would misunderstand.
