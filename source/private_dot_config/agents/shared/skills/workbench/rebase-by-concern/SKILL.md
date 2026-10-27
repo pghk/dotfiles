@@ -19,7 +19,7 @@ Read `.notes/<slug>/map.md` front matter. Require `status: approved`, `orig` equ
 
 Stop and return to the user when execution departs from the map: a failing check, a commit whose diff contradicts its message, or a concern that needs splitting or reordering. Revise the map together and append the revision to **Decisions**, then rebuild: `git rebase --abort` if one is in progress, `git reset --keep <base>`, and build again.
 
-When `verify` passes, dispatch one sub-agent with [references/history-review-brief.md](references/history-review-brief.md). Fix each reported item in the map and rebuild, re-run the review until it reports nothing, then set `status: done`. [intent-capture](../intent-capture/SKILL.md) can follow.
+When `verify` passes, dispatch one sub-agent with [references/history-review-brief.md](references/history-review-brief.md). Fix each reported item in the map and rebuild, re-run the review until it reports nothing, then set `status: done`. The user may separately invoke [intent-review](../intent-review/SKILL.md).
 
 ## Context discipline
 
