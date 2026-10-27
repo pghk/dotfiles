@@ -60,11 +60,7 @@ whether the skill was loaded:
 
 ## Weigh net value
 
-- **Savings:** per-occurrence cost, rated low, medium, or high from the
-  ledger's observed turns, tool calls, rework, and user turns, multiplied by
-  expected recurrence. Discount it when the codified form names one example
-  rather than the underlying construct, or cannot be applied at a
-  recognizable decision point.
+- **Savings:** rate observed per-use cost low, medium, or high from the ledger, then estimate uses across future sessions and workflows. Name the next recognizable trigger and the basis for expected reuse; separate observation from forecast. One observed instance can justify reusable automation or a reproducible check. Discount example-specific solutions and mechanisms with no clear future entry point.
 - **Carrying cost:** bytes × residency, plus drift risk and maintenance.
   Residency runs from resident instructions, through loaded skill bodies and
   on-demand references, to code and configuration, which cost almost no
@@ -116,11 +112,9 @@ conflicting signals justify its cost under current subagent policy.
 Consolidate entries into one non-overlapping set, naming any earlier proposal
 it supersedes, and present it grouped by verdict before changing anything:
 
-- **Recommend:** one block each with the signal and evidence, savings,
-  carrying cost, exact destination, proposed wording or mechanism, and limits
-  on confidence.
+- **Recommend:** one block each with the signal and evidence, next-use trigger and expected savings, carrying cost, exact destination, proposed wording or mechanism, and limits on confidence.
 - **Already owned:** one line each naming the owner.
-- **Skip:** one line each naming the deciding factor.
+- **Skip:** one line each naming the deciding factor and why expected reuse or reproducibility does not change the verdict.
 
 Repeat the consolidation after follow-up discussion and before applying.
 Prefer one canonical owner with narrow pointers from other skills over
