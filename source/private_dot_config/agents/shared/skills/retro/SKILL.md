@@ -27,6 +27,10 @@ concrete observations without diagnosis:
 - user turns that did not advance the task: corrections, verification
   questions, re-asks, misread questions, and requests for output the agent
   should have produced;
+- harness friction: failed or retried commands, tool errors, user approval
+  prompts, denied calls, and bulky output that cost turns or tokens; for each
+  recurring one, name the cheapest fix that removes it: a permission or
+  setting change, an extracted script, or a corrected instruction;
 - context spent on loaded guidance that did not change behavior or that
   contradicted another source.
 
@@ -84,7 +88,8 @@ proposing a change:
 - a specific existing skill at `skills/<name>/SKILL.md` for skill behavior;
 - the repository's `AGENTS.md` for one repository's broad conventions;
 - user-level agent instructions only for genuinely cross-project behavior;
-- host runtime policy or configuration for host-specific behavior;
+- host runtime policy or configuration for host-specific behavior, including
+  tool allowlists, approval settings, and harness options;
 - code, tests, lint, CI, hooks, configuration, metadata, canonical APIs or
   helpers, and runtime checks for structural mechanisms.
 
