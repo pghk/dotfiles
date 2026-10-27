@@ -95,8 +95,12 @@ def main():
                    "GIT_AUTHOR_EMAIL": author[1], "GIT_AUTHOR_DATE": author[2]}
             tree = rev(f"{source}^{{tree}}")
             parent = git("commit-tree", tree, "-p", parent, text=message, env=env)
+            subject_line = message.splitlines()[0]
+            if len(subject_line) > 50:
+                print(f"stack.py: subject is {len(subject_line)} characters "
+                      f"(over 50): {subject_line}", file=sys.stderr)
             commits.append({"source": source, "rewritten": parent, "branch": name,
-                            "subject": message.splitlines()[0], "tree": tree})
+                            "subject": subject_line, "tree": tree})
         tips[name] = parent
 
     if rev(f"{parent}^{{tree}}") != rev(f"{source_tip}^{{tree}}"):
