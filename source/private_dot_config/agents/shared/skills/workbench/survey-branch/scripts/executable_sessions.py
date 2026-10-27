@@ -23,10 +23,22 @@ Subcommands:
       best match first. Tab-separated: session id, source, turn
       timestamp (turns only), snippet with matches in [brackets]. Read
       around a hit with `transcript <id> --turns A-B`.
+
+  events <regex> [--sessions ID ...] [--since ISO] [--until ISO] [--agents]
+      Case-insensitive search of each session's events.jsonl, which
+      holds every message: the store's turns can stop at a session's
+      first summary and omit subagent work. Tab-separated: session id,
+      timestamp, role (user, assistant, reasoning), agent id or "-",
+      excerpt around the first match. Session IDs may be prefixes.
+      --agents includes subagent messages. Pass '.' with a session and
+      a time window to read a stretch of conversation.
 """
 
 import argparse
+import glob
+import json
 import os
+import re
 import sqlite3
 import sys
 
@@ -142,6 +154,43 @@ def cmd_search(args):
         print("\t".join([session_id, source, timestamp or "", " ".join(snippet.split())]))
 
 
+def event_texts(event):
+    data = event.get("data") or {}
+    kind = event.get("type")
+    if kind == "user.message":
+        yield "user", data.get("content")
+    elif kind == "assistant.message":
+        yield "assistant", data.get("content")
+        yield "reasoning", data.get("reasoningText")
+
+
+def cmd_events(args):
+    pattern = re.compile(args.regex, re.IGNORECASE)
+    files = sorted(glob.glob(os.path.join(SESSION_STATE, "*", "events.jsonl")))
+    if args.sessions:
+        files = [f for f in files if os.path.basename(os.path.dirname(f)).startswith(tuple(args.sessions))]
+        if not files:
+            sys.exit(f"No session matches {args.sessions}. Try: ls {SESSION_STATE}")
+    for path in files:
+        session_id = os.path.basename(os.path.dirname(path))
+        with open(path) as f:
+            for line in f:
+                event = json.loads(line)
+                timestamp = event.get("timestamp", "")
+                agent = event.get("agentId") or "-"
+                if (args.since and timestamp < args.since) or (args.until and timestamp > args.until):
+                    continue
+                if agent != "-" and not args.agents:
+                    continue
+                for role, text in event_texts(event):
+                    match = pattern.search(text) if isinstance(text, str) else None
+                    if match is None:
+                        continue
+                    start = max(0, match.start() - args.width // 2)
+                    excerpt = " ".join(text[start:start + args.width].split())
+                    print("\t".join([session_id, timestamp, role, agent, excerpt]))
+
+
 def turn_range(text):
     first, _, last = text.partition("-")
     try:
@@ -172,6 +221,15 @@ def main():
     p_search.add_argument("--sessions", nargs="+", metavar="ID")
     p_search.add_argument("--limit", type=int, default=20)
     p_search.set_defaults(func=cmd_search)
+
+    p_events = sub.add_parser("events")
+    p_events.add_argument("regex", help="Python regex, matched case-insensitively")
+    p_events.add_argument("--sessions", nargs="+", metavar="ID", help="session id prefixes")
+    p_events.add_argument("--since", help="ISO timestamp, e.g. 2026-10-19T15:00")
+    p_events.add_argument("--until", help="ISO timestamp")
+    p_events.add_argument("--agents", action="store_true", help="include subagent messages")
+    p_events.add_argument("--width", type=int, default=600, help="excerpt characters")
+    p_events.set_defaults(func=cmd_events)
 
     args = parser.parse_args()
     args.func(args)

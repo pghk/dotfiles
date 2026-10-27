@@ -104,18 +104,19 @@ git log -g --all --format="%gd %H %gs" | grep "<short-sha>"
 
 ### 5. Search session history
 
-```sql
--- Find sessions/turns that mention the same keywords, files, or problem
-SELECT t.session_id, t.user_message, t.assistant_response, t.timestamp
-FROM turns t
-WHERE t.timestamp > now() - INTERVAL '90 days'
-  AND t.user_message ILIKE '%<keyword>%'
-ORDER BY t.timestamp DESC
-LIMIT 10
+```bash
+# Messages that mention the same keywords, files, or problem
+python3 ../workbench/survey-branch/scripts/sessions.py events '<regex>' --agents
+
+# Read around a hit
+python3 ../workbench/survey-branch/scripts/sessions.py events . --sessions <id> \
+  --since <iso> --until <iso> --agents
 ```
 
-Use `session_store_sql` with DuckDB. Start narrow (exact phrases); widen
-if needed. Session turns often contain the full diagnostic narrative that
+Search events rather than the session store: the store's turns can stop at
+a session's first summary and omit subagent work. Start narrow; widen if
+needed. Session messages and approved plans
+(`~/.copilot/session-state/<id>/plan.md`) often hold the reasoning that
 never made it into a commit message.
 
 ### 6. Check stash / WIP entries
