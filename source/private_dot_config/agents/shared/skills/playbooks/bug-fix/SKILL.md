@@ -30,7 +30,7 @@ Load and apply [the root-cause principle](../../principles/principle-fix-root-ca
 
 ## Implement and preserve
 
-When a cheap credible maintained-test seam exists, write the focused regression test before the fix, observe RED, make the smallest fix, then observe GREEN. Apply [Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md) when preserving that automated regression. Do not force a weak test. If no credible maintained-test seam exists but a credible executable reproduction does, fix against that reproduction and record the confidence and preservation limit.
+When a cheap credible maintained-test seam exists, write the focused regression test before the fix, observe RED, make the smallest fix, then observe GREEN. Apply [Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md) when preserving that automated regression, and [Tests Are Not Receipts](../../principles/principle-tests-are-not-receipts/SKILL.md) when deciding which reproduction tests to keep. Do not force a weak test. If no credible maintained-test seam exists but a credible executable reproduction does, fix against that reproduction and record the confidence and preservation limit.
 
 Keep independent review conditional under the implement transition; this playbook adds no review ceremony. Do not reproduce legacy debugging phases, rationalization tables, or report templates here.
 

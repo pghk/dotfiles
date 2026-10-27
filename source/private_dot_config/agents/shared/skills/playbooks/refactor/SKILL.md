@@ -43,7 +43,9 @@ work; do not manufacture a RED test. If the seam is absent or weak, add only
 the smallest credible characterization test or probe. When creating or
 changing a test, apply [Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md):
 name the observable behavior and a known bad case, and assert at the subject
-boundary. A weak test is not evidence.
+boundary. A weak test is not evidence. Before finishing, apply
+[Tests Are Not Receipts](../../principles/principle-tests-are-not-receipts/SKILL.md)
+to any characterization test the refactor added.
 
 If the baseline is already failing, localize whether the failure is unrelated
 or whether the requested work is actually a bug fix. Do not silently absorb a

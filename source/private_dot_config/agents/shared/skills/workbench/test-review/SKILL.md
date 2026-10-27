@@ -1,321 +1,87 @@
 ---
 name: test-review
-description: >
-  Judge whether tests, test plans, or acceptance criteria can tell correct behavior from incorrect, and report findings with evidence before any edit.
-disable-model-invocation: true
+description: "Use when judging existing or proposed tests: whether a test is weak, brittle, or worth keeping, or can tell correct behavior from incorrect. Before fixing or rewriting a test."
 ---
 
 # Test Review
 
-Judge whether existing tests or proposed test claims can distinguish correct
-behavior from incorrect behavior. Report findings with evidence. Load
-[Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md)
-with this skill: its rules are the standard every assertion is judged against.
+Judge whether tests or proposed test claims distinguish correct behavior from incorrect, and whether each earns retention. Load the standard first: [Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md), [Tests Are Not Receipts](../../principles/principle-tests-are-not-receipts/SKILL.md), and [Query the Structure](../../principles/principle-query-the-structure/SKILL.md). Read [references/smells.md](references/smells.md) for the concrete cues each move looks for.
 
-For a class- or suite-level review, first state the subject's public input,
-output, and responsibility in one sentence. Map the test groups to that
-responsibility before inspecting individual assertions. When the subject
-assembles several kinds of output, require a representative composition
-scenario; isolated component coverage does not establish that the whole result
-composes correctly. Treat opaque fixture vocabulary, delivery-history names,
-and a suite whose organization hides the responsibility map as test-quality
-findings when the requested review includes legibility or executable
-specification.
+**A request to fix, improve, clean up, or rewrite a test is a review request first.** Produce the findings, then propose the change and wait for agreement. Editing before the review is complete means editing without knowing which claims the test protects, and the edits land on whichever symptom is loudest, usually a failure the test did not cause. Shape proposals under [Subtract Before You Add](../../principles/principle-subtract-before-you-add/SKILL.md): deletion is a proposal, and it comes before a stronger assertion.
 
-**A request to fix, improve, clean up, or rewrite a test is a review request
-first.** Produce the findings, then propose the change and wait for agreement.
-Editing before the review is complete means editing without knowing which
-claims the test protects, and the edits land on whichever symptom is loudest —
-usually a failure the test did not cause. Shape proposals under
-[Subtract Before You Add](../../principles/principle-subtract-before-you-add/SKILL.md):
-deletion is a proposal, and it comes before a stronger assertion.
+Once a change is agreed, the review is over for that finding and a different skill owns the edit. A rewritten or new test is authored under the principles above. A finding resolved in the *subject* is a production change: load the applicable area skill and any change-impact skill before editing, then re-enter this review for the test that results.
 
-**Distinguish development evidence from a durable regression contract.** A test can convincingly verify a particular fix without deserving permanent maintenance. Evaluate each claim against the subject's expected behavior, including components awaiting adoption.
+A test file cannot be reviewed by reading it. Every finding requires reading the code the test exercises; a review of the test text alone finds style problems and misses every defect that matters.
 
-Before improving an assertion, identify:
+## Suite-level reviews
 
-- **The lasting obligation:** what must remain true for the subject to fulfill its responsibility?
-- **A legitimate evolution:** what acceptable change to presentation, implementation, or composition would make this assertion fail? Would that failure identify broken behavior, or merely require updating the test?
-- **The carrying cost:** what execution, fixture, diagnostic, and maintenance machinery does the test require, and what useful regression evidence does that machinery buy?
-
-Signals of temporary development evidence include preserving surrounding details "without changing" them; pinning the particular value or mechanism chosen for a fix; reconstructing a calculation or rendering model inside the test; and exercising a narrowly arranged state while claiming a broader guarantee. These are investigation prompts, not deletion rules. Read the subject and its contract before deciding whether the detail is incidental. Exact values and visual relationships can themselves be durable requirements.
-
-Choose the smallest justified outcome: **remove** checks whose distinction is not worth maintaining; **trim** incidental assertions from a valuable test; **refactor** when a durable obligation has an unnecessarily brittle or expensive expression; **keep** when the test provides useful protection at reasonable cost. A valuable underlying requirement does not automatically justify strengthening or replacing every test associated with it.
-
-Once a change is agreed, the review is over for that finding and a different
-skill owns the edit. A rewritten or new test is authored under the same
-principle. A finding resolved in the *subject* is a production
-change: load the applicable area skill and any change-impact skill before
-editing, then re-enter this review for the test that results.
-
-A test file cannot be reviewed by reading it. Every finding below requires
-reading the code the test exercises. A review conducted on the test text alone
-will find style problems and miss every defect that matters.
+When the scope is a class or suite, or the requested outcome is that tests explain a subject, first state the subject's public input, output, and responsibility in one sentence from its production boundary. Map each responsibility to files and named tests, then report missing, duplicated, misplaced, or obscured responsibilities. When legibility is in scope, evaluate whether filenames, grouping, fixture vocabulary, and the first representative test let a reader recover the contract. Propose the target organization before optimizing assertions in place.
 
 ## Prospective reviews
 
-When tests do not exist yet, review the proposed claims rather than pretending
-to review their implementation. Read the intended SUT, upstream behavior and
-named repository references. For each claim, identify the production boundary,
-representable stimulus, distinguishing observation, cheapest reliable layer and
-a plausible accidental production edit that would change the result.
+When tests do not exist yet, review the proposed claims. Read the intended subject, upstream behavior, and named repository references. For each claim, identify the production boundary, a representable stimulus, the distinguishing observation, the cheapest reliable layer, and a plausible accidental production edit that would change the result. Reject a runtime claim when its subject cannot receive the stimulus or expose the asserted distinction; reframe it around the owner that can, or report a testability gap. Check compound guards, scoped data, ordered precedence, and fallbacks case by case rather than crediting a broad section citation.
 
-Separate runtime behavior from source-at-rest constraints. A proposed test for
-an extra enum case, forbidden property, type modifier or absent abstraction is
-structural unless consuming behavior observably depends on that shape. Reject a
-runtime claim when its SUT cannot receive the stimulus or expose the asserted
-distinction; reframe it around the owner that can, or report a testability gap.
-Check compound guards, scoped data, ordered precedence and fallbacks case by
-case rather than crediting a broad section citation.
-
-Do not require or invent a baseline run, mutation result or test-body finding
-when no implementation exists. State that discrimination remains prospective
-until the test is implemented, run green and proven red by a plausible
-production mutation. Apply the claim-and-layer allocation below to planned
-claims; apply artifact, assertion and instrument checks only where concrete
-artifacts or proposed mechanisms exist.
+Do not require or invent a baseline run, mutation result, or test-body finding when no implementation exists. State that discrimination remains prospective until the test is implemented, run green, and proven red by a plausible production mutation. Apply move 3 to planned claims; apply the other moves only where concrete artifacts or proposed mechanisms exist.
 
 ## Evidence standard
 
-Confirm findings; do not infer them.
+Before any finding derives from a test run, run the tests unmodified and record what they do. **A red run whose cause is not established blocks the review.** Report the observed failure and stop. Do not repair the environment, and do not convert the failure into a finding about the test's design: a hidden environmental fault reads exactly like a broken test. When the failure is itself the subject of the review, establish its cause by observation first; a red run with an observed cause is evidence like any other.
 
-Before any finding derives from a test run, run the tests unmodified and
-record what they do. **If they are not green, the review is blocked.** Report
-the observed failure and stop. Do not repair the environment, and do not
-convert the failure into a finding about the test's design — a red run whose
-cause you have not established says nothing about whether the test
-discriminates, and a hidden environmental fault reads exactly like a broken
-test. You are not required to diagnose it; you are required not to build on it.
+- A test that "cannot fail" is confirmed by searching for the asserted token or by mutating the production code and observing the test stay green.
+- A claim about how a framework resolves, renders, or dispatches something is confirmed by running it, not recalled.
+- An intentional-looking oddity is confirmed by looking for a sibling test, manifest, or comment that specifies it before calling it a defect.
 
-- A test that "cannot fail" is confirmed by searching for the asserted token
-  or by mutating the production code and observing the test stay green.
-- A claim about how a framework resolves, renders, or dispatches something is
-  confirmed by running it, not recalled.
-- An intentional-looking oddity is confirmed by looking for a sibling test,
-  manifest, or comment that specifies it before calling it a defect.
+State plainly when a finding rests on inspection alone, and name the observation that would settle it. Withdraw findings that evidence contradicts. When implementation and documentation disagree about product policy, report a contract conflict until an accepted authority establishes the intended behavior.
 
-State plainly when a finding rests on inspection alone, and name the
-observation that would settle it. Withdraw findings that evidence contradicts.
-When implementation and documentation disagree about product policy, report a
-contract conflict until an accepted authority establishes the intended
-behavior; do not promote the discrepancy to a subject defect on documentation
-alone.
-
-A sibling test's pattern is evidence about what the *SUT* is meant to do, not
-validated precedent for a *test's* own structure. Citing "the neighboring test
-also selects/bypasses/asserts it this way" only carries weight once that
-sibling has itself passed review — otherwise it launders an unreviewed choice
-into apparent convention. Evaluate the choice on its own merits, and say when
-a cited pattern is unverified rather than presenting it as established.
-
-### Mutating to confirm
-
-Breaking production code on purpose is the strongest evidence available here
-and the only step that leaves the tree dirty. It is the claim-matched evidence
-[Prove It Works](../../principles/principle-prove-it-works/SKILL.md) requires
-before "this test discriminates" is reported. Bound it:
-
-- Restore with `git checkout -- <file>` when the file was clean before the
-  mutation; otherwise copy it first and restore from the copy. Do not edit it
-  back by hand.
-- Re-run to the recorded baseline afterwards. Restoration is not confirmed by
-  the absence of an error.
-- Rebuild whatever the test actually loads. A mutation of a source that a
-  bundle is built from proves nothing until the bundle is rebuilt, and a
-  staleness guard that misses that source will show you a false green.
-- When a rebuild is costly, batch mutations that reach disjoint tests into
-  one run; re-run any surprising green in isolation.
-- Confirm the tree with a check that sees ignored files. `git status` reports
-  clean for a deleted build artifact or runtime marker, so "clean tree" from
-  it alone is not evidence that a mutation was undone.
-
-Mutate the subject under review, never the environment that runs it. Needing
-to change build or server state to get a run is the blocked case above.
-
-Mutation establishes sensitivity to a particular defect, not the value of retaining the test. Use plausible accidental changes to assess discrimination after evaluating the claim's durability. A mutation result applies only to the assertions it exercises; it does not establish the value or worthlessness of the whole test.
-
-## Suite-level responsibility map
-
-When the scope is a test suite or the requested outcome is that tests explain a
-subject, first identify the subject's public responsibilities from its
-production boundary. Map each responsibility to files and named tests, then
-report missing, duplicated, misplaced, or obscured responsibilities. Evaluate
-whether filenames, grouping, fixture vocabulary, and the first representative
-test let a reader recover the subject's contract. Propose the target suite
-organization before optimizing existing assertions in place.
+Before mutating production code to confirm a finding, read [references/mutation.md](references/mutation.md).
 
 ## The five moves
 
-Run them in order after any suite-level responsibility map. Each is capable of
-surfacing defects the others structurally cannot, so a partial pass is a partial
-review.
-
-Apply every move to constructs already present in the file, not only to ones
-you would write fresh. A selector, a harness bypass, or a setup call being
-already there is not evidence it was chosen deliberately — it gets the same
-scrutiny as new code.
+Run them in order after any suite-level map. Each surfaces defects the others structurally cannot, so a partial pass is a partial review. Apply every move to constructs already present in the file: a selector, harness bypass, or setup call being there is not evidence it was chosen deliberately.
 
 ### 1. Artifact inventory
 
-List every artifact the test's stimulus passes through — source files,
-templates, generated bundles, stylesheets, registries, configuration. For
-each, classify its *kind*, and check that the kind matches how it is authored
-and consumed.
+List every artifact the test's stimulus passes through: source files, templates, generated bundles, stylesheets, registries, configuration. Classify each one's kind, and check that the kind matches how it is authored and consumed. This catches files written as one kind and consumed as another, template inputs shadowed by a class that never passes them, and built assets the test depends on.
 
-Catches: files written as one kind and consumed as another; a template whose
-declared inputs are shadowed by a class that never passes them; assets the
-test depends on that are built rather than read.
+### 2. Subject boundary
 
-### 2. SUT boundary
+Name the system under test and separate it from the harness, preferring the project's own declaration (a manifest, registry, or docblock) over your reading. Classify each observation against the boundary rule in Test Behavior, Not Implementation, and check every setup-time harness bypass against what the subject actually needs.
 
-Name the system under test and separate it from the harness. Prefer the
-project's own declaration — a manifest, registry, or docblock — over your
-reading. Then classify each failure of the boundary:
+### 3. Claim, layer, and retention
 
-- **too narrow** → the test asserts on harness or fixture detail
-- **too wide** → the test asserts framework or platform behavior
-- **wrong entry** → the stimulus reaches the state by a route production
-  never takes, including any state the test sets up by hand that production
-  produces itself
-- **wrong distance** → the observation is made from further away than needed
+Find the other tests of the same subject. They are not in the file you were handed and nobody will name them: search every test directory for the subject's class names, element names, routes, and identifiers, and read what you find. Find the project's own layer map. This step is skipped more often than any other.
 
-Treat a fixture element that exists only to be asserted on as circular: the
-test then characterizes the fixture, not the subject.
+Build one row per distinct claim:
 
-Check any setup-time harness bypass — disabled middleware, elevated
-permissions, a feature flag forced on — against what the SUT actually needs to
-render. A bypass scoped wider than that (a blanket "disable everything" call
-where one specific check needed to go) hides which real constraint the test
-depends on and can silently stop exercising auth, permission, or gating
-behavior the test's name implies it still covers. Prefer bypassing the named
-thing that blocks the SUT, with the reason stated, over an unscoped call
-carried forward from an earlier version of the test.
+| claim | cheapest layer that can falsify it | existing test that already does | earns retention? |
 
-### 3. Claim and layer allocation
+Fill the third column from what a test *exercises*, not from its filename or subject. A test that registers, imports, or addresses the subject under a name of its own does not cover the binding to the real name; write "none" rather than the nearest plausible file. Fill the fourth from Tests Are Not Receipts.
 
-Start by finding the other tests of the same subject. They are not in the file
-you were handed and nobody will name them: search every test directory for the
-subject's class names, element names, routes, and identifiers, and read what
-you find. A layer you did not open cannot appear in the allocation, and this
-step is skipped more often than any other in this skill.
-
-Find the project's own layer map; most repositories document one.
-
-Then build the table — one row per distinct claim, both columns filled:
-
-| claim | cheapest layer that can falsify it | existing test that already does |
-
-Fill the third column from what a test *exercises*, not from what its filename
-or subject suggests. Read the covering test's setup before crediting it: a
-test that registers, imports, or addresses the subject under a name of its own
-does not cover the binding to the real name, and crediting it there converts a
-gap into apparent coverage. Write "none" rather than the nearest plausible
-file.
-
-The table is the finding, not preparation for it. From it, report:
-
-- **duplicated** — asserted at a layer that observes nothing a cheaper one
-  already observes
-- **unclaimed** — no layer asserts it, especially contracts that exist only
-  *between* artifacts, such as a name bound in one file and consumed in
-  another
-
-When every row for a file is duplicated, say so as a single conclusion: the
-file contributes no unique falsification, however sound its individual
-assertions look. That conclusion is invisible assertion-by-assertion, which is
-why the table comes before the verdict.
+The table is the finding. Report claims that are **duplicated** at a layer observing nothing a cheaper one does not, **unclaimed** by any layer (especially contracts that exist only between artifacts), and **unwarranted** under the retention test. When every row for a file is duplicated or unwarranted, say so as one conclusion: the file contributes no unique protection, however sound its assertions look.
 
 ### 4. Assertion discrimination
 
-For each assertion:
-
-1. **Can it fail?** Name the production edit that turns it red.
-2. **Does it fail only for the right reason?** Assertions on mechanisms —
-   spies, call counts, internal calls — go red on refactors and stay green
-   when behavior changes. Prefer the observable state the mechanism produces.
-3. **Is the instrument shaped like the artifact?** Structured artifacts want
-   structured queries. Substring matching over serialized output is both too
-   loose, matching anywhere, and too tight, breaking on irrelevant formatting.
-4. **Does failure localize the break?** See granularity below.
-
-Watch for the under-specified positive: an assertion that confirms a category
-when the claim is about which member of the category. Confirm these by
-mutation — swap the value for a sibling and see whether anything reddens.
-
-#### Granularity
-
-A failure must name what broke. The same defect appears at three scopes:
-
-- **within an assertion** — conditions combined into one boolean, reporting
-  `false` for many claims
-- **within a test** — claims chained so the first failure masks the rest, so
-  one run reports one problem out of many and each fix needs another run
-- **across a test** — one test carrying unrelated claims, so its name cannot
-  describe any particular failure
-
-Read the test names first; they confess this cheaply. A name joining claims
-with "and", or listing them with commas, is a bundled test. So is a name that
-under-counts its own body, or a body asserting things the name never mentions.
-
-Bundling is not only a reporting problem. Unrelated claims sharing one stimulus
-cannot be quarantined or skipped independently, and a claim hidden inside a
-test named for something else escapes the duplication check in move 3.
-
-Demonstrate the cost; do not just name it. Break one claim and observe which
-claim the runner reports — a bundled test characteristically names a different
-one, or stops before reaching the claim in its own title. "The first failure
-masks the rest" asserted without that observation is a style note, and reads
-as one.
+For each assertion, name the plausible accidental edit that turns it red and a correct design change that must leave it green, then check that its failure would localize the break. Confirm an under-specified positive by swapping the value for a sibling. Demonstrate a granularity defect rather than naming it: break one claim and observe which claim the runner reports.
 
 ### 5. Instrument selection
 
-Most browser and integration suites define a preferred selector or query
-hierarchy. Find it, then check each assertion against it.
-
-Flag every assertion that drops below the hierarchy entirely — raw script
-evaluation, direct DOM access, manual style computation. Each one usually
-costs three things: automatic waiting, a readable failure message, and the
-distinction between contract and implementation.
-
-Then ask why the escape hatch was reached for:
-
-- the claim **has** a first-tier expression and it was bypassed → instrument
-  error, and rewrite it
-- the claim **has none** → either it is presentation detail that does not
-  belong in a behavior test, or the subject has a genuine accessibility gap
-
-Check the rewrite against the real stimulus. A hand-written script can be made
-to return true against a DOM the test constructed itself; the first-tier
-instrument usually cannot, which is why a bad instrument can conceal a stimulus
-that never produced the asserted state.
-
-A selector that clears the hierarchy check can still over-specify. A
-structural selector legitimately reached for a genuine structural claim can
-still encode incidental fixture details unrelated to the claim itself — a
-specific state value, a specific tag name — that just happen to be true of the
-fixture in front of you. Ask what the claim is actually about, then check the
-selector names only that.
+Find the project's preferred query or selector hierarchy, then check each assertion against it and against Query the Structure. For every assertion below the hierarchy, decide whether the claim has a first-tier expression that was bypassed (rewrite it) or none (presentation detail that leaves the test, or an accessibility gap in the subject). Check any rewrite against the real stimulus: a first-tier instrument usually cannot be satisfied by a DOM the test built itself, which is how a bad instrument conceals a stimulus that never produced the asserted state.
 
 ## Reporting
 
 Order findings by consequence, not by line number:
 
 1. **Inert** — the test cannot fail, or cannot fail for the reason it claims
-2. **Unwarranted** — the asserted distinction does not warrant permanent protection under the subject's contract; explain what would be lost by removing it and why that loss is acceptable.
+2. **Unwarranted** — the distinction does not earn retention; say what removal loses and why that loss is acceptable
 3. **Unclaimed** — real behavior no test protects
 4. **Misallocated** — the claim is real but the layer or instrument is wrong
 5. **Brittle** — the test fails on correct changes
 6. **Noisy** — redundant, or collapses its own diagnostics
 
-For each: the location, the claim it purports to make, the evidence, and the
-mutation that does or does not reach it. Distinguish defects in the *test*
-from defects in the *subject* the review uncovered — both are worth
-reporting, and they need different decisions.
+For each: the location, the claim it purports to make, the evidence, and the mutation that does or does not reach it. Distinguish defects in the *test* from defects in the *subject*; both are worth reporting, and they need different decisions.
 
 Do not write a report file unless asked.
 
 ## Scope
 
-This skill evaluates existing or proposed tests; authoring belongs to the
-principle linked above. A rewrite that changes which behavior is protected is a
-design decision, not a cleanup.
+This skill evaluates existing or proposed tests; authoring belongs to the principles. A rewrite that changes which behavior is protected is a design decision, not a cleanup.

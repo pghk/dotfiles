@@ -60,7 +60,7 @@ tickets with independent write ownership, using isolated worktrees where the
 active subagent runtime requires them. Serialize shared contracts, registries,
 entrypoints, generated artifacts, and overlapping writes under one owner.
 
-When writing or changing an automated test, apply [Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md) at the test-writing point. It governs test discrimination without requiring a universal TDD workflow.
+When writing or changing an automated test, apply [Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md) at the test-writing point. It governs test discrimination without requiring a universal TDD workflow. Before integrating or reporting work that added or changed tests, apply [Tests Are Not Receipts](../../principles/principle-tests-are-not-receipts/SKILL.md) to each of them.
 
 Integrate delegated changes in dependency order. Require each delegated ticket
 handoff to account for every acceptance criterion as verified existing,

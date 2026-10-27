@@ -3,7 +3,7 @@ name: code-style
 description: "Load before the first edit to code, a test, a comment, a docblock, or documentation, and again whenever the kind of artifact being edited changes."
 ---
 
-Apply [Express Intent](../principles/principle-express-intent/SKILL.md) when choosing between structural expression and prose. The rules below govern the names and prose that carry it.
+Apply [Express Intent](../principles/principle-express-intent/SKILL.md) when choosing between structural expression and prose. The rules below govern the names and prose that carry it. Apply [Query the Structure](../principles/principle-query-the-structure/SKILL.md) when code or a test reads markup, data formats, or command output.
 
 ## Naming
 

@@ -12,55 +12,20 @@ metadata:
 
 # Test Behavior, Not Implementation
 
-Apply [Express Intent](../principle-express-intent/SKILL.md) when selecting the required behavior a test must protect. The rules below govern how its assertions establish that behavior.
+Apply [Express Intent](../principle-express-intent/SKILL.md) when selecting the required behavior a test must protect, and [Tests Are Not Receipts](../principle-tests-are-not-receipts/SKILL.md) when deciding whether it stays. The rules below govern how a test observes that behavior. [Test smells](../../workbench/test-review/references/smells.md) lists concrete cues for each.
 
-- Before writing several tests for one subject, state its public input, output,
-  and responsibility in one sentence. Organize test names as a map of that
-  responsibility. For a builder or assembler, include one representative case
-  proving that its supported parts compose in the returned result; use focused
-  tests for individual selection, transformation, and guard rules.
-- Name the behavior and a known bad case before writing the assertion.
-- Exercise the subject through the boundary its users use. Assert observable
-  behavior there, not implementation paths, collaborator-call choreography, or
-  harness state.
-- Derive expectations independently from the implementation under test.
-- Establish each promised output with a positive case before testing its
-  guards. Vary one material precondition per guard case; negative cases alone
-  do not prove that the capability exists.
-- Treat a closed state machine as a decision table. Give every documented
-  outcome, exceptional input, and precedence rule an independently named case;
-  reaching every enum value is insufficient when distinct inputs can produce
-  the same value.
-- Every assertion must discriminate: it should fail for the known bad case or a
-  credible perturbation. If replacing imported production functions with
-  inert or `undefined` behavior would still pass, rewrite or delete the test.
-- Before pinning a literal value, name a correct design change that would alter
-  it. If one exists, assert a relationship between two observations of the
-  subject instead, and reshape a brittle assertion before deleting it.
-- Assert a semantic value completely enough to identify it to its consumer. An
-  action normally requires its kind and target together; a notice requires its
-  kind, target, and relevant occurrence data. Counts and isolated fields do not
-  establish identity.
-- Prefer real production behavior. Mock only a true boundary or an impractical
-  dependency, and assert the subject's result or effect rather than proving the
-  mock.
-- Test scripts and behavior-changing configuration through actual outputs,
-  exit behavior, or side effects, not source-text checks.
-- Keep one coherent behavioral claim per test, and assert only behavior named
-  by that test. Move independently meaningful output to its own test instead
-  of using incidental assertions to characterize or stabilize a fixture.
-  Test a behavior where it is implemented. A test through another call site
-  or layer adds observation power with what that path contributes: the input
-  the call site supplies, or, from a caller, the stored effect proving it sent
-  the right request. A response that echoes the request cannot show this.
-- If no credible maintained test seam exists, do not add a weak test. Use the
-  applicable executable or manual observation and state its preservation limit.
+- **Name the claim first.** State the behavior and a credible failure of it before writing an assertion. Keep one coherent claim per test, name the test for it, and assert nothing the name does not claim. Before writing several tests for one subject, state its public input, output, and responsibility in one sentence, and organize the test names as a map of it.
+- **Observe at the boundary its consumers rely on.** Stimulate the subject the way production does and observe what its consumers observe. An observation is too narrow when it reads harness or fixture detail, too wide when it exercises the framework or platform, wrongly entered when it reaches its state by a route production never takes, and too distant when it watches from further away than the claim needs.
+- **Discriminate in both directions.** An assertion must fail for a plausible accidental change to the subject and pass through a legitimate one. Name both edits before keeping it: the accidental change that turns it red, and a correct design change that must leave it green. If no accidental change reaches it, it guards nothing. If a correct change turns it red, it pins an incidental choice; assert a relationship between observations of the subject instead.
+- **Derive expectations independently** of the implementation. A test that recomputes the subject's logic agrees with it by construction.
+- **Identify the result completely enough for its consumer.** A category, count, or isolated field does not establish which thing was produced.
+- **Prefer real behavior.** Substitute only a true boundary or an impractical dependency, and assert the subject's effect rather than the substitute's.
+- **Leave structural guarantees to structure.** A constraint that types, schemas, or the framework enforce cannot be broken by accident in a way a test adds to. Test the behavior that depends on it.
+- **Prove a capability before its guards.** A positive case shows the output can be produced; only then does a guard case, varying one precondition, show it is withheld.
+- **Let a failure name what broke.** Separate claims so one failure cannot mask another and the test's name describes whatever it reports.
+- **Test a behavior where it is implemented.** Observing it through another layer adds only what that layer contributes.
+- **Use the cheapest layer that can falsify the claim.** A claim a cheaper layer already falsifies is duplication, not coverage.
 
-Quick check: would this pass if every imported function returned `undefined`?
-Weak, mock-only, self-referential, constant-pin, and fixture-self-asserting tests
-usually observe no behavior. Replace them with one concrete input and a literal
-result or observable effect; for absence, prove contrasting presence where useful.
+If no credible maintained test seam exists, do not add a weak test. Use the applicable executable or manual observation and state its preservation limit.
 
-This governs test quality, not whether every change uses red-green TDD. Bug
-fixes, new behavior, refactors, and completion claims follow their applicable
-playbook or [Prove It Works](../principle-prove-it-works/SKILL.md).
+This governs test quality, not whether every change uses red-green TDD. Bug fixes, new behavior, refactors, and completion claims follow their applicable playbook or [Prove It Works](../principle-prove-it-works/SKILL.md).
