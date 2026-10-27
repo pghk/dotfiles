@@ -66,11 +66,9 @@ Write multi-line messages with `git commit -F - <<'EOF' ... EOF` (heredoc to std
 
 **Verify the staged state**
 
-Commands such as `git cherry-pick -n`, `git merge --no-commit`, and
-`git apply --index` populate the index before later edits. Before committing,
-inspect both `git diff --cached` and `git diff`, stage the verified final files,
-and confirm the index contains the version that was tested. Do not commit an
-earlier staged version while corrected working-tree changes remain unstaged.
+Commands such as `git cherry-pick -n`, `git merge --no-commit`, and `git apply --index` populate the index before later edits. Before committing, inspect both `git diff --cached` and `git diff` and confirm the selected content is the version that was verified. Finish discovery and validation before staging; keep staging, final inspection, and committing together.
+
+For verified whole-file units, use `git commit --only -- <paths>` to select those paths' working-tree contents independently of other staged paths. Register new files with `git add -N -- <paths>` first. For hunk-selected units, stage the intended hunks and confirm the full index contains only that unit before committing without path arguments.
 
 **Wrapping a drafted message**
 
