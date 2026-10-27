@@ -21,8 +21,8 @@ reaches that source and is committed there:
 
 1. Edit the live file under `~/.config/agents`.
 2. Sync it into the source: `chezmoi re-add <path>` for a file chezmoi already
-   manages, `chezmoi add <path>` for a new file or directory. For a removed
-   file, `chezmoi forget <path>`.
+   manages, `chezmoi add <path>` for a new file or directory. For an approved
+   removal, `chezmoi --force forget <exact-path>`.
 3. Confirm the source changed: `git -C ~/.local/share/chezmoi status`.
 4. Commit in `~/.local/share/chezmoi/`, staging only the agent paths; the
    repo often holds unrelated changes.
