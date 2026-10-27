@@ -58,6 +58,10 @@ description: "What it does. Use when <triggers and keywords>."
 6. Report the byte count before and after. Where the file grew, say what was removed to pay for it, or state that nothing was.
 7. Track the change: skills live under `~/.config/agents`, which is not a git repository. Follow [Tracking changes](../../README.md#tracking-changes).
 
+## Validation
+
+After creating or updating skills, run `uv run --script <skill-management-dir>/scripts/validate-skills.py <skill-dir>...`. [The validator](scripts/validate-skills.py) checks required YAML fields, directory/name agreement, and relative Markdown link targets in bundled `.md` files, and reports byte sizes as JSON. Behavioral evaluations and harness discovery remain separate checks.
+
 ## Descriptions
 
 The description is the **only** discovery mechanism. The listing shows each skill's name and description at startup; the body loads only after the model invokes the skill. The model matches the current task against the listing, so a description needs only enough to be picked over the other listed skills.
