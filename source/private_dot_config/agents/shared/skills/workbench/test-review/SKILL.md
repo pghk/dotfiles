@@ -33,7 +33,7 @@ Ask every question of every test in scope. Each surfaces defects the others stru
 
 | claim | cheapest layer that can falsify it | existing test that already does | earns retention? |
 
-Fill the third column from what a test *exercises*, not from its filename or subject. A test that registers, imports, or addresses the subject under a name of its own does not cover the binding to the real name; write "none" rather than the nearest plausible file. Fill the fourth from Tests Are Not Receipts. The table is the finding: report claims **duplicated** at a layer observing nothing a cheaper one does not, and claims **unwarranted** under the retention test. When every row for a file is duplicated or unwarranted, say so as one conclusion: the file contributes no unique protection, however sound its assertions look.
+Fill the third column from what a test *exercises*, not from its filename or subject. A test that registers, imports, or addresses the subject under a name of its own does not cover the binding to the real name; write "none" rather than the nearest plausible file. Fill the fourth from Tests Are Not Receipts. The table is the finding: a claim already falsified at a cheaper layer, or failing any retention condition, does not earn its place. When no row for a file does, say so as one conclusion: the file contributes no unique protection, however sound its assertions look.
 
 **Does it discriminate?** For each assertion, name the plausible accidental edit that turns it red and a correct design change that must leave it green, then check that its failure would localize the break. Confirm an under-specified positive by swapping the value for a sibling. Demonstrate a granularity defect rather than naming it: break one claim and observe which claim the runner reports.
 
@@ -51,15 +51,16 @@ State plainly when a finding rests on inspection alone, and name the observation
 
 ## Report
 
-Order findings by consequence, not by line number:
+End each test in a verdict from Tests Are Not Receipts — **remove**, **trim**, **reshape**, or **keep** — supported by findings named for the principle they violate:
 
-1. **Inert** — the test cannot fail, or cannot fail for the reason it claims
-2. **Unwarranted** — the distinction does not earn retention; say what removal loses and why that loss is acceptable
-3. **Unclaimed** — real behavior no test protects
-4. **Misallocated** — the claim is real but the layer or instrument is wrong
-5. **Brittle** — the test fails on correct changes
-6. **Noisy** — redundant, or collapses its own diagnostics
+- **Wrong contract:** it protects behavior the governing source does not require, or contradicts (Express Intent).
+- **Misses a break:** a plausible accidental edit leaves it green, entirely or for the reason it claims (Discriminate in both directions).
+- **Fails a correct change:** a legitimate design change turns it red (Discriminate in both directions).
+- **Hides what broke:** its name or failure does not say what it protects or what broke (Name the claim first; Let a failure name what broke).
+- **Fails retention:** no enduring concern, no realistic accidental break, or a cheaper guard exists (Tests Are Not Receipts).
 
-For each: the location, the claim it purports to make, the evidence, and the mutation that does or does not reach it. Distinguish defects in the *test* from defects in the *subject*; both are worth reporting, and they need different decisions.
+At suite scope, also report unclaimed, duplicated, misplaced, and obscured responsibilities.
+
+Order findings by consequence, not by line number: wrong contracts and missed breaks first, then unclaimed responsibilities, then failures on correct changes, hidden breaks, and retention. For each: the location, the claim it purports to make, the evidence, and the mutation that does or does not reach it. Distinguish defects in the *test* from defects in the *subject*; both are worth reporting, and they need different decisions.
 
 Do not write a report file unless asked.
