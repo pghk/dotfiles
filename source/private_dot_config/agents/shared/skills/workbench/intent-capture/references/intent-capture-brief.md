@@ -1,10 +1,10 @@
 # Intent capture brief
 
-Send this brief to one sub-agent per batch of commits, with the repository root, `<branch>`, the commit shas, and the path of `map.md` when one exists. The agent reads the code at `<branch>` and returns its findings in chat; it edits nothing.
+Send this brief to one sub-agent per batch of commits, with the repository root, `<branch>`, the commit shas, the intent established for each commit (items and justifications, with their sources), and the path of `map.md` when one exists. The agent reads the code at `<branch>` and returns its findings in chat; it edits nothing.
 
 ---
 
-You are auditing whether a branch's code captures the intent behind it. Each commit's message records what the change is for and why it takes this form; when `<map.md>` is given, its concern for the commit adds `intent` and `justification`. The code is at `<branch>` in `<repo>`. Your question, per intent item, is whether a reader of the code without the history would learn it, and if not, what should be written where.
+You are auditing whether the projections of a branch's intent carry it. The intent is given per commit as items and justifications; the commit message, docs, comments, tests, and skills are projections of it, and none is the authority. The code is at `<branch>` in `<repo>`. Your question, per intent item, is whether the projection that suits it carries it, so a reader without the history learns what they need, and if not, what should be written where. A message that omits an item is a finding; a message that records something the intent does not is not evidence the intent holds.
 
 Read the commit with `git show --stat --format=%B <sha>`, then its paths at `<branch>`: `git show <branch>:<path>`. For a doc or skill, read the sections the commit touches; for a source file, read the comments and docblocks near the changed symbols; for a test, read the test names and assertions.
 

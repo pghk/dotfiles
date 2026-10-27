@@ -1,15 +1,15 @@
 ---
 name: intent-capture
 description: >
-  Audit whether a branch's code and docs carry the intent its commit messages record, and draft the missing docs, comments, tests, and skill rules. Use after rebase-by-concern.
+  Audit whether a branch's commit messages, code, docs, comments, tests, and skills each carry their share of the intent behind it, and draft what is missing. Use after rebase-by-concern.
 disable-model-invocation: true
 ---
 
-Check, per commit of `<base>..<branch>`, whether a reader of the code would learn the intent the commit message records without reading history, and add what is missing with the user's approval.
+Intent is the purpose and reasoning behind the branch's changes. Each artifact is a projection of it: a commit message carries why this change, now, in this form; a doc carries standing contracts; a comment carries local constraints; a test carries behavior that must hold; a skill carries method lessons. No single projection is authoritative or complete. Check, per commit of `<base>..<branch>`, that every facet of the intent reaches the projection that suits it, and add what is missing with the user's approval. A commit message is audited like the others.
 
 ## Inputs
 
-`<base>` and `<branch>` (default `HEAD`). The commit messages are the record of intent; when `.notes/<slug>/map.md` exists, its concerns' intent and justification supplement them.
+`<base>` and `<branch>` (default `HEAD`). Establish each commit's intent from every source available: the user's statements, `.notes/<slug>/map.md` (a concern's intent and justification), specs and tickets, past sessions (`dig`), and the commit messages. Where sources disagree or leave the intent unclear, ask the user before auditing.
 
 ## Audit
 
