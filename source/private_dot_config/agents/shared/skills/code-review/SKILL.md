@@ -123,6 +123,8 @@ context or verification requirement.
 
 ## Conduct the Review
 
+Apply [Express Intent](../principles/principle-express-intent/SKILL.md) when checking whether the patch expresses its governing intent accurately and sufficiently. Keep this check within the resolved strictness and evidence depth: explanatory gaps ordinarily concern maintainability, while a violated behavioral contract may be a defect.
+
 1. Establish intended behavior from the request, source-only commits, and permitted evidence.
 2. Inspect the complete immutable three-dot patch; do not sample changed areas.
 3. Map changed entry points, contracts, state transitions, trust boundaries, and visible outcomes.

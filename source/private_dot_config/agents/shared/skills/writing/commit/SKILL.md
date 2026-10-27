@@ -4,7 +4,7 @@ description: >
   Commit message conventions and the mechanics of writing or rewriting them. Use when composing, rewording, squashing, or amending a message, including commits made on your own initiative.
 ---
 
-A commit message explains why the change exists. The subject identifies the change for a reader scanning many commits: its kind and the area it touches. The body gives a self-contained explanation for someone examining the changed code: what effect the change has on the system, and why it belongs there. Keep it brief and plain.
+Apply [Express Intent](../../principles/principle-express-intent/SKILL.md) when selecting the reasoning a message needs. The subject identifies the change for a reader scanning many commits: its kind and the area it touches. The body gives a self-contained explanation for someone examining the changed code: what effect the change has on the system, and why it belongs there. Keep it brief and plain.
 
 ## Rules
 

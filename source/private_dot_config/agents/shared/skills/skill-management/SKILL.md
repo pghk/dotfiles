@@ -33,7 +33,7 @@ Measure `SKILL.md` in bytes (`wc -c`), not lines: prose here is unwrapped, so a 
 
 ## Creating a skill
 
-1. Establish the observed failure or recurring gap the skill should address.
+1. Establish the observed failure or recurring gap the skill should address. Apply [Express Intent](../principles/principle-express-intent/SKILL.md) when deciding which method lessons belong in the skill.
 2. Match the guidance form to that failure: use concise rules for judgment calls, structured steps for techniques, and references for lookup material. When drafting or restructuring instructions or context pointers, read [references/writing-for-agents.md](references/writing-for-agents.md).
 3. Create folder: `<skills-dir>/<skill-name>/`
 4. Write `SKILL.md` (frontmatter + instructions)

@@ -12,6 +12,8 @@ metadata:
 
 # Test Behavior, Not Implementation
 
+Apply [Express Intent](../principle-express-intent/SKILL.md) when selecting the required behavior a test must protect. The rules below govern how its assertions establish that behavior.
+
 - Before writing several tests for one subject, state its public input, output,
   and responsibility in one sentence. Organize test names as a map of that
   responsibility. For a builder or assembler, include one representative case

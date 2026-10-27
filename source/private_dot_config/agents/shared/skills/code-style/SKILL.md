@@ -3,9 +3,7 @@ name: code-style
 description: "Load before the first edit to code, a test, a comment, a docblock, or documentation, and again whenever the kind of artifact being edited changes."
 ---
 
-Write self-documenting code first. Prose covers what the code can't carry:
-non-obvious constraints, historical reasons, or surprising behaviour that
-would otherwise look like a bug.
+Apply [Express Intent](../principles/principle-express-intent/SKILL.md) when choosing between structural expression and prose. The rules below govern the names and prose that carry it.
 
 ## Naming
 

@@ -50,6 +50,8 @@ commit convention instead of relying on skill discovery.
 
 ## Execute and integrate
 
+Apply [Express Intent](../../principles/principle-express-intent/SKILL.md) when choosing how the accepted intent is represented in the delivered artifacts.
+
 Choose the least costly effective topology. Apply [Subtract Before You Add](../../principles/principle-subtract-before-you-add/SKILL.md)
 when selecting change sequencing. Lean toward subagents for coherent
 vertical tickets and bounded specialist work; implement directly when the work

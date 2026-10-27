@@ -83,6 +83,8 @@ Use the least mechanism that makes the desired behavior clear, correct, maintain
 
 Structure, scope, organization, and tone should serve the artifact's purpose.
 
+Artifacts carry distinct parts of intent and can be authoritative within their responsibilities without carrying the whole account. Apply [Express Intent](skills/principles/principle-express-intent/SKILL.md) when authoring or reviewing how work expresses its purpose, behavior, constraints, and reasoning.
+
 - Explanations explain.
 - Documentation describes.
 - Instructions direct action.
