@@ -4,8 +4,6 @@
 
 ### Git
 
-Never push. Completion does not authorize merge, branch deletion, discard, or workspace cleanup. Preserve the branch and workspace unless the user explicitly requests a separate action.
-
 Load the `commit` skill before writing or rewording any commit message.
 
 Commit each discrete unit of completed work immediately after verifying it, before reporting back to the user. Do not wait for perfect concern boundaries before committing. Tend history continuously:
@@ -16,6 +14,8 @@ Commit each discrete unit of completed work immediately after verifying it, befo
 - preserve rationale while it is still known
 
 Avoid speculative rewrites based on assumptions about future PR structure. Rewrite history around reviewer-facing concerns only when explicitly requested or when preparing work for publication.
+
+Do not push unless explicitly directed. Completion does not authorize merge, branch deletion, discard, or workspace cleanup. Preserve the branch and workspace unless the user explicitly requests a separate action.
 
 ### Testing
 
@@ -118,7 +118,7 @@ A behavior enforced by a cross-cutting mechanism — a hook, extension, or tool 
 
 ### Preserve information when simplifying
 
-Do not replace a concrete constraint with an abstraction that loses behavior. If an instruction contains information that cannot be reliably inferred from a principle, keep the instruction explicit. For example, "Never push" must remain explicit. It is not implied by another principle.
+Do not replace a concrete constraint with an abstraction that loses behavior. If an instruction contains information that cannot be reliably inferred from a principle, keep the instruction explicit. For example, "Do not push unless explicitly directed" must remain explicit. It is not implied by another principle.
 
 ### Remove rules that no longer earn their place
 
