@@ -98,5 +98,7 @@ non-local fact rather than relying on a caller list.
 Commit each verified discrete unit under the repository's Git instructions.
 Continue until the accepted scope is implemented and credibly checked. Report
 commits, checks and limits, unresolved risks, and the decision-trail path when
-`show-your-work` was used. Never merge, push, publish, delete branches or
-worktrees, or clean workspaces unless separately requested.
+`show-your-work` was used. When the work finishes a plan under `docs/plans/`,
+suggest closing it with [close-plan](../close-plan/SKILL.md). Never merge,
+push, publish, delete branches or worktrees, or clean workspaces unless
+separately requested.
