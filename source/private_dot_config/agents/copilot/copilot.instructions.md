@@ -48,3 +48,12 @@ them, in reasoning or a file, does not count.
 Use canonical paths under `~/.config/agents` for reads, edits and chezmoi operations. Shared skills live in `~/.config/agents/shared/skills/`. When a supplied alias has an unknown target, resolve it once with `realpath` and reuse the resolved path.
 
 `~/.config/agents` is a chezmoi-managed target, not a git repository. Read `~/.config/agents/shared/README.md` for how to track changes.
+
+## Local environment map
+
+`/Users/paul.hendrick/local` orchestrates local dev via docker compose. Treat it as a map for reaching a running environment, not as guidance on running the applications. Each application repo owns its toolchain; follow its own instructions.
+
+- Persistent checkouts, which supply the Docker bind mounts: `local/admit` (admin backend; governs the production schema via Phinx), `local/hub` (public frontend; shares the db with Admit; its migrations are for local and test only), `local/enroll` (companion app; own db).
+- Task worktrees: `local/worktrees/<repo>/<task>`. They don't change what the running containers serve.
+- Use `local/dev` for application commands, shells, logs and status (`local/docs/dev-tool.md`). It always targets the persistent containers.
+- Reading dev data needs no permission. Get approval before any write to a dev database.
