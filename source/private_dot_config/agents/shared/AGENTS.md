@@ -29,6 +29,10 @@ Behavior-changing configuration is within testing scope. Human prose, prompts, s
 
 This machine's `cat` is BSD, not GNU — it has no `-A`/`-e` flags. Use `od -c` to inspect invisible characters instead.
 
+### Concern scope
+
+Read the checked-out branch name (`git branch --show-current`) and parse an issue tracker key from it (for example `RAV-17245` in `feature/RAV-17245-gallery`). When a task needs a scope for notes, output, or grouping, treat that key as the concern boundary. A branch with no key uses the branch name with `/` replaced by `-`.
+
 ### Tool calls
 
 Operations that share a path (`rm`, `create`, `chmod`, `edit`, `mv`) depend on each other. Issue them in separate sequential calls.

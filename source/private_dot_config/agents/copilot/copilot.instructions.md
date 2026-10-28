@@ -49,7 +49,7 @@ Place generated output by how long it stays useful. The session ID is the folder
 
 - Volatile output (test and build logs, scratch files, probes): `/tmp/copilot-<session-id>/`. Keying by session ID keeps every path predictable and stops unrelated work sharing a directory.
 - Session-scoped work that needs no automatic cleanup but does not belong outside the session (digests, intermediate data, drafts): the session folder's `files/` directory.
-- Work worth keeping beyond the session (maps, PR descriptions, QA plans, manifests): `<project>/.notes/<branch-or-jira-ticket>/`. Redirect verification logs to `/tmp`, not here.
+- Work worth keeping beyond the session (maps, PR descriptions, QA plans, manifests): `<project>/.notes/<concern>/`, where `<concern>` is the concern scope from `AGENTS.md`. Redirect verification logs to `/tmp`, not here.
 
 A skill that names its own output location governs where its artifacts go; its volatile byproducts still follow this order.
 
