@@ -12,5 +12,7 @@ mkdir -p $TARGET
 for AGENT in ${AGENTS[*]}; do
   cp "$SOURCE/${AGENT}" "${TARGET}/${AGENT}"
   sed -i '' "s/USER/$USER/g" "${TARGET}/${AGENT}"
-  launchctl bootstrap gui/"$(id -u "$USER")" "${TARGET}/${AGENT}"
+  GUI="gui/$(id -u "$USER")"
+  launchctl bootout "${GUI}/${AGENT%.plist}" 2>/dev/null || true
+  launchctl bootstrap "${GUI}" "${TARGET}/${AGENT}"
 done
