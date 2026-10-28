@@ -43,6 +43,16 @@ answer in chat. Use `ask_user` only once the chat text has presented the
 options and the context needed to choose between them; a plan to present
 them, in reasoning or a file, does not count.
 
+## Generated output
+
+Place generated output by how long it stays useful. The session ID is the folder name of the session folder in `<session_context>`.
+
+- Volatile output (test and build logs, scratch files, probes): `/tmp/copilot-<session-id>/`. Keying by session ID keeps every path predictable and stops unrelated work sharing a directory.
+- Session-scoped work that needs no automatic cleanup but does not belong outside the session (digests, intermediate data, drafts): the session folder's `files/` directory.
+- Work worth keeping beyond the session (maps, PR descriptions, QA plans, manifests): `<project>/.notes/<branch-or-jira-ticket>/`. Redirect verification logs to `/tmp`, not here.
+
+A skill that names its own output location governs where its artifacts go; its volatile byproducts still follow this order.
+
 ## Configuration layout
 
 Use canonical paths under `~/.config/agents` for reads, edits and chezmoi operations. Shared skills live in `~/.config/agents/shared/skills/`. When a supplied alias has an unknown target, resolve it once with `realpath` and reuse the resolved path.
