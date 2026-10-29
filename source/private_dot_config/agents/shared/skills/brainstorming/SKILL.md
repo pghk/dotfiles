@@ -1,7 +1,7 @@
 ---
 name: brainstorming
 description: >
-  Facilitate a bounded design conversation on one decision: brainstorm, stress-test, or grill an idea or proposal. Not for ticket decomposition, implementation, or code review.
+  Facilitate a bounded design conversation on one decision: explore design alternatives, stress-test, or grill an idea or proposal. Not for ticket decomposition, implementation, or code review.
 license: MIT
 metadata:
   source: "https://github.com/obra/superpowers/tree/b36e0829c6d0140e93cfef2ca599b1b07d4a7797/skills/brainstorming"
