@@ -22,6 +22,6 @@ _zsh_autosuggest_strategy_atuin() {
 }
 
 . "$HOME/.local/bin/env"
-ADDENDUM="${ZDOTDIR:-HOME}/.zshrc_custom"; [ -f $ADDENDUM ] && . $ADDENDUM
+ADDENDUM="${ZDOTDIR:-$HOME}/.zshrc_custom"; [ -f $ADDENDUM ] && . $ADDENDUM
 
 . "$HOME/.atuin/bin/env"
