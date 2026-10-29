@@ -70,6 +70,12 @@ Agent instructions for every harness live in `~/.config/agents` (chezmoi source:
 `AGENTS.md` lives at the repo root and is **not** managed by chezmoi. Editing it
 directly is all that's needed — no `apply` or `re-add` step required.
 
+## Zsh and Prezto
+
+Prezto is a git clone at `~/.config/zsh/.zprezto`, installed by `source/.chezmoiscripts/run_once_before_010.install-prezto.sh`. Overrides of its runcoms live in `source/private_dot_config/zsh/` and replace the upstream file wholesale. `run_onchange_after_config-prezto.sh.tmpl` symlinks every runcom without an override into `~/.config/zsh`. Edit overrides in chezmoi, never through a symlink, because that edits the clone.
+
+`prezto-diff` shows each override against its upstream runcom. `update-prezto` shows upstream runcom changes since the commit in `.zprezto-reviewed`, then updates the clone and that pin.
+
 ## Obsidian config
 
 `~/.config/obsidian/` (chezmoi source: `source/private_dot_config/private_obsidian/`)
