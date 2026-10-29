@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+# Advances the Prezto clone to its upstream tip after the runcom changes made
+# upstream since the last review have been shown and acknowledged. Overrides
+# are never modified; port wanted changes into them before acknowledging.
+set -eu
+
+Z="${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}"
+P="$Z/.zprezto"
+PIN="$Z/.zprezto-reviewed"
+
+if [ -n "$(git -C "$P" status --porcelain --ignore-submodules)" ]; then
+  echo "The Prezto clone has local changes; revert them before updating." >&2
+  exit 1
+fi
+
+git -C "$P" fetch --quiet
+reviewed=$(cat "$PIN")
+tip=$(git -C "$P" rev-parse '@{upstream}')
+
+if [ -n "$(git -C "$P" diff --name-status "$reviewed" "$tip" -- runcoms)" ]; then
+  git -C "$P" diff "$reviewed" "$tip" -- runcoms
+  printf 'Upstream runcoms changed since the last review. Ported what you want? [y/N] '
+  read -r answer
+  [ "$answer" = y ] || exit 1
+fi
+
+git -C "$P" pull --quiet --ff-only
+git -C "$P" submodule sync --quiet --recursive
+git -C "$P" submodule update --init --recursive --quiet
+
+echo "$tip" > "$(chezmoi source-path "$PIN")"
+chezmoi apply
+echo "Prezto is at $tip. Commit the updated pin in the chezmoi repo."

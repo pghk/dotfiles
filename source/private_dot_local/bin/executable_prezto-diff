@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+# Shows how the tracked zsh overrides differ from Prezto's runcoms.
+set -eu
+
+Z="${ZDOTDIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zsh}"
+
+for upstream in "$Z"/.zprezto/runcoms/*; do
+  name="${upstream##*/}"
+  [ "$name" = README.md ] && continue
+  ours="$Z/.$name"
+  [ -L "$ours" ] && continue
+  chezmoi cat "$ours" | diff -u --label "upstream/$name" --label "ours/$name" "$upstream" - || true
+done
