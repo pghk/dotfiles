@@ -16,11 +16,11 @@ alias dot=chezmoi
 export KEYTIMEOUT=1
 
 # Store history in a database, using https://atuin.sh
-eval "$(atuin init zsh --disable-up-arrow)"
-_zsh_autosuggest_strategy_atuin() {
-    suggestion=$(atuin search --exit 0 --cmd-only --limit 1 --search-mode prefix "$1")
-}
+if (( $+commands[atuin] )); then
+  eval "$(atuin init zsh --disable-up-arrow)"
+  _zsh_autosuggest_strategy_atuin() {
+      suggestion=$(atuin search --exit 0 --cmd-only --limit 1 --search-mode prefix "$1")
+  }
+fi
 
 ADDENDUM="${ZDOTDIR:-$HOME}/.zshrc_custom"; [ -f $ADDENDUM ] && . $ADDENDUM
-
-. "$HOME/.atuin/bin/env"
