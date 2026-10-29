@@ -121,6 +121,8 @@ def publication_status(root):
     branches = []
     for line in output.splitlines():
         ref, upstream = line.split("\0")
+        if ref.startswith("refs/heads/trash/"):
+            continue
         unpublished = int(git(root, "rev-list", "--count", ref, "--not", "--remotes"))
         branch = {
             "branch": ref.removeprefix("refs/heads/"), "upstream": upstream or None,
@@ -143,7 +145,37 @@ def publication_status(root):
     return branches
 
 
-def repository_evidence(root, start, end):
+def publication_report(branches, events, session_branches):
+    active = set(session_branches)
+    for event in events:
+        if event["kind"] != "local":
+            continue
+        if event["ref"].startswith("refs/heads/"):
+            active.add(event["ref"].removeprefix("refs/heads/"))
+        checkout = re.fullmatch(r"checkout: moving from (\S+) to (\S+)", event["action"])
+        if checkout:
+            active.update(checkout.groups())
+    active = {branch for branch in active if not branch.startswith("trash/")}
+    concerns = set(issue_keys(" ".join(active)))
+    relevant = []
+    historical = {
+        "checked_branches": 0, "unpublished_branches": 0,
+        "ahead_of_remote_upstream": 0, "missing_upstreams": 0,
+    }
+    for branch in branches:
+        if branch["branch"] in active or concerns.intersection(branch["issue_keys"]):
+            relevant.append(branch)
+        else:
+            historical["checked_branches"] += 1
+            historical["unpublished_branches"] += branch["unpublished_commits"] > 0
+            historical["ahead_of_remote_upstream"] += (
+                branch["tracking"] == "remote" and branch["ahead"] > 0
+            )
+            historical["missing_upstreams"] += branch["tracking"] == "missing"
+    return {"day_relevant": relevant, "historical": historical}
+
+
+def repository_evidence(root, start, end, session_branches=()):
     worktrees = [
         field.removeprefix("worktree ")
         for field in git(root, "worktree", "list", "--porcelain", "-z").split("\0")
@@ -175,6 +207,7 @@ def repository_evidence(root, start, end):
             for key in event["issue_keys"]
         }),
         "publication": branches,
+        "publication_report": publication_report(branches, events, session_branches),
     }
 
 
@@ -211,7 +244,13 @@ def collect(day, database, paths, excluded):
     evidence["repositories"] = []
     for repository in repositories.values():
         try:
-            repository.update(repository_evidence(repository["root"], start, end))
+            session_branches = [
+                session["branch"] for session in evidence["sessions"]
+                if session["cwd"] in repository["paths"] and session["branch"]
+            ]
+            repository.update(repository_evidence(
+                repository["root"], start, end, session_branches,
+            ))
         except (OSError, subprocess.CalledProcessError, ValueError) as error:
             repository["error"] = str(error)
             evidence["warnings"].append(f"{repository['root']}: {error}")
@@ -223,8 +262,9 @@ def main():
     parser = argparse.ArgumentParser(
         description=(
             "Gather a local day's Atuin paths, Copilot session metadata and Git activity, "
-            "plus current publication status of every local branch in discovered repos. "
-            "Read-only; no fetch/push. Write JSON to --output and print counts. "
+            "plus current publication status of local branches except trash/*. "
+            "Read-only; no fetch/push. Write full JSON to --output; print counts and "
+            "publication reports with day-relevant branches and historical totals. "
             "Exit 0 for complete collection, 1 for partial evidence, 2 for usage errors."
         ),
     )
@@ -241,6 +281,10 @@ def main():
         "output": str(arguments.output), "shell_records": len(evidence["shell"]),
         "sessions": len(evidence["sessions"]), "repositories": len(evidence["repositories"]),
         "warnings": evidence["warnings"], "unresolved_paths": evidence["unresolved_paths"],
+        "publication_reports": [
+            {"root": repository["root"], **repository["publication_report"]}
+            for repository in evidence["repositories"] if "publication_report" in repository
+        ],
     }))
     return 1 if evidence["warnings"] else 0
 

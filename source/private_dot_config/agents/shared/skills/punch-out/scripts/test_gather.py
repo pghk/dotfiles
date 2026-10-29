@@ -157,6 +157,80 @@ class EvidenceTests(unittest.TestCase):
             for event in events
         ))
 
+    def test_publication_ignores_trash_branches_even_with_unpublished_code(self):
+        remote = self.directory / "remote.git"
+        self.command("init", "--bare", "-q", str(remote))
+        self.command("remote", "add", "origin", str(remote))
+        self.command("push", "-q", "-u", "origin", "main")
+        self.command("branch", "RAV-123/retained")
+        self.command("switch", "-q", "-c", "trash/RAV-123/dev")
+        self.commit("Abandoned work", "2026-10-28T10:00:00-04:00")
+        evidence = gather.repository_evidence(
+            str(self.root),
+            datetime.fromisoformat("2026-10-28T00:00:00-04:00"),
+            datetime.fromisoformat("2026-10-29T00:00:00-04:00"),
+            ["trash/RAV-123/dev"],
+        )
+
+        self.assertEqual(
+            {branch["branch"] for branch in evidence["publication"]},
+            {"main", "RAV-123/retained"},
+        )
+        report = evidence["publication_report"]
+        self.assertEqual(report["day_relevant"], [])
+        self.assertEqual(report["historical"], {
+            "checked_branches": 2, "unpublished_branches": 0,
+            "ahead_of_remote_upstream": 0, "missing_upstreams": 0,
+        })
+
+    def test_publication_report_prioritizes_local_daily_concerns_and_collapses_history(self):
+        remote = self.directory / "remote.git"
+        self.command("init", "--bare", "-q", str(remote))
+        self.command("remote", "add", "origin", str(remote))
+        self.command("push", "-q", "-u", "origin", "main")
+        self.command("branch", "old/published")
+        self.command("switch", "-q", "-c", "old/unpublished")
+        self.commit("Historical local work")
+        self.command("branch", "--set-upstream-to", "origin/main")
+        self.command("branch", "old/missing")
+        self.command("update-ref", "refs/remotes/origin/gone", "HEAD")
+        self.command("branch", "--set-upstream-to", "origin/gone", "old/missing")
+        self.command("update-ref", "-d", "refs/remotes/origin/gone")
+        self.command("switch", "-q", "main")
+        self.command("branch", "RAV-123/pr")
+        self.command(
+            "switch", "-q", "-c", "RAV-123/dev",
+            timestamp="2026-10-28T10:00:00-04:00",
+        )
+        self.commit("Daily work", "2026-10-28T10:05:00-04:00")
+        self.command(
+            "switch", "-q", "-c", "review",
+            timestamp="2026-10-28T10:10:00-04:00",
+        )
+        self.command("branch", "RAV-999/dev")
+        self.command(
+            "update-ref", "-m", "fetch origin", "refs/remotes/origin/RAV-999/dev", "HEAD",
+            timestamp="2026-10-28T11:00:00-04:00",
+        )
+        evidence = gather.repository_evidence(
+            str(self.root),
+            datetime.fromisoformat("2026-10-28T00:00:00-04:00"),
+            datetime.fromisoformat("2026-10-29T00:00:00-04:00"),
+        )
+        report = evidence["publication_report"]
+
+        self.assertEqual(
+            {branch["branch"] for branch in report["day_relevant"]},
+            {"main", "RAV-123/dev", "RAV-123/pr", "review"},
+        )
+        self.assertEqual(report["historical"], {
+            "checked_branches": 4, "unpublished_branches": 2,
+            "ahead_of_remote_upstream": 1, "missing_upstreams": 1,
+        })
+        self.assertIn("old/unpublished", {
+            branch["branch"] for branch in evidence["publication"]
+        })
+
     def test_collection_combines_managed_shell_paths_and_session_only_worktrees_once(self):
         target = self.directory / "config"
         target.mkdir()
@@ -178,6 +252,13 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(evidence["warnings"], [])
         self.assertEqual(len(evidence["repositories"]), 1)
         self.assertEqual(set(evidence["repositories"][0]["paths"]), {str(target), str(worktree)})
+        self.assertEqual(
+            [branch["branch"] for branch in evidence["repositories"][0]["publication_report"]["day_relevant"]],
+            ["RAV-123/dev"],
+        )
+        self.assertEqual(
+            evidence["repositories"][0]["publication_report"]["historical"]["checked_branches"], 1,
+        )
 
     def test_unavailable_source_is_partial_evidence_not_a_clean_bill_of_health(self):
         with patch("gather.atuin_activity", return_value=[]):
