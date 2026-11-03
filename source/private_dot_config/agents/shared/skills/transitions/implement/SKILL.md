@@ -62,7 +62,7 @@ tickets with independent write ownership, using isolated worktrees where the
 active subagent runtime requires them. Serialize shared contracts, registries,
 entrypoints, generated artifacts, and overlapping writes under one owner.
 
-When writing or changing an automated test, apply [Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md) at the test-writing point. It governs test discrimination without requiring a universal TDD workflow. Before integrating or reporting work that added or changed tests, apply [Tests Are Not Receipts](../../principles/principle-tests-are-not-receipts/SKILL.md) to each of them.
+When writing or changing an automated test, apply [Test Behavior, Not Implementation](../../principles/principle-test-behavior-not-implementation/SKILL.md) at the test-writing point. It governs test discrimination without requiring a universal TDD workflow. Before committing work that added or changed tests, delegate a fresh-context [test review](../../workbench/test-review/SKILL.md) of those tests and the production diff against the governing request, and resolve its findings. It reports, per changed test, whether it earns retention, any expectation changed to match new output, any production change made only to satisfy a test, and the command that ran it.
 
 Integrate delegated changes in dependency order. Require each delegated ticket
 handoff to account for every acceptance criterion as verified existing,
@@ -78,8 +78,8 @@ Use [show-your-work](../../continuity/show-your-work/SKILL.md) for multi-agent,
 multi-session, unattended, or otherwise hard-to-audit execution. Keep its one
 decision trail instead of creating a report hierarchy or ledger. Request
 independent review or cleanup only when risk, breadth, uncertainty,
-hard-to-observe behavior, or the user warrants it. There are no mandatory
-per-ticket reviewer loops or final review gate.
+hard-to-observe behavior, or the user warrants it. Beyond the test review,
+there are no mandatory per-ticket reviewer loops or final review gate.
 
 ## Check and finish
 
