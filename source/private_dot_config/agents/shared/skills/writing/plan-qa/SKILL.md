@@ -34,7 +34,7 @@ Before sorting changes into kinds, ask or confirm which surfaces a real user can
 
 **Changed behaviour.** Give both the old and the new expectation. Testers who know the application will otherwise report the new behaviour as a bug.
 
-**Touched but unchanged.** Refactors, renames, retargeted forms. There is nothing to verify, only something to catch. Name the shape the failure would take — "the sign-in does nothing, errors, or lands somewhere unexpected" — so the tester knows what they are watching for.
+**Touched but unchanged.** Refactors, renames, retargeted forms. There is nothing to verify, only something to catch. Name the shape the failure would take — "the sign-in does nothing, errors, or lands somewhere unexpected" — so the tester knows what they are watching for. Each step looks for that failure shape with the least action that would reveal it. Anything a step checks beyond that shape tests the application, not the branch.
 
 **Invisible.** Produces no observable difference. Write no step. Silence here is what makes room for the checks that matter.
 
