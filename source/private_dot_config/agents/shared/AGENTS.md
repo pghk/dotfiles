@@ -27,7 +27,7 @@ Never argue yourself out of running a credible falsifying observation that can v
 
 Behavior-changing configuration is within testing scope. Human prose, prompts, skills, and other documentation receive purpose-appropriate review rather than manufactured red-green testing.
 
-This machine's `cat` is BSD, not GNU — it has no `-A`/`-e` flags. Use `od -c` to inspect invisible characters instead.
+This machine's `cat` and `sed` are BSD, not GNU: `cat` has no `-A`/`-e` (use `od -c`), and basic-regex `sed` has no `\|` alternation (use `sed -E`).
 
 ### Concern scope
 
