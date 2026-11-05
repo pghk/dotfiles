@@ -6,7 +6,7 @@ Pi appends these instructions to its system prompt. They define Pi-specific skil
 
 Pi subagent runtime and role configuration come from https://github.com/nicobailon/pi-subagents. Pi settings and runtime own agent identity, model, context, and launch behavior; the primary agent and active work-method skill own delegation purpose, intent, and integration.
 
-Agents choose configured roles; pi-subagents resolves models. Treat `~/.config/pi/settings.json` → `subagents` as binding user-authored routing policy: follow its defaults and agent overrides, and follow a custom agent's configured profile when settings do not override it. Omitting a launch-time model delegates selection to pi-subagents; it does not request the parent model. Never pass a per-run `model` or thinking override unless the user explicitly requests that specific override.
+Agents choose configured roles; pi-subagents resolves models. Treat `~/.config/agents/pi/settings.json` → `subagents` as binding user-authored routing policy: follow its defaults and agent overrides, and follow a custom agent's configured profile when settings do not override it. Omitting a launch-time model delegates selection to pi-subagents; it does not request the parent model. Never pass a per-run `model` or thinking override unless the user explicitly requests that specific override.
 
 Build `workflowScript` task prose as an array joined with `"\n"`. Do not embed Markdown or backticks in a JavaScript template literal.
 
@@ -16,7 +16,7 @@ When independent review is warranted, use `task-reviewer` for scoped review and 
 
 ## Custom Pi Extensions
 
-Custom extensions live in `~/.config/agents/pi/extensions` (symlinked as `~/.config/pi/extensions`).
+Custom extensions live in `~/.config/agents/pi/extensions`.
 
 - `copilot-usage` — polls and displays GitHub Copilot plan usage (credits/premium/chat).
 - `custom-footer` — renders the session status line (token usage, cost, cwd).

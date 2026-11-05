@@ -2,7 +2,7 @@
 name: task-reviewer
 description: Read-only task-scoped Superpowers SDD spec and quality reviewer
 tools: read, grep, find, ls
-model: github-copilot/gpt-5.6-terra
+model: openrouter/openai/gpt-5.6-terra
 thinking: medium
 systemPromptMode: replace
 inheritProjectContext: true

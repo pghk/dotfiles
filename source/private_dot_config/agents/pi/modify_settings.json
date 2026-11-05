@@ -1,0 +1,70 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* pi writes its own state to this file; chezmoi owns only the subagents key. */ -}}
+{{- $settings := dict -}}
+{{- if .chezmoi.stdin -}}
+{{-   $settings = fromJson .chezmoi.stdin -}}
+{{- end -}}
+{{- $subagents := fromJson `{
+  "defaultModel": "openrouter/openai/gpt-5.6-terra",
+  "defaultThinking": "medium",
+  "agentOverrides": {
+    "scout": {
+      "model": "openrouter/moonshotai/kimi-k2.6",
+      "thinking": "low",
+      "defaultContext": "fresh"
+    },
+    "researcher": {
+      "model": "openrouter/openai/gpt-5.6-luna",
+      "thinking": "high",
+      "defaultContext": "fresh"
+    },
+    "worker": {
+      "model": "openrouter/openai/gpt-5.6-luna",
+      "thinking": "medium",
+      "defaultContext": "fresh"
+    },
+    "reviewer": {
+      "model": "openrouter/anthropic/claude-sonnet-5",
+      "thinking": "medium",
+      "defaultContext": "fresh"
+    },
+    "delegate": {
+      "model": "openrouter/openai/gpt-5.6-terra",
+      "thinking": "medium",
+      "defaultContext": "fresh"
+    },
+    "oracle": {
+      "model": "openrouter/openai/gpt-5.6-sol",
+      "thinking": "high",
+      "defaultContext": "fork"
+    }
+  },
+  "modelScope": {
+    "enforce": true,
+    "strict": true,
+    "agents": {
+      "scout": {
+        "allow": ["openrouter/moonshotai/kimi-k2.6"]
+      },
+      "researcher": {
+        "allow": ["openrouter/moonshotai/kimi-k2.6", "openrouter/openai/gpt-5.6-luna"]
+      },
+      "worker": {
+        "allow": ["openrouter/moonshotai/kimi-k2.6", "openrouter/openai/gpt-5.6-luna", "openrouter/openai/gpt-5.6-terra"]
+      },
+      "reviewer": {
+        "allow": ["openrouter/anthropic/claude-sonnet-5", "openrouter/openai/gpt-5.6-sol"]
+      },
+      "delegate": {
+        "allow": ["openrouter/openai/gpt-5.6-luna", "openrouter/openai/gpt-5.6-terra"]
+      },
+      "oracle": {
+        "allow": ["openrouter/openai/gpt-5.6-sol", "openrouter/anthropic/claude-opus-5"]
+      },
+      "task-reviewer": {
+        "allow": ["openrouter/openai/gpt-5.6-terra", "openrouter/openai/gpt-5.6-sol"]
+      }
+    }
+  }
+}` -}}
+{{- $settings | setValueAtPath "subagents" $subagents | toPrettyJson }}
