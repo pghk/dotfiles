@@ -8,6 +8,8 @@ description: >
 
 Self-contained guide for creating and updating Agent Skills from any working directory.
 
+Skill files live in the chezmoi-managed config tree, not in a project repository. Load the `dotfiles` skill to sync and commit them.
+
 ## Skill structure
 
 ```
