@@ -1,4 +1,0 @@
-{
-  "worktreeSetupHook": "./scripts/setup-worktree.mjs",
-  "worktreeSetupHookTimeoutMs": 30000
-}
