@@ -23,7 +23,7 @@ One row per issue. The first column is the issue key, which the picker reads, an
 
 ## `jira activity`
 
-`jira activity` prints the user's own field changes from today, grouped under each issue's key, current status and summary, with the time of each change. It searches for issues whose status the user changed today or that were assigned to them and updated today, in one request that includes each issue's history, and the `activity` template keeps only changes the user made today. Issues where only other people made changes are omitted. Comments are not field changes, so they do not appear. Each config key reaches the command's script as a `JIRA_<KEY>` environment variable, which is how the search gets the project.
+`jira activity` prints the user's own field changes and comments from today, grouped under each issue's key, current status and summary, with the time of each. It searches for issues the user updated today, in one request that includes each issue's history and comments, and the `activity` template keeps only what the user did today. It prints comment bodies as indented plain text with markdown-style headings and list items. Each config key reaches the command's script as a `JIRA_<KEY>` environment variable, which is how the search gets the project and user.
 
 ## Aliases
 

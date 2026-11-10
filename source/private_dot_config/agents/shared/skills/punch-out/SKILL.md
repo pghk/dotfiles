@@ -15,7 +15,7 @@ The JSON is shared input for every routine: local-host Atuin timestamps and path
 
 Read the relevant JSON sections rather than loading the entire file. Exit 1 means partial evidence: inspect warnings and report the affected coverage. Investigate unresolved paths using session context; add known source repositories with `--path` and rerun when needed. Missing sources or inaccessible repositories leave coverage unknown.
 
-Also run `jira activity` for the user's own Jira field changes from today, grouped under each issue's key, current status and summary (see `~/.config/go-jira/README.md`). Comments are not included. It always covers the current day, so for a historical punch-out skip it and report Jira coverage as unknown. Read an issue's detail with the `jira-issue-read` skill only when its changes need explanation. Treat a `jira` failure (for example an expired login) as unknown coverage and report it.
+Also run `jira activity` for the user's own Jira field changes and comments from today, grouped under each issue's key, current status and summary (see `~/.config/go-jira/README.md`). It always covers the current day, so for a historical punch-out skip it and report Jira coverage as unknown. Read an issue's detail with the `jira-issue-read` skill only when its activity needs explanation. Treat a `jira` failure (for example an expired login) as unknown coverage and report it.
 
 Group evidence by repository and issue/concern, retaining timestamps and source IDs for follow-up. Branch metadata and commit dates are clues; local reflogs and conversation content establish work performed. Remote fetch events alone establish downloaded history.
 
