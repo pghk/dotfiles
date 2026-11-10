@@ -23,9 +23,12 @@ jira-search() {
   jira ls -q "project = $project AND text ~ \"$term\" ORDER BY updated DESC" "${@:2}"
 }
 
+# Convert piped `issue-wiki` output to markdown.
+alias jira-wiki-to-md='pandoc -f jira -t gfm --wrap=none --lua-filter ~/.config/go-jira/jira-md.lua'
+
 # Print an issue as markdown: the issue-wiki template renders Jira wiki markup and pandoc converts it.
 jira-md() {
-  jira view -t issue-wiki "$1" | pandoc -f jira -t gfm --wrap=none --lua-filter ~/.config/go-jira/jira-md.lua
+  jira view -t issue-wiki "$1" | jira-wiki-to-md
 }
 
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
