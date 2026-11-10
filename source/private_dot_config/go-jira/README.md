@@ -4,13 +4,14 @@ Searches, output shapes and pickers for the `jira` CLI, composed as `jira ls -n 
 
 | Layer | Lives in | Owns |
 |---|---|---|
-| Queries | `queries:` in `config.yml` | JQL that selects issues. `{{.project}}` expands from the config's `project`, so a query names no project. Top-level keys such as `status_today` hold reusable JQL fragments, which a query includes with `{{.status_today}}`. |
+| Queries | `queries:` in `config.yml` | JQL that selects issues. `{{.project}}` expands from the config's `project`, so a query names no project. |
 | Templates | `templates/` | How each result prints. One per object type and output purpose. |
+| Custom commands | `custom-commands:` in `config.yml` | Requests `jira ls` cannot make, such as searches that return issue history. |
 | Aliases | `source/private_dot_config/zsh/dot_zshrc` | Picking rows with fzf and printing their keys. `pick-keyed` serves any `keyed-tsv` output. |
 
 ## Local ownership
 
-`config.yml` is seeded once from `create_config.yml.tmpl` and is never overwritten, because the endpoint, user and project differ per machine. A query added to the seed reaches a machine that already has a config only when it is added to that machine's `config.yml`.
+`config.yml` is seeded once from `create_config.yml.tmpl` and is never overwritten, because the endpoint, user and project differ per machine. A query or custom command added to the seed reaches a machine that already has a config only when it is added to that machine's `config.yml`.
 
 ## `keyed-tsv` contract
 
@@ -19,6 +20,10 @@ One row per issue. The first column is the issue key, which the picker reads, an
 ## `jira-md`
 
 `jira-md KEY` prints one issue as markdown: YAML front matter (key, summary, url, type, project, status, people, dates, and labels, components, fix versions, parent, active sprint ids and links as `relation`/`key` pairs when set), then Description, Subtasks, Links, Attachments and Comments, with each comment date linking to that comment. It is `jira view -t issue-wiki KEY | jira-wiki-to-md`. The `issue-wiki` template renders the whole issue as Jira wiki markup, and the `jira-wiki-to-md` alias runs `pandoc` to convert it to markdown, so the description and comment bodies convert with the headings. `jira-md.lua` is the pandoc filter that turns the template's `{code:frontmatter}` block into front matter and removes the blank lines the Jira reader puts between list items, and replaces mentions. User mentions become `@Name` when the person is the assignee, reporter, creator or a comment author, using the template's `{code:people}` block. Other mentions, and Jira smart-links, come out as raw `<a>` HTML.
+
+## `jira activity`
+
+`jira activity` prints the user's own field changes from today, grouped under each issue's key, current status and summary, with the time of each change. It searches for issues whose status the user changed today or that were assigned to them and updated today, in one request that includes each issue's history, and the `activity` template keeps only changes the user made today. Issues where only other people made changes are omitted. Comments are not field changes, so they do not appear. Each config key reaches the command's script as a `JIRA_<KEY>` environment variable, which is how the search gets the project.
 
 ## Aliases
 
@@ -37,5 +42,6 @@ jira-search modal -t keyed-tsv | pick-keyed | xargs -r -n1 jira browse
 ## Adding to it
 
 - A new selection of issues is a new entry under `queries:`.
+- A search that needs data `jira ls` leaves out, such as issue history, is a custom command that calls `jira request`, with its own template.
 - A new action on issues is a command on the keys `pick-keyed` prints, with no new alias.
 - A new object type (anything other than issues) gets its own template. `pick-keyed` reads its output unchanged as long as the template puts the key first. go-jira can only reach issues through `ls`, so other types need `jira request` against the REST API.

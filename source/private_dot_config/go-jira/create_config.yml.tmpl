@@ -7,6 +7,9 @@ queries:
   sprint: project = {{ "{{.project}}" }} AND sprint in openSprints() ORDER BY status DESC, created DESC
   involved: project = {{ "{{.project}}" }} AND sprint in openSprints() AND assignee was currentUser() ORDER BY status DESC, created DESC
   mine: project = {{ "{{.project}}" }} AND assignee = currentUser() AND statusCategory != Done ORDER BY status DESC, created DESC
-  today: project = {{ "{{.project}}" }} AND (({{ "{{.status_today}}" }}) OR ({{ "{{.assigned_today}}" }}))
-status_today: status changed by currentUser() after startOfDay()
-assigned_today: assignee was currentUser() AND updated >= startOfDay()
+# Custom commands run their script with each top-level config key exported as JIRA_<KEY>.
+custom-commands:
+  - name: activity
+    help: My field changes from today, grouped by issue
+    script: |-
+      jira request -t activity -M POST /rest/api/3/search/jql '{"jql": "project = '"$JIRA_PROJECT"' AND (status changed by currentUser() after startOfDay() OR (assignee was currentUser() AND updated >= startOfDay()))", "fields": ["summary", "status"], "expand": "changelog"}'

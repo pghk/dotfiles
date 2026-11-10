@@ -1,0 +1,8 @@
+{{/* The user's own field changes from today, grouped under each issue's key, current status and summary. Issues without such changes are omitted. */ -}}
+{{ $me := env.JIRA_USER }}{{ $today := now | date "2006-01-02" -}}
+{{ range .issues -}}
+{{ $mine := list }}{{ range .changelog.histories }}{{ if and (eq .author.emailAddress $me) (hasPrefix $today .created) }}{{ $mine = push $mine . }}{{ end }}{{ end -}}
+{{ if $mine }}{{ .key }} [{{ .fields.status.name }}] {{ .fields.summary }}
+{{ range $mine }}{{ $time := substr 11 16 .created }}{{ range .items }}  {{ $time }} {{ .field }}: {{ .fromString | default "none" | abbrev 60 }} -> {{ .toString | default "none" | abbrev 60 }}
+{{ end }}{{ end }}{{ end -}}
+{{ end -}}
