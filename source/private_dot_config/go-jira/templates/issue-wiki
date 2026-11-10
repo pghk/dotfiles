@@ -42,6 +42,15 @@ links: [{{ range .fields.issuelinks }}{{ if .outwardIssue }}{{ $sep }}{relation:
 {{ end -}}
 {code}
 
+{code:people}
+{{ if .fields.assignee }}{{ .fields.assignee.accountId }} {{ .fields.assignee.displayName }}
+{{ end }}{{ if .fields.reporter }}{{ .fields.reporter.accountId }} {{ .fields.reporter.displayName }}
+{{ end }}{{ if .fields.creator }}{{ .fields.creator.accountId }} {{ .fields.creator.displayName }}
+{{ end }}{{ range .fields.comment.comments }}{{ .author.accountId }} {{ .author.displayName }}
+{{ if .updateAuthor }}{{ .updateAuthor.accountId }} {{ .updateAuthor.displayName }}
+{{ end }}{{ end -}}
+{code}
+
 h1. {{ .key }}: {{ .fields.summary }}
 
 h2. Description

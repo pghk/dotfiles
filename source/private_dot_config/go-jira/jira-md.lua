@@ -1,7 +1,28 @@
--- Filter for `jira-md`: turns the issue-wiki template's frontmatter code block into YAML front matter, and tightens lists.
-function CodeBlock(block)
+-- Filter for `jira-md`: turns the issue-wiki template's frontmatter code block into YAML front matter, replaces user mentions with @names from its people block, and tightens lists.
+local people = {}
+
+local function collect_people(doc)
+  doc:walk({
+    CodeBlock = function(block)
+      if block.classes[1] == 'people' then
+        for id, name in block.text:gmatch('(%S+) ([^\n]+)') do people[id] = name end
+      end
+    end,
+  })
+end
+
+local function mention(link)
+  if link.classes:includes('user-account') then
+    local name = people[link.target:gsub('^~accountid:', '')]
+    if name then return pandoc.Str('@' .. name) end
+  end
+end
+
+local function unwrap(block)
   if block.classes[1] == 'frontmatter' then
     return pandoc.RawBlock('markdown', '---\n' .. block.text:gsub('\n+$', '') .. '\n---')
+  elseif block.classes[1] == 'people' then
+    return {}
   end
 end
 
@@ -19,5 +40,8 @@ local function tighten(list)
   return list
 end
 
-BulletList = tighten
-OrderedList = tighten
+return {
+  { Pandoc = function(doc) collect_people(doc) end },
+  { Link = mention },
+  { CodeBlock = unwrap, BulletList = tighten, OrderedList = tighten },
+}
