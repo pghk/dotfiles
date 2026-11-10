@@ -36,8 +36,12 @@ When daily work evidence is supplied, use paths, branch issue keys and local Git
 
 ## Synthesize
 
-Write a few concise bullets about meaningful work and its current state: advancements, learnings, decisions, blockers, and concrete unfinished work the evidence supports. Distinguish exploration, accepted decisions, implementation, and verified results. Group by project only when it improves readability. Keep useful links found in the evidence. Omit command histories, session narration, and unsupported accomplishments.
+Write bullets about meaningful work and its current state: advancements, learnings, decisions, blockers, and concrete unfinished work the evidence supports. Distinguish exploration, accepted decisions, implementation, and verified results. Keep useful links found in the evidence. Omit command histories, session narration, and unsupported accomplishments.
 
-Weight detail by relative attention and substance: same-day conversation depth, interaction windows and outcomes together. Sustained investigation deserves more explanation than a quick maintenance change, even without commits. Windows and first/last timestamps indicate interaction, not continuous elapsed work. Deduplicate overlapping windows within a concern; attention across concerns can overlap. Commit and command counts alone do not measure effort.
+Group the bullets under bold labels for the type of work (for example **QA**, **Development**, **Investigation**, **Tooling**), ordered by attention. Leave out a type with no work, and use no labels when there are about five bullets or fewer. Lead each bullet with its Jira key in bold followed by the issue's purpose; work with no key names its project or tool instead. List an issue once, under the type that took most of its effort.
+
+Each bullet says what the work was for, what was done, and where it stands: the result, a decision, or what remains open. Housekeeping the agent performs while working is not a result: leave out test counts, screenshot reviews, commit hashes, and whether work was pushed. Publication status is reported separately.
+
+Weight detail by relative attention and substance: same-day conversation depth, interaction windows and outcomes together. A quick pass or maintenance change takes one line; sustained investigation or implementation takes two or three, even without commits. Windows and first/last timestamps indicate interaction, not continuous elapsed work. Deduplicate overlapping windows within a concern; attention across concerns can overlap. Commit and command counts alone do not measure effort.
 
 Return the bullets without a heading. When the evidence holds no substantive work, say so instead.
