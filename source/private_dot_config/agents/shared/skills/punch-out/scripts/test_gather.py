@@ -272,6 +272,17 @@ class EvidenceTests(unittest.TestCase):
 
         self.assertEqual({c["commit"]: c["own"] for c in evidence["commits"]}, {mine: True, theirs: False})
 
+    def test_jira_activity_is_collected_whole_for_today_and_unknown_for_other_days(self):
+        output = "\n".join(f"line {number}" for number in range(200))
+        with patch("gather.atuin_activity", return_value=[]), \
+                patch("gather.session_activity", return_value=[]), \
+                patch("gather.run", return_value=output):
+            today = gather.collect(date.today(), self.directory / "none.db", [], "")
+            earlier = gather.collect(DAY, self.directory / "none.db", [], "")
+
+        self.assertEqual(today["jira"], output)
+        self.assertIsNone(earlier["jira"])
+
     def test_unavailable_source_is_partial_evidence_not_a_clean_bill_of_health(self):
         with patch("gather.atuin_activity", return_value=[]):
             evidence = gather.collect(DAY, self.directory / "missing.db", [str(self.root)], "")

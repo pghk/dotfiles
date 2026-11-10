@@ -233,6 +233,14 @@ def collect(day, database, paths, excluded):
         except (OSError, subprocess.CalledProcessError, sqlite3.Error, ValueError) as error:
             evidence[name] = []
             evidence["warnings"].append(f"{name}: {error}")
+    if day == date.today():
+        try:
+            evidence["jira"] = run("jira", "activity")
+        except (OSError, subprocess.CalledProcessError) as error:
+            evidence["jira"] = None
+            evidence["warnings"].append(f"jira: {error}")
+    else:
+        evidence["jira"] = None
     paths = sorted(set(
         paths + [record["path"] for record in evidence["shell"]]
         + [session["cwd"] for session in evidence["sessions"] if session["cwd"]]
