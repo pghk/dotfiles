@@ -1,26 +1,40 @@
-{{/* issue-wiki: one issue as Jira wiki markup, for `pandoc -f jira` to convert to markdown (see jira-md). */ -}}
-h1. {{ .key }}: {{ .fields.summary }}
-
-* *URL:* {{ regReplace "/rest/api/.*" "" .self }}/browse/{{ .key }}
-* *Type:* {{ .fields.issuetype.name }}
-* *Status:* {{ .fields.status.name }}{{ if .fields.resolution }} ({{ .fields.resolution.name }}){{ end }}
-* *Priority:* {{ if .fields.priority }}{{ .fields.priority.name }}{{ end }}
-* *Assignee:* {{ if .fields.assignee }}{{ .fields.assignee.displayName }}{{ else }}Unassigned{{ end }}
-* *Reporter:* {{ if .fields.reporter }}{{ .fields.reporter.displayName }}{{ end }}
-* *Created:* {{ .fields.created }}
-* *Updated:* {{ .fields.updated }}
+{{/* issue-wiki: one issue as Jira wiki markup, for `pandoc -f jira` to convert to markdown (see jira-md). The frontmatter code block becomes YAML front matter in jira-md.lua. */ -}}
+{code:frontmatter}
+issue: {{ .key }}
+summary: {{ toMinJson .fields.summary }}
+url: {{ toMinJson (print (regReplace "/rest/api/.*" "" .self) "/browse/" .key) }}
+type: {{ toMinJson .fields.issuetype.name }}
+status: {{ toMinJson .fields.status.name }}
+{{ if .fields.resolution -}}
+resolution: {{ toMinJson .fields.resolution.name }}
+{{ end -}}
+{{ if .fields.priority -}}
+priority: {{ toMinJson .fields.priority.name }}
+{{ end -}}
+{{ if .fields.assignee -}}
+assignee: {{ toMinJson .fields.assignee.displayName }}
+{{ end -}}
+{{ if .fields.reporter -}}
+reporter: {{ toMinJson .fields.reporter.displayName }}
+{{ end -}}
+created_at: {{ toMinJson .fields.created }}
+updated_at: {{ toMinJson .fields.updated }}
 {{ if .fields.parent -}}
-* *Parent:* {{ .fields.parent.key }}: {{ .fields.parent.fields.summary }}
+parent: {{ .fields.parent.key }}
 {{ end -}}
 {{ if .fields.labels -}}
-* *Labels:* {{ join ", " .fields.labels }}
+labels: {{ toMinJson .fields.labels }}
 {{ end -}}
 {{ if .fields.components -}}
-* *Components:* {{ range $i, $c := .fields.components }}{{ if $i }}, {{ end }}{{ $c.name }}{{ end }}
+components: [{{ range $i, $c := .fields.components }}{{ if $i }}, {{ end }}{{ toMinJson $c.name }}{{ end }}]
 {{ end -}}
 {{ if .fields.fixVersions -}}
-* *Fix versions:* {{ range $i, $v := .fields.fixVersions }}{{ if $i }}, {{ end }}{{ $v.name }}{{ end }}
-{{ end }}
+fix_versions: [{{ range $i, $v := .fields.fixVersions }}{{ if $i }}, {{ end }}{{ toMinJson $v.name }}{{ end }}]
+{{ end -}}
+{code}
+
+h1. {{ .key }}: {{ .fields.summary }}
+
 h2. Description
 
 {{ or .fields.description "(none)" }}

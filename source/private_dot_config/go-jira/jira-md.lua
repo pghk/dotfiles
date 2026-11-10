@@ -1,3 +1,10 @@
+-- Filter for `jira-md`: turns the issue-wiki template's frontmatter code block into YAML front matter, and tightens lists.
+function CodeBlock(block)
+  if block.classes[1] == 'frontmatter' then
+    return pandoc.RawBlock('markdown', '---\n' .. block.text:gsub('\n+$', '') .. '\n---')
+  end
+end
+
 -- The Jira reader makes every list item a paragraph, which renders as a loose list. Items without a second paragraph become tight.
 local function tighten(list)
   for _, item in ipairs(list.content) do

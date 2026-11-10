@@ -25,7 +25,7 @@ jira-search() {
 
 # Print an issue as markdown: the issue-wiki template renders Jira wiki markup and pandoc converts it.
 jira-md() {
-  jira view -t issue-wiki "$1" | pandoc -f jira -t gfm --wrap=none --lua-filter ~/.config/go-jira/tight-lists.lua
+  jira view -t issue-wiki "$1" | pandoc -f jira -t gfm --wrap=none --lua-filter ~/.config/go-jira/jira-md.lua
 }
 
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
