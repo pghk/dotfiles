@@ -12,6 +12,17 @@ fi
 
 alias dot=chezmoi
 
+# Pick rows from keyed-tsv input (key first, tab-separated) on stdin and print their keys, one per line.
+alias pick-keyed="column -t -s \$'\t' | fzf --no-sort | awk '{print \$1}'"
+
+# Search summaries, descriptions and comments for TERM in the configured project; extra arguments go to `jira ls`.
+jira-search() {
+  local term=${1//\\/\\\\} project
+  term=${term//\"/\\\"}
+  project=$(awk '/^project:/ {print $2}' ~/.jira.d/config.yml)
+  jira ls -q "project = $project AND text ~ \"$term\" ORDER BY updated DESC" "${@:2}"
+}
+
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
 export KEYTIMEOUT=1
 

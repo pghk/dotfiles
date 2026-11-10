@@ -1,0 +1,3 @@
+{{/* One row per issue: key first (consumers read it), then tab-separated display columns. */ -}}
+{{ range .issues }}{{ .key }}	{{ .fields.issuetype.name }}	{{ if .fields.assignee }}{{ .fields.assignee.displayName }}{{ else }}Unassigned{{ end }}	{{ .fields.status.name }}	{{ .fields.summary }}
+{{ end -}}

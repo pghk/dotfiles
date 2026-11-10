@@ -2,3 +2,11 @@ endpoint: https://k12jira.atlassian.net
 user: {{ .email }}
 password-source: keyring
 project: RAV
+# Named JQL for `jira ls -n <name>`; {{ "{{.project}}" }} expands from the project above.
+queries:
+  sprint: project = {{ "{{.project}}" }} AND sprint in openSprints() ORDER BY status DESC, created DESC
+  involved: project = {{ "{{.project}}" }} AND sprint in openSprints() AND assignee was currentUser() ORDER BY status DESC, created DESC
+  mine: project = {{ "{{.project}}" }} AND assignee = currentUser() AND statusCategory != Done ORDER BY status DESC, created DESC
+  today: project = {{ "{{.project}}" }} AND (({{ "{{.status_today}}" }}) OR ({{ "{{.assigned_today}}" }}))
+status_today: status changed by currentUser() after startOfDay()
+assigned_today: assignee was currentUser() AND updated >= startOfDay()

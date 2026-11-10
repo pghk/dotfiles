@@ -3,6 +3,7 @@
 **/node_modules
 .hammerspoon/Spoons/EmmyLua.spoon/annotations
 .config/nvim/lazyvim.json
+.config/go-jira/README.md
 .config/obsidian/app.json
 .config/obsidian/bookmarks.json
 .config/obsidian/daily-notes.json
