@@ -55,7 +55,7 @@ h1. {{ .key }}: {{ .fields.summary }}
 
 h2. Description
 
-{{ or .fields.description "(none)" }}
+{{ regReplace `(?m)(\{(?:code|noformat):[^}]*\})[ \t]*([^\n \t])` "${1}\n${2}" (or .fields.description "(none)") }}
 {{ if .fields.subtasks }}
 h2. Subtasks
 
@@ -87,6 +87,6 @@ h2. Comments
 {{ range .fields.comment.comments }}
 h3. {{ .author.displayName }}, [{{ .created }}|{{ regReplace "/rest/api/.*" "" $.self }}/browse/{{ $.key }}?focusedCommentId={{ .id }}]
 
-{{ or .body "" }}
+{{ regReplace `(?m)(\{(?:code|noformat):[^}]*\})[ \t]*([^\n \t])` "${1}\n${2}" (or .body "") }}
 {{ end -}}
 {{ end -}}
