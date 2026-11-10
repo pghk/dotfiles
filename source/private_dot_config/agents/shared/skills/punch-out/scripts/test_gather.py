@@ -260,6 +260,18 @@ class EvidenceTests(unittest.TestCase):
             evidence["repositories"][0]["publication_report"]["historical"]["checked_branches"], 1,
         )
 
+    def test_commits_by_other_authors_are_not_marked_own(self):
+        mine = self.commit("Mine", "2026-10-28T11:00:00-04:00")
+        with patch.dict(os.environ, {"GIT_AUTHOR_EMAIL": "colleague@example.invalid"}):
+            theirs = self.commit("Fetched", "2026-10-28T12:00:00-04:00")
+        evidence = gather.repository_evidence(
+            str(self.root),
+            datetime.fromisoformat("2026-10-28T00:00:00-04:00"),
+            datetime.fromisoformat("2026-10-29T00:00:00-04:00"),
+        )
+
+        self.assertEqual({c["commit"]: c["own"] for c in evidence["commits"]}, {mine: True, theirs: False})
+
     def test_unavailable_source_is_partial_evidence_not_a_clean_bill_of_health(self):
         with patch("gather.atuin_activity", return_value=[]):
             evidence = gather.collect(DAY, self.directory / "missing.db", [str(self.root)], "")

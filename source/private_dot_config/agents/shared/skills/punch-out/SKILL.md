@@ -11,7 +11,7 @@ Gather evidence once, then run the routines below for one day: today in local ti
 
 Run [scripts/gather.py](scripts/gather.py) with `python3`, passing `--date YYYY-MM-DD`, `--exclude-session <current-session-id>` and `--output <session-files>/punch-out-YYYY-MM-DD.json`. Use `--help` for additional paths or an alternate local session database.
 
-The JSON is shared input for every routine: local-host Atuin timestamps and paths, same-day session metadata and half-hour interaction windows, discovered repositories and worktrees, dated commits and reflog events, branch issue keys, and current publication status. Managed dotfile paths resolve through chezmoi. Raw shell commands are omitted.
+The JSON is shared input for every routine: local-host Atuin timestamps and paths, same-day session metadata and half-hour interaction windows, discovered repositories and worktrees, dated commits (each marked `own` when authored by the repository's configured user) and reflog events, branch issue keys, and current publication status. Managed dotfile paths resolve through chezmoi. Raw shell commands are omitted.
 
 Read the relevant JSON sections rather than loading the entire file. Exit 1 means partial evidence: inspect warnings and report the affected coverage. Investigate unresolved paths using session context; add known source repositories with `--path` and rerun when needed. Missing sources or inaccessible repositories leave coverage unknown.
 

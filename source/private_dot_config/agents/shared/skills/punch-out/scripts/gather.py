@@ -175,6 +175,11 @@ def publication_report(branches, events, session_branches):
     return {"day_relevant": relevant, "historical": historical}
 
 
+def own_email(root):
+    ident = git(root, "var", "GIT_AUTHOR_IDENT")
+    return re.search(r"<([^>]*)>", ident).group(1)
+
+
 def repository_evidence(root, start, end, session_branches=()):
     worktrees = [
         field.removeprefix("worktree ")
@@ -187,17 +192,18 @@ def repository_evidence(root, start, end, session_branches=()):
             for event in reflog_activity(worktree, start, end, "HEAD"):
                 events.append({**event, "worktree": worktree})
     commits = []
+    email = own_email(root)
     output = git(
         root, "log", "--all", "--reflog",
         f"--since-as-filter={start.isoformat()}", f"--until={end.isoformat()}",
-        "--format=%H%x00%aI%x00%cI%x00%an%x00%s",
+        "--format=%H%x00%aI%x00%cI%x00%an%x00%ae%x00%s",
     )
     for line in output.splitlines():
-        commit, authored, committed, author, subject = line.split("\0")
+        commit, authored, committed, author, author_email, subject = line.split("\0")
         if start <= datetime.fromisoformat(committed) < end:
             commits.append({
                 "commit": commit, "authored": authored, "committed": committed,
-                "author": author, "subject": subject, "issue_keys": issue_keys(subject),
+                "author": author, "own": author_email == email, "subject": subject, "issue_keys": issue_keys(subject),
             })
     branches = publication_status(root)
     return {
