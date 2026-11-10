@@ -85,7 +85,9 @@ h2. Attachments
 {{ if .fields.comment.comments }}
 h2. Comments
 {{ range .fields.comment.comments }}
-h3. {{ .author.displayName }}, [{{ .created }}|{{ regReplace "/rest/api/.*" "" $.self }}/browse/{{ $.key }}?focusedCommentId={{ .id }}]
+h3. {{ .author.displayName }}
+
+[{{ dateFormat "January 2, 2006 at 3:04 PM" .created }}|{{ regReplace "/rest/api/.*" "" $.self }}/browse/{{ $.key }}?focusedCommentId={{ .id }}]
 
 {{ regReplace `(?m)(\{(?:code|noformat):[^}]*\})[ \t]*([^\n \t])` "${1}\n${2}" (or .body "") }}
 {{ end -}}
