@@ -1,0 +1,60 @@
+{{/* issue-wiki: one issue as Jira wiki markup, for `pandoc -f jira` to convert to markdown (see jira-md). */ -}}
+h1. {{ .key }}: {{ .fields.summary }}
+
+* *URL:* {{ regReplace "/rest/api/.*" "" .self }}/browse/{{ .key }}
+* *Type:* {{ .fields.issuetype.name }}
+* *Status:* {{ .fields.status.name }}{{ if .fields.resolution }} ({{ .fields.resolution.name }}){{ end }}
+* *Priority:* {{ if .fields.priority }}{{ .fields.priority.name }}{{ end }}
+* *Assignee:* {{ if .fields.assignee }}{{ .fields.assignee.displayName }}{{ else }}Unassigned{{ end }}
+* *Reporter:* {{ if .fields.reporter }}{{ .fields.reporter.displayName }}{{ end }}
+* *Created:* {{ .fields.created }}
+* *Updated:* {{ .fields.updated }}
+{{ if .fields.parent -}}
+* *Parent:* {{ .fields.parent.key }}: {{ .fields.parent.fields.summary }}
+{{ end -}}
+{{ if .fields.labels -}}
+* *Labels:* {{ join ", " .fields.labels }}
+{{ end -}}
+{{ if .fields.components -}}
+* *Components:* {{ range $i, $c := .fields.components }}{{ if $i }}, {{ end }}{{ $c.name }}{{ end }}
+{{ end -}}
+{{ if .fields.fixVersions -}}
+* *Fix versions:* {{ range $i, $v := .fields.fixVersions }}{{ if $i }}, {{ end }}{{ $v.name }}{{ end }}
+{{ end }}
+h2. Description
+
+{{ or .fields.description "(none)" }}
+{{ if .fields.subtasks }}
+h2. Subtasks
+
+{{ range .fields.subtasks -}}
+* {{ .key }} \[{{ .fields.status.name }}\] {{ .fields.summary }}
+{{ end -}}
+{{ end -}}
+{{ if .fields.issuelinks }}
+h2. Links
+
+{{ range .fields.issuelinks -}}
+{{ if .outwardIssue -}}
+* {{ .type.outward }} {{ .outwardIssue.key }} \[{{ .outwardIssue.fields.status.name }}\] {{ .outwardIssue.fields.summary }}
+{{ end -}}
+{{ if .inwardIssue -}}
+* {{ .type.inward }} {{ .inwardIssue.key }} \[{{ .inwardIssue.fields.status.name }}\] {{ .inwardIssue.fields.summary }}
+{{ end -}}
+{{ end -}}
+{{ end -}}
+{{ if .fields.attachment }}
+h2. Attachments
+
+{{ range .fields.attachment -}}
+* [{{ .filename }}|{{ .content }}] ({{ .mimeType }})
+{{ end -}}
+{{ end -}}
+{{ if .fields.comment.comments }}
+h2. Comments
+{{ range .fields.comment.comments }}
+h3. {{ .author.displayName }}, [{{ .created }}|{{ regReplace "/rest/api/.*" "" $.self }}/browse/{{ $.key }}?focusedCommentId={{ .id }}]
+
+{{ or .body "" }}
+{{ end -}}
+{{ end -}}

@@ -49,7 +49,7 @@ Limit the output by slicing: `.fields.comment.comments[-3:][]` for the latest th
 
 ## Reading a whole issue
 
-For a person, `jira view -t issue-md KEY` prints metadata, description, subtasks, links, attachments and comments as markdown, with each comment date linking to that comment.
+For a person, `jira-md KEY` prints metadata, description, subtasks, links, attachments and comments as markdown, with each comment date linking to that comment.
 
 ## Gotchas
 

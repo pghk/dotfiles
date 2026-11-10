@@ -16,9 +16,9 @@ Searches, output shapes and pickers for the `jira` CLI, composed as `jira ls -n 
 
 One row per issue. The first column is the issue key, which the picker reads, and the remaining columns are tab-separated display text. Rows contain no blank lines and no tabs or newlines inside a field. Fields the template reads must be in the query fields (`assignee`, `issuetype`, `status` and `summary` are in the default set).
 
-## `issue-md`
+## `jira-md`
 
-`jira view -t issue-md KEY` prints one issue as markdown sections: a metadata list, then Description, Subtasks, Links, Attachments and Comments. Headings and lists are markdown, and the description and comment bodies keep Jira wiki markup.
+`jira-md KEY` prints one issue as markdown: a metadata list, then Description, Subtasks, Links, Attachments and Comments, with each comment date linking to that comment. The `issue-wiki` template renders the whole issue as Jira wiki markup, and `pandoc` converts it to markdown, so the description and comment bodies convert with the headings. `tight-lists.lua` is the pandoc filter that removes the blank lines the Jira reader puts between list items. Jira smart-links come out as raw `<a>` HTML.
 
 ## Aliases
 
