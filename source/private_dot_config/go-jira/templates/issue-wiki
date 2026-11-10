@@ -4,6 +4,7 @@ issue: {{ .key }}
 summary: {{ toMinJson .fields.summary }}
 url: {{ toMinJson (print (regReplace "/rest/api/.*" "" .self) "/browse/" .key) }}
 type: {{ toMinJson .fields.issuetype.name }}
+project: {{ toMinJson .fields.project.name }}
 status: {{ toMinJson .fields.status.name }}
 {{ if .fields.resolution -}}
 resolution: {{ toMinJson .fields.resolution.name }}
@@ -30,6 +31,14 @@ components: [{{ range $i, $c := .fields.components }}{{ if $i }}, {{ end }}{{ to
 {{ end -}}
 {{ if .fields.fixVersions -}}
 fix_versions: [{{ range $i, $v := .fields.fixVersions }}{{ if $i }}, {{ end }}{{ toMinJson $v.name }}{{ end }}]
+{{ end -}}
+{{ if .fields.customfield_10010 -}}
+{{ $sep := "" -}}
+sprints: [{{ range .fields.customfield_10010 }}{{ if eq .state "active" }}{{ $sep }}{{ .id }}{{ $sep = ", " }}{{ end }}{{ end }}]
+{{ end -}}
+{{ if .fields.issuelinks -}}
+{{ $sep := "" -}}
+links: [{{ range .fields.issuelinks }}{{ if .outwardIssue }}{{ $sep }}{relation: {{ toMinJson .type.outward }}, key: {{ .outwardIssue.key }}}{{ $sep = ", " }}{{ end }}{{ if .inwardIssue }}{{ $sep }}{relation: {{ toMinJson .type.inward }}, key: {{ .inwardIssue.key }}}{{ $sep = ", " }}{{ end }}{{ end }}]
 {{ end -}}
 {code}
 

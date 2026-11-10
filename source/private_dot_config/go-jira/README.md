@@ -18,7 +18,7 @@ One row per issue. The first column is the issue key, which the picker reads, an
 
 ## `jira-md`
 
-`jira-md KEY` prints one issue as markdown: YAML front matter (key, summary, url, type, status, people, dates, and labels, components, fix versions and parent when set), then Description, Subtasks, Links, Attachments and Comments, with each comment date linking to that comment. It is `jira view -t issue-wiki KEY | jira-wiki-to-md`. The `issue-wiki` template renders the whole issue as Jira wiki markup, and the `jira-wiki-to-md` alias runs `pandoc` to convert it to markdown, so the description and comment bodies convert with the headings. `jira-md.lua` is the pandoc filter that turns the template's `{code:frontmatter}` block into front matter and removes the blank lines the Jira reader puts between list items. Jira smart-links come out as raw `<a>` HTML.
+`jira-md KEY` prints one issue as markdown: YAML front matter (key, summary, url, type, project, status, people, dates, and labels, components, fix versions, parent, active sprint ids and links as `relation`/`key` pairs when set), then Description, Subtasks, Links, Attachments and Comments, with each comment date linking to that comment. It is `jira view -t issue-wiki KEY | jira-wiki-to-md`. The `issue-wiki` template renders the whole issue as Jira wiki markup, and the `jira-wiki-to-md` alias runs `pandoc` to convert it to markdown, so the description and comment bodies convert with the headings. `jira-md.lua` is the pandoc filter that turns the template's `{code:frontmatter}` block into front matter and removes the blank lines the Jira reader puts between list items. Jira smart-links come out as raw `<a>` HTML.
 
 ## Aliases
 
