@@ -16,6 +16,10 @@ Searches, output shapes and pickers for the `jira` CLI, composed as `jira ls -n 
 
 One row per issue. The first column is the issue key, which the picker reads, and the remaining columns are tab-separated display text. Rows contain no blank lines and no tabs or newlines inside a field. Fields the template reads must be in the query fields (`assignee`, `issuetype`, `status` and `summary` are in the default set).
 
+## `issue-md`
+
+`jira view -t issue-md KEY` prints one issue as markdown sections: a metadata list, then Description, Subtasks, Links, Attachments and Comments. Headings and lists are markdown, and the description and comment bodies keep Jira wiki markup.
+
 ## Aliases
 
 `pick-keyed` formats `keyed-tsv` rows into aligned columns, picks rows with fzf, and prints each chosen issue key on its own line. Any command that takes issue keys can follow it. `jira browse` takes one issue per call, so it needs `-n1`.
