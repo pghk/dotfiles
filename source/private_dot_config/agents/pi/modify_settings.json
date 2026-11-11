@@ -1,5 +1,5 @@
 {{- /* chezmoi:modify-template */ -}}
-{{- /* pi writes its own state to this file; chezmoi owns only the subagents key. */ -}}
+{{- /* pi writes its own state to this file; chezmoi owns only the subagents and shellCommandPrefix keys. */ -}}
 {{- $settings := dict -}}
 {{- if .chezmoi.stdin -}}
 {{-   $settings = fromJson .chezmoi.stdin -}}
@@ -67,4 +67,5 @@
     }
   }
 }` -}}
-{{- $settings | setValueAtPath "subagents" $subagents | toPrettyJson }}
+{{- /* Agent shells have no terminal, so git must never wait on an editor. */ -}}
+{{- $settings | setValueAtPath "subagents" $subagents | setValueAtPath "shellCommandPrefix" "export GIT_EDITOR=true" | toPrettyJson }}
