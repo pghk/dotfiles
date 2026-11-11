@@ -89,8 +89,8 @@ Use this shape:
 
 ## Repository context and references
 
-<Relevant existing paths, symbols, domain terms, or authoritative artifacts a
-fresh implementer needs. Omit speculative file inventories.>
+<Relevant existing paths, symbols, domain terms, authoritative artifacts, and
+known hazards a fresh implementer needs. Omit speculative file inventories.>
 
 ## Constraints
 
@@ -107,12 +107,16 @@ frontmatter, issue-tracker fields, or external identifiers. Include only the
 delivered outcome, observable acceptance criteria, relevant repository
 context/references, constraints, and blocked-by relationships. Acceptance must
 be testable or otherwise observable; avoid layer-by-layer task lists and
-step-by-step implementation instructions.
+step-by-step implementation instructions. Derive every criterion from a
+specification behavior or constraint; a criterion the specification lacks is a
+proposed amendment to raise with the user, not a ticket requirement. Record
+planning insight that does not decide acceptance, such as how a dependency
+behaves or which edge cases it mishandles, as context.
 
 ## Self-check and finish
 
 Before finishing, check every specification behavior, constraint, and preserved
-concrete decision is covered; each ticket has independent value and fits a
+concrete decision is covered, and every acceptance criterion traces to one; each ticket has independent value and fits a
 fresh context; boundaries follow the target state rather than the current
 layout; universal claims distinguish materially different paths; acceptance is
 observable; and dependencies are genuine and acyclic. Check that the dependency

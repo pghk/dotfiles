@@ -46,9 +46,13 @@ Do not conduct a broad interview by default. Write these sections:
 - **Constraints** — required boundaries, compatibility, and relevant evidence.
 - **Non-goals** — explicit exclusions.
 
-A constraint or non-goal that the user did not state or approve is an
-assumption. Record it as unresolved or as an implementation default, never as
-a decision or exclusion.
+A behavior case, constraint, or non-goal that the user, the governing brief, or
+an accepted ADR did not state is an assumption. Record it as unresolved or as an
+implementation default, never as a required outcome, decision, or exclusion.
+Require a behavior case only when its failure would defeat the work's stated
+purpose; record a quality judgment the purpose does not name as an open
+question. When an accepted ADR delegates a behavior to a dependency, state the
+outcome as whatever that dependency produces.
 
 Before finishing, trace every explicit user decision into the specification or
 identify it as unresolved; do not replace a concrete decision with a broader

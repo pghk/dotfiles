@@ -35,7 +35,9 @@ repository context, and the ticket graph. Establish whether each material
 acceptance criterion describes current behavior, intended new behavior, or an
 unresolved assumption; observe current behavior when a preservation constraint
 depends on it. If a required outcome is currently false while another accepted
-constraint prohibits the necessary change, stop and surface the conflict.
+constraint prohibits the necessary change, stop and surface the conflict. A
+criterion met only by working around a dependency that an accepted ADR adopted
+is such a conflict; surface it with its cost instead of building the workaround.
 Resolve the ready frontier from each ticket's `Blocked by` sections. Continue
 through authorized ready tickets without asking routine continuation questions.
 Stop for unresolved product intent or constraints, conflicting authority,
