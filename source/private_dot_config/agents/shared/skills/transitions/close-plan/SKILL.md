@@ -27,18 +27,29 @@ contracts across the plans being closed.
 ## Dissolve the surviving intent
 
 Apply [Express Intent](../../principles/principle-express-intent/SKILL.md) with
-the plans as the governing source: before a plan is deleted, every surviving
-contract is carried by the artifact that owns it. Before deleting, list every
-surviving contract with the passage or test that now carries it, and compare
-each passage with the contract itself: a summary that drops a clause, or a
-paraphrase that changes a fact, does not carry it. Closing a plan adds these
-rules:
+the plans as the governing source. Code expresses behavior; discriminating
+tests protect it. Standing documentation carries enduring contracts and
+constraints independently of implementation and test coverage.
+
+Extend the document that owns each standing contract. If no owner exists,
+create focused feature or architecture documentation using the project's
+conventions. Link it from the project's normal documentation entry point.
+Choose the artifact for its purpose; use existing adequate documentation
+without creating a duplicate or copying the plan wholesale.
+
+Before deletion, complete a working checklist for every surviving contract:
+governing source, destination passage, and behavioral evidence where
+applicable. Compare each destination against its source clause by clause.
+Missing clauses, missing documentation, changed facts, or contradictions
+block closure; keep the plan until they are resolved. Include the checklist
+in the closure explanation rather than creating a permanent repository
+ledger. Apply these rules to the destinations:
 
 - **Contradiction.** When the code contradicts a surviving contract, report it
   and leave it unresolved. Do not rewrite the contract to match the code; the
   plan remains the authority until it is closed.
 - **Untested behavior.** Required behavior no test observes gets a test, or is
-  recorded as untested in the project's architecture documentation.
+  recorded as untested beside its documented contract.
 - **Reasons.** A surviving contract a reader would take for a mistake keeps a
   one-clause reason beside it, taken from the plan's spec or research.
 - **Deferrals.** A deferral, including a question the plan's research raised
