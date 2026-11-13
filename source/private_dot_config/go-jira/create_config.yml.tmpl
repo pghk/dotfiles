@@ -10,6 +10,11 @@ queries:
 # Custom commands run their script with each top-level config key exported as JIRA_<KEY>.
 custom-commands:
   - name: activity
-    help: My field changes and comments from today, grouped by issue
+    help: My field changes and comments from today, grouped by issue; comments are previews unless KEY is given
+    args:
+      - name: KEY
+        help: Issue key to print with full comments
+        default: ""
     script: |-
-      jira request -t activity -M POST /rest/api/3/search/jql '{"jql": "project = '"$JIRA_PROJECT"' AND issue in updatedBy(\"'"$JIRA_USER"'\", \"'"$(date +%Y/%m/%d)"'\")", "fields": ["summary", "status", "comment"], "expand": "changelog"}'
+      export ACTIVITY_KEY='{{ "{{if args.KEY}}{{args.KEY}}{{end}}" }}'
+      jira request -t activity -M POST /rest/api/3/search/jql '{"jql": "project = '"$JIRA_PROJECT"' AND issue in updatedBy(\"'"$JIRA_USER"'\", \"'"$(date +%Y/%m/%d)"'\")'"${ACTIVITY_KEY:+ AND key = $ACTIVITY_KEY}"'", "fields": ["summary", "status", "comment"], "expand": "changelog"}'

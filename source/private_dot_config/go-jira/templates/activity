@@ -6,13 +6,22 @@
 {{ range $node.content }}{{ template "adf" (dict "node" . "parent" $node.type) }}{{ end -}}
 {{ if or (eq $node.type "heading") (eq $node.type "paragraph") }}
 {{ end }}{{ end }}{{ end -}}
-{{ $me := env.JIRA_USER }}{{ $today := now | date "2006-01-02" -}}
+{{ $me := env.JIRA_USER }}{{ $today := now | date "2006-01-02" }}{{ $full := env.ACTIVITY_KEY -}}
+{{ $keys := list -}}
+{{ range .issues -}}
+{{ $active := false }}{{ range .changelog.histories }}{{ if and (eq .author.emailAddress $me) (hasPrefix $today .created) }}{{ $active = true }}{{ end }}{{ end -}}
+{{ range .fields.comment.comments }}{{ if and (eq .author.emailAddress $me) (hasPrefix $today .created) }}{{ $active = true }}{{ end }}{{ end -}}
+{{ if $active }}{{ $keys = push $keys .key }}{{ end -}}
+{{ end -}}
+{{ len $keys }} issue(s): {{ join ", " $keys }}{{ if not $full }}  (comments are previews; `jira activity KEY` prints one issue's full comments){{ end }}
+
 {{ range .issues -}}
 {{ $changes := list }}{{ range .changelog.histories }}{{ if and (eq .author.emailAddress $me) (hasPrefix $today .created) }}{{ $changes = push $changes . }}{{ end }}{{ end -}}
 {{ $comments := list }}{{ range .fields.comment.comments }}{{ if and (eq .author.emailAddress $me) (hasPrefix $today .created) }}{{ $comments = push $comments . }}{{ end }}{{ end -}}
 {{ if or $changes $comments }}{{ .key }} [{{ .fields.status.name }}] {{ .fields.summary }}
-{{ range $changes }}{{ $time := substr 11 16 .created }}{{ range .items }}  {{ $time }} {{ .field }}: {{ .fromString | default "none" | abbrev 60 }} -> {{ .toString | default "none" | abbrev 60 }}
+{{ range $changes }}{{ $time := substr 11 16 .created }}{{ $parts := list }}{{ range .items }}{{ if ne .field "Changed to Current Status" }}{{ $parts = push $parts (printf "%s: %s -> %s" .field (.fromString | default "none" | abbrev 60) (.toString | default "none" | abbrev 60)) }}{{ end }}{{ end }}{{ if $parts }}  {{ $time }} {{ join "; " $parts }}
 {{ end }}{{ end -}}
-{{ range $comments }}  {{ substr 11 16 .created }} comment:
-{{ template "adf" (dict "node" .body "parent" "") }}{{ end }}{{ end -}}
+{{ range $comments }}{{ if $full }}  {{ substr 11 16 .created }} comment:
+{{ template "adf" (dict "node" .body "parent" "") }}{{ else }}  {{ substr 11 16 .created }} comment ({{ len .body.content }} blocks): {{ with .body.content }}{{ with (index . 0).content }}{{ (index . 0).text | default "" | abbrev 100 }}{{ end }}{{ end }}
+{{ end }}{{ end }}{{ end -}}
 {{ end -}}
