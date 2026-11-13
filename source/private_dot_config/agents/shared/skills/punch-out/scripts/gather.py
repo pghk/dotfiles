@@ -11,6 +11,9 @@ import re
 import sqlite3
 import subprocess
 
+REQUEST_CHARS = 200
+REPLY_CHARS = 600
+
 
 def run(*arguments):
     return subprocess.run(
@@ -50,21 +53,25 @@ def session_activity(database, day, excluded):
         rows = db.execute(
             """
             SELECT s.id, s.cwd, s.repository, s.branch, s.summary,
-                   datetime(t.timestamp, 'localtime')
+                   datetime(t.timestamp, 'localtime'), t.user_message, t.assistant_response
             FROM turns t JOIN sessions s ON s.id = t.session_id
             WHERE date(t.timestamp, 'localtime') = ? AND s.id != ?
             ORDER BY julianday(t.timestamp)
             """,
             (day.isoformat(), excluded),
         )
-        for identifier, cwd, repository, branch, summary, timestamp in rows:
+        for identifier, cwd, repository, branch, summary, timestamp, request, reply in rows:
             session = sessions.setdefault(identifier, {
                 "id": identifier, "cwd": cwd, "repository": repository,
                 "branch": branch, "summary": summary, "turns": 0,
                 "first": timestamp, "last": timestamp, "interaction_windows": set(),
+                "requests": [], "last_reply": None,
             })
             session["turns"] += 1
             session["last"] = timestamp
+            session["requests"].append((request or "")[:REQUEST_CHARS])
+            if reply:
+                session["last_reply"] = reply[:REPLY_CHARS]
             moment = datetime.fromisoformat(timestamp)
             session["interaction_windows"].add(
                 moment.replace(minute=moment.minute // 30 * 30, second=0, microsecond=0).isoformat()

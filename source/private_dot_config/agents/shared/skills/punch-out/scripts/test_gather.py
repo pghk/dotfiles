@@ -57,17 +57,17 @@ class EvidenceTests(unittest.TestCase):
         with closing(sqlite3.connect(path)) as db, db:
             db.executescript(
                 "CREATE TABLE sessions (id TEXT, cwd TEXT, repository TEXT, branch TEXT, summary TEXT);"
-                "CREATE TABLE turns (session_id TEXT, timestamp TEXT);"
+                "CREATE TABLE turns (session_id TEXT, timestamp TEXT, user_message TEXT, assistant_response TEXT);"
             )
             db.execute("INSERT INTO sessions VALUES ('work', ?, 'repo', 'RAV-123/dev', 'work')", (str(cwd),))
             db.execute("INSERT INTO sessions VALUES ('self', ?, '', '', 'punch-out')", (str(cwd),))
-            db.executemany("INSERT INTO turns VALUES (?, ?)", [
-                ("work", "2026-10-28T03:59:59Z"),
-                ("work", "2026-10-28T04:00:00Z"),
-                ("work", "2026-10-28T14:35:05Z"),
-                ("work", "2026-10-28T14:45:20Z"),
-                ("work", "2026-10-29T04:00:00Z"),
-                ("self", "2026-10-28T14:00:00Z"),
+            db.executemany("INSERT INTO turns VALUES (?, ?, ?, ?)", [
+                ("work", "2026-10-28T03:59:59Z", "earlier", "earlier reply"),
+                ("work", "2026-10-28T04:00:00Z", "first request", "first reply"),
+                ("work", "2026-10-28T14:35:05Z", "x" * 300, "y" * 900),
+                ("work", "2026-10-28T14:45:20Z", "last request", None),
+                ("work", "2026-10-29T04:00:00Z", "tomorrow", "tomorrow reply"),
+                ("self", "2026-10-28T14:00:00Z", "self", "self reply"),
             ])
         return path
 
@@ -93,6 +93,12 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(sessions[0]["interaction_windows"], [
             "2026-10-28T00:00:00", "2026-10-28T10:30:00",
         ])
+
+    def test_sessions_carry_bounded_requests_and_the_last_reply_of_the_day(self):
+        session = gather.session_activity(self.database(self.root), DAY, "self")[0]
+
+        self.assertEqual(session["requests"], ["first request", "x" * 200, "last request"])
+        self.assertEqual(session["last_reply"], "y" * 600)
 
     def test_git_finds_days_commits_and_issue_branches_in_other_worktrees(self):
         worktree = self.directory / "worktree"
