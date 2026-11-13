@@ -28,6 +28,8 @@ The chezmoi repo has its own `AGENTS.md` at `~/.local/share/chezmoi/AGENTS.md` c
 source/target file naming, editing workflow, and agent instruction file conventions
 (including which files must not be tracked). Read it before making changes.
 
+Resolve symlinked config paths with `realpath` before `chezmoi source-path`, `add` or `re-add`; chezmoi tracks the target, not the link.
+
 ## Key commands
 
 ```sh
