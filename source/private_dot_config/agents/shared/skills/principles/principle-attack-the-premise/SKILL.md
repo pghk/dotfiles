@@ -1,6 +1,6 @@
 ---
 name: principle-attack-the-premise
-description: "Apply when a second fix for the same problem fails: write down the premise every attempt shared and question it before another fix."
+description: "Apply when a second fix for the same problem fails, including in a handoff or record of earlier attempts: write down the premise every attempt shared and question it before another fix."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-attack-the-premise"
