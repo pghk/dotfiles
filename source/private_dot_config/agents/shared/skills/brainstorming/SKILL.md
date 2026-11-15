@@ -46,7 +46,7 @@ Before presenting it, check every question asked this session: each is answered,
 ## Design quality
 
 - Inspect current structure and follow established patterns, domain vocabulary, and interfaces.
-- Prefer subtraction and YAGNI. Include targeted improvements that serve this subject, not unrelated refactors.
+- Prefer subtraction and YAGNI for delivered capability, not representation. Before recommending a restriction, state what it buys, and compare the cost of removing it later against building without it now. Include targeted improvements that serve this subject, not unrelated refactors.
 - Settle the principles that govern a design before its parameter values. Propose a specific value only when evidence or a settled principle determines it. Otherwise name how it will be settled, such as a prototype or a measurement, and record that as work, not as an open question.
 - Keep units isolated, with clear responsibilities and interfaces; identify what each does, how it is used, and what it depends on when that boundary is material.
 - For technical realization, settle distinct concepts, their grouping, and the language mechanisms that carry them. Name the existing patterns followed and explain meaningful departures.
