@@ -41,6 +41,8 @@ Resolve routine mechanics autonomously. Do not grow the tree with trivial choice
 
 When all material branches are settled, present one coherent, compact design and request explicit approval once. Do not seek approval after each section or each round. Return the approved design in chat, then stop. Approval is required before treating the design as settled.
 
+Before presenting it, check every question asked this session: each is answered, or explicitly settled by a later answer the user confirmed. Re-ask the rest; never fill one with the status quo. A material choice that surfaces while turning the design into artifacts reopens the frontier: ask it before writing it in.
+
 ## Design quality
 
 - Inspect current structure and follow established patterns, domain vocabulary, and interfaces.
