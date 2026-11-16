@@ -1,6 +1,6 @@
 ---
 name: principle-attack-the-premise
-description: "Apply when a second fix for the same problem fails, including in a handoff or record of earlier attempts: write down the premise every attempt shared and question it before another fix."
+description: "Apply when attempts at the same goal keep falling short: write down the premise they shared and question it before trying again."
 license: MIT
 metadata:
   source: "https://github.com/cursor/plugins/tree/e31650eea443aaea1e84cc15d88c13f40080b275/pstack/skills/principle-attack-the-premise"
@@ -10,18 +10,18 @@ metadata:
 
 # Attack the Premise
 
-When two or more fixes that share one premise have failed the same gate, suspect the premise, not the fixes.
+When two or more attempts that share one premise have failed the same gate, suspect the premise, not the attempts.
 
 **Why:** Each failure under a shared premise is evidence about the premise.
 
 **Pattern:**
-- **Write the premise down.** The premise is the one sentence that every failed fix assumed.
-- **Take a census before the next fix.** Count the imbalance per actor. The census shows which actors hold the imbalance, not how large it is. Write the census as a rerunnable script per [Build the Lever](../principle-build-the-lever/SKILL.md).
+- **Write the premise down.** The premise is the one sentence that every failed attempt assumed.
+- **Take a census before the next attempt.** Count the imbalance per actor. The census shows which actors hold the imbalance, not how large it is. Write the census as a rerunnable script per [Build the Lever](../principle-build-the-lever/SKILL.md).
 - **Read the skew.** If the same few actors hold most of the imbalance on every run, something assigns them that role. Find what assigns the role. That assignment is the next "why".
 - **Remove the asymmetry instead of compensating for it.** Rotate the role between actors, randomize the assignment, or move the role, so that no actor holds it on every run. A return path, a shared pool, a batched hand-off, or a periodic rebalance leaves the assignment in place and adds work on every run.
 
 **Use this guidance proportionately:**
-- Before starting the next fix, the premise is written down and the census exists.
+- Before starting the next attempt, the premise is written down and the census exists.
 - If the census is even across actors, the premise is not the cause. Look for the cause elsewhere and keep the census as evidence.
 
 It questions a fact the current design assumes rather than accepting it as a fixed constraint.
